@@ -1,6 +1,9 @@
-# Proftaak 2020 Q1: "TramVerdeelSysteem" (TVS)
+# Proftaak 2020 Q1
 
-<a href = "https://drive.google.com/drive/folders/1YSDyDP0U5bN5wpIHPdd9CojjYtYCRQgB?usp=sharing"> drive </a>
+TramVerdeelSysteem: TVS
+
+## Links
+<a href = "https://drive.google.com/drive/folders/1YSDyDP0U5bN5wpIHPdd9CojjYtYCRQgB?usp=sharing"> **drive** </a>
 
 ## info
 
