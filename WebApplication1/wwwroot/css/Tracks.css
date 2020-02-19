@@ -1,0 +1,32 @@
+﻿body {
+    background-color: #98FAAE;
+}
+
+.Top-Bar {
+    background-color: grey;
+    min-width: 100px;
+    height: 30px;
+    border-color: black;
+    border-width: 1px;
+    float: left;
+    transition: 0.3s;
+}
+
+.TB-Normal {
+    color: black;
+    background-color: white;
+    border-width: 1px 1px 1px 0px;
+}
+
+.TB-Important {
+    color: white;
+    background-color: #00C2FF;
+}
+
+.TB-Normal:hover {
+    background-color: #F2F2F2;
+}
+
+.TB-Important:hover {
+    background-color: #00B9F2;
+}
