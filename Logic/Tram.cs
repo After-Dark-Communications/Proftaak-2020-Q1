@@ -2,17 +2,15 @@
 
 namespace Logic
 {
-    public class Tram
+    public class Tram {
+        public void ChangeStatus()
+        {
+            throw new NotImplementedException();
+        }
 
-    {
-    private void ChangeStatus()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void GetType()
-    {
-        throw new NotImplementedException();
-    }
+        public void GetType()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace DAL.Models
 {
     public class UserDAL
     {
+        public int Id { get; set; }
     }
 }
