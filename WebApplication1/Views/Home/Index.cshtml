@@ -17,11 +17,4 @@
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
 </div>
-<script>
-    function BecomeSelected(button, ...buttons) {
-        document.getElementById(button).setAttribute("class", "Top-Bar TB-Selected");
-        for (var i = 0; i < buttons.length; i++) {
-            document.getElementById(buttons[i]).setAttribute("class", "Top-Bar TB-Normal");
-        }
-    }
-</script>
+<script src="~/js/ButtonSwitcher.js"></script>
