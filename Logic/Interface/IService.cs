@@ -6,10 +6,10 @@ namespace Logic.Interface
 {
     interface IService
     {
-        void AddTram();
+        void AddTram(Tram tram);
 
-        void SmallService();
+        void SmallService(Tram tram);
 
-        bool BigService();
+        bool BigService(Tram tram);
     }
 }

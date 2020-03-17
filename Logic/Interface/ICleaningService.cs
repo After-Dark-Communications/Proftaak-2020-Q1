@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Logic.Interface
 {
-    interface ICleaningService
+    interface ICleaningService : IService
     {
-        void CleanTram();
+        void CleanTram(Tram tram);
     }
 }
