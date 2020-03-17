@@ -32,6 +32,18 @@
             </div>
         </nav>
     </header>-->
+    <header>
+        <nav class="Top-Container">
+            <div class="Top-Button-Container">
+                <input class="Top-Bar TB-Selected" id="StartButton" type="button" value="Start" onclick="BecomeSelected('StartButton', 'ScreenButton', 'A')" />
+                <input class="Top-Bar TB-Normal" id="ScreenButton" type="button" value="Schermen" onclick="BecomeSelected('ScreenButton', 'StartButton', 'A','StartButton1')" />
+                <input class="Top-Bar TB-Normal" id="A" type="button" value="A" onclick="BecomeSelected('A', 'StartButton', 'ScreenButton','StartButton1')" />
+            </div>
+            <div class="Bottom-Button-Container">
+                <input id="Button1" type="button" value="Conudcteur Scherm"/>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

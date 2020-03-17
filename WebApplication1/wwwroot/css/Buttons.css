@@ -28,7 +28,7 @@
 }
 
 .Top-Container {
-    position: fixed;
+    position: relative;
     left: 0;
     top: 0;
     width: 100%;
@@ -38,4 +38,13 @@
     -moz-box-shadow: 5px 2px 5px #666;
     -webkit-box-shadow: 5px 2px 5px #666;
     box-shadow: 5px 2px 5px #666;
+}
+
+.Top-Button-Container {
+    width: 100%;
+}
+
+.Bottom-Button-Container {
+    width: 100%;
+    clear: both;
 }
