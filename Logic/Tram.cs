@@ -12,5 +12,10 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+        public void GetServiceHistory()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

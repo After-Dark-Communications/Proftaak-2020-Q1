@@ -10,5 +10,10 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+        public void AllocateTramToTrack()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
