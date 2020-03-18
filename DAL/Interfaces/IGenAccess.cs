@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
     interface IGenAccess<T>
     {
-        void Create(T obj);
-        void Read(int key);
-        void Update(T obj);
-        void Delete(int key);
+        Task Create(T obj);
+        T Read(int key);
+        Task Update(T obj);
+        Task Delete(int key);
 
     }
 }
