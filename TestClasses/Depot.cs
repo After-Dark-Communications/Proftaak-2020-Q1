@@ -4,14 +4,14 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestDepot
+    class Depot
     {
-        public List<TestTrack> Tracks
+        public List<Track> Tracks
         {
             get { return TestData.Tracks; }
         }
 
-        public TestDepot()
+        public Depot()
         {
             InitTestData();
         }
@@ -23,16 +23,18 @@ namespace TestClasses
 
             for (int i = 0; i < numberOfTracks; i++)
             {
-                TestData.Tracks.Add(new TestTrack(numerOfSectorsPerTrack[i]));
+                TestData.Tracks.Add(new Track(numerOfSectorsPerTrack[i]));
             }
         }
 
-        public void ReceiveAndPlaceTram(TestTram tram)
+        private bool CheckIfTramIsAllowed()
+        {
+            return true;
+        }
+
+        public void ReceiveAndPlaceTram(Tram tram)
         {
 
         }
-
-
-
     }
 }

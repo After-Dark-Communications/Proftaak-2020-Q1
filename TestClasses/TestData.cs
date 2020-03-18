@@ -5,6 +5,6 @@ namespace TestClasses
 {
     public static class TestData
     {
-        public static List<TestTrack> Tracks = new List<TestTrack>();
+        public static List<Track> Tracks = new List<Track>();
     }
 }
