@@ -82,7 +82,18 @@ a{
 .tracks-bottom-row {
     margin-top: 32px;
 }
-    /*
+.container-repair .container-brand {
+    text-align: center;
+    color: #ffffff;
+}
+.container-repair .container-header {
+    padding-left: 37%;
+    /* padding-top: 75%; */
+    margin-top: 85%;
+    /* top: 50%; */
+    font-size: xx-large;
+}
+/*
 reparatie zone: #FF6565
 in-uitrij/lang parkeer: #A3A3A3
 */
