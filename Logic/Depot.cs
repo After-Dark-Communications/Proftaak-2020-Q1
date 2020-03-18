@@ -6,6 +6,7 @@ namespace Logic
 {
     public class Depot
     {
+        public ICollection<User> Users { get; set; }
         private ICollection<Track> DepotTracks { get; set; }
         private bool CheckIfTramIsAllowed(Tram tram)
         {
