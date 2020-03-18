@@ -1,31 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Context;
 using DAL.Interfaces;
 using DAL.Models;
+using Logic;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace DAL.Concrete
 {
     public class TramAccess : ITramAccess
     {
-        public void Create(TramDal obj)
+        private readonly TramContext _context;
+        private readonly IMapper _mapper;
+
+        public TramAccess(TramContext context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _mapper = mapper;
+        }
+        public async Task Create(TramDal obj)
+        {
+            using (_context)
+            {
+                _context.Add(obj);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public void Delete(int key)
+        public async Task Delete(int key)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                var tram = await _context.Trams.FirstOrDefaultAsync(t => t.Id == key);
+                _context.Trams.Remove(tram);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public void Read(int key)
+        public IEnumerable<TramDal> GetAllTrams()
         {
-            throw new NotImplementedException();
+            return _context.Trams.ToList();
         }
 
-        public void Update(TramDal obj)
+        public TramDal Read(int key)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                TramDal tram = new TramDal();
+                var readTram = _context.Trams.FirstOrDefault(i => i.Id == key);
+                return tram = _mapper.Map<TramDal>(readTram);
+            }
+        }
+
+        public async Task Update(TramDal obj)
+        {
+            using (_context)
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
