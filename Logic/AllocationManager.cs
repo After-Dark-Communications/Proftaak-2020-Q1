@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Logic
 {
-    public class AllocationManager
+    public static class AllocationManager
     {
-        public void AllocateTramToService()
+        public static void AllocateTramToService()
         {
             throw new NotImplementedException();
         }
 
-        public void AllocateTramToTrack()
+        public static void AllocateTramToTrack()
         {
             throw new NotImplementedException();
         }
