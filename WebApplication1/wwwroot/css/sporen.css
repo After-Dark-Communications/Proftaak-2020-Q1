@@ -59,6 +59,7 @@ a{
     max-width: 77px;
     margin-left: 25px;
     margin-right: 25px;
+    height: 75%
 }
 
 .tracks-in-out .container-brand {
@@ -80,7 +81,7 @@ a{
 }
 
 .tracks-long-stay .container-header {
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 29px;
 }
 
