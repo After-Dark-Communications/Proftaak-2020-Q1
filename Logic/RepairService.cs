@@ -8,8 +8,6 @@ namespace Logic
     {
         public override int MaxBigServicePerDay { get; set; }
         public override int MaxSmallServicePerDay { get; set; }
-
-
         public ICollection<Track> AllocatedTracks { get; set; }
 
         public void RepairTram(Tram tram)
