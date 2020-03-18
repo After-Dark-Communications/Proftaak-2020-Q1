@@ -20,6 +20,21 @@ namespace TestClasses
             TrackNumber = trackNumber;
         }
 
+
+        public Tram GetTram(string tramNumber)
+        {
+            foreach (Sector sector in Sectors)
+            {
+                Tram tram = sector.GetTram(tramNumber);
+                if (tram != null)
+                {
+                    return tram;
+                }
+            }
+
+            return null;
+        }
+
         public bool AssignTramToSector(Tram tram)
         {
             for (int x = 0; x < Sectors.Length; x++)

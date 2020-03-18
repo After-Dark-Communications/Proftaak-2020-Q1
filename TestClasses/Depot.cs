@@ -13,6 +13,25 @@ namespace TestClasses
             InitTestData();
         }
 
+        public Tram GetTram(string tramNumber)
+        {
+            foreach (Track track in Tracks)
+            {
+                Tram tram = track.GetTram(tramNumber);
+                if (tram != null)
+                {
+                    return tram;
+                }
+            }
+
+            return null;
+        }
+
+        public Tram GetTram(int modelNumber)
+        {
+            return GetTram(modelNumber.ToString());
+        }
+
         private void InitTestData() // Just a function to fill the Tracks with sectors. Alter when needed
         {
             int numberOfTracks = 4; //want more tracks? Alter this number
