@@ -6,7 +6,7 @@ namespace Logic
 {
     public class Track
     {
-        public void CheckTramType()
+        public void CheckTramType(Tram tram)
         {
             throw new NotImplementedException();
         }
