@@ -13,6 +13,8 @@ namespace Logic
 
         public static void AllocateTramToTrack(Tram tram)
         {
+            //if status defect allocatetramtoservice
+            //check tracks
             throw new NotImplementedException();
         }
     }
