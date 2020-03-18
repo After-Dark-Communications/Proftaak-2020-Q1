@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Logic.Models;
 
 namespace Logic
 {
     public class Tram {
 
         public string SerialNumber { get; set; }
+        public TramType Type { get; set; }
         public ICollection<TramStatus> Status { get; set; }
         private ICollection<Track> PreferredTracksList { get; set; }
 

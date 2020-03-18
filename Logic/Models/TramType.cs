@@ -6,6 +6,11 @@ namespace Logic.Models
 {
     public enum TramType
     {
+        Combino,
+        DoubleCombino,
+        ElevenG,
+        TwelveG,
+        TrainingTram,
 
     }
 }
