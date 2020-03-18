@@ -49,20 +49,33 @@
     clear: both;
 }
 
-.TB-Tab-Button {
-    background-repeat: no-repeat;
-    background-position-y: top;
-    background-position-x: center;
-    background-size: 50px;
-    text-align: center;
-    padding-top: 45px;
-    font-size: 12px;
-}
-
-.TB-Tab-Normal {
-    background-color: transparent;
+.TB-Tab {
     width: 120px;
     height: 70px;
     border: solid black 1px;
     transition: 0.3s;
+    text-align: center;
+    padding-top: 45px;
+    font-size: 12px;
+    margin-right: -4.5px;
+}
+
+.TB-Tab-Image {
+    background-repeat: no-repeat;
+    background-position-y: top;
+    background-position-x: center;
+    background-size: 50px;
+}
+
+.TB-Tab-Normal {
+    background-color: transparent;
+}
+
+    .TB-Tab-Normal:hover {
+        background-color: rgba(128,128,128,0.3);
+        transition: 0.3s;
+    }
+
+.TB-Tab-Selected {
+    background-color: #00c2ff;
 }
