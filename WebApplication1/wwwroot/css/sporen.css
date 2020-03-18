@@ -43,10 +43,10 @@ a{
     border: solid black 1px;
 }
 
-    .container-train ul li {
-        border: solid black 1px;
-        min-height: 36px;
-    }
+.container-train ul li {
+    border: solid black 1px;
+    min-height: 36px;
+}
 
 .tracks-hover:hover {
     background-color: transparent;
@@ -59,14 +59,32 @@ a{
     max-width: 77px;
     margin-left: 25px;
     margin-right: 25px;
+    height: 75%
 }
+
 .tracks-in-out .container-brand {
     text-align: center;
     color: #ffffff;
 }
-    .tracks-in-out .container-header {
-        padding: 5px;
-    }
+.tracks-in-out .container-header {
+    padding: 5px;
+}
+.tracks-long-stay {
+    max-width: 154px;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: -27px;
+}
+.tracks-long-stay .container-brand {
+    text-align: center;
+    color: #ffffff;
+}
+
+.tracks-long-stay .container-header {
+    padding-top: 10px;
+    padding-left: 29px;
+}
+
 .tracks-combino {
     max-width: 77px;
     margin-left: 4px;
@@ -82,7 +100,18 @@ a{
 .tracks-bottom-row {
     margin-top: 32px;
 }
-    /*
+.container-repair .container-brand {
+    text-align: center;
+    color: #ffffff;
+}
+.container-repair .container-header {
+    padding-left: 37%;
+    /* padding-top: 75%; */
+    margin-top: 85%;
+    /* top: 50%; */
+    font-size: xx-large;
+}
+/*
 reparatie zone: #FF6565
 in-uitrij/lang parkeer: #A3A3A3
 */
