@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace TestClasses
 {
-    public class TestData
+    public static class TestData
     {
-
+        public static List<TestTrack> Tracks = new List<TestTrack>();
     }
 }

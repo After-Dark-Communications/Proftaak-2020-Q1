@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestSector
+    public class TestSector
     {
         private List<TestTram> _tramList;
 

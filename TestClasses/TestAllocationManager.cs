@@ -4,7 +4,8 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestAllocationManager
+    static public class TestAllocationManager
     {
+
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestTram
+    public class TestTram
     {
         public string Number { get; private set; }
         public string Type { get; private set; } // gaan we hier nog objecten/ soorten voor maken

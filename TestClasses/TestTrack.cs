@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestTrack
+    public class TestTrack
     {
         
         public TestSector[] Sectors { get; private set; } //for now returns array 

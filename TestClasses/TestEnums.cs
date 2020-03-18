@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TestClasses
 {
-    class TestEnums
+    public class TestEnums
     {
         public enum TramStatus
         {
