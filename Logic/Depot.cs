@@ -6,6 +6,7 @@ namespace Logic
 {
     public class Depot
     {
+        private ICollection<Track> DepotTracks { get; set; }
         private bool CheckIfTramIsAllowed(Tram tram)
         {
             throw new NotImplementedException();

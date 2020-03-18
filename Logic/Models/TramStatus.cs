@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic
 {
-    public enum Status
+    public enum TramStatus
     {
         Defect,
         Cleaning,
