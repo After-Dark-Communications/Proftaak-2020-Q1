@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Logic
 {
-    public class Track
+    public class Sector
     {
-        private ICollection<Sector> Sectors;
-        public void CheckTramType(Tram tram)
+        private ICollection<Tram> TramsOnSector;
+
+        public void AddTram(Tram tram)
         {
             throw new NotImplementedException();
         }

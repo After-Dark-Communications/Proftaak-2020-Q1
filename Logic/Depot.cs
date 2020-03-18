@@ -6,9 +6,19 @@ namespace Logic
 {
     public class Depot
     {
-        private bool CheckIfTramIsAllowed()
+        public ICollection<User> Users { get; set; }
+        private ICollection<Track> DepotTracks { get; set; }
+        private bool CheckIfTramIsAllowed(Tram tram)
         {
             throw new NotImplementedException();
+        }
+
+        public void ReceiveTram(Tram tram) 
+        {
+            if (CheckIfTramIsAllowed(tram))
+            {
+                AllocationManager.AllocateTramToTrack(tram);
+            }
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Logic
 {
-    public class Track
+    public class UserCollection
     {
-        private ICollection<Sector> Sectors;
-        public void CheckTramType(Tram tram)
+        public bool RegisterUser()
         {
             throw new NotImplementedException();
         }
