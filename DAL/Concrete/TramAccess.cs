@@ -41,6 +41,11 @@ namespace DAL.Concrete
             }
         }
 
+        public IEnumerable<TramDal> GetAllTrams()
+        {
+            return _context.Trams.ToList();
+        }
+
         public TramDal Read(int key)
         {
             using (_context)
