@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Logic;
 
 namespace DAL.Models
 {
@@ -9,6 +10,24 @@ namespace DAL.Models
     {
         [Key]
         public int Id;
-        public int SerialNumber;
+        public TramType TramType { get; set; }
+        public TramStatus TramStatus { get; set; }
+    }
+
+    public enum TramType
+    {
+        Combino,
+        DoubleCombino,
+        G11,
+        G12,
+        TrainingTram,
+    }
+
+    public enum TramStatus
+    {
+        Defect,
+        Cleaning,
+        Shift,
+        Depot,
     }
 }
