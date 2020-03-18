@@ -6,8 +6,7 @@
     background-color: grey;
     min-width: 100px;
     height: 30px;
-    border-color: black;
-    border-width: 1px;
+    border: solid black 1px;
     float: left;
     transition: 0.3s;
 }
@@ -15,10 +14,9 @@
 .TB-Normal {
     color: black;
     background-color: white;
-    border-width: 1px 1px 1px 0px;
 }
 
-.TB-Important {
+.TB-Selected {
     color: white;
     background-color: #00C2FF;
 }
@@ -27,6 +25,18 @@
     background-color: #F2F2F2;
 }
 
-.TB-Important:hover {
+.TB-Selected:hover {
     background-color: #00B9F2;
+}
+
+.Top-Container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: solid black 1px;
+    border-bottom-right-radius: 10px;
+    -moz-box-shadow: 5px 2px 5px #666;
+    -webkit-box-shadow: 5px 2px 5px #666;
+    box-shadow: 5px 2px 5px #666;
 }

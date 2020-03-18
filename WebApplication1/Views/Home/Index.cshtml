@@ -2,11 +2,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div style="display: inline-block;">
+    <div class="Top-Container">
+        <button class="Top-Bar TB-Selected" id="StartButton" onclick="BecomeSelected('StartButton', 'ScreenButton', 'A')">Start</button>
+        <button class="Top-Bar TB-Normal" id="ScreenButton" onclick="BecomeSelected('ScreenButton', 'StartButton', 'A')">Schermen</button>
+        <button class="Top-Bar TB-Normal" id="A" onclick="BecomeSelected('A', 'StartButton', 'ScreenButton')">A</button>
+    </div>
+
+</div>
+<div>
     <div class="text-center">
+
         <h1 class="display-4">Welcome</h1>
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-        <button class="Top-Bar TB-Important">Start</button>
-        <button class="Top-Bar TB-Normal">Opties 1</button>
-        <button class="Top-Bar TB-Normal">Schermen</button>
-        <button class="Top-Bar">A</button>
     </div>
+</div>
+<script>
+    function BecomeSelected(button, ...buttons) {
+        document.getElementById(button).setAttribute("class", "Top-Bar TB-Selected");
+        for (var i = 0; i < buttons.length; i++) {
+            document.getElementById(buttons[i]).setAttribute("class", "Top-Bar TB-Normal");
+        }
+    }
+</script>
