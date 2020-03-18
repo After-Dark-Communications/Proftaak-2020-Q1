@@ -13,6 +13,30 @@ namespace TestClasses
             InitTestData();
         }
 
+        public bool PlaceTram(Tram newTram)
+        {
+            foreach (Track track in Tracks)
+            {
+                if (track.AssignTramToSector(newTram))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool PlaceTramRandomSector(Tram newTram)
+        {
+            Random rnd = new Random();
+            int rndTrack = rnd.Next(Tracks.Count);
+            if(Tracks[rndTrack].AssignTramToRandomSector(newTram))
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
         public Tram GetTram(string tramNumber)
         {
             foreach (Track track in Tracks)
