@@ -1,0 +1,46 @@
+﻿.main-container {
+    margin-top: 9px;
+}
+a{
+     color: black;
+     text-decoration: none;
+ }
+
+.container-train ul {
+    list-style-type: none;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+    .container-train ul li {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin: 5px;
+        width: 65px;
+    }
+
+.container-brand {
+    text-align: center;
+}
+
+.container-train {
+    float: left;
+}
+
+.container-train.normal {
+
+}
+
+.container-train.special {
+    border: solid black 1px;
+}
+
+.container-train ul li {
+    border: solid red 1px;
+}
+
+.container-train ul li:hover {
+    background-color: yellow;
+}
