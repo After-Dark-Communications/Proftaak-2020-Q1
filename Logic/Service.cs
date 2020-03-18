@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Logic.Interface;
 
 namespace Logic
 {
-    public class Service : IService
-    { 
+    public abstract class Service
+    {
+        public abstract int MaxSmallServicePerDay { get; set; }
+        public abstract int MaxBigServicePerDay { get; set; }
         public void AddTram(Tram tram)
         {
             throw new NotImplementedException();
