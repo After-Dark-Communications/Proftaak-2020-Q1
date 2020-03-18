@@ -48,3 +48,21 @@
     width: 100%;
     clear: both;
 }
+
+.TB-Tab-Button {
+    background-repeat: no-repeat;
+    background-position-y: top;
+    background-position-x: center;
+    background-size: 50px;
+    text-align: center;
+    padding-top: 45px;
+    font-size: 12px;
+}
+
+.TB-Tab-Normal {
+    background-color: transparent;
+    width: 120px;
+    height: 70px;
+    border: solid black 1px;
+    transition: 0.3s;
+}
