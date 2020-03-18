@@ -6,16 +6,18 @@ namespace TestClasses
 {
     public class Track
     {
-        
+        public int TrackNumber { get; private set; }
         public Sector[] Sectors { get; private set; } //for now returns array 
 
-        public Track(int numberOfSectors)
+        public Track(int numberOfSectors, int trackNumber)
         {
             Sectors = new Sector[numberOfSectors];
             for (int i = 0; i < numberOfSectors; i++)
             {
                 Sectors[i] = new Sector();
             }
+
+            TrackNumber = trackNumber;
         }
 
         public bool AssignTramToSector(Tram tram)

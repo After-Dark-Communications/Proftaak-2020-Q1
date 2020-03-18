@@ -5,6 +5,7 @@ namespace TestClasses
 {
     public static class TestData
     {
-        public static List<Track> Tracks = new List<Track>();
+        public static readonly Tram tramA = new Tram("2201", "Combino");
+
     }
 }
