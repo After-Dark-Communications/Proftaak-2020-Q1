@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Logic.Interface;
-using DTO;
 
 namespace Logic
 {
     public class Service : IService
-    {
+    { 
         public void AddTram(Tram tram)
         {
             throw new NotImplementedException();

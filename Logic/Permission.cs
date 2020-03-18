@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTO
+namespace Logic
 {
     public class Permission
     {
         public string Description { get; set; }
     }
-
 }

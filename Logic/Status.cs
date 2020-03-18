@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTO
+namespace Logic
 {
-    public enum Service
+    public enum Status
     {
         Defect,
         Cleaning,
