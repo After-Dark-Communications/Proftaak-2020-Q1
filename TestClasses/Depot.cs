@@ -6,16 +6,15 @@ namespace TestClasses
 {
     public class Depot
     {
-        public List<Track> Tracks = new List<Track>();
-
+        public List<Track> Tracks { get { return TestData.Tracks; } }
         public Depot()
         {
-            InitTestData();
+            TestData.InitTestData();
         }
 
         public bool PlaceTram(Tram newTram)
         {
-            foreach (Track track in Tracks)
+            foreach (Track track in TestData.Tracks)
             {
                 if (track.AssignTramToSector(newTram))
                 {
@@ -28,8 +27,8 @@ namespace TestClasses
         public bool PlaceTramRandomSector(Tram newTram)
         {
             Random rnd = new Random();
-            int rndTrack = rnd.Next(Tracks.Count);
-            if(Tracks[rndTrack].AssignTramToRandomSector(newTram))
+            int rndTrack = rnd.Next(TestData.Tracks.Count);
+            if(TestData.Tracks[rndTrack].AssignTramToRandomSector(newTram))
             {
                 return true;
             }
@@ -39,7 +38,7 @@ namespace TestClasses
 
         public Tram GetTram(string tramNumber)
         {
-            foreach (Track track in Tracks)
+            foreach (Track track in TestData.Tracks)
             {
                 Tram tram = track.GetTram(tramNumber);
                 if (tram != null)
@@ -56,19 +55,7 @@ namespace TestClasses
             return GetTram(modelNumber.ToString());
         }
 
-        private void InitTestData() // Just a function to fill the Tracks with sectors. Alter when needed
-        {
-            int numberOfTracks = 4; //want more tracks? Alter this number
-            int[] numerOfSectorsPerTrack = { 4, 5, 6, 7 }; //change sectors per track
-            int trackNumber = 38;
-            for (int i = 0; i < numberOfTracks; i++)
-            {
-                Tracks.Add(new Track(numerOfSectorsPerTrack[i], trackNumber));
-                trackNumber--;
-            }
-
-            Tracks[0].AssignTramToSector(TestData.tramA);
-        }
+        
 
 
     }
