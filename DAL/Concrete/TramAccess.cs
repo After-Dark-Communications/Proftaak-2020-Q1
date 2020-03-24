@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Context;
 using DAL.Interfaces;
 using DAL.Models;
-using Logic;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
