@@ -11,6 +11,11 @@ namespace Logic
         public ICollection<TramStatus> Status { get; private set; }
         private ICollection<Track> PreferredTracksList { get; set; }
 
+        public Tram()
+        {
+            Status = new List<TramStatus>();
+        }
+
         public void AddStatus(TramStatus newStatus)
         {
             if (!Status.Contains(newStatus))
