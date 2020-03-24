@@ -54,7 +54,7 @@
     height: 70px;
     border: solid black 1px;
     transition: 0.3s;
-    text-align: center;
+    white-space: normal;
     padding-top: 45px;
     font-size: 12px;
     margin-right: -4.5px;

@@ -2,13 +2,27 @@
     width: 16px;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb:vertical {
     background: #FFC9C9;
     background-image: url('../img/test2.png');
     background-repeat: no-repeat;
     background-position: center;
     border: 1px solid black;
     image-rendering: pixelated;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+    background: #FFC9C9;
+    background-image: url('../img/test3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid black;
+    image-rendering: pixelated;
+}
+
+::-webkit-resizer {
+    color: pink;
+
 }
 
 ::-webkit-scrollbar-track {
