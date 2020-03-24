@@ -8,12 +8,20 @@ namespace Logic
 
         public string SerialNumber { get; set; }
         public TramType Type { get; set; }
-        public ICollection<TramStatus> Status { get; set; }
+        public ICollection<TramStatus> Status { get; private set; }
         private ICollection<Track> PreferredTracksList { get; set; }
 
-        public void ChangeStatus()
+        public void AddStatus(TramStatus newStatus)
         {
-            throw new NotImplementedException();
+            if (!Status.Contains(newStatus))
+            {
+                Status.Add(newStatus);
+            }
+        }
+
+        public void DeleteStatus(TramStatus stat)
+        {
+            Status.Remove(stat);
         }
 
         public void GetType()
