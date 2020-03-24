@@ -39,15 +39,28 @@ namespace TestClasses
         {
             for (int x = 0; x < Sectors.Length; x++)
             {
-                if (Sectors[x].Trams.Count == 0)
+                if (Sectors[x].TryAddTram(tram))
                 {
-                    Sectors[x].AddTram(tram);
                     return true;
                 }
 
             }
 
             return false;
+        }
+
+        public bool AssignTramToRandomSector(Tram tram)
+        {
+            Random rnd = new Random();
+            int rndSector = rnd.Next(Sectors.Length);
+            if (Sectors[rndSector].TryAddTram(tram))
+            {
+                return true;
+            }
+            else
+            {
+                return AssignTramToSector(tram);
+            }
         }
     }
 }
