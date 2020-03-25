@@ -5,7 +5,7 @@ using DAL.Models;
 
 namespace DAL.Interfaces
 {
-    interface IUserAccess : IGenAccess<UserDAL>
+    interface IUserAccess : IGenAccess<User>
     {
     }
 }

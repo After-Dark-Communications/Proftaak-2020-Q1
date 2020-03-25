@@ -7,7 +7,7 @@ using DTO;
 
 namespace DAL.Interfaces
 {
-    interface ITramAccess : IGenAccess<TramDTO>
+    public interface ITramAccess : IGenAccess<TramDTO>
     {
         IEnumerable<TramDTO> GetAllTrams();
     }

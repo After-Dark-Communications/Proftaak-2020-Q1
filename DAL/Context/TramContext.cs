@@ -12,6 +12,8 @@ namespace Context
         {
                 
         }
-        public DbSet<TramDTO> Trams { get; set; }
+        public DbSet<Tram> Tram { get; set; }
+        public DbSet<User> User { get; set; }
+       
     }
 }

@@ -9,7 +9,7 @@ namespace DAL.Concrete
 {
     public class UserAccess : IUserAccess
     {
-        public Task Create(UserDAL obj)
+        public Task Create(User obj)
         {
             throw new NotImplementedException();
         }
@@ -19,12 +19,12 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
-        public UserDAL Read(int key)
+        public User Read(int key)
         {
             throw new NotImplementedException();
         }
 
-        public Task Update(UserDAL obj)
+        public Task Update(User obj)
         {
             throw new NotImplementedException();
         }

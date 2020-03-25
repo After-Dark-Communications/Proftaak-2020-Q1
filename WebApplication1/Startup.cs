@@ -10,6 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using WebApplication1.Services;
+using DAL.Interfaces;
+using DAL.Concrete;
+using Logic;
 
 namespace WebApplication1
 {
@@ -28,6 +33,9 @@ namespace WebApplication1
             services.AddControllersWithViews();
             services.AddDbContext<TramContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper(typeof(MappingBootstrapper));
+            services.AddScoped<ITramAccess, TramAccess>();
+            services.AddScoped<Tram>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

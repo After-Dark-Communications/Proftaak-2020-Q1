@@ -8,9 +8,9 @@ namespace DAL.Models
     public class Tram
     {
         [Key]
-        public int Id;
-        public TramType TramType { get; set; }
-        public TramStatus TramStatus { get; set; }
+        public int Id { get; set; }
+        public TramType Type { get; set; }
+        public TramStatus Status { get; set; }
     }
 
     public enum TramType
