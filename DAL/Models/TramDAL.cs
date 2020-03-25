@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Models
 {
-    public class TramDal
+    public class Tram
     {
         [Key]
         public int Id;
