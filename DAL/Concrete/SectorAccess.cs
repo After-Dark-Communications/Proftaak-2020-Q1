@@ -19,14 +19,23 @@ namespace DAL.Concrete
             _context = context;
         }
 
-        public Task Create(SectorDTO obj)
+        public async Task Create(SectorDTO obj)
         {
-            throw new NotImplementedException();
+            using(_context)
+            {
+                _context.Add(obj);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task Delete(int key)
+        public async Task Delete(int key)
         {
-            throw new NotImplementedException();
+            using(_context)
+            {
+                var deletedsector = _context.Sector.FirstOrDefault(x => x.Id == key);
+                _context.Sector.Remove(deletedsector);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public SectorDTO Read(int key)
@@ -39,9 +48,13 @@ namespace DAL.Concrete
             }
         }
 
-        public Task Update(SectorDTO obj)
+        public async Task Update(SectorDTO obj)
         {
-            throw new NotImplementedException();
+            using(_context)
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

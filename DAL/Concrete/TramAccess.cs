@@ -36,13 +36,14 @@ namespace DAL.Concrete
             using (_context)
             {
                 var tram = await _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
+                _context.Remove(tram);
                 await _context.SaveChangesAsync();
             }
         }
 
         public IEnumerable<TramDTO> GetAllTrams()
         {
-            //return _context.Trams.ToList();
+            //return _context.Tram.ToList();
             throw new NotImplementedException();
         }
 
