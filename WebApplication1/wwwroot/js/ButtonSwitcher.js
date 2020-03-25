@@ -34,4 +34,13 @@ function BottomBecomeSelected(button) {
         }
     }
 }
+//let x: Number = 5;
+//function setInt(value: Number) {
+//    x = value;
+//    alert(x);
+//}
+//
+//function GetInt() {
+//    alert(x);
+//}
 //# sourceMappingURL=ButtonSwitcher.js.map
