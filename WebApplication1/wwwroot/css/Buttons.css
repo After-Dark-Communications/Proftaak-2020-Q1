@@ -54,7 +54,6 @@
     height: 70px;
     border: solid black 1px;
     transition: 0.3s;
-    white-space: normal;
     padding-top: 45px;
     font-size: 12px;
     margin-right: -4.5px;
@@ -78,4 +77,22 @@
 
 .TB-Tab-Selected {
     background-color: #00c2ff;
+}
+
+.TB-User{
+    position: absolute;
+    right: 0;
+}
+
+.TB-User-Profile {
+    border: none;
+    width: 100px;
+    height: 100px;
+    padding-top: 77%;
+    text-align: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 10%;
+    background-color: transparent;
 }
