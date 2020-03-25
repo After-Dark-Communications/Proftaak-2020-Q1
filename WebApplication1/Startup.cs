@@ -31,7 +31,7 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<TramContext>(options =>
+            services.AddDbContext<DepotContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(MappingBootstrapper));
             services.AddScoped<ITramAccess, TramAccess>();

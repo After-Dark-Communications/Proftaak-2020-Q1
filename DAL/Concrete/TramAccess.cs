@@ -14,10 +14,10 @@ namespace DAL.Concrete
 {
     public class TramAccess : ITramAccess
     {
-        private readonly TramContext _context;
+        private readonly DepotContext _context;
         private readonly IMapper _mapper;
 
-        public TramAccess(TramContext context, IMapper mapper)
+        public TramAccess(DepotContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

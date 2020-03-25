@@ -6,14 +6,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Context
 {
-    public class TramContext:DbContext
+    public class DepotContext:DbContext
     {
-        public TramContext(DbContextOptions<TramContext> options):base(options)
+        public DepotContext(DbContextOptions<DepotContext> options):base(options)
         {
                 
         }
         public DbSet<Tram> Tram { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Track> Track { get; set; }
+        public DbSet<Sector> Sector { get; set; }
        
     }
 }
