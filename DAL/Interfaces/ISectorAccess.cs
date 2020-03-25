@@ -5,7 +5,7 @@ using DTO;
 
 namespace DAL.Interfaces
 {
-    interface ISectorAccess : IGenAccess<SectorDTO>
+    public interface ISectorAccess : IGenAccess<SectorDTO>
     {
     }
 }

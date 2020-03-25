@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Interfaces
 {
-    interface ITrackAccess : IGenAccess<TrackDTO>
+    public interface ITrackAccess : IGenAccess<TrackDTO>
     {
     }
 }
