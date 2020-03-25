@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using Logic;
 
 namespace DAL.Models
 {
-    public class TramDal
+    public class Tram
     {
         [Key]
         public int Id;

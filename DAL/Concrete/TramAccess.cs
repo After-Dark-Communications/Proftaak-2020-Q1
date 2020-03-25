@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Context;
 using DAL.Interfaces;
 using DAL.Models;
-using Logic;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using DTO;
 
 namespace DAL.Concrete
 {
@@ -22,7 +22,7 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(TramDal obj)
+        public async Task Create(TramDTO obj)
         {
             using (_context)
             {
@@ -41,22 +41,23 @@ namespace DAL.Concrete
             }
         }
 
-        public IEnumerable<TramDal> GetAllTrams()
+        public IEnumerable<TramDTO> GetAllTrams()
         {
-            return _context.Trams.ToList();
+            //return _context.Trams.ToList();
+            throw new NotImplementedException();
         }
 
-        public TramDal Read(int key)
+        public TramDTO Read(int key)
         {
             using (_context)
             {
-                TramDal tram = new TramDal();
+                Tram tram = new Tram();
                 var readTram = _context.Trams.FirstOrDefault(i => i.Id == key);
-                return tram = _mapper.Map<TramDal>(readTram);
+                return tram = _mapper.Map<TramDTO>(readTram);
             }
         }
 
-        public async Task Update(TramDal obj)
+        public async Task Update(TramDTO obj)
         {
             using (_context)
             {

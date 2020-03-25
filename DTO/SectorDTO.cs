@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Models
+namespace DTO
 {
-    public class User
+    public class SectorDTO
     {
-        public int Id { get; set; }
     }
 }
