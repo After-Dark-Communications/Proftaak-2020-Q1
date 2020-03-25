@@ -17,7 +17,6 @@ namespace WebApplication1.Services
             CreateMap<TramDTO, TramViewModel>().ReverseMap();
             CreateMap<TrackDTO, Track>().ReverseMap();
             CreateMap<SectorDTO, Sector>().ReverseMap();
-
         }
     }
 }
