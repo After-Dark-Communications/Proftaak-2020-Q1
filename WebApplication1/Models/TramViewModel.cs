@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DTO
+namespace WebApplication1.Models
 {
-    public class TramDTO
+    public class TramViewModel
     {
         public int Id { get; set; }
         public string SerialNumber { get; set; }
+
         public TramType Type { get; set; }
         public TramStatus Status { get; set; }
-        private ICollection<TrackDTO> PreferredTracksList { get; set; }
     }
     public enum TramStatus
     {
@@ -26,6 +27,5 @@ namespace DTO
         ElevenG,
         TwelveG,
         TrainingTram,
-
     }
 }

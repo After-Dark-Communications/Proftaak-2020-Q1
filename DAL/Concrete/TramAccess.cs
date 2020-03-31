@@ -14,10 +14,10 @@ namespace DAL.Concrete
 {
     public class TramAccess : ITramAccess
     {
-        private readonly TramContext _context;
+        private readonly DepotContext _context;
         private readonly IMapper _mapper;
 
-        public TramAccess(TramContext context, IMapper mapper)
+        public TramAccess(DepotContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -35,15 +35,15 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                var tram = await _context.Trams.FirstOrDefaultAsync(t => t.Id == key);
-                _context.Trams.Remove(tram);
+                var tram = await _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
+                _context.Remove(tram);
                 await _context.SaveChangesAsync();
             }
         }
 
         public IEnumerable<TramDTO> GetAllTrams()
         {
-            //return _context.Trams.ToList();
+            //return _context.Tram.ToList();
             throw new NotImplementedException();
         }
 
@@ -51,8 +51,8 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                Tram tram = new Tram();
-                var readTram = _context.Trams.FirstOrDefault(i => i.Id == key);
+                TramDTO tram = new TramDTO();
+                var readTram = _context.Tram.FirstOrDefault(i => i.Id == key);
                 return tram = _mapper.Map<TramDTO>(readTram);
             }
         }

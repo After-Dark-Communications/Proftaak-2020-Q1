@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DTO
+namespace DAL.Models
 {
-    public class TrackDTO
+    public class Sector
     {
         public int Id { get; set; }
+        public Tram Tram { get; set; }
         public int TrackNumber { get; set; }
-        public TramType TramType { get; set; }
-        public ICollection<SectorDTO> Sectors { get; set; }
+        public int SectorPosition { get; set; }
     }
 }
