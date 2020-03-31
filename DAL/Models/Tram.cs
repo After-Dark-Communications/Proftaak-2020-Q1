@@ -11,6 +11,7 @@ namespace DAL.Models
         public int Id { get; set; }
         public TramType Type { get; set; }
         public TramStatus Status { get; set; }
+        public int TramNumber { get; set; }
     }
 
     public enum TramType

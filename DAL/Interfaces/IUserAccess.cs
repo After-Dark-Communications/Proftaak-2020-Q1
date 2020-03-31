@@ -6,7 +6,7 @@ using DTO;
 
 namespace DAL.Interfaces
 {
-    interface IUserAccess : IGenAccess<UserDTO>
+    public interface IUserAccess : IGenAccess<UserDTO>
     {
     }
 }
