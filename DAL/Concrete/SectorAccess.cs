@@ -14,9 +14,10 @@ namespace DAL.Concrete
     {
         private readonly DepotContext _context;
         private readonly IMapper _mapper;
-        public SectorAccess(DepotContext context)
+        public SectorAccess(DepotContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task Create(SectorDTO obj)
