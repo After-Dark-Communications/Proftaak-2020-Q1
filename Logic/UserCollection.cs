@@ -20,7 +20,7 @@ namespace Logic
         }
         public bool IsAdmin(UserDTO user)
         {
-            return _userAcces.Read(user.)
+            throw new NotImplementedException();
         }
     }
 }
