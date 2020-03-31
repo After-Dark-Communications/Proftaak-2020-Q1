@@ -9,7 +9,7 @@ namespace DTO
         public int Id { get; set; }
         public string SerialNumber { get; set; }
         public TramType Type { get; set; }
-        public TramStatus Status { get; set; }
+        public ICollection<TramStatus> Statuses { get; set; }
         private ICollection<TrackDTO> PreferredTracksList { get; set; }
     }
     public enum TramStatus

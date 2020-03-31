@@ -12,16 +12,12 @@ namespace Logic
 
         public Tram(ITramAccess tramAccess)
         {
-            //Status = new List<TramStatus>();
             _tramAccess = tramAccess;
         }
 
-        public void AddStatus(TramStatus newStatus)
+        public void AddStatus(TramDTO tram, TramStatus newStat)
         {
-            //if (!Status.Contains(newStatus))
-           // {
-           //     Status.Add(newStatus);
-           // }
+
         }
 
         public void DeleteStatus(TramStatus stat)
