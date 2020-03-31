@@ -27,9 +27,6 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
-        public bool IsAdmin()
-        {
-            
-        }
+
     }
 }
