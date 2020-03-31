@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    interface IGenAccess<T>
+    public interface IGenAccess<T>
     {
         Task Create(T obj);
         T Read(int key);

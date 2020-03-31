@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DTO
+namespace WebApplication1.Models
 {
-    public class SectorDTO
+    public class SectorViewModel
     {
         public int Id { get; set; }
-        public TramDTO Tram { get; set; }
+        public TramViewModel Tram { get; set; }
         public int TrackNumber { get; set; }
         public int SectorPosition { get; set; }
     }

@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DAL.Interfaces;
-using DAL.Models;
-using AutoMapper;
 using Context;
-using System.Linq;
+using DAL.Interfaces;
 using DTO;
+using AutoMapper;
 
 namespace DAL.Concrete
 {
-    public class UserAccess : IUserAccess
+    public class SectorAccess : ISectorAccess
     {
         private readonly DepotContext _context;
         private readonly IMapper _mapper;
-
-        public UserAccess(DepotContext context, IMapper mapper)
+        public SectorAccess(DepotContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(UserDTO obj)
+
+        public async Task Create(SectorDTO obj)
         {
             using(_context)
             {
@@ -32,25 +31,25 @@ namespace DAL.Concrete
 
         public async Task Delete(int key)
         {
-            using (_context)
+            using(_context)
             {
-                var deleteduser = _context.User.FirstOrDefault(x => x.Id == key);
-                _context.User.Remove(deleteduser);
+                var deletedsector = _context.Sector.FirstOrDefault(x => x.Id == key);
+                _context.Sector.Remove(deletedsector);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public UserDTO Read(int key)
+        public SectorDTO Read(int key)
         {
             using(_context)
             {
-                UserDTO user = new UserDTO();
-                var readuser = _context.User.FirstOrDefault(x => x.Id == key);
-                return user = _mapper.Map<UserDTO>(readuser);
+                SectorDTO sector = new SectorDTO();
+                var readsector = _context.Sector.FirstOrDefault(i => i.Id == key);
+                return sector = _mapper.Map<SectorDTO>(readsector);
             }
         }
 
-        public async Task Update(UserDTO obj)
+        public async Task Update(SectorDTO obj)
         {
             using(_context)
             {

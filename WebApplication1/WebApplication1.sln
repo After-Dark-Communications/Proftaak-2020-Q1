@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "..\DTO\DTO.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "..\DAL\DAL.csproj", "{20066D7B-0223-438D-BEAD-6FC18912EAA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "..\ClassLibrary1\ClassLibrary1.csproj", "{867BB2FE-753D-4D2F-BF24-7C973FB5337C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{20066D7B-0223-438D-BEAD-6FC18912EAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20066D7B-0223-438D-BEAD-6FC18912EAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20066D7B-0223-438D-BEAD-6FC18912EAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{867BB2FE-753D-4D2F-BF24-7C973FB5337C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{867BB2FE-753D-4D2F-BF24-7C973FB5337C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{867BB2FE-753D-4D2F-BF24-7C973FB5337C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{867BB2FE-753D-4D2F-BF24-7C973FB5337C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
