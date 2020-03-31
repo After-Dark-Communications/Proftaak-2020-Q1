@@ -2,17 +2,14 @@
 @{
     ViewData["Title"] = "Login";
 }
-
+<link rel="stylesheet" href="~/css/LoginScreen.css" />
 <body>
-    <form style="border: 1px solid black; width:300px; height:175px; left: 50%;">
+    <form class="LoginBox">
 
-        <input id="Username" type="text" />
-        <p/>
-        <input id="PasswordField" type="password" />
-        <p/>
-        <input id="LoginButton" type="button" value="Login" />
-        <p>Remember me?<input id="RememberMe" type="checkbox" /></p>
-        
+        <p class="LB-Input">Username <input id="Username" type="text" /></p>
+        <p />
+        <p class="LB-Input">Password <input id="PasswordField" type="password" /></p>
+        <input id="LoginButton" type="button" value="Login" class="LB-Button" />
+        <p class="LB-Text">Remember me? <input id="RememberMe" type="checkbox" /></p>
     </form>
 </body>
-

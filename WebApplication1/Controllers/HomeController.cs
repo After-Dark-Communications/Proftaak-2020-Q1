@@ -12,7 +12,6 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -20,16 +19,19 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.ShowTopBar = true;
             return View();
         }
 
         public IActionResult Privacy()
         {
+            ViewBag.ShowTopBar = false;
             return View();
         }
 
         public IActionResult Login()
         {
+            ViewBag.ShowTopBar = false;
             return View();
         }
 

@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Buttons.css" />
-    <link rel="stylesheet" href="~/css/Webkit.css" />
     <link rel="stylesheet" href="~/css/Trams.css" />
     <link rel="stylesheet" href="~/css/Rails.css" />
 </head>
 <body style="background-color: #98FAAE;">
     <header>
-        @if (true)// TODO: add session logged-in bool
+        @if (ViewBag.ShowTopBar ?? true)// TODO: add session logged-in bool
         {
             <nav class="Top-Container">
                 <div class="TB-User">
-                    <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');"/><!--TODO: Make Login Function-->
+                    <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login","Home")'"/><!--TODO: Make Login Function-->
                 </div>
                 <div class="Top-Button-Container">
                     <input class="Top-Bar TB-Selected" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
