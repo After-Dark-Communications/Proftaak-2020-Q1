@@ -36,6 +36,18 @@ namespace TestClasses
             return false;
         }
 
+        public void MoveTramToOtherSector(Sector oldSector, Sector newSector)
+        {
+            if(oldSector.Trams[0] != null)
+            {
+                if (newSector.TryAddTram(oldSector.Trams[0]))
+                {
+                    oldSector.Trams.Clear();
+                }
+            }
+            
+        }
+
         public Tram GetTram(string tramNumber)
         {
             foreach (Track track in TestData.Tracks)
