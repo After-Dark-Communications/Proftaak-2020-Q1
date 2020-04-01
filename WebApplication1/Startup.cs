@@ -40,6 +40,7 @@ namespace WebApplication1
             services.AddScoped<Tram>();
             services.AddScoped<Track>();
             services.AddScoped<Sector>();
+            services.AddScoped<Depot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

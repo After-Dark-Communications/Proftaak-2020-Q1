@@ -19,13 +19,15 @@ namespace WebApplication1.Controllers
         private readonly Sector _sector;
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
+        private readonly Depot _depot;
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot)
         {
             _logger = logger;
             _mapper = mapper;
             _tram = tram;
             _sector = sector;
+            _depot = depot;
         }
 
         public IActionResult Index()
