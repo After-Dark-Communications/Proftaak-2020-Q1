@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAL2\DAL.csproj" />
+    <ProjectReference Include="..\DTO2\DTO.csproj" />
+    <ProjectReference Include="..\Logic2\Logic.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 
