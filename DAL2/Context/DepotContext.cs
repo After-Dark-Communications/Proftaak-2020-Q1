@@ -17,6 +17,7 @@ namespace Context
         public DbSet<Track> Track { get; set; }
         public DbSet<Sector> Sector { get; set; }
         public DbSet<Depot> Depot { get; set; }
+        public DbSet<Status> Status { get; set; }
        
     }
 }

@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using DAL.Interfaces;
 using DTO;
 using Services;
+using System.Linq;
 
 namespace Logic
 {
     public class Tram {
 
         private readonly ITramAccess _tramAccess;
-        public string SerialNumber { get; set; }
-        //public TramType Type { get; set; }
-        public ICollection<TramStatus> Status { get; private set; }
-        private ICollection<Track> PreferredTracksList { get; set; }
-
         public Tram(ITramAccess tramAccess)
         {
-            Status = new List<TramStatus>();
             _tramAccess = tramAccess;
         }
 
-        public void AddStatus(TramStatus newStatus)
+        public void AddStatus(StatusDTO status, TramDTO tram)
         {
-            if (!Status.Contains(newStatus))
+            if(tram.Status.Any(s => s.Status == status.Status))
             {
-                Status.Add(newStatus);
+                tram.Status.Add(status);
+                _tramAccess.Update(tram);
             }
         }
-
-        public void DeleteStatus(TramStatus stat)
-        {
-            Status.Remove(stat);
+        public void DeleteStatus(StatusDTO status, TramDTO tram)
+        { 
 
         }
 

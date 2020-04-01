@@ -7,12 +7,16 @@ namespace DTO
 {
     public class StatusDTO
     {
-        public TramStatus Status { get; private set; }
-        public string Description { get; private set; }
-
-        public StatusDTO(TramStatus status)
+        public int Id { get; set; }
+        public TramStatus Status { get; set; }
+        public string Description { get; set; }
+        public StatusDTO()
         {
-            Status = status;
+
+        }
+        public StatusDTO(TramStatus status)
+        {    
+           Status = status;     
         }
 
         public StatusDTO(TramStatus status, string description)

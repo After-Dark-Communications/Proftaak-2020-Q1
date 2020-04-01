@@ -46,6 +46,18 @@ namespace DAL.Concrete
             //return _context.Tram.ToList();
             throw new NotImplementedException();
         }
+        public IEnumerable<StatusDTO> GetAllStatuses(int key)
+        {
+            //using(_context)
+            //{
+            //    var statuses = _context.Tram
+            //        .Include(x => x.Status)
+            //        .Where(i => i.Id == key)
+            //        .ToList();
+            //    return statuses
+            //}
+            throw new NotImplementedException();
+        }
 
         public TramDTO Read(int key)
         {

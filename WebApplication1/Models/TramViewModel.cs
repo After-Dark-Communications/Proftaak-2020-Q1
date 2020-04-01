@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Services;
 
 namespace WebApplication1.Models
 {
@@ -12,20 +13,5 @@ namespace WebApplication1.Models
 
         public TramType Type { get; set; }
         public TramStatus Status { get; set; }
-    }
-    public enum TramStatus
-    {
-        Defect,
-        Cleaning,
-        Shift,
-        Depot,
-    }
-    public enum TramType
-    {
-        Combino,
-        DoubleCombino,
-        ElevenG,
-        TwelveG,
-        TrainingTram,
     }
 }
