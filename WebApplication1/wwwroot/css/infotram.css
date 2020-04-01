@@ -42,4 +42,6 @@
     padding: 12px;
     text-align: center;
     min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
 }
