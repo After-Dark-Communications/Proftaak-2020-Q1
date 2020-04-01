@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DAL.Interfaces;
 using DTO;
@@ -14,13 +15,13 @@ namespace Logic
         {
             _userAcces = userAccess;
         }
-        public bool RegisterUser()
+        public void RegisterUser(UserDTO user)
         {
-            throw new NotImplementedException();
+            _userAcces.Create(user);
         }
         public bool IsAdmin(UserDTO user)
         {
-            throw new NotImplementedException();
+            return user.Permissions.Where(x => x.Name == "Admin").Any();
         }
     }
 }

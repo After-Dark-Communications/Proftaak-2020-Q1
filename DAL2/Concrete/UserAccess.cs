@@ -25,8 +25,8 @@ namespace DAL.Concrete
         {
             using(_context)
             {
-                _context.Add(obj);
-                await _context.SaveChangesAsync();
+                    _context.Add(obj);
+                    await _context.SaveChangesAsync();
             }
         }
 
