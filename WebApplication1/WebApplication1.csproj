@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Logic\Logic.csproj" />
     <ProjectReference Include="..\TestClasses\TestClasses.csproj" />
   </ItemGroup>
 
