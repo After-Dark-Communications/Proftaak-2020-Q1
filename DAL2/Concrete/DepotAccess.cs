@@ -45,6 +45,11 @@ namespace DAL.Concrete
             }
         }
 
+        public IEnumerable<TrackDTO> GetAllTracks()
+        {
+            throw new NotImplementedException();
+        }
+
         public DepotDTO Read(int key)
         {
             using(_context)

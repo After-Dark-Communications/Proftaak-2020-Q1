@@ -35,7 +35,7 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                var tram = await _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
+                var tram = _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
                 _context.Remove(tram);
                 await _context.SaveChangesAsync();
             }

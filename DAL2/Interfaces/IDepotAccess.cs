@@ -7,5 +7,6 @@ namespace DAL.Interfaces
 {
     public interface IDepotAccess : IGenAccess<DepotDTO>
     {
+        IEnumerable<TrackDTO> GetAllTracks();
     }
 }
