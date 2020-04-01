@@ -8,5 +8,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public string Location { get; set; }
+        public ICollection<User> Users { get; set; }
+        public ICollection<Track> DepotTracks { get; set; }
     }
 }
