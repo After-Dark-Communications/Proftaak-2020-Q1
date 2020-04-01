@@ -15,13 +15,17 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly Tram _tram;
+        private readonly Sector _sector;
         private readonly ILogger<HomeController> _logger;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector)
         {
             _logger = logger;
             _mapper = mapper;
+            _tram = tram;
+            _sector = sector;
         }
 
         public IActionResult Index()

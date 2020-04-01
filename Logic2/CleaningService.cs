@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,7 +10,7 @@ namespace Logic
         public override int MaxBigServicePerDay { get; set; }
         public override int MaxSmallServicePerDay { get; set; }
 
-        public void CleanTram(Tram tram)
+        public void CleanTram(TramDTO tram)
         {
             throw new NotImplementedException();
         }

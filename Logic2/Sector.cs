@@ -8,7 +8,7 @@ namespace Logic
     {
         private ICollection<Tram> TramsOnSector;
 
-        public void AddTram(Tram tram)
+        public void AddTram(TramDTO tram)
         {
             throw new NotImplementedException();
         }

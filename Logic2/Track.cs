@@ -7,7 +7,7 @@ namespace Logic
     public class Track
     {
         private ICollection<Sector> Sectors;
-        public void CheckTramType(Tram tram)
+        public void CheckTramType(TramDTO tram)
         {
             throw new NotImplementedException();
         }

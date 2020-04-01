@@ -38,6 +38,8 @@ namespace WebApplication1
             services.AddScoped<ISectorAccess, SectorAccess>();
             services.AddScoped<ITrackAccess, TrackAccess>();
             services.AddScoped<Tram>();
+            services.AddScoped<Track>();
+            services.AddScoped<Sector>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

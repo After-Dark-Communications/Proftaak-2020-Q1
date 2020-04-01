@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DTO;
 
 namespace Logic
 {
     public class Depot
     {
-        public ICollection<User> Users { get; set; }
-        private ICollection<Track> DepotTracks { get; set; }
+        public ICollection<UserDTO> Users { get; set; }
+        private ICollection<TrackDTO> DepotTracks { get; set; }
 
-        private bool CheckIfTramIsAllowed(Tram tram)
+        private bool CheckIfTramIsAllowed(TramDTO tram)
         {
             throw new NotImplementedException();
         }
 
-        public void ReceiveTram(Tram tram) 
+        public void ReceiveTram(TramDTO tram) 
         {
             if (CheckIfTramIsAllowed(tram))
             {
