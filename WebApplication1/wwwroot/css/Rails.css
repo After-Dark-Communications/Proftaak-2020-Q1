@@ -1,10 +1,11 @@
 ﻿.main-container {
     margin-top: 9px;
 }
-a{
-     color: black;
-     text-decoration: none;
- }
+
+a {
+    color: black;
+    text-decoration: none;
+}
 
 .container-train ul {
     list-style-type: none;
@@ -20,6 +21,7 @@ a{
         margin: 5px;
         width: 65px;
     }
+
 .tracks-column {
     width: 100%;
     display: flex;
@@ -27,6 +29,7 @@ a{
     left: 20%;
     transform: translate(-20%, 0%);*/
 }
+
 .container-brand {
     text-align: center;
 }
@@ -35,26 +38,27 @@ a{
     float: left;
 }
 
-.container-train.normal {
+    .container-train.normal {
+    }
 
-}
+    .container-train.special {
+        border: solid black 1px;
+    }
 
-.container-train.special {
-    border: solid black 1px;
-}
-
-.container-train ul li {
-    border: solid black 1px;
-    min-height: 36px;
-}
+    .container-train ul li {
+        border: solid black 1px;
+        min-height: 36px;
+    }
 
 .tracks-hover:hover {
     background-color: transparent;
 }
+
 .tracks-disabled {
     background-image: url('../img/disabled.png');
     background-size: 100% 100%;
 }
+
 .tracks-in-out {
     max-width: 77px;
     margin-left: 25px;
@@ -62,48 +66,64 @@ a{
     height: 75%
 }
 
-.tracks-in-out .container-brand {
-    text-align: center;
-    color: #ffffff;
-}
-.tracks-in-out .container-header {
-    padding: 5px;
-}
+    .tracks-in-out .container-brand {
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .tracks-in-out .container-header {
+        padding: 5px;
+    }
+
 .tracks-long-stay {
     max-width: 154px;
     margin-left: 25px;
     margin-right: 25px;
     margin-top: -27px;
 }
-.tracks-long-stay .container-brand {
-    text-align: center;
-    color: #ffffff;
-}
 
-.tracks-long-stay .container-header {
-    padding-top: 10px;
-    padding-left: 29px;
-}
+    .tracks-long-stay .container-brand {
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .tracks-long-stay ul li:nth-child(even) {
+        float: right;
+    }
+
+    .tracks-long-stay ul li:nth-child(odd) {
+        display: inline-block;
+    }
+
+    .tracks-long-stay .container-header {
+        padding-top: 10px;
+        padding-left: 29px;
+    }
 
 .tracks-combino {
     max-width: 77px;
     margin-left: 4px;
     margin-top: -75px;
 }
-.tracks-combino .container-header {
-    padding: 5px;
-}
-.tracks-combino .container-brand {
-    text-align: center;
-    color: #ffffff;
-}
+
+    .tracks-combino .container-header {
+        padding: 5px;
+    }
+
+    .tracks-combino .container-brand {
+        text-align: center;
+        color: #ffffff;
+    }
+
 .tracks-bottom-row {
     margin-top: 32px;
 }
+
 .container-repair .container-brand {
     text-align: center;
     color: #ffffff;
 }
+
 .container-repair .container-header {
     padding-left: 37%;
     /* padding-top: 75%; */
@@ -115,36 +135,53 @@ a{
 reparatie zone: #FF6565
 in-uitrij/lang parkeer: #A3A3A3
 */
-    .tracks-combinoblue {
-        background-color: #567BFF;
-    }
+.tracks-combinoblue {
+    background-color: #567BFF;
+}
+
 .tracks-darkred {
     background-color: #FF3A3A;
 }
+
 .tracks-white {
     background-color: #ffffff
 }
+
 .tracks-red {
     background-color: #FF5D5D;
 }
+
 .tracks-yellow {
     background-color: #FBFF32;
 }
+
 .tracks-purple {
     background-color: #E858FF;
 }
+
 .tracks-green {
     background-color: #0CEB2F;
 }
+
 .tracks-brown {
     background-color: #9C5E00;
 }
+
 .tracks-gray {
     background-color: #CCCCCC;
 }
+
 .tracks-blue {
     background-color: #3A66FF;
 }
+
 .tracks-black {
     background-color: black;
+}
+
+@media screen and (max-width: 1408px) {
+    .tracks-long-stay ul li:nth-child(even) {
+        display: inline-flex;
+        float: none;
+    }
 }

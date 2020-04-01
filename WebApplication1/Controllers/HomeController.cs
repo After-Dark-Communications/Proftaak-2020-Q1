@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Models;
-using Logic;
 using DTO;
 using AutoMapper;
 using DAL.Interfaces;
+using TestClasses;
 
 namespace WebApplication1.Controllers
 {
@@ -32,8 +32,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            Depot dp = new Depot();
             ViewBag.ShowTopBar = true;
-            return View();
+            return View(dp);
         }
 
         public IActionResult Privacy()
