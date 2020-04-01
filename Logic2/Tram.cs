@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DAL.Interfaces;
 using DTO;
-using Logic.Models;
+using Services;
 
 namespace Logic
 {
