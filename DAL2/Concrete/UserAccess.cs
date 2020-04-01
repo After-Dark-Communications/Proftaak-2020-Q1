@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Common;
 using DAL.Interfaces;
 using DAL.Models;
 using AutoMapper;
@@ -25,8 +26,15 @@ namespace DAL.Concrete
         {
             using(_context)
             {
+                try
+                {
                     _context.Add(obj);
                     await _context.SaveChangesAsync();
+                }
+                catch (DbException ex)
+                {
+                    throw ex;
+                }
             }
         }
 
