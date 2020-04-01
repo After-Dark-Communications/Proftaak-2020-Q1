@@ -45,7 +45,6 @@ namespace TestClasses
                     oldSector.Trams.Clear();
                 }
             }
-            
         }
 
         public Tram GetTram(string tramNumber)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Services;
 
 namespace DTO
 {
@@ -11,21 +12,5 @@ namespace DTO
         public TramType Type { get; set; }
         public TramStatus Status { get; set; }
         private ICollection<TrackDTO> PreferredTracksList { get; set; }
-    }
-    public enum TramStatus
-    {
-        Defect,
-        Cleaning,
-        Shift,
-        Depot,
-    }
-    public enum TramType
-    {
-        Combino,
-        DoubleCombino,
-        ElevenG,
-        TwelveG,
-        TrainingTram,
-
     }
 }
