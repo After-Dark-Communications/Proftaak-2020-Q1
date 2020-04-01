@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model TestClasses.Depot;
 
 <div class="main-container">
     <div class="tracks-column">
@@ -9,10 +10,24 @@
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li id="myInput" class="tracks-hover tracks-white"><a href="#">2201</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{ // foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                   // {
+                       // int i = 0;
+                       // if (Model.Tracks[0].Sectors[0]. == true)
+                        {
+                            //<li onclick="clickInfoTram(Model.Tracks[0].Sectors[0].Tram.Number)" class="tracks-hover tracks-white"><a href="#">@Model.Tracks[0].Sectors[0].Tram.Number</a></li>
+                        }
+                       // else if (Model.Tracks[0].Sectors.Length - 1 == i)
+                        {
+                            //<li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                        }
+                        {
+                           // <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                        }
+
+                   // }
+
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -95,14 +110,14 @@
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
-                <li><a href="#">2122</a></li>
-                <li><a href="#">9</a></li>
-                <li><a href="#">65</a></li>
-                <li><a href="#">32</a></li>
-                <li><a href="#">32</a></li>
-                <li><a href="#">32</a></li>
-                <li><a href="#">32</a></li>
-                <li><a href="#">32</a></li>
+                <li class="tracks-white"><a href="#">40</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
             </ul>
             <div class="container-header">
                 <a class="container-brand" href="#">in-/uitrij-spoor</a>
@@ -163,7 +178,7 @@
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
-                <li><a href="#">58</a></li>
+                <li class="tracks-white"><a href="#">58</a></li>
                 <li><a href="#"></a></li>
                 <li><a href="#"></a></li>
                 <li><a href="#"></a></li>
@@ -373,62 +388,58 @@
             <div class="container-train normal">
                 <ul>
                     <li class="tracks-white"><a href="#">12</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">13</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">14</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">15</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">16</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">17</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">18</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">19</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">20</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-white"><a href="#">21</a></li>
-                </ul>
-            </div>
-            <div class="container-train normal">
-                <ul>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
                     <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 </ul>
             </div>
         </div>
     </div>
+
 </div>
 <div id="testmodal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tram 2201</h4>
+            <div class="status-left">
+                <div class="status-info">
+                </div>
+                <div class="status-info">
+                    <p class="status-title">Laatste Schoonmaakbeurt</p>
+                    <p>Klein: 0 dagen geleden</p>
+                    <p>Groot: 35 dagen geleden</p>
+                </div>
+                <div class="status-info">
+                    <p class="status-title">Laatste Servicebeurt</p>
+                    <p>Klein: 0 dagen geleden</p>
+                    <p>Groot: 35 dagen geleden</p>
+                </div>
+                <div id="getcount" class="status-inline">
+                    <div>Status:</div>
+                    <div class="status-defect">Reparatie</div>
+                    <div class="status-cleaning">Schoonmaak</div>
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Spoornummer: 56</p>
-                <p>Soort: Dubbelkops Combino</p>
-            </div>
-            <div class="modal-footer">
-                <table>
-                    <tr>
-                        <th>Laatste Schoonmaakbeurd</th>
-                        <th>Laatsted Servicebeurt</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>Klein: 0 dagen geleden</td>
-                        <td>Klein: 0 dagen geleden</td>
-                        <td>Defect</td>
-                    </tr>
-                    <tr>
-                        <td>Groot: 35 dagen geleden</td>
-                        <td>Groot: 35 dagen geleden</td>
-                        <td><button>Stuur Reperatie</button> | <button>Schoonmaak aanmelden</button></td>
-                    </tr>
-                </table>
+            <div class="status-right">
+                <div class="status-buttom">Verplaats Tram naar...</div>
+                <div class="status-buttom">Verwijder Tram</div>
+                <div class="status-buttom">Schoonmaak Aanmelden</div>
+                <div class="status-buttom">Stuur naar Reperatie</div>
             </div>
         </div>
     </div>
@@ -438,9 +449,23 @@
 
 @section Scripts  {
     <script type="text/javascript">
-        $("#myInput").click(function () {
+        function clickInfoTram(number) {
+            //alert(Number);
             $('#testmodal').modal('show');
+        }
+        $(document).ready(function () {
+            var countdiv = document.querySelectorAll('#getcount div').length;
+            var children = document.getElementById("getcount").children;
+            var x = 100 / countdiv;
+            for (var i = 0; i < countdiv; i++) {
+                if (i == countdiv -1) {
+                    children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
+                    return;
+                }
+                children[i].setAttribute("style", "width:" + x + "%;");
+            }
+
         });
+
     </script>
 }
-
