@@ -5,7 +5,7 @@ using Services;
 
 namespace DTO
 {
-    class StatusDTO
+    public class StatusDTO
     {
         public TramStatus Status { get; private set; }
         public string Description { get; private set; }
