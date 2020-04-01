@@ -1,0 +1,98 @@
+﻿
+
+.Top-Bar {
+    background-color: grey;
+    min-width: 100px;
+    height: 30px;
+    border: solid black 1px;
+    float: left;
+    transition: 0.3s;
+}
+
+.TB-Normal {
+    color: black;
+    background-color: white;
+}
+
+.TB-Selected {
+    color: white;
+    background-color: #00C2FF;
+}
+
+.TB-Normal:hover {
+    background-color: #F2F2F2;
+}
+
+.TB-Selected:hover {
+    background-color: #00B9F2;
+}
+
+.Top-Container {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: solid black 1px;
+    background-color: #6EFF8E;
+    border-bottom-right-radius: 10px;
+    -moz-box-shadow: 5px 2px 5px #666;
+    -webkit-box-shadow: 5px 2px 5px #666;
+    box-shadow: 5px 2px 5px #666;
+}
+
+.Top-Button-Container {
+    width: 100%;
+}
+
+.Bottom-Button-Container {
+    width: 100%;
+    clear: both;
+}
+
+.TB-Tab {
+    width: 120px;
+    height: 70px;
+    border: solid black 1px;
+    transition: 0.3s;
+    padding-top: 45px;
+    font-size: 12px;
+    margin-right: -4.5px;
+}
+
+.TB-Tab-Image {
+    background-repeat: no-repeat;
+    background-position-y: top;
+    background-position-x: center;
+    background-size: 50px;
+}
+
+.TB-Tab-Normal {
+    background-color: transparent;
+}
+
+    .TB-Tab-Normal:hover {
+        background-color: rgba(128,128,128,0.3);
+        transition: 0.3s;
+    }
+
+.TB-Tab-Selected {
+    background-color: #00c2ff;
+}
+
+.TB-User{
+    position: absolute;
+    right: 0;
+}
+
+.TB-User-Profile {
+    border: none;
+    width: 100px;
+    height: 100px;
+    padding-top: 77%;
+    text-align: center;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 10%;
+    background-color: transparent;
+}

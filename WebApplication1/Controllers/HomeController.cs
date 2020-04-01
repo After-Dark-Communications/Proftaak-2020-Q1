@@ -26,11 +26,19 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.ShowTopBar = true;
             return View();
         }
 
         public IActionResult Privacy()
         {
+            ViewBag.ShowTopBar = false;
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            ViewBag.ShowTopBar = false;
             return View();
         }
 

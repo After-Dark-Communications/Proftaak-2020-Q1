@@ -2,26 +2,445 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div style="display: inline-block;">
-    <div class="Top-Container">
-        <button class="Top-Bar TB-Selected" id="StartButton" onclick="BecomeSelected('StartButton', 'ScreenButton', 'A')">Start</button>
-        <button class="Top-Bar TB-Normal" id="ScreenButton" onclick="BecomeSelected('ScreenButton', 'StartButton', 'A')">Schermen</button>
-        <button class="Top-Bar TB-Normal" id="A" onclick="BecomeSelected('A', 'StartButton', 'ScreenButton')">A</button>
-    </div>
 
-</div>
-<div>
-    <div class="text-center">
+<div class="main-container">
+    <div class="tracks-column">
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">38</a></li>
+                <li class="tracks-yellow"><a href="#">2</a></li>
+                <li id="myInput" class="tracks-hover tracks-white"><a href="#">2201</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">37</a></li>
+                <li class="tracks-purple"><a href="#">5</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">36</a></li>
+                <li class="tracks-green"><a href="#">1</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">35</a></li>
+                <li class="tracks-brown"><a href="#">16/24</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">34</a></li>
+                <li class="tracks-yellow"><a href="#">2</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">33</a></li>
+                <li class="tracks-brown"><a href="#">16/24</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">32</a></li>
+                <li class="tracks-gray"><a href="#">10</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">31</a></li>
+                <li class="tracks-red"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">30</a></li>
+                <li class="tracks-brown"><a href="#">16/24</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train special tracks-gray tracks-in-out">
+            <ul>
+                <li><a href="#">2122</a></li>
+                <li><a href="#">9</a></li>
+                <li><a href="#">65</a></li>
+                <li><a href="#">32</a></li>
+                <li><a href="#">32</a></li>
+                <li><a href="#">32</a></li>
+                <li><a href="#">32</a></li>
+                <li><a href="#">32</a></li>
+            </ul>
+            <div class="container-header">
+                <a class="container-brand" href="#">in-/uitrij-spoor</a>
+            </div>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">41</a></li>
+                <li class="tracks-gray"><a href="#">10</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">42</a></li>
+                <li class="tracks-purple"><a href="#">5</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">43</a></li>
+                <li class="tracks-green"><a href="#">1</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">44</a></li>
+                <li class="tracks-blue"><a href="#">13</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">45</a></li>
+                <li class="tracks-red"><a href="#">17</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train special tracks-gray tracks-in-out">
+            <ul>
+                <li><a href="#">58</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+            <div class="container-header">
+                <a class="container-brand" href="#">in-/uitrij-spoor</a>
+            </div>
+        </div>
+    </div>
+    <div class="tracks-column">
+        <div class="container-train special tracks-combino tracks-combinoblue">
+            <div class="container-header">
+                <a class="container-brand" href="#">4x 11g/12g of 5x Combino</a>
+            </div>
+            <ul>
+                <li class="tracks-white"><a href="#">57</a></li>
+                <li class="tracks-brown"><a href="#">16/24</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">56</a></li>
+                <li class="tracks-purple"><a href="#">5</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">55</a></li>
+                <li class="tracks-yellow"><a href="#">2</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">54</a></li>
+                <li class="tracks-purple"><a href="#">5</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">53</a></li>
+                <li class="tracks-blue"><a href="#">13</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">52</a></li>
+                <li class="tracks-darkred"><a href="#">17</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">51</a></li>
+                <li class="tracks-green"><a href="#">1</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">64</a></li>
+                <li class="tracks-red"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">63</a></li>
+                <li class="tracks-yellow"><a href="#">2</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">62</a></li>
+                <li class="tracks-red"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-train normal tracks-bottom-row">
+            <ul>
+                <li class="tracks-white"><a href="#">61</a></li>
+                <li class="tracks-red"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            </ul>
+        </div>
+        <div class="container-repair tracks-red">
+            <div class="container-train normal tracks-bottom-row">
+                <ul>
+                    <li class="tracks-white"><a href="#">73</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="container-train normal tracks-bottom-row">
+                <ul>
+                    <li class="tracks-white"><a href="#">74</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="container-train normal tracks-bottom-row">
+                <ul>
+                    <li class="tracks-white"><a href="#">75</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="container-train normal tracks-bottom-row">
+                <ul>
+                    <li class="tracks-white"><a href="#">76</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="container-train normal tracks-bottom-row">
+                <ul>
+                    <li class="tracks-white"><a href="#">77</a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="container-header">
+                <a class="container-brand" href="#">Repair</a>
+            </div>
 
-        <h1 class="display-4">Welcome</h1>
-        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        </div>
+        <div class="container-train special tracks-gray tracks-long-stay">
+            <div class="container-header">
+                <a class="container-brand" href="#">Lang parkeer-sporen</a>
+            </div>
+            <div class="container-train normal">
+                <ul>
+                    <li class="tracks-white"><a href="#">12</a></li>
+                    <li class="tracks-white"><a href="#">13</a></li>
+                    <li class="tracks-white"><a href="#">14</a></li>
+                    <li class="tracks-white"><a href="#">15</a></li>
+                    <li class="tracks-white"><a href="#">16</a></li>
+                    <li class="tracks-white"><a href="#">17</a></li>
+                    <li class="tracks-white"><a href="#">18</a></li>
+                    <li class="tracks-white"><a href="#">19</a></li>
+                    <li class="tracks-white"><a href="#">20</a></li>
+                    <li class="tracks-white"><a href="#">21</a></li>
+                </ul>
+            </div>
+            <div class="container-train normal">
+                <ul>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
-<script>
-    function BecomeSelected(button, ...buttons) {
-        document.getElementById(button).setAttribute("class", "Top-Bar TB-Selected");
-        for (var i = 0; i < buttons.length; i++) {
-            document.getElementById(buttons[i]).setAttribute("class", "Top-Bar TB-Normal");
-        }
-    }
-</script>
+<div id="testmodal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tram 2201</h4>
+            </div>
+            <div class="modal-body">
+                <p>Spoornummer: 56</p>
+                <p>Soort: Dubbelkops Combino</p>
+            </div>
+            <div class="modal-footer">
+                <table>
+                    <tr>
+                        <th>Laatste Schoonmaakbeurd</th>
+                        <th>Laatsted Servicebeurt</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Klein: 0 dagen geleden</td>
+                        <td>Klein: 0 dagen geleden</td>
+                        <td>Defect</td>
+                    </tr>
+                    <tr>
+                        <td>Groot: 35 dagen geleden</td>
+                        <td>Groot: 35 dagen geleden</td>
+                        <td><button>Stuur Reperatie</button> | <button>Schoonmaak aanmelden</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts  {
+    <script type="text/javascript">
+        $("#myInput").click(function () {
+            $('#testmodal').modal('show');
+        });
+    </script>
+}
+
