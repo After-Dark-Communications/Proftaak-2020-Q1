@@ -16,6 +16,7 @@ using DAL.Interfaces;
 using DAL.Concrete;
 using Logic;
 using Microsoft.AspNetCore.Http;
+using WebApplication1.Repository;
 
 namespace WebApplication1
 {
@@ -49,10 +50,13 @@ namespace WebApplication1
             services.AddScoped<ITramAccess, TramAccess>();
             services.AddScoped<ISectorAccess, SectorAccess>();
             services.AddScoped<ITrackAccess, TrackAccess>();
+            services.AddScoped<IUserAccess, UserAccess>();
             services.AddScoped<Tram>();
             services.AddScoped<Track>();
             services.AddScoped<Sector>();
             services.AddScoped<Depot>();
+            services.AddScoped<User>();
+            services.AddScoped<LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
