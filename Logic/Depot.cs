@@ -13,19 +13,33 @@ namespace Logic
 
         private bool CheckIfTramIsAllowed(Tram tram)
         {
-            //check if tram number is known 
-            if (tram == )
-            {
-
-            }
             throw new NotImplementedException();
         }
 
-        public void ReceiveTram(Tram tram) 
+        public void ReceiveTram(Tram tram, bool defect, bool cleaning)
         {
+            //kijken of de tram bij onze remise naar binnen mag komen
             if (CheckIfTramIsAllowed(tram))
             {
+                changeTramStatus(tram, defect, cleaning);
+                AllocationManager.AllocateTramToService(tram);
                 AllocationManager.AllocateTramToTrack(tram);
+            }
+            else
+            {
+                //tram terugsturen / weigeren
+            }
+        }
+
+        private void changeTramStatus(Tram tram, bool defect, bool cleaning)
+        {
+            if (defect)
+            {
+                tram.ChangeStatus(TramStatus.Defect);
+            }
+            if (cleaning)
+            {
+                tram.ChangeStatus(TramStatus.Cleaning);
             }
         }
     }

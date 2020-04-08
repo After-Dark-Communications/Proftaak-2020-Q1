@@ -8,13 +8,14 @@ namespace Logic
     {
         public static void AllocateTramToService(Tram tram)
         {
+            //if tram has a status, send to repair / cleaning service
             throw new NotImplementedException();
         }
 
         public static void AllocateTramToTrack(Tram tram)
         {
-            //if status defect allocatetramtoservice
-            //check tracks
+            //if status defect send to a repairservice track. check each time if it's possible
+            //otherwise send to a normal track. check each time if it's possible
             throw new NotImplementedException();
         }
     }

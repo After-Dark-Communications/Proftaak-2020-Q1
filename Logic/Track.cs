@@ -11,5 +11,11 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+
+        //check if there is a spot on this track.
+        //add tram to track
+
+
     }
 }

@@ -12,5 +12,7 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+        //check if there is already a tram on this sector
     }
 }
