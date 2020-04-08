@@ -15,6 +15,7 @@ using WebApplication1.Services;
 using DAL.Interfaces;
 using DAL.Concrete;
 using Logic;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApplication1
 {
@@ -31,8 +32,19 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddDbContext<DepotContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddHttpContextAccessor();
+            services.AddSession();
             services.AddAutoMapper(typeof(MappingBootstrapper));
             services.AddScoped<ITramAccess, TramAccess>();
             services.AddScoped<ISectorAccess, SectorAccess>();
@@ -58,6 +70,8 @@ namespace WebApplication1
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseRouting();
 
