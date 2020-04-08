@@ -34,6 +34,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult Login(UserViewModel UserModel)
         {
+            //TODO: exceptionHandling
             UserDTO User = _mapper.Map<UserDTO>(UserModel);
             UserDTO result = _user.Login(User);
 

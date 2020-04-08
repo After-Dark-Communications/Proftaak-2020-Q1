@@ -18,6 +18,7 @@ namespace WebApplication1.Services
             CreateMap<TrackDTO, Track>().ReverseMap();
             CreateMap<SectorDTO, Sector>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<UserViewModel, UserDTO>().ReverseMap();
         }
     }
 }

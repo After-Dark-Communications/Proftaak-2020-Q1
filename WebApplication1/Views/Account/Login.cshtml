@@ -4,11 +4,10 @@
 }
 <link rel="stylesheet" href="~/css/LoginScreen.css" />
 <body>
-    <form class="LoginBox">
-
-        <p class="LB-Input">Username <input id="Username" type="text" /></p>
+    <form class="LoginBox" asp-action="Login">
+        <p class="LB-Input">Username <input id="Username" asp-for="UserName" type="text" /></p>
         <p />
-        <p class="LB-Input">Password <input id="PasswordField" type="password" /></p>
+        <p class="LB-Input">Password <input id="PasswordField" asp-for="Password" type="password" /></p>
         <input id="LoginButton" type="submit" value="Login" class="LB-Button" />
         <p class="LB-Text">Remember me? <input id="RememberMe" type="checkbox" /></p>
     </form>
