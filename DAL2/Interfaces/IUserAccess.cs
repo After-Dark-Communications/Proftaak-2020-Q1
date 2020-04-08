@@ -8,5 +8,6 @@ namespace DAL.Interfaces
 {
     public interface IUserAccess : IGenAccess<UserDTO>
     {
+        UserDTO GetUser(UserDTO account);
     }
 }

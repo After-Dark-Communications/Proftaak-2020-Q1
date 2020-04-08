@@ -9,6 +9,7 @@ using AutoMapper;
 using Context;
 using System.Linq;
 using DTO;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace DAL.Concrete
 {
@@ -64,6 +65,17 @@ namespace DAL.Concrete
             {
                 _context.Update(obj);
                 await _context.SaveChangesAsync();
+            }
+        }
+
+        public UserDTO GetUser(UserDTO account)
+        {
+            using (_context)
+            {
+                UserDTO user = new UserDTO();
+                var getuser = _context.User
+                    .Single(s => s.Username == account.UserName && s.Password == account.Password);
+                return user = _mapper.Map<UserDTO>(getuser);
             }
         }
     }
