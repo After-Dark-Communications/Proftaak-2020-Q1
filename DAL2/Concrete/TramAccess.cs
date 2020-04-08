@@ -9,6 +9,7 @@ using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using DTO;
+using Services;
 
 namespace DAL.Concrete
 {
@@ -63,11 +64,17 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                string query = $"SELECT * FROM Status_Tram WHERE TramId = {key}";
-                List<Status> status = _context.Status.FromSqlRaw(query).ToList();
-                TramDTO returnTram = new TramDTO();
-                returnTram = _mapper.Map<TramDTO>(_context.Tram.FirstOrDefault(t => t.Id == key));
-                string henk = " henk";
+                string query = $"SELECT * FROM Status_Tram WHERE TramId={key}";           
+                List<StatusDTO> stats = _mapper.Map<List<Status>, List<StatusDTO>>(_context.Status.FromSqlRaw(query).ToList());
+                foreach(StatusDTO stat in stats)
+                {
+                    stat.Status = (TramStatus) stat.StatusId - 1;
+                }
+
+                TramDTO returnTram = _mapper.Map<TramDTO>(_context.Tram.FirstOrDefault(t => t.Id == key));
+
+                returnTram.Status = stats;
+                return returnTram;
             }
             return null;
         }
