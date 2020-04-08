@@ -10,6 +10,7 @@ namespace Logic
     public class UserCollection
     {
         private readonly IUserAccess _userAcces;
+        private readonly User _user;
 
         public UserCollection(IUserAccess userAccess)
         {
@@ -17,7 +18,8 @@ namespace Logic
         }
         public void RegisterUser(UserDTO user)
         {
-            _userAcces.Create(user);
+            UserDTO model = _user.AlterUserCredentialsToHash(user);
+            _userAcces.Create(model);
         }
         public bool IsAdmin(UserDTO user)
         {

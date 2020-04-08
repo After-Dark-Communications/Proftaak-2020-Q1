@@ -40,7 +40,7 @@ namespace Logic
         }
 
         //hashing user data
-        private UserDTO AlterUserCredentialsToHash(UserDTO userCredentials)
+        public UserDTO AlterUserCredentialsToHash(UserDTO userCredentials)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -69,6 +69,5 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
-
     }
 }
