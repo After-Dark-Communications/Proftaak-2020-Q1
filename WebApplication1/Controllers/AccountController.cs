@@ -16,13 +16,15 @@ namespace WebApplication1.Controllers
         private readonly IMapper _mapper;
         private readonly User _user;
         private readonly LoginRepository _loginRepository;
+        private readonly UserCollection _userCollection;
 
 
-        public AccountController(IMapper mapper, User user, LoginRepository login)
+        public AccountController(IMapper mapper, User user, LoginRepository login, UserCollection userCollection)
         {
             _mapper = mapper;
             _user = user;
             _loginRepository = login;
+            _userCollection = userCollection;
         }
 
         public IActionResult Login()
@@ -44,6 +46,18 @@ namespace WebApplication1.Controllers
 
                 return RedirectToAction("Index", "HomeController");
             }
+            return View();
+        }
+        public IActionResult Register()
+        {
+            ViewBag.ShowTopBar = false;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Register(UserViewModel UserModel)
+        {
+            UserDTO User = _mapper.Map<UserDTO>(UserModel);
+            _userCollection.RegisterUser(User);
             return View();
         }
     }

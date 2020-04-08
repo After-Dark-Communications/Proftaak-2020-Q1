@@ -1,0 +1,16 @@
+﻿@model UserViewModel;
+@{
+    ViewData["Title"] = "Register";
+}
+<link rel="stylesheet" href="~/css/LoginScreen.css" />
+<body>
+    <form class="LoginBox" asp-action="Register"><!--TODO: FIX layout-->
+        <p class="LB-Input">First Name <input id="Username" asp-for="Name" type="text" /></p>
+        <p >Surname <input id="Username" asp-for="Surname" type="text" /></p>
+        <p >Username <input id="Username" asp-for="UserName" type="text" /></p>
+        <p />
+        <p class="LB-Input">Password <input id="PasswordField" asp-for="Password" type="password" /></p>
+        <p class="LB-Input">Repeat Password <input id="PasswordField" asp-for="Password" type="password" /></p>
+        <input id="LoginButton" type="submit" value="Register" class="LB-Button" />
+    </form>
+</body>
