@@ -63,11 +63,15 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                TramDTO tram = new TramDTO();
-                var readTram = _context.Tram.FirstOrDefault(i => i.Id == key);
-                return tram = _mapper.Map<TramDTO>(readTram);
+                string query = $"SELECT * FROM Status_Tram WHERE TramId = {key}";
+                List<Status> status = _context.Status.FromSqlRaw(query).ToList();
+                TramDTO returnTram = new TramDTO();
+                returnTram = _mapper.Map<TramDTO>(_context.Tram.FirstOrDefault(t => t.Id == key));
+                string henk = " henk";
             }
+            return null;
         }
+
 
         public async Task Update(TramDTO obj)
         {
