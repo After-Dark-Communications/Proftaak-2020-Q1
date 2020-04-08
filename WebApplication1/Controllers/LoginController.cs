@@ -8,7 +8,7 @@ namespace WebApplication1.Controllers
 {
     public class LoginController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Login()
         {
             ViewBag.ShowTopBar = false;
             return View();
