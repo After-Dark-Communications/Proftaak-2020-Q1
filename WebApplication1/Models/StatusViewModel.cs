@@ -8,7 +8,7 @@ namespace WebApplication1.Models
 {
     public class StatusViewModel
     {
-        public int Id { get; set; }
+        public int StatusId { get; set; }
         public TramStatus Status { get; set; }
         public string Description { get; set; }
         public StatusViewModel()
