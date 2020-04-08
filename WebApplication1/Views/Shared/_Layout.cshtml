@@ -14,11 +14,11 @@
 </head>
 <body style="background-color: #98FAAE;">
     <header>
-        @if (ViewBag.ShowTopBar ?? true)// TODO: add session logged-in bool
+        @if (ViewBag.ShowTopBar ?? true)//TODO: check for logged in user
         {
             <nav class="Top-Container">
                 <div class="TB-User">
-                    <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login","Login")'"/><!--TODO: Make Login Function-->
+                    <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login","Account")'" />
                 </div>
                 <div class="Top-Button-Container">
                     <input class="Top-Bar TB-Selected" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
@@ -36,8 +36,10 @@
             </nav>
         }
     </header>
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+    </div>
     @RenderBody()
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
