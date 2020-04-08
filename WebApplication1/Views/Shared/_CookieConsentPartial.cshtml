@@ -8,12 +8,12 @@
     <link href="~/css/Cookies.css" rel="stylesheet" />
 @if (showBanner)
 {
-    <div id="cookieConsent" ><!--lass="alert alert-info alert-dismissible fade show" role="alert">-->
-        We use Cookies to maintain functionality on particular sections of this site. By continuing to use this site, you accept all forms of cookies. <!--<a asp-page="/Privacy">Learn More</a>.--><!--TODO: Add better policy texts-->
-        <button type="button" class="accept-policy close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
-            <span aria-hidden="true">I Understand</span>
-        </button>
-    </div>
+<div id="cookieConsent" class=" alert Ck-Bar alert-dismissible fade show" role="alert">
+    We use Cookies to maintain functionality on particular sections of this site. By continuing to use this site, you accept all forms of cookies.
+    <button type="button" class="accept-policy CK-AcceptButton close" data-dismiss="alert" aria-label="Close" data-cookie-string="@cookieString">
+        <span aria-hidden="true">I Understand</span>
+    </button>
+</div>
     <script>
         (function () {
             var button = document.querySelector("#cookieConsent button[data-cookie-string]");
