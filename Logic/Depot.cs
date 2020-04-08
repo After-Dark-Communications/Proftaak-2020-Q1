@@ -13,6 +13,7 @@ namespace Logic
 
         private bool CheckIfTramIsAllowed(Tram tram)
         {
+            //check if the tram is allowed
             throw new NotImplementedException();
         }
 
@@ -35,11 +36,11 @@ namespace Logic
         {
             if (defect)
             {
-                tram.ChangeStatus(TramStatus.Defect);
+                tram.AddStatus(TramStatus.Defect);
             }
             if (cleaning)
             {
-                tram.ChangeStatus(TramStatus.Cleaning);
+                tram.AddStatus(TramStatus.Cleaning);
             }
         }
     }
