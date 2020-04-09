@@ -6,23 +6,23 @@ using System.Threading.Tasks;
 using Context;
 using DAL.Interfaces;
 using DAL.Models;
-using Logic;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using DTO;
 
 namespace DAL.Concrete
 {
     public class TramAccess : ITramAccess
     {
-        private readonly TramContext _context;
+        private readonly DepotContext _context;
         private readonly IMapper _mapper;
 
-        public TramAccess(TramContext context, IMapper mapper)
+        public TramAccess(DepotContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(TramDal obj)
+        public async Task Create(TramDTO obj)
         {
             using (_context)
             {
@@ -35,28 +35,29 @@ namespace DAL.Concrete
         {
             using (_context)
             {
-                var tram = await _context.Trams.FirstOrDefaultAsync(t => t.Id == key);
-                _context.Trams.Remove(tram);
+                var tram = await _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
+                _context.Remove(tram);
                 await _context.SaveChangesAsync();
             }
         }
 
-        public IEnumerable<TramDal> GetAllTrams()
+        public IEnumerable<TramDTO> GetAllTrams()
         {
-            return _context.Trams.ToList();
+            //return _context.Tram.ToList();
+            throw new NotImplementedException();
         }
 
-        public TramDal Read(int key)
+        public TramDTO Read(int key)
         {
             using (_context)
             {
-                TramDal tram = new TramDal();
-                var readTram = _context.Trams.FirstOrDefault(i => i.Id == key);
-                return tram = _mapper.Map<TramDal>(readTram);
+                TramDTO tram = new TramDTO();
+                var readTram = _context.Tram.FirstOrDefault(i => i.Id == key);
+                return tram = _mapper.Map<TramDTO>(readTram);
             }
         }
 
-        public async Task Update(TramDal obj)
+        public async Task Update(TramDTO obj)
         {
             using (_context)
             {

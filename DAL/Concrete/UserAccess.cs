@@ -4,29 +4,59 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Interfaces;
 using DAL.Models;
+using AutoMapper;
+using Context;
+using System.Linq;
+using DTO;
 
 namespace DAL.Concrete
 {
     public class UserAccess : IUserAccess
     {
-        public Task Create(UserDAL obj)
+        private readonly DepotContext _context;
+        private readonly IMapper _mapper;
+
+        public UserAccess(DepotContext context, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _mapper = mapper;
+        }
+        public async Task Create(UserDTO obj)
+        {
+            using(_context)
+            {
+                _context.Add(obj);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public Task Delete(int key)
+        public async Task Delete(int key)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                var deleteduser = _context.User.FirstOrDefault(x => x.Id == key);
+                _context.User.Remove(deleteduser);
+                await _context.SaveChangesAsync();
+            }
         }
 
-        public UserDAL Read(int key)
+        public UserDTO Read(int key)
         {
-            throw new NotImplementedException();
+            using(_context)
+            {
+                UserDTO user = new UserDTO();
+                var readuser = _context.User.FirstOrDefault(x => x.Id == key);
+                return user = _mapper.Map<UserDTO>(readuser);
+            }
         }
 
-        public Task Update(UserDAL obj)
+        public async Task Update(UserDTO obj)
         {
-            throw new NotImplementedException();
+            using(_context)
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

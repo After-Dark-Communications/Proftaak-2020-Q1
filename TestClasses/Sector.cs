@@ -29,9 +29,23 @@ namespace TestClasses
             return null;
         }
 
-        public void AddTram(Tram tram)
+        public void RemoveTram(Tram tram)
         {
-            _tramList.Add(tram);
+            Trams.Remove(tram);
+        }
+
+        public bool TryAddTram(Tram tram)
+        {
+            if(_tramList.Count == 0)
+            {
+                _tramList.Add(tram);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }
