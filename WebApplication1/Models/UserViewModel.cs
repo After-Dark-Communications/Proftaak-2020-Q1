@@ -22,5 +22,13 @@ namespace WebApplication1.Models
             this.Password = Password;
         }
 
+        public UserViewModel(string Username, string Name, string Surname, string Password)
+        {
+            this.UserName = UserName;
+            this.Name = Name;
+            this.Surname = Surname;
+            this.Password = Password;
+        }
+
     }
 }
