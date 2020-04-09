@@ -11,5 +11,16 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+
+    public bool CheckIfSectorIsEmpty()
+    {
+        throw new NotImplementedException();
     }
+
+    public Tram GetTram()
+    {
+        throw new NotImplementedException();
+    }
+}
 }
