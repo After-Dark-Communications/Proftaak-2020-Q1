@@ -26,16 +26,19 @@ namespace DAL.Concrete
         public async Task Create(UserDTO obj)
         {
             using(_context)
+            { 
+               await _context.AddAsync(obj); 
+               await _context.SaveChangesAsync();
+            }
+        }
+
+        public void CreateUser(UserDTO obj)
+        {
+            using (_context)
             {
-                try
-                {
-                    _context.Add(obj);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbException ex)
-                {
-                    throw ex;
-                }
+                User user = _mapper.Map<User>(obj);
+                _context.Add(user);
+                _context.SaveChanges();
             }
         }
 

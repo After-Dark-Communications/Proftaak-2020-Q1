@@ -12,14 +12,15 @@ namespace Logic
         private readonly IUserAccess _userAcces;
         private readonly User _user;
 
-        public UserCollection(IUserAccess userAccess)
+        public UserCollection(IUserAccess userAccess, User user)
         {
             _userAcces = userAccess;
+            _user = user;
         }
         public void RegisterUser(UserDTO user)
         {
             UserDTO model = _user.AlterUserCredentialsToHash(user);
-            _userAcces.Create(model);
+            _userAcces.CreateUser(model);
         }
         public bool IsAdmin(UserDTO user)
         {
