@@ -6,26 +6,28 @@
 <body>
     <form class="LoginBox LB-Register" asp-action="Register">
         <!--TODO: FIX layout-->
-        <div>
-            <p>First Name </p>
+        <div class="LB-Register-Box">
+            <p class="LB-Register-Text">First Name </p>
             <p><input id="Username" asp-for="Name" type="text" /></p>
         </div>
-        <div>
-            <p>Surname </p>
+        <div class="LB-Register-Box">
+            <p class="LB-Register-Text">Surname </p>
             <p><input id="Username" asp-for="Surname" type="text" /></p>
         </div>
-        <div>
-            <p>Username</p>
+        <div class="LB-Register-Box">
+            <p class="LB-Register-Text">Username</p>
             <p><input id="Username" asp-for="UserName" type="text" /></p>
         </div>
-        <div>
-            <p>Password </p>
+        <div class="LB-Register-Box">
+            <p class="LB-Register-Text">Password </p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
-        <div>
-            <p>Confirm Password </p>
+        <div class="LB-Register-Box">
+            <p class="LB-Register-Text">Confirm Password </p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
-        <input id="LoginButton" type="submit" value="Register" class="LB-Button" />
+        <div class="LB-Register_Button">
+            <input id="LoginButton" type="submit" value="Register" class="button-default"/>
+        </div>
     </form>
 </body>
