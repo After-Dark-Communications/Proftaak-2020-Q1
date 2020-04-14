@@ -14,12 +14,14 @@ namespace WebApplication1.Controllers
     {
 
         Tram _tramLogic;
+        Sector _sectorLogic;
         IMapper _mapper;
 
-        public TestController(ITramAccess ac, IMapper mapper)
+        public TestController(ITramAccess ac, IMapper mapper, ISectorAccess sectorAccess)
         {
             _mapper = mapper;
             _tramLogic = new Tram(ac);
+            _sectorLogic = new Sector(sectorAccess);
         }
 
         public IActionResult Index()

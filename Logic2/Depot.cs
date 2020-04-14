@@ -9,18 +9,45 @@ namespace Logic
     {
         public ICollection<UserDTO> Users { get; set; }
         private ICollection<TrackDTO> DepotTracks { get; set; }
+        Track _tracklogic;
+        
+        public Depot(Track tracklogic)
+        {
+            this._tracklogic = tracklogic;
+        }
+
+        public void ReceiveTram(TramDTO tram, bool repairstatus, bool cleanstatus) 
+        {
+
+            if (CheckIfTramIsAllowed(tram))
+            {
+                //changeTramStatus(tram, repairstatus, cleanstatus);
+                //AllocationManager.AllocateTramToService(tram);
+
+                AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic);
+            }
+        }
 
         private bool CheckIfTramIsAllowed(TramDTO tram)
         {
             throw new NotImplementedException();
         }
 
-        public void ReceiveTram(TramDTO tram) 
+        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus)
         {
-            if (CheckIfTramIsAllowed(tram))
+            if (repairstatus)
             {
-                AllocationManager.AllocateTramToTrack(tram);
+                //add statusDTO to tram
             }
+            if (cleanstatus)
+            {
+                //add statusDTO to tram
+            }
+        }
+
+        public void testMapMethod(TramDTO tram)
+        {
+            //tramDTO -> logic tram class
         }
     }
 }

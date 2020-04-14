@@ -2,25 +2,50 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL.Interfaces;
 
 namespace Logic
 {
     public class Sector
     {
-        public void AddTram(TramDTO tram)
+        private readonly ISectorAccess _sectorAccess;
+        public Sector(ISectorAccess sectorAcces)
         {
-            throw new NotImplementedException();
+            this._sectorAccess = sectorAcces;
+        }
+        public TramDTO tramOnLocation; // dit gaat weg zodra de sql statements komen
+        public void AddTram(TramDTO tram, SectorDTO sector)
+        {
+            sector.Tram = tram;
+            _sectorAccess.Update(sector);
+        }
+
+        public void removeTram()
+        {
+            this.tramOnLocation = null;
         }
 
 
     public bool CheckIfSectorIsEmpty()
     {
-        throw new NotImplementedException();
+            if (tramOnLocation == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
     }
 
-    public Tram GetTram()
+    public TramDTO GetTram()
     {
-        throw new NotImplementedException();
+            return tramOnLocation;
     }
+
+    public void testMapMethod2(Tram tram)
+        {
+            //tram -> tramDTO
+        }
 }
 }
