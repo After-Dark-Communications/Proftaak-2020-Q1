@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using DTO;
 using Services;
+using System.Data.SqlClient;
+using DAL.Context;
 
 namespace DAL.Concrete
-{
+{ 
     public class TramAccess : ITramAccess
     {
         private readonly DepotContext _context;
@@ -62,21 +64,34 @@ namespace DAL.Concrete
 
         public TramDTO Read(int key)
         {
-            using (_context)
+            //using (_context)
+            //{
+            //    string query = $"SELECT * FROM Status_Tram WHERE TramId={key}";           
+            //    List<StatusDTO> stats = _mapper.Map<List<Status>, List<StatusDTO>>(_context.Status.FromSqlRaw(query).ToList());
+            //    foreach(StatusDTO stat in stats)
+            //    {
+            //        stat.Status = (TramStatus) stat.StatusId - 1;
+            //    }
+
+            //    TramDTO returnTram = _mapper.Map<TramDTO>(_context.Tram.FirstOrDefault(t => t.Id == key));
+
+            //    returnTram.Status = stats;
+            //    return returnTram;
+            //}
+            //return null;
+
+            TramDTO returnTram = new TramDTO();
+            string query = "SELECT * FROM Tram WHERE Id=@key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
-                string query = $"SELECT * FROM Status_Tram WHERE TramId={key}";           
-                List<StatusDTO> stats = _mapper.Map<List<Status>, List<StatusDTO>>(_context.Status.FromSqlRaw(query).ToList());
-                foreach(StatusDTO stat in stats)
+                using (SqlCommand command = new SqlCommand(query))
                 {
-                    stat.Status = (TramStatus) stat.StatusId - 1;
+                    con.Open();
+                    con.Close();
                 }
-
-                TramDTO returnTram = _mapper.Map<TramDTO>(_context.Tram.FirstOrDefault(t => t.Id == key));
-
-                returnTram.Status = stats;
-                return returnTram;
             }
-            return null;
+
+            return returnTram;
         }
 
 
