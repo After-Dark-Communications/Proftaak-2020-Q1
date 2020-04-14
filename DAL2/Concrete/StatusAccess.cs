@@ -37,7 +37,7 @@ namespace DAL.Concrete
             using (_context)
             {
                 StatusDTO status = new StatusDTO();
-                var readStatus = _context.Status.FirstOrDefault(i => i.Id == key);
+                var readStatus = _context.Status.FirstOrDefault(i => i.StatusId == key);
                 return status = _mapper.Map<StatusDTO>(readStatus);
             }
         }
