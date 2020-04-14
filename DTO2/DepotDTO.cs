@@ -6,6 +6,8 @@ namespace DTO
 {
     public class DepotDTO
     {
+        public int Id { get; set; }
+        public string Location { get; set; }
         public ICollection<UserDTO> Users { get; set; }
         private ICollection<TrackDTO> DepotTracks { get; set; }
     }
