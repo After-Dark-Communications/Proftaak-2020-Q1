@@ -12,5 +12,10 @@ namespace DTO
         public ICollection<StatusDTO> Status { get; set; }
         public string TramNumber { get; set; }
         private ICollection<TrackDTO> PreferredTracksList { get; set; }
+
+        public TramDTO()
+        {
+            Status = new List<StatusDTO>();
+        }
     }
 }

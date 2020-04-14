@@ -81,12 +81,27 @@ namespace DAL.Concrete
             //return null;
 
             TramDTO returnTram = new TramDTO();
-            string query = "SELECT * FROM Tram WHERE Id=@key";
+            string query = "SELECT Status_Tram.Id, Status_Tram.StatusId, Status_Tram.Description, Status_Tram.TramId, Tram.TramNumber, Tram.Type FROM Status_Tram INNER JOIN Tram on Status_Tram.TramId = Tram.Id WHERE TramId = @key";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand command = new SqlCommand(query))
+                using (SqlCommand command = new SqlCommand(query, con))
                 {
                     con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            returnTram.Id = reader.GetInt32(3);
+                            returnTram.Type = (TramType)reader.GetInt32(5);
+                            returnTram.TramNumber = reader.GetString(4);
+                            StatusDTO stat = new StatusDTO();
+                            stat.Status = (TramStatus)reader.GetInt32(1);
+                            stat.StatusId = reader.GetInt32(0);
+                            stat.Description = reader.GetString(2);
+                            returnTram.Status.Add(stat);
+                        }
+                    }
                     con.Close();
                 }
             }
