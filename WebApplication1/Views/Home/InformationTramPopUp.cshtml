@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="test1">
     <div class="status-left">
         <div class="status-info">
             <h4 class="status-title">Tram 2201</h4>
@@ -35,17 +35,17 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            var countdiv = document.querySelectorAll('#getcount div').length;
-            var children = document.getElementById("getcount").children;
-            var x = 100 / countdiv;
-            for (var i = 0; i < countdiv; i++) {
-                if (i == countdiv - 1) {
-                    children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
-                    return;
-                }
-                children[i].setAttribute("style", "width:" + x + "%;");
-            }
-        });
+        //$(document).ready(function () {
+        //    var countdiv = document.querySelectorAll('#getcount div').length;
+        //    var children = document.getElementById("getcount").children;
+        //    var x = 100 / countdiv;
+        //    for (var i = 0; i < countdiv; i++) {
+        //        if (i == countdiv - 1) {
+        //            children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
+        //            return;
+        //        }
+        //        children[i].setAttribute("style", "width:" + x + "%;");
+        //    }
+        //});
     </script>
 }
