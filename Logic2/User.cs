@@ -28,13 +28,13 @@ namespace Logic
         public UserDTO Login(UserDTO user)
         {
             UserDTO HashUser = AlterUserCredentialsToHash(user);
-            UserDTO resultmodel = _userAccess.GetUser(HashUser);
+            //UserDTO resultmodel = _userAccess.Read(HashUser);
 
-            if (CheckIfAccountDataIsEmpty(resultmodel))
-            {
-                UserDTO result = _mapper.Map<UserDTO>(resultmodel);
-                return result;
-            }
+            //if (CheckIfAccountDataIsEmpty(resultmodel))
+            //{
+            //    UserDTO result = _mapper.Map<UserDTO>(resultmodel);
+            //    return result;
+            //}
 
             return user;
         }

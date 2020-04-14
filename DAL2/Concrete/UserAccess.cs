@@ -23,23 +23,35 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
+
         public async Task Create(UserDTO obj)
         {
-            using(_context)
-            { 
-               await _context.AddAsync(obj); 
-               await _context.SaveChangesAsync();
-            }
-        }
+            //using (SqlConnection conn = new SqlConnection(DbConnection.connection))
+            //{
+            //    using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
+            //    {
+            //        conn.Open();     
+            //          command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
+            //          command.Parameters.Add(new SqlParameter("Name", obj.Name));
+            //          command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
+            //          command.Parameters.Add(new SqlParameter("Password", obj.Password));
+            //        conn.Close();
+            //        
+            //    }
 
-        public void CreateUser(UserDTO obj)
-        {
-            using (_context)
-            {
-                User user = _mapper.Map<User>(obj);
-                _context.Add(user);
-                _context.SaveChanges();
-            }
+            //using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
+            //    {
+            //        conn.Open();     
+            //          foreach(var permission in obj.Permissions)
+            //{
+            //    command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
+            //    command.Parameters.Add(new SqlParameter("UserName", obj.Name));
+
+            //}
+            //        conn.Close();
+            //       
+            //    }
+            //}
         }
 
         public async Task Delete(int key)
@@ -68,17 +80,6 @@ namespace DAL.Concrete
             {
                 _context.Update(obj);
                 await _context.SaveChangesAsync();
-            }
-        }
-
-        public UserDTO GetUser(UserDTO account)
-        {
-            using (_context)
-            {
-                UserDTO user = new UserDTO();
-                var getuser = _context.User
-                    .Single(s => s.Username == account.UserName && s.Password == account.Password);
-                return user = _mapper.Map<UserDTO>(getuser);
             }
         }
     }
