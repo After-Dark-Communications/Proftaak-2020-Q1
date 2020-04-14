@@ -49,6 +49,13 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [HttpPost]
+
+        public IActionResult InformationTramPopUp(int tramnumber)
+        {
+            return PartialView("InformationTramPopUp");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

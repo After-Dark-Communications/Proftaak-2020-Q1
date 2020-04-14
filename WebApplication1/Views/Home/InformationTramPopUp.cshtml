@@ -1,0 +1,51 @@
+﻿<div>
+    <div class="status-left">
+        <div class="status-info">
+            <h4 class="status-title">Tram 2201</h4>
+            <h4 class="status-title">Spoornummer: 38</h4>
+            <h4 class="status-title">Soort: Combino</h4>
+        </div>
+        <div class="status-info">
+            <p class="status-title">Laatste Schoonmaakbeurt</p>
+            <p>Klein: 0 dagen geleden</p>
+            <p>Groot: 35 dagen geleden</p>
+        </div>
+        <div class="status-info">
+            <p class="status-title">Laatste Servicebeurt</p>
+            <p>Klein: 0 dagen geleden</p>
+            <p>Groot: 35 dagen geleden</p>
+        </div>
+        <div id="getcount" class="status-inline">
+            <div>Status:</div>
+            <div class="status-defect">Reparatie</div>
+            <div class="status-cleaning">Schoonmaak</div>
+        </div>
+    </div>
+    <div class="status-right">
+        <input type="button" class="status-buttom" value="Verplaats Tram naar..." />
+        <input type="button" class="status-buttom" value="Verwijder Tram" />
+        <input type="button" class="status-buttom" value="Schoonmaak Aanmelden" />
+        <input type="button" class="status-buttom" value="Stuur naar Reperatie" />
+    </div>
+</div>
+
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var countdiv = document.querySelectorAll('#getcount div').length;
+            var children = document.getElementById("getcount").children;
+            var x = 100 / countdiv;
+            for (var i = 0; i < countdiv; i++) {
+                if (i == countdiv - 1) {
+                    children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
+                    return;
+                }
+                children[i].setAttribute("style", "width:" + x + "%;");
+            }
+        });
+    </script>
+}

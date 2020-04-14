@@ -10,7 +10,61 @@
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
+                <li href="#" onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else if (Model.Tracks[0].Sectors.Length - 1 == i && Model.Tracks[])
+                            {
+                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">37</a></li>
+                <li class="tracks-purple"><a href="#">5</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
+            </ul>
+        </div>
+        <div class="container-train normal">
+            <ul>
+                <li class="tracks-white"><a href="#">36</a></li>
+                <li class="tracks-green"><a href="#">1</a></li>
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
@@ -37,32 +91,27 @@
         </div>
         <div class="container-train normal">
             <ul>
-                <li class="tracks-white"><a href="#">37</a></li>
-                <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-            </ul>
-        </div>
-        <div class="container-train normal">
-            <ul>
-                <li class="tracks-white"><a href="#">36</a></li>
-                <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-            </ul>
-        </div>
-        <div class="container-train normal">
-            <ul>
                 <li class="tracks-white"><a href="#">35</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -73,6 +122,25 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
+                            {
+                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -83,6 +151,21 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -93,6 +176,25 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @*@{
+                        int i = 0;
+                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
+                        {
+                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
+                            {
+                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
+                            }
+                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
+                            {
+                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                            }
+                            else
+                            {
+                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                            }
+                            i++;
+                        }
+                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -418,62 +520,38 @@
     </div>
 
 </div>
-<div id="testmodal" class="modal fade">
+<div class="modal fade" id="testmodal">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="status-left">
-                <div class="status-info">
-                    <h4 class="status-title">Tram @Model.Tracks[0].Sectors[0].Trams[0].Number</h4>
-                    <h4 class="status-title">Spoornummer: @Model.Tracks[0].TrackNumber</h4>
-                    <h4 class="status-title">Soort: @Model.Tracks[0].Sectors[0].Trams[0].Type</h4>
-                </div>
-                <div class="status-info">
-                    <p class="status-title">Laatste Schoonmaakbeurt</p>
-                    <p>Klein: 0 dagen geleden</p>
-                    <p>Groot: 35 dagen geleden</p>
-                </div>
-                <div class="status-info">
-                    <p class="status-title">Laatste Servicebeurt</p>
-                    <p>Klein: 0 dagen geleden</p>
-                    <p>Groot: 35 dagen geleden</p>
-                </div>
-                <div id="getcount" class="status-inline">
-                    <div>Status:</div>
-                    <div class="status-defect">Reparatie</div>
-                    <div class="status-cleaning">Schoonmaak</div>
-                </div>
-            </div>
-            <div class="status-right">
-                <input type="button" class="status-buttom" value="Verplaats Tram naar..." />
-                <input type="button" class="status-buttom" value="Verwijder Tram" />
-                <input type="button" class="status-buttom" value="Schoonmaak Aanmelden" />
-                <input type="button" class="status-buttom" value="Stuur naar Reperatie" />
-            </div>
+        <div class="modal-content" id="traminfo">
+
         </div>
     </div>
 </div>
 
 
-
-@section Scripts  {
+@section Scripts {
     <script type="text/javascript">
         function clickInfoTram(number) {
             //alert(Number);
-            $('#testmodal').modal('show');
-        }
-        $(document).ready(function () {
-            var countdiv = document.querySelectorAll('#getcount div').length;
-            var children = document.getElementById("getcount").children;
-            var x = 100 / countdiv;
-            for (var i = 0; i < countdiv; i++) {
-                if (i == countdiv - 1) {
-                    children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
-                    return;
+
+            //var url ="/Home/InformationTramPopUp?tramnumber="+number;
+
+            //$("#traminfo").load(url, function() {
+            //        $('#testmodal').modal('show');
+            //    });
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Home/InformationTramPopUp",
+                data: { tramnumber: number },
+                success: function (response) {
+
+                    $('#traminfo').html(response);
+                    $('#testmodal').modal('show');
                 }
-                children[i].setAttribute("style", "width:" + x + "%;");
-            }
-
-        });
-
+            });
+        }
     </script>
 }
+
