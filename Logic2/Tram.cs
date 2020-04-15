@@ -15,15 +15,6 @@ namespace Logic
             _tramAccess = tramAccess;
         }
 
-        public void GetType()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetServiceHistory()
-        {
-            throw new NotImplementedException();
-        }
         public TramDTO GetTram(int key)
         {
             return _tramAccess.Read(key);

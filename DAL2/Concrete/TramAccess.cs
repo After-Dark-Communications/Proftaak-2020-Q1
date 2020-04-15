@@ -36,28 +36,18 @@ namespace DAL.Concrete
 
         public async Task Delete(int key)
         {
-            using (_context)
-            {
-                var tram = _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
-                _context.Remove(tram);
-                await _context.SaveChangesAsync();
-            }
+            
         }
 
         public IEnumerable<TramDTO> GetAllTrams()
         {
             throw new NotImplementedException();
         }
-        public IEnumerable<StatusDTO> GetAllStatuses(int key)
-        {
-
-            throw new NotImplementedException();
-        }
 
         public TramDTO ReadFromTramNumber(string tramNumber)
         {
             TramDTO returnTram = new TramDTO();
-            string query = "SELECT Status_Tram.Id, Status_Tram.StatusId, Status_Tram.Description, Status_Tram.TramId, Tram.TramNumber, Tram.Type FROM Tram INNER JOIN Status_Tram on Tram.Id = Status_Tram.TramId WHERE  TramNumber= @key";
+            string query = "SELECT * FROM Tram WHERE TramNumber = @key";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -68,14 +58,9 @@ namespace DAL.Concrete
                     {
                         while (reader.Read())
                         {
-                            returnTram.Id = reader.GetInt32(3);
-                            returnTram.Type = (TramType)reader.GetInt32(5);
-                            returnTram.TramNumber = reader.GetString(4);
-                            StatusDTO stat = new StatusDTO();
-                            stat.Status = (TramStatus)reader.GetInt32(1);
-                            stat.StatusId = reader.GetInt32(0);
-                            stat.Description = reader.GetString(2);
-                            returnTram.Status.Add(stat);
+                            returnTram.Id = reader.GetInt32(0);
+                            returnTram.Type = (TramType)reader.GetInt32(1);
+                            returnTram.TramNumber = reader.GetString(2);
                         }
                     }
                     con.Close();
@@ -88,9 +73,7 @@ namespace DAL.Concrete
         public TramDTO Read(int key)
         {
             TramDTO returnTram = new TramDTO();
-            string query = "SELECT Status_Tram.Id, Status_Tram.StatusId, Status_Tram.Description, Status_Tram.TramId, Tram.TramNumber, Tram.Type " +
-                "FROM Status_Tram INNER JOIN Tram on Status_Tram.TramId = Tram.Id " +
-                "WHERE TramId = @key";
+            string query = "SELECT * FROM Tram WHERE Id = @key";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -101,27 +84,101 @@ namespace DAL.Concrete
                     {
                         while (reader.Read())
                         {
-                            returnTram.Id = reader.GetInt32(3);
-                            returnTram.Type = (TramType)reader.GetInt32(5);
-                            returnTram.TramNumber = reader.GetString(4);
+                            returnTram.Id = reader.GetInt32(0);
+                            returnTram.Type = (TramType)reader.GetInt32(1);
+                            returnTram.TramNumber = reader.GetString(2);                            
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            returnTram.Status = GetStatusesFromTram(key);
+            return returnTram;
+        }
+
+
+        public async Task Update(TramDTO obj) // now only updates statuses from the tram.
+        {
+            UpdateStatuses(obj, GetStatusesFromTram(obj.Id));
+        }
+
+        private void UpdateStatuses(TramDTO tram, List<StatusDTO> oldStatuses)
+        {
+            foreach(StatusDTO tramStat in tram.Status)
+            {
+                if(!oldStatuses.Any(s => s.StatusId == tramStat.StatusId))
+                {
+                    AddStatus(tram.Id, tramStat);
+                }
+            }
+            foreach (StatusDTO stat in oldStatuses)
+            {
+                if(!tram.Status.Any(s => s.StatusId == stat.StatusId))
+                {
+                    DeleteStatus(stat.StatusId);
+                }
+            }
+        }
+
+        private void AddStatus(int tramKey, StatusDTO stat)
+        {
+            string query = "INSERT INTO Status_Tram (StatusId, TramId, Description) VALUES (@stat, @tramKey, @description)";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@stat", (int)stat.Status);
+                    command.Parameters.AddWithValue("@tramKey", tramKey);
+                    command.Parameters.AddWithValue("@description", stat.Description);
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+        }
+
+        private void DeleteStatus(int key)
+        {
+            string query = "DELETE FROM Status_Tram WHERE Id = @key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+        }
+
+        private List<StatusDTO> GetStatusesFromTram(int key)
+        {
+            List<StatusDTO> returnList = new List<StatusDTO>();
+
+            string query ="SELECT * FROM Status_Tram WHERE TramId = @key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
                             StatusDTO stat = new StatusDTO();
-                            stat.Status = (TramStatus)reader.GetInt32(1);
-                            stat.StatusId = reader.GetInt32(0);
+                            stat.Status = (TramStatus)reader.GetInt32(0);
+                            stat.StatusId = reader.GetInt32(3);
                             stat.Description = reader.GetString(2);
-                            returnTram.Status.Add(stat);
+                            returnList.Add(stat);
                         }
                     }
                     con.Close();
                 }
             }
 
-            return returnTram;
-        }
-
-
-        public async Task Update(TramDTO obj)
-        {
-            string query = "UPDATE Status_Tram";
+            return returnList;
         }
     }
 }
