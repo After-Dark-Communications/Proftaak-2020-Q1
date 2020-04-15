@@ -20,7 +20,7 @@ namespace Logic
         public void RegisterUser(UserDTO user)
         {
             UserDTO model = _user.AlterUserCredentialsToHash(user);
-            _userAcces.Create(model);
+            _userAcces.CreateUser(model);
         }
         public bool IsAdmin(UserDTO user)
         {

@@ -25,7 +25,7 @@ namespace DAL.Concrete
             _mapper = mapper;
         }
 
-        public void Create(UserDTO obj)
+        public void CreateUser(UserDTO obj)
         {
             using (_context)
             {
@@ -91,25 +91,38 @@ namespace DAL.Concrete
 
             using (_context)
             {
-                using (SqlCommand command = new SqlCommand("SELECT User.UserName, User.Name, User.Surname, User.Password, Permission.Name, Permission.Description FROM Account WHERE UserName = @UserName AND Password = @Password INNER JOIN "))
+                using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description" +
+                "FROM[dbi384571].[dbo].[User]" +
+                "INNER JOIN User_Permission On[User].Id = User_Permission.UserId" +
+                "INNER JOIN Permission on User_Permission.PermissionId = Permission.Id" +
+                "WHERE[User].UserName = @UserName AND[User].Password = @Password"))
                 {
                     command.Parameters.AddWithValue("UserName", user.UserName);
                     command.Parameters.AddWithValue("Password", user.Password);
 
                     SqlDataReader reader = command.ExecuteReader();
 
-                   
-                        string UserName = reader.GetString(1);
-                        string Name = reader.GetString(2);
-                        string Surname = reader.GetString(3);
-                        string Password = reader.GetString(4);
-
-                        UserDTO UserData = new UserDTO(UserName, Password, Name, Surname);//todo add properties
+                    while (reader.Read())
+                    {
+                        string UserName = reader.GetString(0);
+                        string Name = reader.GetString(1);
+                        string Surname = reader.GetString(2);
+                        string Password = reader.GetString(3);
+                        string permission = reader.GetString(4);
+                        string description = reader.GetString(5);
+                        UserDTO UserData = new UserDTO(UserName, Password, Name, Surname);
+                        UserData.Permissions.Add(new PermissionDTO(permission, description));
                         return UserData;
-                    
+                    }
+
                     return EmptyDTO;
                 }
             }
+        }
+
+        public UserDTO Get()
+        {
+            throw new NotImplementedException();
         }
     }
 }

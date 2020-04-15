@@ -54,9 +54,9 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Register(UserViewModel UserModel)
+        public IActionResult Register(UserViewModel userModel)
         {
-            UserDTO User = _mapper.Map<UserDTO>(UserModel);
+            UserDTO User = _mapper.Map<UserDTO>(userModel);
             _userCollection.RegisterUser(User);
             return View();
         }
