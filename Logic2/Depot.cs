@@ -15,16 +15,18 @@ namespace Logic
         Tram _tramlogic;
         RepairService _repairServiceLogic;
         CleaningService _cleaningServiceLogic;
+        private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, RepairService repairServiceLogic, CleaningService _cleaningServiceLogic)
+        public Depot(Track tracklogic, Tram tramlogic, RepairService repairServiceLogic, CleaningService _cleaningServiceLogic, IDepotAccess depotAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
             this._repairServiceLogic = repairServiceLogic;
             this._cleaningServiceLogic = _cleaningServiceLogic;
+            this._depotaccess = depotAccess;
         }
 
-        public void ReceiveTram(int tramNumber, bool repairstatus, bool cleanstatus) 
+        public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus) 
         {
             if (CheckIfTramIsAllowed(tramNumber, _tramlogic))
             {
@@ -35,7 +37,7 @@ namespace Logic
             }
         }
 
-        private bool CheckIfTramIsAllowed(int tramNumber, Tram _tramlogic)
+        private bool CheckIfTramIsAllowed(string tramNumber, Tram _tramlogic)
         {
             _tramlogic.CheckIfTramExists(tramNumber);
             throw new NotImplementedException();
