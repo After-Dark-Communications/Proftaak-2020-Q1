@@ -7,27 +7,53 @@
     <form class="LoginBox LB-Register" asp-action="Register">
         <!--TODO: FIX layout-->
         <div class="LB-Register-Box">
-            <p class="LB-Register-Text">First Name </p>
+            <p class="LB-Register-Text">Voornaam </p>
             <p><input id="Username" asp-for="Name" type="text" /></p>
         </div>
         <div class="LB-Register-Box">
-            <p class="LB-Register-Text">Surname </p>
+            <p class="LB-Register-Text">Achternaam </p>
             <p><input id="Username" asp-for="Surname" type="text" /></p>
         </div>
         <div class="LB-Register-Box">
-            <p class="LB-Register-Text">Username</p>
+            <p class="LB-Register-Text">Gebruikers naam</p>
             <p><input id="Username" asp-for="UserName" type="text" /></p>
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
         <div class="LB-Register-Box">
-            <p class="LB-Register-Text">Password </p>
+            <p class="LB-Register-Text">Wachtwoord</p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
         <div class="LB-Register-Box">
-            <p class="LB-Register-Text">Confirm Password </p>
+            <p class="LB-Register-Text">Wachtwoord Bevestigen</p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
+      @{ 
+          PermissionViewModel per = new PermissionViewModel();
+      }
+        <p>
+            <div class="LB-Register-CheckBox">
+                <span>@Html.CheckBox("AdminCheck")</span>
+                <span class="LB-Register-Text">Beheerder</span>
+            </div>
+            <div class="LB-Register-CheckBox">
+                <input id="RemiseAdmin" type="checkbox" value="RemiseAdmin" />
+                <span class="LB-Register-Text">Wagenparkbeheerder</span>
+            </div>
+            <div class="LB-Register-CheckBox">
+                <input id="Conductor" type="checkbox" value="Conductor" />
+                <span class="LB-Register-Text">Bestuurder</span>
+            </div>
+            <div class="LB-Register-CheckBox">
+                <input id="Technician" type="checkbox" value="Technician" />
+                <span class="LB-Register-Text">Technicus</span>
+            </div>
+            <div class="LB-Register-CheckBox">
+                <input id="Cleaner" type="checkbox" value="Cleaner" />
+                <span class="LB-Register-Text">Schoonmaker</span>
+            </div>
+        </p>
         <div class="LB-Register_Button">
-            <input id="LoginButton" type="submit" value="Register" class="button-default"/>
+            <input id="LoginButton" type="submit" value="Register" class="button-default" />
         </div>
     </form>
 </body>

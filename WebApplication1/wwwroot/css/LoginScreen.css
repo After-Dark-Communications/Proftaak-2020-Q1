@@ -53,3 +53,7 @@
 .LB-Register_Button *{
     width: 100%;
 }
+
+.LB-Register-CheckBox{
+    padding-left: 24px;
+}
