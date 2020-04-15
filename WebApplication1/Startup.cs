@@ -37,6 +37,7 @@ namespace WebApplication1
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(MappingBootstrapper));
             services.AddScoped<ITramAccess, TramAccess>();
+            services.AddScoped<IDepotAccess, DepotAccess>();
             services.AddScoped<ISectorAccess, SectorAccess>();
             services.AddScoped<ITrackAccess, TrackAccess>();
             services.AddScoped<Tram>();
