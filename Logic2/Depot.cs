@@ -35,31 +35,34 @@ namespace Logic
                 AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
                 AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic, _repairServiceLogic);
             }
+            else
+            {
+                //not needed yet
+            }
         }
 
         private bool CheckIfTramIsAllowed(string tramNumber, Tram _tramlogic)
         {
-            _tramlogic.CheckIfTramExists(tramNumber);
-            throw new NotImplementedException();
+            return _tramlogic.CheckIfTramExists(tramNumber);
         }
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {
-            //dit moet hoogstwss anders
-            StatusDTO statusDepot = new StatusDTO();
-            statusDepot.Status = TramStatus.Depot;
-            _tramlogic.AddStatus(statusDepot, tram);
+
+            StatusDTO statusInDepot = new StatusDTO();
+            statusInDepot.Status = TramStatus.Depot;
+            _tramlogic.AddStatus(statusInDepot, tram);
 
             if (repairstatus)
             {
-                //dit moet hoogstwss anders
+
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Defect;
                 _tramlogic.AddStatus(status, tram);
             }
             if (cleanstatus)
             {
-                //dit moet hoogstwss anders
+
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Cleaning;
                 _tramlogic.AddStatus(status, tram);

@@ -24,8 +24,7 @@ namespace Logic
 
         public static void AllocateTramToTrack(TramDTO tram, ICollection<TrackDTO> tracks, Track _Tracklogic, RepairService _repairServiceLogic)
         {
-            //if tram is in the repairservice -> send to a repair trakk
-           // if (_repairServiceLogic)
+            //if tram is in the repairservice -> send to a repair track
 
             foreach (TrackDTO track in tracks)
             {

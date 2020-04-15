@@ -22,8 +22,6 @@ namespace Logic
             {
                 return false;
             }
-
-            throw new NotImplementedException();
         }
 
         public bool CheckTramCanBeStored(TramDTO tram, TrackDTO track)

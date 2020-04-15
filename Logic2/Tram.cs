@@ -21,7 +21,7 @@ namespace Logic
             if(!tram.Status.Any(s => s.Status == status.Status))
             {
                 tram.Status.Add(status);
-                _tramAccess.Update(tram);
+                Update(tram);
             }
         }
 
@@ -32,14 +32,18 @@ namespace Logic
 
         public bool CheckIfTramExists(string tramNumber)
         {
-           try
+            return true;
+            /*
+            if (_tramAccess.ReadFromTramNumber(tramNumber) == null)
             {
-                _tramAccess.ReadFromTramNumber(tramNumber);
                 return true;
-            }catch
+            }      
+            else
             {
                 return false;
-            }
+            }//*/
+
+           
         }
 
         public void GetServiceHistory()
@@ -56,7 +60,7 @@ namespace Logic
             return _tramAccess.ReadFromTramNumber(tramNumber);
         }
 
-        public void Update(TramDTO tram )
+        public void Update(TramDTO tram ) // private maken?
         {
             _tramAccess.Update(tram);
         }
