@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Common;
+using System.Data.SqlClient;
+using DAL.Context;
 
 namespace DAL.Concrete
 {
@@ -22,50 +24,91 @@ namespace DAL.Concrete
         }
         public async Task Create(DepotDTO obj)
         {
-            using(_context)
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                _context.Add(obj);
-                await _context.SaveChangesAsync();
+                conn.Open();
+                using (SqlCommand command = new SqlCommand("INSERT INTO [dbo.Depot]([Location]) VALUES (@Location)", conn))
+                {
+                    command.Parameters.AddWithValue("@Location", obj.Location);
+                   await command.ExecuteNonQueryAsync();
+                    conn.Close();
+                }
             }
         }
 
         public async Task Delete(int key)
         {
-            using(_context)
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                var deletedDepot = _context.Depot.FirstOrDefault(x => x.Id == key);
-                try {
-                    _context.Depot.Remove(deletedDepot);
-                    await _context.SaveChangesAsync();
-                }
-                catch(DbException ex)
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand($"DELETE FROM [dbo.Depot] WHERE [Id] = @key"))
                 {
-                    throw ex;
+                    await cmd.ExecuteNonQueryAsync();
+                    conn.Close();
                 }
             }
         }
 
-        public IEnumerable<TrackDTO> GetAllTracks()
+        public IEnumerable<TrackDTO> GetAllTracks(DepotDTO depot)
         {
-            throw new NotImplementedException();
+            List<TrackDTO> tracks = new List<TrackDTO>();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Track.TrackNumber FROM dbo.Depot INNER JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.DepotId;"))
+                {
+                    using(SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while(dataReader.Read())
+                        {
+                            int id = dataReader.GetInt32(0);
+                            int trackNumber = dataReader.GetInt32(1);
+                            TrackDTO track = new TrackDTO
+                            {
+                                Id = id,
+                                TrackNumber = trackNumber
+
+                            };
+                            tracks.Add(track);
+                        }
+                    }
+                }
+            }
+            return tracks;
         }
 
         public DepotDTO Read(int key)
         {
-            using(_context)
+            DepotDTO depot = new DepotDTO();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                DepotDTO depot = new DepotDTO();
-                var readdepot = _context.Depot.FirstOrDefault(x => x.Id == key);
-                return depot = _mapper.Map<DepotDTO>(readdepot);
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [dbo.Depot] WHERE [Id] = @key"))
+                {
+                   using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while(dataReader.Read())
+                        {
+                            depot.Id = dataReader.GetInt32(key);
+                            depot.Location = dataReader.GetString(1);
+                        }
+                    }
+                }
+                conn.Close();
             }
+            return depot;
         }
 
         public async Task Update(DepotDTO obj)
         {
-            using(_context)
+            using(SqlConnection conn =new SqlConnection(DBConnection._connectionString))
             {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(@"UPDATE [dbo.Depot] SET [location] = @obj.location WHERE [id] = @obj.Id"))
+                {
+                    await cmd.ExecuteNonQueryAsync();
+                }
+                conn.Close();
             }
         }
     }

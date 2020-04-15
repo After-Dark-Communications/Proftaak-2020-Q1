@@ -15,19 +15,6 @@ namespace Logic
             _tramAccess = tramAccess;
         }
 
-        public void AddStatus(StatusDTO status, TramDTO tram)
-        {
-            if(tram.Status.Any(s => s.Status == status.Status))
-            {
-                tram.Status.Add(status);
-                _tramAccess.Update(tram);
-            }
-        }
-        public void DeleteStatus(StatusDTO status, TramDTO tram)
-        { 
-
-        }
-
         public void GetType()
         {
             throw new NotImplementedException();
@@ -40,6 +27,16 @@ namespace Logic
         public TramDTO GetTram(int key)
         {
             return _tramAccess.Read(key);
+        }
+
+        public TramDTO GetTram(string tramNumber)
+        {
+            return _tramAccess.ReadFromTramNumber(tramNumber);
+        }
+
+        public void Update(TramDTO tram )
+        {
+            _tramAccess.Update(tram);
         }
     }
 }
