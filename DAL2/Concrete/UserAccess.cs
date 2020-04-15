@@ -22,14 +22,14 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(UserDTO obj)
+        public void Create(UserDTO obj)
         {
             using(_context)
             {
                 try
                 {
                     _context.Add(obj);
-                    await _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 }
                 catch (DbException ex)
                 {
@@ -38,13 +38,13 @@ namespace DAL.Concrete
             }
         }
 
-        public async Task Delete(int key)
+        public void Delete(int key)
         {
             using (_context)
             {
                 var deleteduser = _context.User.FirstOrDefault(x => x.Id == key);
                 _context.User.Remove(deleteduser);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
@@ -58,12 +58,12 @@ namespace DAL.Concrete
             }
         }
 
-        public async Task Update(UserDTO obj)
+        public void Update(UserDTO obj)
         {
             using(_context)
             {
                 _context.Update(obj);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
     }
