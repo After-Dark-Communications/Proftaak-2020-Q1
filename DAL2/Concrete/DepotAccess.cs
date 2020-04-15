@@ -104,7 +104,7 @@ namespace DAL.Concrete
             using(SqlConnection conn =new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(@"UPDATE [dbo.Depot] SET [location] = @obj.location WHERE [id] = @obj.Id)"))
+                using (SqlCommand cmd = new SqlCommand(@"UPDATE [dbo.Depot] SET [location] = @obj.location WHERE [id] = @obj.Id"))
                 {
                     await cmd.ExecuteNonQueryAsync();
                 }
