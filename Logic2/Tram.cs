@@ -30,11 +30,11 @@ namespace Logic
 
         }
 
-        public bool CheckIfTramExists(int tramNumber)
+        public bool CheckIfTramExists(string tramNumber)
         {
            try
             {
-                _tramAccess.Read(tramNumber);
+                _tramAccess.ReadFromTramNumber(tramNumber);
                 return true;
             }catch
             {
