@@ -30,9 +30,10 @@ namespace DAL.Concrete
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
+                conn.Open();
+
                 using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
                 {
-                    conn.Open();
                     command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
                     command.Parameters.Add(new SqlParameter("Name", obj.Name));
                     command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
@@ -42,15 +43,16 @@ namespace DAL.Concrete
 
                 using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
                 {
-
                     foreach (var permission in obj.Permissions)
                     {
                         command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
                         command.Parameters.Add(new SqlParameter("UserName", obj.Name));
-                        command.ExecuteNonQuery();
                     }
-                    conn.Close();
+
+                    command.ExecuteNonQuery();
                 }
+
+                conn.Close();
             }
         }
 
@@ -113,12 +115,14 @@ namespace DAL.Concrete
                         string Surname = reader.GetString(2);
                         string Password = reader.GetString(3);
                         UserDTO UserData = new UserDTO(UserName, Password, Name, Surname);
+
                         if (!reader.IsDBNull(4))
                         {
                             string permission = reader.GetString(4);
                             string description = reader.GetString(5);
                             UserData.Permissions.Add(new PermissionDTO(permission, description));
                         }
+
                         return UserData;
                     }
 
@@ -126,11 +130,6 @@ namespace DAL.Concrete
                     return EmptyDTO;
                 }
             }
-        }
-
-        public UserDTO Get()
-        {
-            throw new NotImplementedException();
         }
     }
 }
