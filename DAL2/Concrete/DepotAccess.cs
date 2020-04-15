@@ -22,33 +22,19 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public IEnumerable<TrackDTO> GetAllTracks(DepotDTO depot)
+        public void Create(DepotDTO obj)
         {
-            List<TrackDTO> tracks = new List<TrackDTO>();
-            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Track.TrackNumber FROM dbo.Depot INNER JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.DepotId;"))
+                using (SqlCommand command = new SqlCommand("INSERT INTO [dbo.Depot]([Location]) VALUES (@Location)", conn))
                 {
-                    using(SqlDataReader dataReader = cmd.ExecuteReader())
-                    {
-                        while(dataReader.Read())
-                        {
-                            int id = dataReader.GetInt32(0);
-                            int trackNumber = dataReader.GetInt32(1);
-                            TrackDTO track = new TrackDTO
-                            {
-                                Id = id,
-                                TrackNumber = trackNumber
-                            };
-                            tracks.Add(track);
-                        }
-                    }
+                    command.Parameters.AddWithValue("@Location", obj.Location);
+                    command.ExecuteNonQueryAsync();
+                    conn.Close();
                 }
             }
-            return tracks;
         }
-
         public DepotDTO Read(int key)
         {
             DepotDTO depot = new DepotDTO();
@@ -87,21 +73,7 @@ namespace DAL.Concrete
             }
         }
 
-        void IGenAccess<DepotDTO>.Create(DepotDTO obj)
-        {
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("INSERT INTO [dbo.Depot]([Location]) VALUES (@Location)", conn))
-                {
-                    command.Parameters.AddWithValue("@Location", obj.Location);
-                    command.ExecuteNonQueryAsync();
-                    conn.Close();
-                }
-            }
-        }
-
-        void IGenAccess<DepotDTO>.Delete(int key)
+        public void Delete(int key)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
@@ -113,20 +85,31 @@ namespace DAL.Concrete
                 }
             }
         }
-
-        void IGenAccess<DepotDTO>.Update(DepotDTO obj)
+        public IEnumerable<TrackDTO> GetAllTracks(DepotDTO depot)
         {
+            List<TrackDTO> tracks = new List<TrackDTO>();
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand($"UPDATE Depot SET [location] = @Location WHERE [Id] = @Id ", conn))
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Track.TrackNumber FROM dbo.Depot INNER JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.DepotId;"))
                 {
-                    conn.Open();
-                    cmd.Parameters.AddWithValue("@Id", obj.Id);
-                    cmd.Parameters.AddWithValue("@Location", obj.Location);
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            int id = dataReader.GetInt32(0);
+                            int trackNumber = dataReader.GetInt32(1);
+                            TrackDTO track = new TrackDTO
+                            {
+                                Id = id,
+                                TrackNumber = trackNumber
+                            };
+                            tracks.Add(track);
+                        }
+                    }
                 }
             }
+            return tracks;
         }
     }
 }
