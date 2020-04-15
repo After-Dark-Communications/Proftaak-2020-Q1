@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Logic;
 using WebApplication1.Models;
 using DAL.Interfaces;
+using DTO;
 using AutoMapper;
+using Services;
 
 namespace WebApplication1.Controllers
 {
@@ -24,7 +26,14 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            TramViewModel tram = _mapper.Map<TramViewModel>(_tramLogic.GetTram(1));
+            var tram = _tramLogic.GetTram("2001");
+            //StatusDTO stat = new StatusDTO();
+            //stat.Status = TramStatus.Cleaning;
+            //stat.Description = "Leipe shit";
+            //tram.Status.Add(stat);
+            //tram.TramNumber = (Convert.ToInt32(tram.TramNumber) - 1).ToString();
+            //_tramLogic.Update(tram);
+            //var trammmmm = _tramLogic.GetTram(1);
             return View(tram);
         }
     }
