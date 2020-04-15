@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL.Interfaces;
 
 namespace Logic
 {
     public class Sector
     {
-        public void AddTram(TramDTO tram)
+        private readonly ISectorAccess _sectoraccess;
+        public Sector(ISectorAccess sectoraccess)
         {
-            throw new NotImplementedException();
+            _sectoraccess = sectoraccess;
+        }
+        public void AddTram(SectorDTO sector, TramDTO tram)
+        {
+            sector.Tram = tram;
+            _sectoraccess.Update(sector);
+
         }
     }
 }

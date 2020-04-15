@@ -15,12 +15,17 @@ namespace WebApplication1.Controllers
     public class TestController : Controller
     {
         Tram _tramLogic;
+        Depot _depotLogic;
         IMapper _mapper;
+        Sector _sectorLogic;
 
-        public TestController(ITramAccess ac, IMapper mapper)
+        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc)
         {
             _mapper = mapper;
             _tramLogic = new Tram(ac);
+            _depotLogic = new Depot(dc);
+            _sectorLogic = new Sector();
+            
         }
 
         public IActionResult Index()
