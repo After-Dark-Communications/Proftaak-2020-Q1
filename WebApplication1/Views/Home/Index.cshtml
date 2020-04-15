@@ -10,7 +10,7 @@
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li href="#" onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
+                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
@@ -527,11 +527,70 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="RegisterModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <div class="register-tram-info">
+                    <h4 class="register-tram-title">Tram Aanmelden</h4>
+                </div>
+                <form method="post" action="/Home/ParkTram">
+                    <div class="register-tram-left">
+                        <div class="register-tram-info">
+                            <label>Tramnummer :</label>
+                            <input type="number" name="tramnumber" value="" />
+                            <input type="checkbox" name="clean" value="clean"> <label class="register-label">Schoonmaak nodig?</label>
+                            <input type="checkbox" name="repair" value="repair" id="repairchecked" onclick="toggleRepairField()"> <label class="register-label">Reparatie nodig?</label>
+                            <textarea style="display: none;" id="repairreason" classrows="4" cols="40" name="repairreason" placeholder="Reden voor Reperatie"></textarea>
+                        </div>
+                        <input type="submit" class="register-tram-button" value="Verstuur" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ReserverModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <div class="reserve-tram-info">
+                    <h4 class="reserve-tram-title">Reserveer spoor voor tram</h4>
+                </div>
+                <form method="post" action="/Home/ReserveTrack">
+                    <div class="reserve-tram-left">
+                        <div class="reserve-tram-info">
+                            <label>Tramnummer :</label>
+                            <input type="number" name="tramnumber" value="" />
 
+                            <label>Spoornummer :</label>
+                            <select name="tracknumber" >
+                                <option value="38">38</option>
+                                <option value="37">37</option>
+                                <option value="36">36</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="reserve-tram-button" value="Verstuur" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script type="text/javascript">
-        function SizeStatusCSS() { //indien nodig, verveel anthony erover.
+        function toggleRepairField() {
+            var repairchecked = document.getElementById("repairchecked");
+            var repairreason = document.getElementById("repairreason");
+
+            if (repairchecked.checked == true) {
+                repairreason.style.display = "block";
+            } else {
+                repairreason.style.display = "none";
+            }
+        }
+        function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
             var children = document.getElementById("getcount").children;
             var x = 100 / countdiv;
@@ -551,7 +610,7 @@
                 type: "POST",
                 url: "/Home/InformationTramPopUp",
                 data: { tramnumber: number },
-                success: function(response) {
+                success: function (response) {
 
                     $('#traminfo').html(response);
                     $('#testmodal').modal('show');
@@ -560,15 +619,15 @@
             });
         }
 
-        //$(document).on("click",
-        //    '.test1',
-        //    function(event) {
-        //        //alert(200);
-        //    });
+                //$(document).on("click",
+                //    '.test1',
+                //    function(event) {
+                //        //alert(200);
+                //    });
 
-        //$(document).ready(function () {
+                //$(document).ready(function () {
 
-        //});
+                //});
     </script>
 }
 

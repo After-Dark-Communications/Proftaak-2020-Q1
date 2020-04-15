@@ -50,7 +50,18 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-
+        public IActionResult ParkTram()
+        {
+            // HttpContext.Request.Form["repair"]
+            // HttpContext.Request.Form["clean"]
+            // HttpContext.Request.Form["tramnumber"]
+            // HttpContext.Request.Form["repairreason"]
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["repair"] + " " + HttpContext.Request.Form["clean"] + " " + HttpContext.Request.Form["repairreason"]);
+        }        
+        public IActionResult ReserveTrack()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["tracknumber"]);
+        }
         public IActionResult InformationTramPopUp(int tramnumber)
         {
             return PartialView("InformationTramPopUp");
