@@ -12,7 +12,10 @@ namespace DTO
         public ICollection<StatusDTO> Status { get; set; }
         public string TramNumber { get; set; }
         private ICollection<TrackDTO> PreferredTracksList { get; set; }
-
+        public DateTime CleaningDateSmallService { get; set; }
+        public DateTime CleaningDateBigService { get; set; }
+        public DateTime RepairDateSmallService { get; set; }
+        public DateTime RepairDateBigService { get; set; }
         public TramDTO()
         {
             Status = new List<StatusDTO>();

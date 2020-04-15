@@ -49,9 +49,32 @@ namespace DAL.Concrete
             }
         }
 
-        public IEnumerable<TrackDTO> GetAllTracks()
+        public IEnumerable<TrackDTO> GetAllTracks(DepotDTO depot)
         {
-            throw new NotImplementedException();
+            List<TrackDTO> tracks = new List<TrackDTO>();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Track.TrackNumber FROM dbo.Depot INNER JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.DepotId;"))
+                {
+                    using(SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while(dataReader.Read())
+                        {
+                            int id = dataReader.GetInt32(0);
+                            int trackNumber = dataReader.GetInt32(1);
+                            TrackDTO track = new TrackDTO
+                            {
+                                Id = id,
+                                TrackNumber = trackNumber
+
+                            };
+                            tracks.Add(track);
+                        }
+                    }
+                }
+            }
+            return tracks;
         }
 
         public DepotDTO Read(int key)
