@@ -15,6 +15,25 @@ namespace Logic
             _tramAccess = tramAccess;
         }
 
+        public void Create(TramDTO tram)
+        {
+            _tramAccess.Create(tram);
+        }
+        public void Delete(int key)
+        {
+            _tramAccess.Delete(key);
+        }
+
+        public void Delete(TramDTO tram)
+        {
+            _tramAccess.Delete(tram.Id);
+        }
+
+        public void Delete(string tramNumber)
+        {
+            var tram = _tramAccess.ReadFromTramNumber(tramNumber);
+            _tramAccess.Delete(tram.Id);
+        }
         public TramDTO GetTram(int key)
         {
             return _tramAccess.Read(key);
