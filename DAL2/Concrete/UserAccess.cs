@@ -8,6 +8,7 @@ using DAL.Models;
 using AutoMapper;
 using Context;
 using System.Linq;
+using DAL.Context;
 using DTO;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Design;
@@ -27,28 +28,28 @@ namespace DAL.Concrete
 
         public void CreateUser(UserDTO obj)
         {
-            //using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            //{
-            //    using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
-            //    {
-                    
-            //        command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
-            //        command.Parameters.Add(new SqlParameter("Name", obj.Name));
-            //        command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
-            //        command.Parameters.Add(new SqlParameter("Password", obj.Password));
-            //    }
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
+                {
 
-            //    //using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
-            //    //{
-                    
-            //    //    foreach (var permission in obj.Permissions)
-            //    //    {
-            //    //        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
-            //    //        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
+                    command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
+                    command.Parameters.Add(new SqlParameter("Name", obj.Name));
+                    command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
+                    command.Parameters.Add(new SqlParameter("Password", obj.Password));
+                }
 
-            //    //    }
-            //    //}
-            //}
+                using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
+                {
+
+                    foreach (var permission in obj.Permissions)
+                    {
+                        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
+                        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
+
+                    }
+                }
+            }
         }
 
         public async Task Delete(int key)
