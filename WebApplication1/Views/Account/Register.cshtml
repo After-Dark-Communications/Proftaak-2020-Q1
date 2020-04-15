@@ -9,10 +9,12 @@
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">First Name </p>
             <p><input id="Username" asp-for="Name" type="text" /></p>
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Surname </p>
             <p><input id="Username" asp-for="Surname" type="text" /></p>
+            <span asp-validation-for="Surname" class="text-danger"></span>
         </div>
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Username</p>
@@ -22,6 +24,7 @@
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Password </p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
+            <span asp-validation-for="Password" class="text-danger"></span>
         </div>
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Confirm Password </p>

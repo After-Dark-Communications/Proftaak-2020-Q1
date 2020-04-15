@@ -38,16 +38,16 @@ namespace DAL.Concrete
                     command.Parameters.Add(new SqlParameter("Password", obj.Password));
                 }
 
-                using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))"))
-                {
+                //using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))"))
+                //{
                     
-                    foreach (var permission in obj.Permissions)
-                    {
-                        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
-                        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
+                //    foreach (var permission in obj.Permissions)
+                //    {
+                //        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
+                //        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
 
-                    }
-                }
+                //    }
+                //}
             }
         }
 
