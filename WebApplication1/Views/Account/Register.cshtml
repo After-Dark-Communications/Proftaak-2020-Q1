@@ -17,6 +17,7 @@
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Gebruikers naam</p>
             <p><input id="Username" asp-for="UserName" type="text" /></p>
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
         <div class="LB-Register-Box">
             <p class="LB-Register-Text">Wachtwoord</p>
@@ -26,9 +27,12 @@
             <p class="LB-Register-Text">Wachtwoord Bevestigen</p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
+      @{ 
+          PermissionViewModel per = new PermissionViewModel();
+      }
         <p>
             <div class="LB-Register-CheckBox">
-                <input id="Admin" type="checkbox" value="Admin" />
+                <span>@Html.CheckBox("AdminCheck")</span>
                 <span class="LB-Register-Text">Beheerder</span>
             </div>
             <div class="LB-Register-CheckBox">

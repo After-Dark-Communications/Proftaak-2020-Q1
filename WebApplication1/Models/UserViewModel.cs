@@ -28,11 +28,6 @@ namespace WebApplication1.Models
             this.Name = Name;
             this.Surname = Surname;
             this.Password = Password;
-            this.Permissions = new List<string>();
-            foreach (string perm in Permissions)
-            {
-                this.Permissions.Add(perm);
-            }
         }
 
     }
