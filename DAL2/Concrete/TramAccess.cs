@@ -25,22 +25,22 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(TramDTO obj)
+        public void Create(TramDTO obj)
         {
             using (_context)
             {
                 _context.Add(obj);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
-        public async Task Delete(int key)
+        public void Delete(int key)
         {
             using (_context)
             {
                 var tram = _context.Tram.FirstOrDefaultAsync(t => t.Id == key);
                 _context.Remove(tram);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
@@ -119,7 +119,7 @@ namespace DAL.Concrete
         }
 
 
-        public async Task Update(TramDTO obj)
+        public void Update(TramDTO obj)
         {
             string query = "UPDATE Status_Tram";
         }

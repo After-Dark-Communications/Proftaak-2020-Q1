@@ -29,5 +29,9 @@ namespace Logic
         {
             _depotaccess.Update(depot);
         }
+        public DepotDTO Read(int key)
+        {
+           return _depotaccess.Read(key);
+        }
     }
 }

@@ -19,19 +19,22 @@ namespace WebApplication1.Controllers
         IMapper _mapper;
         Sector _sectorLogic;
 
-        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc)
+        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc, ISectorAccess sc)
         {
             _mapper = mapper;
             _tramLogic = new Tram(ac);
             _depotLogic = new Depot(dc);
-            _sectorLogic = new Sector();
-            
+            _sectorLogic = new Sector(sc);
         }
 
         public IActionResult Index()
         {
-            var tram = _tramLogic.GetTram("2001");
-            return View(tram);
+            DepotDTO depot = new DepotDTO();
+            string newDepotName = "Remise Havenstraat";
+            depot = _depotLogic.Read(1);
+            depot.Location = newDepotName;
+            _depotLogic.Update(depot);
+            return View(depot);
         }
     }
 }

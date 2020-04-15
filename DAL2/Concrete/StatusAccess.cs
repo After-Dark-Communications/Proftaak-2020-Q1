@@ -22,12 +22,12 @@ namespace DAL.Concrete
             _mapper = mapper;
         }
 
-        public Task Create(StatusDTO obj)
+        public void Create(StatusDTO obj)
         {
             throw new NotImplementedException();
         }
 
-        public Task Delete(int key)
+        public void Delete(int key)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace DAL.Concrete
             }
         }
 
-        public Task Update(StatusDTO obj)
+        public void Update(StatusDTO obj)
         {
             throw new NotImplementedException();
         }

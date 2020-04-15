@@ -21,20 +21,14 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public Task Create(TrackDTO obj)
+        public void Create(TrackDTO obj)
         {
             throw new NotImplementedException();
         }
 
-        public async Task Delete(int key)
+        public void Delete(int key)
         {
-            using(_context)
-            {
-                var tram = await _context.Track.FirstOrDefaultAsync(t => t.Id == key);
-                _context.Track.Remove(tram);
-                await _context.SaveChangesAsync();
-
-            }
+            throw new NotImplementedException();
         }
 
         public TrackDTO Read(int key)
@@ -47,13 +41,9 @@ namespace DAL.Concrete
             }
         }
 
-        public async Task Update(TrackDTO obj)
+        public void Update(TrackDTO obj)
         {
-            using(_context)
-            {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
-            }
+            throw new NotImplementedException();
         }
     }
 }

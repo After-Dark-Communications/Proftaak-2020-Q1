@@ -22,33 +22,6 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public async Task Create(DepotDTO obj)
-        {
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                conn.Open();
-                using (SqlCommand command = new SqlCommand("INSERT INTO [dbo.Depot]([Location]) VALUES (@Location)", conn))
-                {
-                    command.Parameters.AddWithValue("@Location", obj.Location);
-                   await command.ExecuteNonQueryAsync();
-                    conn.Close();
-                }
-            }
-        }
-
-        public async Task Delete(int key)
-        {
-            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand($"DELETE FROM [dbo.Depot] WHERE [Id] = @key"))
-                {
-                    await cmd.ExecuteNonQueryAsync();
-                    conn.Close();
-                }
-            }
-        }
-
         public IEnumerable<TrackDTO> GetAllTracks(DepotDTO depot)
         {
             List<TrackDTO> tracks = new List<TrackDTO>();
@@ -67,7 +40,6 @@ namespace DAL.Concrete
                             {
                                 Id = id,
                                 TrackNumber = trackNumber
-
                             };
                             tracks.Add(track);
                         }
@@ -82,14 +54,15 @@ namespace DAL.Concrete
             DepotDTO depot = new DepotDTO();
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                conn.Open();
-                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [dbo.Depot] WHERE [Id] = @key"))
+                using (SqlCommand cmd = new SqlCommand($"SELECT * FROM [Depot] WHERE [Id] = @key", conn))
                 {
-                   using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    cmd.Parameters.AddWithValue("@key", key);
+                    conn.Open();
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
                     {
                         while(dataReader.Read())
                         {
-                            depot.Id = dataReader.GetInt32(key);
+                            depot.Id = dataReader.GetInt32(0);
                             depot.Location = dataReader.GetString(1);
                         }
                     }
@@ -99,16 +72,60 @@ namespace DAL.Concrete
             return depot;
         }
 
-        public async Task Update(DepotDTO obj)
+        public void Update(DepotDTO obj)
         {
-            using(SqlConnection conn =new SqlConnection(DBConnection._connectionString))
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand($"UPDATE Depot SET [location] = @Location WHERE [Id] = @Id ", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@Id", obj.Id);
+                    cmd.Parameters.AddWithValue("@Location", obj.Location);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+
+        void IGenAccess<DepotDTO>.Create(DepotDTO obj)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(@"UPDATE [dbo.Depot] SET [location] = @obj.location WHERE [id] = @obj.Id"))
+                using (SqlCommand command = new SqlCommand("INSERT INTO [dbo.Depot]([Location]) VALUES (@Location)", conn))
                 {
-                    await cmd.ExecuteNonQueryAsync();
+                    command.Parameters.AddWithValue("@Location", obj.Location);
+                    command.ExecuteNonQueryAsync();
+                    conn.Close();
                 }
-                conn.Close();
+            }
+        }
+
+        void IGenAccess<DepotDTO>.Delete(int key)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand($"DELETE FROM [dbo.Depot] WHERE [Id] = @key"))
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+
+        void IGenAccess<DepotDTO>.Update(DepotDTO obj)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand($"UPDATE Depot SET [location] = @Location WHERE [Id] = @Id ", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@Id", obj.Id);
+                    cmd.Parameters.AddWithValue("@Location", obj.Location);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
         }
     }

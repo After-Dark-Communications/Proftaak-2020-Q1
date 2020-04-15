@@ -25,7 +25,7 @@ namespace DAL.Concrete
             _mapper = mapper;
         }
 
-        public async Task Create(SectorDTO obj)
+        public void Create(SectorDTO obj)
         {
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
@@ -33,7 +33,7 @@ namespace DAL.Concrete
             }
         }
 
-        public async Task Delete(int key)
+        public void Delete(int key)
         {
             throw new NotImplementedException();
         }
@@ -51,7 +51,7 @@ namespace DAL.Concrete
                         while(dataReader.Read())
                         {
                             sector.Id = dataReader.GetInt32(key);
-                            sector.TramId = dataReader.GetInt32(1);
+                            //sector.TramId = dataReader.GetInt32(1);
                             sector.SectorPosition = dataReader.GetInt32(2);
                             sector.TrackNumber = dataReader.GetInt32(3);
                         }
@@ -62,17 +62,22 @@ namespace DAL.Concrete
             return sector;
         }
 
-        public async Task Update(SectorDTO obj)
+        public void Update(SectorDTO obj)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(@"UPDATE [dbo.Sector] WHERE [Id] = @obj.Id"))
                 {
-                    await cmd.ExecuteNonQueryAsync();
+                    cmd.ExecuteNonQuery();
                 }
                 conn.Close();
             }
+        }
+
+        void IGenAccess<SectorDTO>.Update(SectorDTO obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }
