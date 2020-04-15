@@ -19,12 +19,13 @@ namespace DTO
                 
         }
 
-        public UserDTO(string userName, string password, string name, string surname)
+        public UserDTO(string userName, string name, string surname, string password, List<PermissionDTO> permission)
         {
             UserName = userName;
             Password = password;
             Name = name;
-            Surname = surname;  
+            Surname = surname;
+            Permissions = permission;
         }
     }
 }
