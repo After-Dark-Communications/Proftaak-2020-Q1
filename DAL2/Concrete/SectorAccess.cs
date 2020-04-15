@@ -33,11 +33,6 @@ namespace DAL.Concrete
             }
         }
 
-        public void Delete(int key)
-        {
-            throw new NotImplementedException();
-        }
-
         public SectorDTO Read(int key)
         {
             SectorDTO sector = new SectorDTO();
@@ -74,8 +69,7 @@ namespace DAL.Concrete
                 conn.Close();
             }
         }
-
-        void IGenAccess<SectorDTO>.Update(SectorDTO obj)
+        public void Delete(int key)
         {
             throw new NotImplementedException();
         }

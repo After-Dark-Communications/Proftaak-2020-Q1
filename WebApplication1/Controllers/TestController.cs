@@ -18,23 +18,29 @@ namespace WebApplication1.Controllers
         Depot _depotLogic;
         IMapper _mapper;
         Sector _sectorLogic;
+        Track _trackLogic;
 
-        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc, ISectorAccess sc)
+        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc, ISectorAccess sc, ITrackAccess tc)
         {
             _mapper = mapper;
             _tramLogic = new Tram(ac);
             _depotLogic = new Depot(dc);
             _sectorLogic = new Sector(sc);
+            _trackLogic = new Track(tc);
         }
 
         public IActionResult Index()
         {
-            DepotDTO depot = new DepotDTO();
-            string newDepotName = "Remise Havenstraat";
-            depot = _depotLogic.Read(1);
-            depot.Location = newDepotName;
-            _depotLogic.Update(depot);
-            return View(depot);
+            TrackDTO track = new TrackDTO();
+            track.Id = 3;
+            track.TramType = TramType.TrainingTram;
+            _trackLogic.Update(track);
+            //DepotDTO depot = new DepotDTO();
+            //string newDepotName = "Remise Havenstraat";
+            //depot = _depotLogic.Read(1);
+            //depot.Location = newDepotName;
+            //_depotLogic.Update(depot);
+            return View(track);
         }
     }
 }
