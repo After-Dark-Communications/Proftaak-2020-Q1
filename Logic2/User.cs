@@ -28,7 +28,7 @@ namespace Logic
         public UserDTO Login(UserDTO user)
         {
             UserDTO HashUser = AlterUserCredentialsToHash(user);
-            UserDTO resultmodel = _userAccess.GetUser(HashUser);
+            UserDTO resultmodel = _userAccess.Get(HashUser);
 
             if (CheckIfAccountDataIsEmpty(resultmodel))
             {

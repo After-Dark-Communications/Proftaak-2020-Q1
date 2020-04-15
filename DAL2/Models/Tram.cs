@@ -11,8 +11,8 @@ namespace DAL.Models
         [Key]
         public int Id { get; set; }
         public TramType Type { get; set; }
-        public TramStatus Status { get; set; }
-        public int TramNumber { get; set; }
+        public ICollection<Status> Status { get; set; }
+        public string TramNumber { get; set; }
     }
 
 }
