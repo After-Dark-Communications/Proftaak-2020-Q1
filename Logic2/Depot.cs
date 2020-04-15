@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using Services;
 
 namespace Logic
 {
@@ -10,20 +11,22 @@ namespace Logic
         public ICollection<UserDTO> Users { get; set; }
         private ICollection<TrackDTO> DepotTracks { get; set; }
         Track _tracklogic;
-        
-        public Depot(Track tracklogic)
+        Tram _tramlogic;
+
+        public Depot(Track tracklogic, Tram tramlogic)
         {
             this._tracklogic = tracklogic;
+            this._tramlogic = tramlogic;
         }
 
-        public void ReceiveTram(TramDTO tram, bool repairstatus, bool cleanstatus) 
+        public void ReceiveTram(int tramNumber, bool repairstatus, bool cleanstatus) 
         {
+            TramDTO tram = _tramlogic.GetTram(tramNumber);
 
             if (CheckIfTramIsAllowed(tram))
             {
-                //changeTramStatus(tram, repairstatus, cleanstatus);
-                //AllocationManager.AllocateTramToService(tram);
-
+                changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic);
+                AllocationManager.AllocateTramToService(tram);
                 AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic);
             }
         }
@@ -33,11 +36,12 @@ namespace Logic
             throw new NotImplementedException();
         }
 
-        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus)
+        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {
             if (repairstatus)
             {
-                //add statusDTO to tram
+                //hoe ga ik een statusDTO meegeven?
+               //tramlogic.AddStatus(., tram);
             }
             if (cleanstatus)
             {
@@ -45,9 +49,5 @@ namespace Logic
             }
         }
 
-        public void testMapMethod(TramDTO tram)
-        {
-            //tramDTO -> logic tram class
-        }
     }
 }

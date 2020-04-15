@@ -7,27 +7,51 @@ namespace Logic
 {
     public class Track
     {
-        //allowed tramtypes
+        Sector _sectorLogic;
+        public Track(Sector sectorlogic)
+        {
+            this._sectorLogic = sectorlogic;
+        }
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
-            
-            //TrackDTO toegestane types
-             //   tramDTO type
-            // if allowed types is empty, or the type exists in the allowed types
+            if (tram.Type == track.TramType)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
             throw new NotImplementedException();
         }
 
         public bool CheckTramCanBeStored(TramDTO tram, TrackDTO track)
         {
-            CheckTramType(tram, track);
-            //check if there is still a spot in a sector
-            throw new NotImplementedException();
+            if (!CheckTramType(tram, track))
+            {
+                return false;
+            }
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void StoreTram(TramDTO tram)
+        public void StoreTram(TramDTO tram, TrackDTO track)
         {
-            //
-            throw new NotImplementedException();
+            
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    _sectorLogic.AddTram(tram, sector);
+                }
+            }
         }
 
 
