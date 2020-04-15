@@ -32,11 +32,12 @@ namespace DAL.Concrete
             {
                 using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
                 {
-
+                    conn.Open();
                     command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
                     command.Parameters.Add(new SqlParameter("Name", obj.Name));
                     command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
                     command.Parameters.Add(new SqlParameter("Password", obj.Password));
+                    command.ExecuteNonQuery();
                 }
 
                 using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
@@ -46,8 +47,9 @@ namespace DAL.Concrete
                     {
                         command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
                         command.Parameters.Add(new SqlParameter("UserName", obj.Name));
-
+                        command.ExecuteNonQuery();
                     }
+                    conn.Close();
                 }
             }
         }
@@ -92,12 +94,13 @@ namespace DAL.Concrete
 
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description" +
-                "FROM[dbi384571].[dbo].[User]" +
-                "INNER JOIN User_Permission On[User].Id = User_Permission.UserId" +
-                "INNER JOIN Permission on User_Permission.PermissionId = Permission.Id" +
-                "WHERE[User].UserName = @UserName AND[User].Password = @Password", conn))
+                using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description " +
+                "FROM[dbi384571].[dbo].[User] " +
+                "INNER JOIN User_Permission On [User].Id = User_Permission.UserId " +
+                "INNER JOIN Permission on User_Permission.PermissionId = Permission.Id " +
+                "WHERE[User].UserName = @UserName AND [User].Password = @Password ", conn))
                 {
+                    conn.Open();
                     command.Parameters.AddWithValue("UserName", user.UserName);
                     command.Parameters.AddWithValue("Password", user.Password);
 
@@ -116,6 +119,7 @@ namespace DAL.Concrete
                         return UserData;
                     }
 
+                    conn.Close();
                     return EmptyDTO;
                 }
             }

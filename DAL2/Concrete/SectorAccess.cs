@@ -41,24 +41,24 @@ namespace DAL.Concrete
         public SectorDTO Read(int key)
         {
             SectorDTO sector = new SectorDTO();
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                conn.Open();
-                using(SqlCommand cmd = new SqlCommand($" SELECT dbo.Track.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.Id = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE[dbo.Sector.Id] = @key"))
-                {
-                    using (SqlDataReader dataReader = cmd.ExecuteReader())
-                    {
-                        while(dataReader.Read())
-                        {
-                            sector.Id = dataReader.GetInt32(key);
-                            sector.TramId = dataReader.GetInt32(1);
-                            sector.SectorPosition = dataReader.GetInt32(2);
-                            sector.TrackNumber = dataReader.GetInt32(3);
-                        }
-                    }
-                }
-                conn.Close();
-            }
+            //using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            //{
+            //    conn.Open();
+            //    using(SqlCommand cmd = new SqlCommand($" SELECT dbo.Track.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.Id = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE[dbo.Sector.Id] = @key"))
+            //    {
+            //        using (SqlDataReader dataReader = cmd.ExecuteReader())
+            //        {
+            //            while(dataReader.Read())
+            //            {
+            //                sector.Id = dataReader.GetInt32(key);
+            //                sector.TramId = dataReader.GetInt32(1);
+            //                sector.SectorPosition = dataReader.GetInt32(2);
+            //                sector.TrackNumber = dataReader.GetInt32(3);
+            //            }
+            //        }
+            //    }
+            //    conn.Close();
+            //}
             return sector;
         }
 
