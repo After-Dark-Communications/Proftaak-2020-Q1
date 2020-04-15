@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL.Interfaces;
 
 namespace Logic
 {
     public class Depot
     {
-        public ICollection<UserDTO> Users { get; set; }
-        private ICollection<TrackDTO> DepotTracks { get; set; }
-
+        private readonly IDepotAccess _depotaccess;
+        public Depot(IDepotAccess depotAccess)
+        {
+            _depotaccess = depotAccess;
+        }
         private bool CheckIfTramIsAllowed(TramDTO tram)
         {
             throw new NotImplementedException();
@@ -21,6 +24,10 @@ namespace Logic
             {
                 AllocationManager.AllocateTramToTrack(tram);
             }
+        }
+        public void Update(DepotDTO depot)
+        {
+            _depotaccess.Update(depot);
         }
     }
 }

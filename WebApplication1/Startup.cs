@@ -14,6 +14,7 @@ using AutoMapper;
 using WebApplication1.Services;
 using DAL.Interfaces;
 using DAL.Concrete;
+using DAL.Context;
 using Logic;
 using Microsoft.AspNetCore.Http;
 using WebApplication1.Repository;
@@ -32,6 +33,7 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            DBConnection._connectionString = (Configuration.GetConnectionString("DefaultConnection"));
             services.AddControllersWithViews();
 
             services.AddDbContext<DepotContext>(options =>
@@ -58,6 +60,7 @@ namespace WebApplication1
             services.AddScoped<User>();
             services.AddScoped<LoginRepository>();
             services.AddScoped<UserCollection>();
+            services.AddScoped<IDepotAccess, DepotAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

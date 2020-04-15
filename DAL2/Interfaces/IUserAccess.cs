@@ -8,7 +8,7 @@ namespace DAL.Interfaces
 {
     public interface IUserAccess : IGenAccess<UserDTO>
     {
-        UserDTO GetUser(UserDTO account);
-        void CreateUser(UserDTO obj);
+        public UserDTO Get(UserDTO user);
+        void CreateUser(UserDTO model);
     }
 }
