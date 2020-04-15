@@ -27,28 +27,28 @@ namespace DAL.Concrete
 
         public void CreateUser(UserDTO obj)
         {
-            using (_context)
-            {
-                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)"))
-                {
+            //using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            //{
+            //    using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
+            //    {
                     
-                    command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
-                    command.Parameters.Add(new SqlParameter("Name", obj.Name));
-                    command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
-                    command.Parameters.Add(new SqlParameter("Password", obj.Password));
-                }
+            //        command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
+            //        command.Parameters.Add(new SqlParameter("Name", obj.Name));
+            //        command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
+            //        command.Parameters.Add(new SqlParameter("Password", obj.Password));
+            //    }
 
-                //using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))"))
-                //{
+            //    //using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
+            //    //{
                     
-                //    foreach (var permission in obj.Permissions)
-                //    {
-                //        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
-                //        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
+            //    //    foreach (var permission in obj.Permissions)
+            //    //    {
+            //    //        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
+            //    //        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
 
-                //    }
-                //}
-            }
+            //    //    }
+            //    //}
+            //}
         }
 
         public async Task Delete(int key)
@@ -89,13 +89,13 @@ namespace DAL.Concrete
         {
             UserDTO EmptyDTO = new UserDTO();
 
-            using (_context)
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description" +
                 "FROM[dbi384571].[dbo].[User]" +
                 "INNER JOIN User_Permission On[User].Id = User_Permission.UserId" +
                 "INNER JOIN Permission on User_Permission.PermissionId = Permission.Id" +
-                "WHERE[User].UserName = @UserName AND[User].Password = @Password"))
+                "WHERE[User].UserName = @UserName AND[User].Password = @Password", conn))
                 {
                     command.Parameters.AddWithValue("UserName", user.UserName);
                     command.Parameters.AddWithValue("Password", user.Password);
