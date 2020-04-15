@@ -11,10 +11,11 @@ namespace WebApplication1.Models
     {
         public int Id { get; set; }
         public string TramNumber { get; set; }
-
         public TramType Type { get; set; }
-
-
+        public DateTime CleaningDateSmallService { get; set; }
+        public DateTime CleaningDateBigService { get; set; }
+        public DateTime RepairDateSmallService { get; set; }
+        public DateTime RepairDateBigService { get; set; }
         public ICollection<StatusViewModel> Status { get; set; }
         private ICollection<TrackViewModel> PreferredTracksList { get; set; }
     }

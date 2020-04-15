@@ -15,6 +15,7 @@ using WebApplication1.Services;
 using DAL.Interfaces;
 using DAL.Concrete;
 using Logic;
+using DAL.Context;
 
 namespace WebApplication1
 {
@@ -30,11 +31,13 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            DBConnection._connectionString = (Configuration.GetConnectionString("DefaultConnection"));
             services.AddControllersWithViews();
             services.AddDbContext<DepotContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(MappingBootstrapper));
             services.AddScoped<ITramAccess, TramAccess>();
+            services.AddScoped<IDepotAccess, DepotAccess>();
             services.AddScoped<ISectorAccess, SectorAccess>();
             services.AddScoped<ITrackAccess, TrackAccess>();
             services.AddScoped<Tram>();

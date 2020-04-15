@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL.Interfaces;
 using Services;
 
 namespace Logic
@@ -62,6 +63,9 @@ namespace Logic
                 _tramlogic.AddStatus(status, tram);
             }
         }
-
+        public void Update(DepotDTO depot)
+        {
+            _depotaccess.Update(depot);
+        }
     }
 }

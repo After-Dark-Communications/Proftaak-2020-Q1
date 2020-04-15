@@ -50,5 +50,15 @@ namespace Logic
         {
             return _tramAccess.Read(key);
         }
+
+        public TramDTO GetTram(string tramNumber)
+        {
+            return _tramAccess.ReadFromTramNumber(tramNumber);
+        }
+
+        public void Update(TramDTO tram )
+        {
+            _tramAccess.Update(tram);
+        }
     }
 }
