@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Logic
 {
     public class CleaningService : Service
@@ -14,5 +15,6 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
     }
 }

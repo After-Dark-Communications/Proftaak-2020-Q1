@@ -4,6 +4,7 @@ using DAL.Interfaces;
 using DTO;
 using Services;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Logic
 {
@@ -27,6 +28,18 @@ namespace Logic
         public void DeleteStatus(StatusDTO status, TramDTO tram)
         { 
 
+        }
+
+        public bool CheckIfTramExists(int tramNumber)
+        {
+           try
+            {
+                _tramAccess.Read(tramNumber);
+                return true;
+            }catch
+            {
+                return false;
+            }
         }
 
         public void GetServiceHistory()
