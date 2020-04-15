@@ -96,8 +96,8 @@ namespace DAL.Concrete
             {
                 using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description " +
                 "FROM[dbi384571].[dbo].[User] " +
-                "INNER JOIN User_Permission On [User].Id = User_Permission.UserId " +
-                "INNER JOIN Permission on User_Permission.PermissionId = Permission.Id " +
+                "Left JOIN User_Permission On [User].Id = User_Permission.UserId " +
+                "Left JOIN Permission on User_Permission.PermissionId = Permission.Id " +
                 "WHERE[User].UserName = @UserName AND [User].Password = @Password ", conn))
                 {
                     conn.Open();
@@ -112,10 +112,13 @@ namespace DAL.Concrete
                         string Name = reader.GetString(1);
                         string Surname = reader.GetString(2);
                         string Password = reader.GetString(3);
-                        string permission = reader.GetString(4);
-                        string description = reader.GetString(5);
                         UserDTO UserData = new UserDTO(UserName, Password, Name, Surname);
-                        UserData.Permissions.Add(new PermissionDTO(permission, description));
+                        if (!reader.IsDBNull(4))
+                        {
+                            string permission = reader.GetString(4);
+                            string description = reader.GetString(5);
+                            UserData.Permissions.Add(new PermissionDTO(permission, description));
+                        }
                         return UserData;
                     }
 
