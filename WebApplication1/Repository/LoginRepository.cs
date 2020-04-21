@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore;
 
 namespace WebApplication1.Repository
 {
@@ -20,9 +21,10 @@ namespace WebApplication1.Repository
             this.contextAccessor = contextAccessor;
         }
 
-        public void SetLoginSession(string username)
+        public void SetLoginSession(string username, string permission)
         {
-            contextAccessor.HttpContext.Session.SetString("UserName", username);
+            contextAccessor.HttpContext.Session.SetString("username", username);
+            contextAccessor.HttpContext.Session.SetString("Permission", permission);
         }
 
         public void RemoveLoginSession()
