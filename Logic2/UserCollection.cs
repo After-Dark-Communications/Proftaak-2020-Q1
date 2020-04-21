@@ -22,9 +22,9 @@ namespace Logic
             UserDTO model = _user.AlterUserCredentialsToHash(user);
             _userAccess.CreateUser(model);
         }
-        public bool IsAdmin(UserDTO user)
-        {
-            return user.Permissions.Where(x => x.Name == "Admin").Any();
-        }
+        //public bool IsAdmin(UserDTO user)
+        //{
+        //    return user.Permissions.Where(x => x.Name == "Admin").Any();
+        //}
     }
 }

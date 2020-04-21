@@ -104,15 +104,8 @@ namespace DAL.Concrete
                         string Name = reader.GetString(2);
                         string Surname = reader.GetString(3);
                         string Password = reader.GetString(4);
-                        string Permission = reader.GetString(5)
+                        string Permission = reader.GetString(5);
                         UserDTO UserData = new UserDTO(Id, UserName, Password, Name, Surname, Permission);
-
-                        if (!reader.IsDBNull(4))
-                        {
-                            string permission = reader.GetString(4);
-                            string description = reader.GetString(5);
-                            UserData.Permissions.Add(new PermissionDTO(permission, description));
-                        }
 
                         return UserData;
                     }

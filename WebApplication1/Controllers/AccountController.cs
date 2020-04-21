@@ -18,7 +18,6 @@ namespace WebApplication1.Controllers
         private readonly LoginRepository _loginRepository;
         private readonly UserCollection _userCollection;
 
-
         public AccountController(IMapper mapper, User user, LoginRepository login, UserCollection userCollection)
         {
             _mapper = mapper;
