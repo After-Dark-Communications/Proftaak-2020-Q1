@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
             _mapper = mapper;
             _tramLogic = new Tram(ac);
             _depotLogic = new Depot(dc);
-            _sectorLogic = new Sector(sc);
+            _sectorLogic = new Sector(sc, ac);
             _trackLogic = new Track(tc);
         }
 
