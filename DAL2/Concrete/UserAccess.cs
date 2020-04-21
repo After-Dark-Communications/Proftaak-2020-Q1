@@ -86,15 +86,12 @@ namespace DAL.Concrete
 
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand command = new SqlCommand("SELECT [User].Id, [User].UserName, [User].Name, [User].Surname, [User].Password, [user].Permission" +
-                "WHERE[User].UserName = @UserName AND [User].Password = @Password ", conn))
+                using (SqlCommand command = new SqlCommand("SELECT Id, UserName, Name, Surname, Password, Permission FROM [User] " +
+                "WHERE [User].UserName = @UserName AND [User].Password = @Password ", conn))
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("Id", user.Id);
                     command.Parameters.AddWithValue("UserName", user.UserName);
                     command.Parameters.AddWithValue("Password", user.Password);
-                    command.Parameters.AddWithValue("Permission", user.Permission);
-
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())

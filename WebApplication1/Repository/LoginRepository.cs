@@ -23,7 +23,7 @@ namespace WebApplication1.Repository
 
         public void SetLoginSession(string username, string permission)
         {
-            contextAccessor.HttpContext.Session.SetString("username", username);
+            contextAccessor.HttpContext.Session.SetString("Username", username);
             contextAccessor.HttpContext.Session.SetString("Permission", permission);
         }
 

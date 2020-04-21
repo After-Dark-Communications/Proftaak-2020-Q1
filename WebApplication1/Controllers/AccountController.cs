@@ -43,8 +43,9 @@ namespace WebApplication1.Controllers
             {
                 _loginRepository.SetLoginSession(result.UserName, result.Permission);
 
-                return RedirectToAction("Index", "HomeController");
+                return RedirectToAction("Index", "Home");
             }
+
             return View();
         }
 
