@@ -13,16 +13,13 @@ namespace Logic
         private ICollection<TrackDTO> DepotTracks { get; set; }
         Track _tracklogic;
         Tram _tramlogic;
-        RepairService _repairServiceLogic;
-        CleaningService _cleaningServiceLogic;
+
         private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, RepairService repairServiceLogic, CleaningService _cleaningServiceLogic, IDepotAccess depotAccess)
+        public Depot(Track tracklogic, Tram tramlogic, IDepotAccess depotAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
-            this._repairServiceLogic = repairServiceLogic;
-            this._cleaningServiceLogic = _cleaningServiceLogic;
             this._depotaccess = depotAccess;
         }
 
@@ -32,8 +29,8 @@ namespace Logic
             {
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
                 changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic);
-                AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
-                AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic, _repairServiceLogic);
+                //AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
+                AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic);
             }
             else
             {

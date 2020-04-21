@@ -22,7 +22,7 @@ namespace Logic
             }
         }
 
-        public static void AllocateTramToTrack(TramDTO tram, ICollection<TrackDTO> tracks, Track _Tracklogic, RepairService _repairServiceLogic)
+        public static void AllocateTramToTrack(TramDTO tram, ICollection<TrackDTO> tracks, Track _Tracklogic)
         {
             //if tram is in the repairservice -> send to a repair track
 
@@ -34,10 +34,6 @@ namespace Logic
                     _Tracklogic.StoreTram(tram, track);
                 }
             }
-           
-            
-
-            throw new NotImplementedException();
         }
     }
 }
