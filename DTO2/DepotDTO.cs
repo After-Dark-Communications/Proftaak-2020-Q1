@@ -8,6 +8,6 @@ namespace DTO
     {
         public int Id { get; set; }
         public string Location { get; set; }
-        private ICollection<TrackDTO> DepotTracks { get; set; }
+        public ICollection<TrackDTO> DepotTracks { get; set; }
     }
 }
