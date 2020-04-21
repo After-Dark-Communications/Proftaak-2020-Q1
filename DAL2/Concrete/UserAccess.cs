@@ -32,23 +32,13 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password) Values(@Username, @Name, @Surname, @Password)", conn))
+                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password, Permission) Values(@Username, @Name, @Surname, @Password, @Permission)", conn))
                 {
                     command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
                     command.Parameters.Add(new SqlParameter("Name", obj.Name));
                     command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
                     command.Parameters.Add(new SqlParameter("Password", obj.Password));
-                    command.ExecuteNonQuery();
-                }
-
-                using (SqlCommand command = new SqlCommand("INSERT INTO [User_Permission] (PermissionId, UserId) Values((Select Permission.Id Where Permission.Name= @PermissionName), (Select User.Id Where User.Name= @UserName))", conn))
-                {
-                    foreach (var permission in obj.Permissions)
-                    {
-                        command.Parameters.Add(new SqlParameter("PermissionName", permission.Name));
-                        command.Parameters.Add(new SqlParameter("UserName", obj.Name));
-                    }
-
+                    command.Parameters.Add(new SqlParameter("Permission", obj.Permission));
                     command.ExecuteNonQuery();
                 }
 
@@ -96,25 +86,26 @@ namespace DAL.Concrete
 
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand command = new SqlCommand("SELECT [User].UserName, [User].Name, [User].Surname, [User].Password, Permission.Name, Permission.Description " +
-                "FROM[dbi384571].[dbo].[User] " +
-                "Left JOIN User_Permission On [User].Id = User_Permission.UserId " +
-                "Left JOIN Permission on User_Permission.PermissionId = Permission.Id " +
+                using (SqlCommand command = new SqlCommand("SELECT [User].Id, [User].UserName, [User].Name, [User].Surname, [User].Password, [user].Permission" +
                 "WHERE[User].UserName = @UserName AND [User].Password = @Password ", conn))
                 {
                     conn.Open();
+                    command.Parameters.AddWithValue("Id", user.Id);
                     command.Parameters.AddWithValue("UserName", user.UserName);
                     command.Parameters.AddWithValue("Password", user.Password);
+                    command.Parameters.AddWithValue("Permission", user.Permission);
 
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        string UserName = reader.GetString(0);
-                        string Name = reader.GetString(1);
-                        string Surname = reader.GetString(2);
-                        string Password = reader.GetString(3);
-                        UserDTO UserData = new UserDTO(UserName, Password, Name, Surname);
+                        int Id = reader.GetInt32(0);
+                        string UserName = reader.GetString(1);
+                        string Name = reader.GetString(2);
+                        string Surname = reader.GetString(3);
+                        string Password = reader.GetString(4);
+                        string Permission = reader.GetString(5)
+                        UserDTO UserData = new UserDTO(Id, UserName, Password, Name, Surname, Permission);
 
                         if (!reader.IsDBNull(4))
                         {
