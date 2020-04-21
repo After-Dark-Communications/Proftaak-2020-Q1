@@ -62,9 +62,18 @@ namespace WebApplication1.Controllers
         {
             return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["tracknumber"]);
         }
+        public IActionResult MoveTramTo()
+        {
+            return Content("1212");
+        }
         public IActionResult InformationTramPopUp(int tramnumber)
         {
             return PartialView("InformationTramPopUp");
+        }
+
+        public IActionResult PartialViewMoveTram(int tramnumber, int track)
+        {
+            return PartialView("PartialViewMoveTram", new { tramnumber = tramnumber, track = track });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

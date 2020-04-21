@@ -578,8 +578,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="MoveTram">
+    <div class="modal-dialog">
+        <div class="modal-content" id="MoveTramInfo">
+
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script type="text/javascript">
+        function MoveTram(_tramnumber, _track) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/PartialViewMoveTram",
+                data: { tramnumber: _tramnumber, track : _track },
+                success: function (response) {
+                    $('#MoveTramInfo').html(response);
+                    $('#MoveTram').modal('show');
+                }
+            });
+        }
         function toggleRepairField() {
             var repairchecked = document.getElementById("repairchecked");
             var repairreason = document.getElementById("repairreason");
@@ -619,15 +638,25 @@
             });
         }
 
-                //$(document).on("click",
-                //    '.test1',
-                //    function(event) {
-                //        //alert(200);
-                //    });
+//        $(document).on("click",
+//            '#MoveTramTest',
+//            function (event) {
+//                var _tramnumber = $('#testmodal').getElementById("tramnumber");
+//                var _track = document.getElementById("track");
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/Home/PartialViewMoveTram",
+//                    data: { tramnumber: _tramnumber, track : _track },
+//                    success: function (response) {
+//                        $('#MoveTramInfo').html(response);
+//                        $('#MoveTram').modal('show');
+//                    }
+//                });
+//            });
 
-                //$(document).ready(function () {
+        //$(document).ready(function () {
 
-                //});
+        //});
     </script>
 }
 
