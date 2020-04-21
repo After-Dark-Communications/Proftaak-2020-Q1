@@ -9,19 +9,14 @@ namespace Logic
     public class Track
     {
         private readonly ITrackAccess _trackAccess;
+        Sector _sectorLogic;
 
-        public Track(ITrackAccess trackAccess)
+        public Track(ITrackAccess trackAccess, Sector sectorlogic)
         {
             _trackAccess = trackAccess;
-        }
-        public void CheckTramType(TramDTO tram)
-        {
-            throw new NotImplementedException();
-        Sector _sectorLogic;
-        public Track(Sector sectorlogic)
-        {
             this._sectorLogic = sectorlogic;
         }
+        
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
             if (tram.Type == track.TramType)
@@ -57,7 +52,7 @@ namespace Logic
             {
                 if (_sectorLogic.CheckIfSectorIsEmpty(sector))
                 {
-                    _sectorLogic.AddTram(tram, sector);
+                    _sectorLogic.AddTram(sector, tram);
                 }
             }
         }

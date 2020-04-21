@@ -25,11 +25,6 @@ namespace Logic
             }
         }
 
-        public void DeleteStatus(StatusDTO status, TramDTO tram)
-        { 
-
-        }
-
         public bool CheckIfTramExists(string tramNumber)
         {
             return true;
@@ -42,6 +37,7 @@ namespace Logic
             {
                 return false;
             }//*/
+        }
 
            
         public void Create(TramDTO tram)
