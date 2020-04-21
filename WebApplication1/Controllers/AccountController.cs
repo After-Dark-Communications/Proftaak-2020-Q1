@@ -48,12 +48,15 @@ namespace WebApplication1.Controllers
             }
             return View();
         }
+
         public IActionResult Register()
         {
             ViewBag.ShowTopBar = false;
             return View();
         }
+
         [HttpPost]
+
         public IActionResult Register(UserViewModel userModel)
         {
             UserDTO User = _mapper.Map<UserDTO>(userModel);
