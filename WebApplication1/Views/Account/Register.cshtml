@@ -30,28 +30,47 @@
             <p class="LB-Register-Text">Wachtwoord Bevestigen</p>
             <p><input id="PasswordField" asp-for="Password" type="password" /></p>
         </div>
-      @{ 
-          PermissionViewModel per = new PermissionViewModel();
-      }
+        @{
+            PermissionViewModel per = new PermissionViewModel();
+                    PermissionViewModel per1 = new PermissionViewModel();
+                    PermissionViewModel per2 = new PermissionViewModel();
+                    PermissionViewModel per3 = new PermissionViewModel();
+                    PermissionViewModel per4 = new PermissionViewModel();
+        }
         <p>
             <div class="LB-Register-CheckBox">
-                <input id="Admin" type="checkbox" value="Admin"/>
+                <input id="Admin" type="checkbox" asp-for="@per.Description" value="Admin" />
+                @{
+                    Model.Permissions.Add(per);
+                }
                 <span class="LB-Register-Text">Beheerder</span>
             </div>
             <div class="LB-Register-CheckBox">
-                <input id="RemiseAdmin" type="checkbox" value="RemiseAdmin" />
+                <input id="RemiseAdmin" type="checkbox" asp-for="@per1.Description" value="RemiseAdmin" />
+                @{
+                    Model.Permissions.Add(per1);
+                }
                 <span class="LB-Register-Text">Wagenparkbeheerder</span>
             </div>
             <div class="LB-Register-CheckBox">
-                <input id="Conductor" type="checkbox" value="Conductor" />
+                <input id="Conductor" type="checkbox" asp-for="@per2.Description" value="Conductor" />
+                @{
+                    Model.Permissions.Add(per2);
+                }
                 <span class="LB-Register-Text">Bestuurder</span>
             </div>
             <div class="LB-Register-CheckBox">
-                <input id="Technician" type="checkbox" value="Technician" />
+                <input id="Technician" type="checkbox" asp-for="@per3.Description" value="Technician" />
+                @{
+                    Model.Permissions.Add(per3);
+                }
                 <span class="LB-Register-Text">Technicus</span>
             </div>
             <div class="LB-Register-CheckBox">
-                <input id="Cleaner" type="checkbox" value="Cleaner" />
+                <input id="Cleaner" type="checkbox" asp-for="@per4.Description" value="Cleaner" />
+                @{
+                    Model.Permissions.Add(per4);
+                }
                 <span class="LB-Register-Text">Schoonmaker</span>
             </div>
         </p>
