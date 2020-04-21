@@ -130,10 +130,6 @@ namespace DAL.Concrete
                         command.Parameters.AddWithValue("@key", tramNumber);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            if(reader.IsDBNull(0))
-                            {
-                                return null;
-                            }
                             while (reader.Read())
                             {
                                 returnTram.Id = reader.GetInt32(0);
