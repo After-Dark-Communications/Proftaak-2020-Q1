@@ -12,8 +12,8 @@ namespace WebApplication1.Models
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public List<PermissionViewModel> Permissions;
-        //public List<string> Permissions;
+        //public List<PermissionViewModel> Permissions;
+        public string Permissions { get; set; }
         public UserViewModel()
         {
 
