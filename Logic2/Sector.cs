@@ -8,33 +8,44 @@ namespace Logic
 {
     public class Sector
     {
-        private readonly ISectorAccess _sectorAccess;
-        public Sector(ISectorAccess sectorAcces)
+        private readonly ISectorAccess _sectoraccess;
+        private readonly ITramAccess _tramAccess;
+        public Sector(ISectorAccess sectoraccess, ITramAccess tramAcces)
         {
-            this._sectorAccess = sectorAcces;
-        }
-       
-        public void AddTram(TramDTO tram, SectorDTO sector)
-        {
-            sector.Tram = tram;
-            _sectorAccess.Update(sector);
+            _sectoraccess = sectoraccess;
+            _tramAccess = tramAcces;
         }
 
-    public bool CheckIfSectorIsEmpty(SectorDTO sector)
-    {
-           if (sector.Tram == null) //not sure about this statement
+        public SectorDTO GetSector(int key)
+        {
+            var sector =_sectoraccess.Read(key);
+            if(sector.Tram != null)
             {
-                return true;
+                sector.Tram = _tramAccess.Read(sector.Tram.Id);
             }
-            else
-            {
-                return false;
-            }
-    }
+            
+            return sector;
+        }
 
-    public TramDTO GetTram(SectorDTO sector)
-    {
-            return sector.Tram;
+        public void AddTram(SectorDTO sector, TramDTO tram)
+        {
+            if(sector.Tram == null)
+            {
+                sector.Tram = tram;
+                _sectoraccess.Update(sector);
+            }
+        }
+
+        public void RemoveTram(SectorDTO sector)
+        {
+            sector.Tram = null;
+            _sectoraccess.Update(sector);
+        }
+
+        public void Update(SectorDTO sector)
+        {
+            _sectoraccess.Update(sector);
+        }
+     
     }
-}
 }

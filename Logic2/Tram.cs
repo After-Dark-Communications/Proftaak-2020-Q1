@@ -44,11 +44,24 @@ namespace Logic
             }//*/
 
            
+        public void Create(TramDTO tram)
+        {
+            _tramAccess.Create(tram);
+        }
+        public void Delete(int key)
+        {
+            _tramAccess.Delete(key);
         }
 
-        public void GetServiceHistory()
+        public void Delete(TramDTO tram)
         {
-            throw new NotImplementedException();
+            _tramAccess.Delete(tram.Id);
+        }
+
+        public void Delete(string tramNumber)
+        {
+            var tram = _tramAccess.ReadFromTramNumber(tramNumber);
+            _tramAccess.Delete(tram.Id);
         }
         public TramDTO GetTram(int key)
         {

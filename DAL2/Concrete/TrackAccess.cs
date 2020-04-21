@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
 using Context;
+using DAL.Context;
 using DAL.Interfaces;
+using DAL.Models;
 using DTO;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,47 +18,61 @@ namespace DAL.Concrete
 {
     public class TrackAccess : ITrackAccess
     {
-        private readonly DepotContext _context;
         private readonly IMapper _mapper;
 
-        public TrackAccess(DepotContext context, IMapper mapper)
+        public TrackAccess(IMapper mapper)
         {
-            _context = context;
             _mapper = mapper;
         }
-        public Task Create(TrackDTO obj)
+        public void Create(TrackDTO obj)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task Delete(int key)
-        {
-            using(_context)
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                var tram = await _context.Track.FirstOrDefaultAsync(t => t.Id == key);
-                _context.Track.Remove(tram);
-                await _context.SaveChangesAsync();
-
+                throw new NotImplementedException();
             }
         }
-
         public TrackDTO Read(int key)
         {
-            using(_context)
+            TrackDTO track = new TrackDTO();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                TrackDTO track = new TrackDTO();
-                var readtrack = _context.Track.FirstOrDefault(i => i.Id == key);
-                return track = _mapper.Map<TrackDTO>(readtrack);
+                using(SqlCommand cmd = new SqlCommand($"SELECT Track.Id, Track.TrackNumber, Track.PreferedTramType, Track.SectorId FROM [Track] INNER JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId WHERE [Id] = @key", conn))
+                {
+                    cmd.Parameters.AddWithValue("@key", key);
+                    conn.Open();
+                    using(SqlDataReader datareader = cmd.ExecuteReader())
+                    {
+                        while(datareader.Read())
+                        {
+                            track.Id = datareader.GetInt32(0);
+                            track.TrackNumber = datareader.GetInt32(1);
+                            track.TramType = (TramType)datareader.GetInt32(2);
+                            track.Sectors = new List<SectorDTO>();
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            return track;
+        }
+        public void Update(TrackDTO obj)
+        {
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using(SqlCommand cmd= new SqlCommand($"UPDATE Track SET [PreferedTramType] = @TramType WHERE [Id] = @Id",conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@Id", obj.Id);
+                    cmd.Parameters.AddWithValue("@TramType", obj.TramType);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
             }
         }
 
-        public async Task Update(TrackDTO obj)
+        public void Delete(int key)
         {
-            using(_context)
-            {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
-            }
+            throw new NotImplementedException();
         }
     }
 }
