@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public List<PermissionViewModel> Permissions;
+        public string Permission;
         //public List<string> Permissions;
         public UserViewModel()
         {
@@ -25,7 +25,7 @@ namespace WebApplication1.Models
             this.Password = Password;
         }
 
-        public UserViewModel(string Username, string Name, string Surname, string Password, params string[] Permissions)
+        public UserViewModel(string Username, string Name, string Surname, string Password, string Permissions)
         {
             this.UserName = UserName;
             this.Name = Name;
