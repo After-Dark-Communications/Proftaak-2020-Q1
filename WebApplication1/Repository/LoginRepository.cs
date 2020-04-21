@@ -32,5 +32,10 @@ namespace WebApplication1.Repository
             contextAccessor.HttpContext.Session.Remove("Username");
             contextAccessor.HttpContext.Session.Remove("UserId");
         }
+
+        public string GetLoginSession()
+        {
+             return contextAccessor.HttpContext.Session.GetString("Username");
+        }
     }
 }
