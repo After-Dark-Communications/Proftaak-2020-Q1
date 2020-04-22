@@ -3,17 +3,31 @@
 }
 
 @model DepotViewModel;
-
+@{
+    void fillTracks(int DepotValue)
+    {
+        for (int i = 0; i < Model.DepotTracks[DepotValue].Sectors.Count; i++)
+        {
+            if (Model.DepotTracks[i].Sectors[0].Tram == null)
+            {
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            }
+            else
+            {
+                <li onclick="clickInfoTram(@Model.DepotTracks[i].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
+            }
+        }
+    }
+}
 <div class="main-container">
     <div class="tracks-column">
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[0].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[0].Sectors[0].Tram.TramNumber </a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{
+                    fillTracks(0);
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -21,35 +35,17 @@
                 <li class="tracks-white"><a href="#">37</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
                 @{
-                    for (int i = 0; i < Model.DepotTracks.Count; i++)
-                    {
-                        if (Model.DepotTracks[i].Sectors[0].Tram == null)
-                        {
-                            <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                        }
-                        else
-                        {
-                            <li onclick="clickInfoTram(@Model.DepotTracks[i].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
-                        }
-                    }
+                    fillTracks(1);
                 }
-                @*<li onclick="clickInfoTram(@Model.DepotTracks[1].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
-                    <li onclick="clickInfoTram(@Model.DepotTracks[2].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[2].Sectors[0].Tram.TramNumber </a></li>
-                    <li onclick="clickInfoTram(@Model.DepotTracks[3].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[3].Sectors[0].Tram.TramNumber </a></li>
-                    <li onclick="clickInfoTram(@Model.DepotTracks[4].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[4].Sectors[0].Tram.TramNumber </a></li>*@
-                @*<li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>*@
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">36</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{ 
+                    fillTracks(2);
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -549,9 +545,9 @@
 //                });
 //            });
 
-                //$(document).ready(function () {
+                                //$(document).ready(function () {
 
-                //});
+                                //});
     </script>
 }
 
