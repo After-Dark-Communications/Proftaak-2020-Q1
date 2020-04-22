@@ -14,50 +14,16 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i && Model.Tracks[])
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">37</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
+                <li onclick="clickInfoTram(@Model.DepotTracks[1].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -68,25 +34,6 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -97,21 +44,6 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -122,25 +54,6 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -151,21 +64,6 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -176,25 +74,6 @@
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
             </ul>
         </div>
         <div class="container-train normal">
