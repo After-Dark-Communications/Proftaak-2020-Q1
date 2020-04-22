@@ -18,8 +18,11 @@ namespace WebApplication1.Services
             CreateMap<StatusDTO, Status>().ReverseMap();
             CreateMap<StatusDTO, StatusViewModel>().ReverseMap();
             CreateMap<TrackDTO, Track>().ReverseMap();
-            CreateMap<TrackDTO, TrackViewModel>().ReverseMap();
             CreateMap<SectorDTO, Sector>().ReverseMap();
+            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<UserViewModel, UserDTO>().ReverseMap();
+            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<TrackDTO, TrackViewModel>().ReverseMap();
             CreateMap<SectorDTO, SectorViewModel>().ReverseMap();
 
         }
