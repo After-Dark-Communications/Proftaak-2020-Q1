@@ -30,7 +30,7 @@ namespace WebApplication1.Repository
         public void RemoveLoginSession()
         {
             contextAccessor.HttpContext.Session.Remove("Username");
-            contextAccessor.HttpContext.Session.Remove("UserId");
+            contextAccessor.HttpContext.Session.Remove("Permission");
         }
 
         public string GetLoginSession()

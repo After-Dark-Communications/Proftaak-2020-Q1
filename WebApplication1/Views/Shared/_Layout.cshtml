@@ -19,7 +19,14 @@
         {
             <nav class="Top-Container">
                 <div class="TB-User">
-                    <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login","Account")'" />
+                    @if (Context.Session.GetString("Username") != null)
+                    {
+                        <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login", "Account")'" />
+                    }
+                    else
+                    {
+                        <input class="TB-User-Profile" id="UserButton" type="button" value="Log Out" style="background-image: url('../img/usericon.png');" onclick="window.Location.href = '@Url.Action("Logout","Account")'" />
+                    }
                 </div>
                 @if (Context.Session.GetString("Username") != null)
                 {
