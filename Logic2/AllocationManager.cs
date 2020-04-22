@@ -34,6 +34,21 @@ namespace Logic
                     break;
                 }
             }
+
+        }
+
+        public static void AllocateToRandomTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
+        {
+            bool tramIsStored = false;
+            do
+            {
+                TrackDTO randomTrack = _Tracklogic.GetRandomTrack(tracks);
+                if (_Tracklogic.CheckTramCanBeStored(tram, randomTrack))
+                {
+                    _Tracklogic.StoreTram(tram, randomTrack);
+                    tramIsStored = true;
+                }
+            } while (tramIsStored == false);
         }
     }
 }

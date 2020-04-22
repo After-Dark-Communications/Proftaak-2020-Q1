@@ -28,7 +28,7 @@ namespace Logic
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
                 changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
                 //AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
-                AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic);
+                AllocationManager.AllocateToRandomTrack(tram, depot.DepotTracks, _tracklogic);
             }
             else
             {
@@ -71,5 +71,7 @@ namespace Logic
         {
            return _depotaccess.Read(key);
         }
+
+
     }
 }

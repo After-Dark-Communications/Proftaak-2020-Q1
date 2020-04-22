@@ -32,8 +32,6 @@ namespace WebApplication1.Controllers
             _repository = repository;
         }
 
-        
-
         public IActionResult Index()
         {
             ViewBag.ShowTopBar = true;
@@ -62,11 +60,11 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public IActionResult ParkTram()
         {
-            // HttpContext.Request.Form["repair"]
-            // HttpContext.Request.Form["clean"]
-            // HttpContext.Request.Form["tramnumber"]
-            // HttpContext.Request.Form["repairreason"]
-            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["repair"] + " " + HttpContext.Request.Form["clean"] + " " + HttpContext.Request.Form["repairreason"]);
+            bool repair = HttpContext.Request.Form["repair"] == "repair";
+            bool cleaning = HttpContext.Request.Form["clean"] == "cleaning";
+
+            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            return Content("henk");
         }        
         public IActionResult ReserveTrack()
         {
