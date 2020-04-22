@@ -43,7 +43,12 @@
 .status-cleaning {
     background-color: aqua;
 }
-
+.status-shift {
+    background-color: greenyellow;
+}
+.status-indepot {
+    background-color: purple;
+}
 .status-buttom {
     background-color: lightgreen;
     border-bottom: 1px solid black;
