@@ -3,198 +3,85 @@
 }
 
 @model DepotViewModel;
-
+@{
+    void fillTracks(int DepotValue)
+    {
+        for (int x = 0; x < Model.DepotTracks[DepotValue].Sectors.Count; x++)
+        {
+            if (Model.DepotTracks[DepotValue].Sectors[x].Tram == null)
+            {
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            }
+            else
+            {
+                <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
+            }
+        }
+    }
+}
 <div class="main-container">
     <div class="tracks-column">
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[0].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[0].Sectors[0].Tram.TramNumber </a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i && Model.Tracks[])
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(0);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">37</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(1);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">36</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(2);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">35</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(3);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">34</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(4);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">33</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(5);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">32</a></li>
                 <li class="tracks-gray"><a href="#">10</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(6);
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -210,21 +97,17 @@
             <ul>
                 <li class="tracks-white"><a href="#">30</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(8);
+                }
             </ul>
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
                 <li class="tracks-white"><a href="#">40</a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
+                @{
+                    fillTracks(9);
+                }
             </ul>
             <div class="container-header">
                 <a class="container-brand" href="#">in-/uitrij-spoor</a>
@@ -234,63 +117,53 @@
             <ul>
                 <li class="tracks-white"><a href="#">41</a></li>
                 <li class="tracks-gray"><a href="#">10</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(10);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">42</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(11);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">43</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(12);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">44</a></li>
                 <li class="tracks-blue"><a href="#">13</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(13);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">45</a></li>
                 <li class="tracks-red"><a href="#">17</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(14);
+                }
             </ul>
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
                 <li class="tracks-white"><a href="#">58</a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
+                @{
+                    fillTracks(15);
+                }
             </ul>
             <div class="container-header">
                 <a class="container-brand" href="#">in-/uitrij-spoor</a>
@@ -347,13 +220,9 @@
             <ul>
                 <li class="tracks-white"><a href="#">54</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(19);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -409,10 +278,9 @@
             <ul>
                 <li class="tracks-white"><a href="#">63</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(24);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -437,50 +305,41 @@
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">73</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(27);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">74</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(28);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">75</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(29);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">76</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(30);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">77</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(31);
+                    }
                 </ul>
             </div>
             <div class="container-header">
@@ -564,7 +423,7 @@
                             <input type="number" name="tramnumber" value="" />
 
                             <label>Spoornummer :</label>
-                            <select name="tracknumber" >
+                            <select name="tracknumber">
                                 <option value="38">38</option>
                                 <option value="37">37</option>
                                 <option value="36">36</option>
@@ -592,7 +451,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Home/PartialViewMoveTram",
-                data: { tramnumber: _tramnumber, track : _track },
+                data: { tramnumber: _tramnumber, track: _track },
                 success: function (response) {
                     $('#MoveTramInfo').html(response);
                     $('#MoveTram').modal('show');
@@ -654,9 +513,9 @@
 //                });
 //            });
 
-        //$(document).ready(function () {
+                                                //$(document).ready(function () {
 
-        //});
+                                                //});
     </script>
 }
 
