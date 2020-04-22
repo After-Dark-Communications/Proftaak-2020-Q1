@@ -64,16 +64,19 @@ namespace WebApplication1.Controllers
         }
         public IActionResult MoveTramTo()
         {
-            return Content("1212");
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
         public IActionResult InformationTramPopUp(int tramnumber)
         {
+
             return PartialView("InformationTramPopUp");
         }
 
         public IActionResult PartialViewMoveTram(int tramnumber, int track)
         {
-            return PartialView("PartialViewMoveTram", new { tramnumber = tramnumber, track = track });
+            ViewBag.Tramnumber = tramnumber;
+            ViewBag.Track = track;
+            return PartialView("PartialViewMoveTram");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

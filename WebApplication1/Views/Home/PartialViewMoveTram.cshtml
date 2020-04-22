@@ -1,12 +1,13 @@
-﻿<div>
+﻿
+<div>
     <div class="reserve-tram-info">
-        <h4 class="reserve-tram-title">Verplaats tram naar... @ViewBag.track</h4>
+        <h4 class="reserve-tram-title">Verplaats tram naar...</h4>
     </div>
     <form method="post" action="/Home/MoveTramTo">
         <div class="reserve-tram-left">
             <div class="reserve-tram-info">
                 <label>Tramnummer :</label>
-                <input type="number" name="tramnumber" value="@ViewBag.tramnumber" editable="none"/>
+                <input type="number" name="tramnumber" value="@ViewBag.Tramnumber" readonly/>
                 <label>Spoornummer :</label>
                 <select name="tracknumber">
                     <option value="37">37</option>
