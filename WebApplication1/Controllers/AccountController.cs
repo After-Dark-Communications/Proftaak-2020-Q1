@@ -63,5 +63,11 @@ namespace WebApplication1.Controllers
             _userCollection.RegisterUser(User);
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            _loginRepository.RemoveLoginSession();
+            return View();
+        }
     }
 }
