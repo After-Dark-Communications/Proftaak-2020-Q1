@@ -7,7 +7,8 @@ namespace WebApplication1.Models
 {
     public class DepotViewModel
     {
-        public ICollection<UserViewModel> Users { get; set; }
-        private ICollection<TrackViewModel> DepotTracks { get; set; }
+        public int Id { get; set; }
+        public string Location { get; set; }
+        public List<TrackViewModel> DepotTracks { get; set; }
     }
 }

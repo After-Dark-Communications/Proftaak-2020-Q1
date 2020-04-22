@@ -16,7 +16,7 @@ namespace WebApplication1.Models
         public DateTime CleaningDateBigService { get; set; }
         public DateTime RepairDateSmallService { get; set; }
         public DateTime RepairDateBigService { get; set; }
-        public ICollection<StatusViewModel> Status { get; set; }
-        private ICollection<TrackViewModel> PreferredTracksList { get; set; }
+        public List<StatusViewModel> Status { get; set; }
+        private List<TrackViewModel> PreferredTracksList { get; set; }
     }
 }
