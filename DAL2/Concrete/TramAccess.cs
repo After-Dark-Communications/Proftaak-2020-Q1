@@ -179,8 +179,14 @@ namespace DAL.Concrete
                     con.Open();
                     command.Parameters.AddWithValue("@stat", (int)stat.Status);
                     command.Parameters.AddWithValue("@tramKey", tramKey);
-                    command.Parameters.AddWithValue("@description", stat.Description);
-                    command.ExecuteNonQuery();
+                    if(stat.Description != null)
+                    {
+                        command.Parameters.AddWithValue("@description", stat.Description);
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@description", "");
+                    }                    command.ExecuteNonQuery();
                     con.Close();
                 }
             }

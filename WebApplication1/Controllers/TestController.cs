@@ -24,22 +24,15 @@ namespace WebApplication1.Controllers
         {
             _mapper = mapper;
             _tramLogic = new Tram(ac);
-           // _depotLogic = new Depot(dc);
             _sectorLogic = new Sector(sc, ac);
-           // _trackLogic = new Track(tc);
+            _trackLogic = new Track(tc, _sectorLogic);
+            _depotLogic = new Depot(_trackLogic, _tramLogic, dc); 
         }
 
         public IActionResult Index()
         {
-            //TrackDTO track = new TrackDTO();
-            //track.Id = 3;
-            //track.TramType = TramType.TrainingTram;
-            //_trackLogic.Update(track);
-            DepotDTO depot = new DepotDTO();
-            //string newDepotName = "Remise Havenstraat";
-            depot = _depotLogic.Read(1);
-            //depot.Location = newDepotName;
-            //_depotLogic.Update(depot);
+            _depotLogic.ReceiveTram("2029", false, true, "Vies", _depotLogic.Read(1));
+            var depot = _depotLogic.Read(1);
             return View(depot);
         }
     }

@@ -9,8 +9,6 @@ namespace Logic
 {
     public class Depot
     {
-        public ICollection<UserDTO> Users { get; set; }
-        private List<TrackDTO> DepotTracks { get; set; }
         Track _tracklogic;
         Tram _tramlogic;
 
@@ -23,14 +21,14 @@ namespace Logic
             this._depotaccess = depotAccess;
         }
 
-        public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus) 
+        public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus, string statusDescription, DepotDTO depot) 
         {
             if (CheckIfTramIsAllowed(tramNumber, _tramlogic))
             {
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
-                changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic);
+                changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
                 //AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
-                AllocationManager.AllocateTramToTrack(tram, DepotTracks, _tracklogic);
+                AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic);
             }
             else
             {
@@ -43,7 +41,7 @@ namespace Logic
             return _tramlogic.CheckIfTramExists(tramNumber);
         }
 
-        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
+        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)
         {
 
             StatusDTO statusInDepot = new StatusDTO();
@@ -52,9 +50,9 @@ namespace Logic
 
             if (repairstatus)
             {
-
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Defect;
+                status.Description = statusDescription;
                 _tramlogic.AddStatus(status, tram);
             }
             if (cleanstatus)
