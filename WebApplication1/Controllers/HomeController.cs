@@ -68,7 +68,6 @@ namespace WebApplication1.Controllers
         }
         public IActionResult InformationTramPopUp(int tramnumber)
         {
-
             return PartialView("InformationTramPopUp");
         }
 
