@@ -11,7 +11,7 @@ namespace DTO
         public int TrackNumber { get; set; }
         public TramType TramType { get; set; }
         public int PreferredTrackLine { get; set; }
-        public ICollection<SectorDTO> Sectors { get; set; }
+        public List<SectorDTO> Sectors { get; set; }
 
         public TrackDTO()
         {

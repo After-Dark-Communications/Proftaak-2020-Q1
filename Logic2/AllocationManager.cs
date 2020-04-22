@@ -10,17 +10,17 @@ namespace Logic
     public static class AllocationManager
     {
         
-        public static void AllocateTramToService(TramDTO tram, RepairService _repairServiceLogic, CleaningService _cleaningServiceLogic)
-        {
-            if (tram.Status.Any(s => s.Status == TramStatus.Defect))
-            {
-                _repairServiceLogic.AddTram(tram);
-            }
-            if (tram.Status.Any(s => s.Status == TramStatus.Cleaning))
-            {
-                _cleaningServiceLogic.AddTram(tram);
-            }
-        }
+        //public static void AllocateTramToService(TramDTO tram, RepairService _repairServiceLogic, CleaningService _cleaningServiceLogic)
+        //{
+        //    if (tram.Status.Any(s => s.Status == TramStatus.Defect))
+        //    {
+        //        _repairServiceLogic.AddTram(tram);
+        //    }
+        //    if (tram.Status.Any(s => s.Status == TramStatus.Cleaning))
+        //    {
+        //        _cleaningServiceLogic.AddTram(tram);
+        //    }
+        //}
 
         public static void AllocateTramToTrack(TramDTO tram, ICollection<TrackDTO> tracks, Track _Tracklogic)
         {
