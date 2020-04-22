@@ -65,5 +65,14 @@ namespace Logic
         {
              _trackAccess.Update(track);
         }
+
+        public TrackDTO GetRandomTrack(List<TrackDTO> tracks)
+        {
+            Random random = new Random();
+
+            int amountOfTracks = tracks.Count;
+            int randomTrack = random.Next(1, amountOfTracks);
+            return tracks[randomTrack];
+        }
     }
 }

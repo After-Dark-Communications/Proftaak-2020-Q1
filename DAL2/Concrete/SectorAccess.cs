@@ -106,5 +106,13 @@ namespace DAL.Concrete
                 conn.Close();
             }
         }
+
+        public List<SectorDTO> GetAllTracks()
+        {
+            List<SectorDTO> returnList = new List<SectorDTO>();
+
+
+            return null;
+        }
     }
 }

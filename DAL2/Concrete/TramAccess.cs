@@ -252,5 +252,29 @@ namespace DAL.Concrete
             }
             return tram;
         }
+
+        public List<int> GetAllTramIds()
+        {
+            List<int> returnList = new List<int>();
+
+            string query = "SELECT * FROM Tram";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            returnList.Add(reader.GetInt32(0));
+                        }
+                    }
+                    con.Close();
+                }
+            }
+
+            return returnList;
+        }
     }
 }
