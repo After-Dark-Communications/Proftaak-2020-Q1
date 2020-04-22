@@ -22,16 +22,16 @@ namespace Logic
         //    }
         //}
 
-        public static void AllocateTramToTrack(TramDTO tram, ICollection<TrackDTO> tracks, Track _Tracklogic)
+        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
             //if tram is in the repairservice -> send to a repair track
 
             foreach (TrackDTO track in tracks)
             {
-
                 if (_Tracklogic.CheckTramCanBeStored(tram, track))
                 {
                     _Tracklogic.StoreTram(tram, track);
+                    break;
                 }
             }
         }
