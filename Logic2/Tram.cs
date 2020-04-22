@@ -48,5 +48,12 @@ namespace Logic
         {
             _tramAccess.Update(tram);
         }
+
+        public TramDTO GetRandomTram()
+        {
+            Random rnd = new Random();
+            List<int> keys = _tramAccess.GetAllTramIds();
+            return _tramAccess.Read(keys[rnd.Next(1, keys.Count)]);
+        }
     }
 }
