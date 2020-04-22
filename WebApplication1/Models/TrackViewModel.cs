@@ -12,6 +12,7 @@ namespace WebApplication1.Models
         public int Id { get; set; }
         public int TrackNumber { get; set; }
         public TramType TramType { get; set; }
-        public ICollection<SectorViewModel> Sectors { get; set; }
+        public int PreferredTrackLine { get; set; }
+        public List<SectorViewModel> Sectors { get; set; }
     }
 }

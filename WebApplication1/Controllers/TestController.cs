@@ -31,16 +31,16 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            TrackDTO track = new TrackDTO();
-            track.Id = 3;
-            track.TramType = TramType.TrainingTram;
-            _trackLogic.Update(track);
-            //DepotDTO depot = new DepotDTO();
+            //TrackDTO track = new TrackDTO();
+            //track.Id = 3;
+            //track.TramType = TramType.TrainingTram;
+            //_trackLogic.Update(track);
+            DepotDTO depot = new DepotDTO();
             //string newDepotName = "Remise Havenstraat";
-            //depot = _depotLogic.Read(1);
+            depot = _depotLogic.Read(1);
             //depot.Location = newDepotName;
             //_depotLogic.Update(depot);
-            return View(track);
+            return View(depot);
         }
     }
 }

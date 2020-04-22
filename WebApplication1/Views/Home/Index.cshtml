@@ -2,7 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model TestClasses.Depot;
+@model DepotViewModel;
 
 <div class="main-container">
     <div class="tracks-column">
@@ -10,7 +10,7 @@
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
+                <li onclick="clickInfoTram(@Model.DepotTracks[0].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[0].Sectors[0].Tram.TramNumber </a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
                 <li class="tracks-hover tracks-gray"><a href="#"></a></li>
@@ -423,9 +423,9 @@
         <div class="modal-content">
             <div class="status-left">
                 <div class="status-info">
-                    <h4 class="status-title">Tram @Model.Tracks[0].Sectors[0].Trams[0].Number</h4>
-                    <h4 class="status-title">Spoornummer: @Model.Tracks[0].TrackNumber</h4>
-                    <h4 class="status-title">Soort: @Model.Tracks[0].Sectors[0].Trams[0].Type</h4>
+                    <h4 class="status-title">Tram @Model.DepotTracks[0].Sectors[0].Tram.TramNumber</h4>
+                    <h4 class="status-title">Spoornummer: @Model.DepotTracks[0].TrackNumber</h4>
+                    <h4 class="status-title">Soort: @Model.DepotTracks[0].Sectors[0].Tram.Type</h4>
                 </div>
                 <div class="status-info">
                     <p class="status-title">Laatste Schoonmaakbeurt</p>
