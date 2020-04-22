@@ -1,9 +1,9 @@
 ﻿<div class="test1">
     <div class="status-left">
         <div class="status-info">
-            <h4 class="status-title">Tram 2201</h4>
+            <h4 class="status-title">Tram @ViewBag.Tramnumber</h4>
             <h4 class="status-title">Spoornummer: 38</h4>
-            <h4 class="status-title">Soort: Combino</h4>
+            <h4 class="status-title">Soort: @ViewBag.Type</h4>
         </div>
         <div class="status-info">
             <p class="status-title">Laatste Schoonmaakbeurt</p>
@@ -22,9 +22,16 @@
         </div>
     </div>
     <div class="status-right">
-        <input type="button" class="status-buttom" value="Verplaats Tram naar..." onclick="MoveTram(2201, 38)"/>
+        <input type="button" class="status-buttom" value="Verplaats Tram naar..." onclick="MoveTram(@ViewBag.Tramnumber, 38)"/>
         <input type="button" class="status-buttom" value="Verwijder Tram"/>
         <input type="button" class="status-buttom" value="Schoonmaak Aanmelden"/>
         <input type="button" class="status-buttom" value="Stuur naar Reperatie"/>
     </div>
 </div>
+@* @ViewBag.Tramnumber = tramData.TramNumber; *@
+@* @ViewBag.Status = tramData.Status; *@
+@* @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService; *@
+@* @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService; *@
+@* @ViewBag.RepairDateBigService = tramData.RepairDateBigService; *@
+@* @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService; *@
+@* @ViewBag.Type = tramData.Type; *@

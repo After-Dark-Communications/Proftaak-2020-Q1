@@ -76,9 +76,19 @@ namespace WebApplication1.Controllers
         {
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
-        public IActionResult InformationTramPopUp(int tramnumber)
+        public IActionResult InformationTramPopUp(string tramnumber)
         {
-            return PartialView("InformationTramPopUp");
+
+            TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            @ViewBag.Tramnumber = tramData.TramNumber;
+            @ViewBag.Status = tramData.Status;
+            @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService;
+            @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService;
+            @ViewBag.RepairDateBigService = tramData.RepairDateBigService;
+            @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService;
+            @ViewBag.Type = tramData.Type;
+
+            return PartialView("InformationTramPopUp", tramData);
         }
 
         public IActionResult PartialViewMoveTram(int tramnumber, int track)
