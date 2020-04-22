@@ -26,36 +26,6 @@ namespace DAL.Concrete
             _mapper = mapper;
         }
 
-        public void CreateUser(UserDTO obj)
-        {
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                conn.Open();
-
-                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password, Permission) Values(@Username, @Name, @Surname, @Password, @Permission)", conn))
-                {
-                    command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
-                    command.Parameters.Add(new SqlParameter("Name", obj.Name));
-                    command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
-                    command.Parameters.Add(new SqlParameter("Password", obj.Password));
-                    command.Parameters.Add(new SqlParameter("Permission", obj.Permission));
-                    command.ExecuteNonQuery();
-                }
-
-                conn.Close();
-            }
-        }
-
-        public async Task Delete(int key)
-        {
-            using (_context)
-            {
-                var deleteduser = _context.User.FirstOrDefault(x => x.Id == key);
-                _context.User.Remove(deleteduser);
-                await _context.SaveChangesAsync();
-            }
-        }
-
         public UserDTO Read(int key)
         {
             using(_context)
@@ -64,20 +34,6 @@ namespace DAL.Concrete
                 var readuser = _context.User.FirstOrDefault(x => x.Id == key);
                 return user = _mapper.Map<UserDTO>(readuser);
             }
-        }
-
-        public async Task Update(UserDTO obj)
-        {
-            using(_context)
-            {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        Task IGenAccess<UserDTO>.Create(UserDTO obj)
-        {
-            throw new NotImplementedException();
         }
 
         public UserDTO Get(UserDTO user)
@@ -111,6 +67,36 @@ namespace DAL.Concrete
                     return EmptyDTO;
                 }
             }
+        }
+
+        public void Create(UserDTO obj)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password, Permission) Values(@Username, @Name, @Surname, @Password, @Permission)", conn))
+                {
+                    command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
+                    command.Parameters.Add(new SqlParameter("Name", obj.Name));
+                    command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
+                    command.Parameters.Add(new SqlParameter("Password", obj.Password));
+                    command.Parameters.Add(new SqlParameter("Permission", obj.Permission));
+                    command.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        void IGenAccess<UserDTO>.Update(UserDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IGenAccess<UserDTO>.Delete(int key)
+        {
+            throw new NotImplementedException();
         }
     }
 }

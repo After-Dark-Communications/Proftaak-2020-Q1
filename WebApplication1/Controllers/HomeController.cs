@@ -10,6 +10,7 @@ using DTO;
 using AutoMapper;
 using DAL.Interfaces;
 using Logic;
+using WebApplication1.Repository;
 
 namespace WebApplication1.Controllers
 {
@@ -19,19 +20,30 @@ namespace WebApplication1.Controllers
         private readonly Depot _depotLogic;
         private readonly Tram _tramLogic;
         private readonly Sector _sectorLogic;
+        private readonly LoginRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot)
+
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository)
         {
             _mapper = mapper;
             _depotLogic = depot;
             _tramLogic = tram;
             _sectorLogic = sector;
+            _repository = repository;
         }
+
+        
 
         public IActionResult Index()
         {
             ViewBag.ShowTopBar = true;
             var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
+
+            if (_repository.GetLoginSession() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View(depot);
         }
 
