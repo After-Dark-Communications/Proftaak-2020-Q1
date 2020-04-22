@@ -9,9 +9,9 @@ namespace DTO
     {
         public int Id { get; set; }
         public TramType Type { get; set; }
-        public ICollection<StatusDTO> Status { get; set; }
+        public List<StatusDTO> Status { get; set; }
         public string TramNumber { get; set; }
-        private ICollection<TrackDTO> PreferredTracksList { get; set; }
+        private List<TrackDTO> PreferredTracksList { get; set; }
         public DateTime CleaningDateSmallService { get; set; }
         public DateTime CleaningDateBigService { get; set; }
         public DateTime RepairDateSmallService { get; set; }

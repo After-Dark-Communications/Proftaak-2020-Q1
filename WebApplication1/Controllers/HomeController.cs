@@ -9,32 +9,30 @@ using WebApplication1.Models;
 using DTO;
 using AutoMapper;
 using DAL.Interfaces;
-using TestClasses;
+using Logic;
 
 namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly Tram _tram;
-        //private readonly Sector _sector;
-        //private readonly ILogger<HomeController> _logger;
-        //private readonly IMapper _mapper;
-        //private readonly Depot _depot;
+        private readonly IMapper _mapper;
+        private readonly Depot _depotLogic;
+        private readonly Tram _tramLogic;
+        private readonly Sector _sectorLogic;
 
-        //public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot)
-        //{
-        //    _logger = logger;
-        //    _mapper = mapper;
-        //    _tram = tram;
-        //    _sector = sector;
-        //    _depot = depot;
-        //}
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot)
+        {
+            _mapper = mapper;
+            _depotLogic = depot;
+            _tramLogic = tram;
+            _sectorLogic = sector;
+        }
 
         public IActionResult Index()
         {
-            Depot dp = new Depot();
             ViewBag.ShowTopBar = true;
-            return View(dp);
+            var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
+            return View(depot);
         }
 
         public IActionResult Privacy()
@@ -54,5 +52,36 @@ namespace WebApplication1.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private DepotDTO MapDepotViewModelToDTO(DepotViewModel depotViewModel)
+        {
+            DepotDTO returnDepot = new DepotDTO()
+            {
+                Id = depotViewModel.Id,
+                Location = depotViewModel.Location,
+                DepotTracks = new List<TrackDTO>()
+            };
+            foreach (TrackViewModel track in depotViewModel.DepotTracks)
+            {
+                returnDepot.DepotTracks.Add(_mapper.Map<TrackDTO>(track));
+            }
+            return returnDepot;
+        }
+
+        private DepotViewModel MapDepotDTOToViewModel(DepotDTO dto)
+        {
+            DepotViewModel returnDepot = new DepotViewModel()
+            {
+                Id = dto.Id,
+                Location = dto.Location,
+                DepotTracks = new List<TrackViewModel>()
+            };
+            foreach(TrackDTO track in dto.DepotTracks)
+            {
+                returnDepot.DepotTracks.Add(_mapper.Map<TrackViewModel>(track));
+            }
+            return returnDepot;
+        }
+
     }
 }
