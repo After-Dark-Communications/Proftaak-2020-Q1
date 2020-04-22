@@ -1,4 +1,7 @@
-﻿<div class="test1">
+﻿@using System.Collections
+@using Services
+
+<div class="test1">
     <div class="status-left">
         <div class="status-info">
             <h4 class="status-title">Tram @ViewBag.Tramnumber</h4>
@@ -17,8 +20,27 @@
         </div>
         <div id="getcount" class="status-inline">
             <div>Status:</div>
-            <div class="status-defect">Reparatie</div>
-            <div class="status-cleaning">Schoonmaak</div>
+            @{
+                for (int i = 0; i < Enumerable.Count(ViewBag.Status); i++)
+                {
+                    if (ViewBag.Status[i].Status == TramStatus.Cleaning)
+                    {
+                        @:<div class="status-cleaning">Schoonmaak</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Defect)
+                    {
+                        <div class="status-defect">Reparatie</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Shift)
+                    {
+                        <div class="status-shift">Bezig</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Depot)
+                    {
+                        <div class="status-indepot">Depot</div>
+                    }
+                }
+            }
         </div>
     </div>
     <div class="status-right">
