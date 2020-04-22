@@ -31,7 +31,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            _depotLogic.ReceiveTram("2029", false, true, "Vies", _depotLogic.Read(1));
+            _depotLogic.ReceiveTram("2029", true, false, "stest", _depotLogic.Read(1));
             var depot = _depotLogic.Read(1);
             return View(depot);
         }
