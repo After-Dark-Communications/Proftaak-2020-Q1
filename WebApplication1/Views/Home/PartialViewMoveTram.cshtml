@@ -1,0 +1,20 @@
+﻿
+<div>
+    <div class="reserve-tram-info">
+        <h4 class="reserve-tram-title">Verplaats tram naar...</h4>
+    </div>
+    <form method="post" action="/Home/MoveTramTo">
+        <div class="reserve-tram-left">
+            <div class="reserve-tram-info">
+                <label>Tramnummer :</label>
+                <input type="number" name="tramnumber" value="@ViewBag.Tramnumber" readonly/>
+                <label>Spoornummer :</label>
+                <select name="tracknumber">
+                    <option value="37">37</option>
+                    <option value="36">36</option>
+                </select>
+            </div>
+            <input type="submit" class="reserve-tram-button" value="Verstuur" />
+        </div>
+    </form>
+</div>

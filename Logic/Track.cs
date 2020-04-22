@@ -11,5 +11,20 @@ namespace Logic
         {
             throw new NotImplementedException();
         }
+
+        public bool StoreTram()
+        {
+            //check if type is allowed
+            //check if there is still space
+            //if yes, store tram on that spot
+
+            throw new NotImplementedException();
+        }
+
+
+        //pull sectors from database that belong to this track
+
+
+
     }
 }

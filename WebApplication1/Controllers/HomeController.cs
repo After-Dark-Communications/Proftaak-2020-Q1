@@ -10,6 +10,7 @@ using DTO;
 using AutoMapper;
 using DAL.Interfaces;
 using Logic;
+using WebApplication1.Repository;
 
 namespace WebApplication1.Controllers
 {
@@ -19,19 +20,30 @@ namespace WebApplication1.Controllers
         private readonly Depot _depotLogic;
         private readonly Tram _tramLogic;
         private readonly Sector _sectorLogic;
+        private readonly LoginRepository _repository;
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot)
+
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository)
         {
             _mapper = mapper;
             _depotLogic = depot;
             _tramLogic = tram;
             _sectorLogic = sector;
+            _repository = repository;
         }
+
+        
 
         public IActionResult Index()
         {
             ViewBag.ShowTopBar = true;
             var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
+
+            if (_repository.GetLoginSession() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View(depot);
         }
 
@@ -45,6 +57,45 @@ namespace WebApplication1.Controllers
         {
             ViewBag.ShowTopBar = false;
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult ParkTram()
+        {
+            // HttpContext.Request.Form["repair"]
+            // HttpContext.Request.Form["clean"]
+            // HttpContext.Request.Form["tramnumber"]
+            // HttpContext.Request.Form["repairreason"]
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["repair"] + " " + HttpContext.Request.Form["clean"] + " " + HttpContext.Request.Form["repairreason"]);
+        }        
+        public IActionResult ReserveTrack()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["tracknumber"]);
+        }
+        public IActionResult MoveTramTo()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
+        }
+        public IActionResult InformationTramPopUp(string tramnumber)
+        {
+
+            TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            @ViewBag.Tramnumber = tramData.TramNumber;
+            @ViewBag.Status = tramData.Status;
+            @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService;
+            @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService;
+            @ViewBag.RepairDateBigService = tramData.RepairDateBigService;
+            @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService;
+            @ViewBag.Type = tramData.Type;
+
+            return PartialView("InformationTramPopUp", tramData);
+        }
+
+        public IActionResult PartialViewMoveTram(int tramnumber, int track)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            ViewBag.Track = track;
+            return PartialView("PartialViewMoveTram");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

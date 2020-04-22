@@ -4,6 +4,7 @@ using DAL.Interfaces;
 using DTO;
 using Services;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Logic
 {
@@ -15,6 +16,30 @@ namespace Logic
             _tramAccess = tramAccess;
         }
 
+        public void AddStatus(StatusDTO status, TramDTO tram)
+        {
+            if(!tram.Status.Any(s => s.Status == status.Status))
+            {
+                tram.Status.Add(status);
+                Update(tram);
+            }
+        }
+
+        public bool CheckIfTramExists(string tramNumber)
+        {
+            return true;
+            /*
+            if (_tramAccess.ReadFromTramNumber(tramNumber) == null)
+            {
+                return true;
+            }      
+            else
+            {
+                return false;
+            }//*/
+        }
+
+           
         public void Create(TramDTO tram)
         {
             _tramAccess.Create(tram);
@@ -44,7 +69,7 @@ namespace Logic
             return _tramAccess.ReadFromTramNumber(tramNumber);
         }
 
-        public void Update(TramDTO tram )
+        public void Update(TramDTO tram ) // private maken?
         {
             _tramAccess.Update(tram);
         }

@@ -11,7 +11,26 @@ namespace WebApplication1.Models
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Permission { get; set; }
 
-        public List<PermissionViewModel> Permissions;
+        public UserViewModel()
+        {
+
+        }
+
+        public UserViewModel(string UserName, string Password)
+        {
+            this.UserName = UserName;
+            this.Password = Password;
+        }
+
+        public UserViewModel(string Username, string Name, string Surname, string Password, string Permission)
+        {
+            this.UserName = UserName;
+            this.Name = Name;
+            this.Surname = Surname;
+            this.Password = Password;
+            this.Permission = Permission;
+        }
     }
 }

@@ -9,14 +9,53 @@ namespace Logic
     public class Track
     {
         private readonly ITrackAccess _trackAccess;
+        Sector _sectorLogic;
 
-        public Track(ITrackAccess trackAccess)
+        public Track(ITrackAccess trackAccess, Sector sectorlogic)
         {
             _trackAccess = trackAccess;
+            this._sectorLogic = sectorlogic;
         }
-        public void CheckTramType(TramDTO tram)
+        
+        private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
-            throw new NotImplementedException();
+            if (tram.Type == track.TramType)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool CheckTramCanBeStored(TramDTO tram, TrackDTO track)
+        {
+            if (!CheckTramType(tram, track))
+            {
+                return false;
+            }
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void StoreTram(TramDTO tram, TrackDTO track)
+        {
+            
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    _sectorLogic.AddTram(sector, tram);
+                    break;
+                }
+            }
         }
         public TrackDTO Read(int key)
         {

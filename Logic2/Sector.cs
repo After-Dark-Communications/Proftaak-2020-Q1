@@ -46,6 +46,23 @@ namespace Logic
         {
             _sectoraccess.Update(sector);
         }
-     
+
+        public bool CheckIfSectorIsEmpty(SectorDTO sector)
+        {
+            if (sector.Tram == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public TramDTO GetTram(SectorDTO sector)
+        {
+            return sector.Tram;
+        }
+
     }
 }
