@@ -19,7 +19,7 @@
         {
             <nav class="Top-Container">
                 <div class="TB-User">
-                    @if (Context.Session.GetString("Username") != null)
+                    @if (Context.Session.GetString("Username") == null)
                     {
                         <input class="TB-User-Profile" id="UserButton" type="button" value="Log In" style="background-image: url('../img/usericon.png');" onclick="window.location.href= '@Url.Action("Login", "Account")'" />
                     }
