@@ -25,7 +25,7 @@
                     }
                     else
                     {
-                        <input class="TB-User-Profile" id="UserButton" type="button" value="Log Out" style="background-image: url('../img/usericon.png');" onclick="window.Location.href = '@Url.Action("Logout","Account")'" />
+                        <input class="TB-User-Profile" id="UserButton" type="button" value="Log Out" style="background-image: url('../img/usericon.png');" onclick="window.location.href = '@Url.Action("Logout","Account")'" />
                     }
                 </div>
                 @if (Context.Session.GetString("Username") != null)
