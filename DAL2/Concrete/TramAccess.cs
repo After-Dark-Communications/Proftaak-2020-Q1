@@ -186,7 +186,8 @@ namespace DAL.Concrete
                     else
                     {
                         command.Parameters.AddWithValue("@description", "");
-                    }                    command.ExecuteNonQuery();
+                    }       
+                    command.ExecuteNonQuery();
                     con.Close();
                 }
             }

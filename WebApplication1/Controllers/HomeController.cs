@@ -64,7 +64,7 @@ namespace WebApplication1.Controllers
             bool cleaning = HttpContext.Request.Form["clean"] == "cleaning";
 
             _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
-            return Content("henk");
+            return RedirectToAction("Index", "Home");
         }        
         public IActionResult ReserveTrack()
         {

@@ -72,7 +72,7 @@ namespace Logic
             Random random = new Random();
 
             int amountOfTracks = tracks.Count;
-            int randomTrack = random.Next(1, amountOfTracks);
+            int randomTrack = random.Next(1, 8);
             return tracks[randomTrack];
         }
     }
