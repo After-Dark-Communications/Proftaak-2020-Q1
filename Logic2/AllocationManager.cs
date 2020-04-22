@@ -31,6 +31,7 @@ namespace Logic
                 if (_Tracklogic.CheckTramCanBeStored(tram, track))
                 {
                     _Tracklogic.StoreTram(tram, track);
+                    break;
                 }
             }
         }

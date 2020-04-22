@@ -53,6 +53,7 @@ namespace Logic
                 if (_sectorLogic.CheckIfSectorIsEmpty(sector))
                 {
                     _sectorLogic.AddTram(sector, tram);
+                    break;
                 }
             }
         }
