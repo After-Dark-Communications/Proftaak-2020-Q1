@@ -59,6 +59,45 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ParkTram()
+        {
+            // HttpContext.Request.Form["repair"]
+            // HttpContext.Request.Form["clean"]
+            // HttpContext.Request.Form["tramnumber"]
+            // HttpContext.Request.Form["repairreason"]
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["repair"] + " " + HttpContext.Request.Form["clean"] + " " + HttpContext.Request.Form["repairreason"]);
+        }        
+        public IActionResult ReserveTrack()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["tracknumber"]);
+        }
+        public IActionResult MoveTramTo()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
+        }
+        public IActionResult InformationTramPopUp(string tramnumber)
+        {
+
+            TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            @ViewBag.Tramnumber = tramData.TramNumber;
+            @ViewBag.Status = tramData.Status;
+            @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService;
+            @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService;
+            @ViewBag.RepairDateBigService = tramData.RepairDateBigService;
+            @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService;
+            @ViewBag.Type = tramData.Type;
+
+            return PartialView("InformationTramPopUp", tramData);
+        }
+
+        public IActionResult PartialViewMoveTram(int tramnumber, int track)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            ViewBag.Track = track;
+            return PartialView("PartialViewMoveTram");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
