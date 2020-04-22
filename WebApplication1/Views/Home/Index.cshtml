@@ -6,15 +6,15 @@
 @{
     void fillTracks(int DepotValue)
     {
-        for (int i = 0; i < Model.DepotTracks[DepotValue].Sectors.Count; i++)
+        for (int x = 0; x < Model.DepotTracks[DepotValue].Sectors.Count; x++)
         {
-            if (Model.DepotTracks[i].Sectors[0].Tram == null)
+            if (Model.DepotTracks[DepotValue].Sectors[x].Tram == null)
             {
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
             }
             else
             {
-                <li onclick="clickInfoTram(@Model.DepotTracks[i].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
+                <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
             }
         }
     }
@@ -43,7 +43,7 @@
             <ul>
                 <li class="tracks-white"><a href="#">36</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                @{ 
+                @{
                     fillTracks(2);
                 }
             </ul>
@@ -545,9 +545,9 @@
 //                });
 //            });
 
-                                //$(document).ready(function () {
+                                            //$(document).ready(function () {
 
-                                //});
+                                            //});
     </script>
 }
 
