@@ -20,13 +20,26 @@
             <ul>
                 <li class="tracks-white"><a href="#">37</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[1].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[2].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[2].Sectors[0].Tram.TramNumber </a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[3].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[3].Sectors[0].Tram.TramNumber </a></li>
-                <li onclick="clickInfoTram(@Model.DepotTracks[4].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[4].Sectors[0].Tram.TramNumber </a></li>
+                @{
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (Model.DepotTracks[i].Sectors[0].Tram.TramNumber == null)
+                        {
+                            <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                        }
+                        else
+                        {
+                            <li onclick="clickInfoTram(@Model.DepotTracks[i].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
+                        }
+                    }
+                }
+                @*<li onclick="clickInfoTram(@Model.DepotTracks[1].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[1].Sectors[0].Tram.TramNumber </a></li>
+                    <li onclick="clickInfoTram(@Model.DepotTracks[2].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[2].Sectors[0].Tram.TramNumber </a></li>
+                    <li onclick="clickInfoTram(@Model.DepotTracks[3].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[3].Sectors[0].Tram.TramNumber </a></li>
+                    <li onclick="clickInfoTram(@Model.DepotTracks[4].Sectors[0].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[4].Sectors[0].Tram.TramNumber </a></li>*@
                 @*<li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>*@
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    <li class="tracks-hover tracks-white"><a href="#"></a></li>*@
             </ul>
         </div>
         <div class="container-train normal">
@@ -446,7 +459,7 @@
                             <input type="number" name="tramnumber" value="" />
 
                             <label>Spoornummer :</label>
-                            <select name="tracknumber" >
+                            <select name="tracknumber">
                                 <option value="38">38</option>
                                 <option value="37">37</option>
                                 <option value="36">36</option>
@@ -474,7 +487,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Home/PartialViewMoveTram",
-                data: { tramnumber: _tramnumber, track : _track },
+                data: { tramnumber: _tramnumber, track: _track },
                 success: function (response) {
                     $('#MoveTramInfo').html(response);
                     $('#MoveTram').modal('show');
@@ -536,9 +549,9 @@
 //                });
 //            });
 
-        //$(document).ready(function () {
+                //$(document).ready(function () {
 
-        //});
+                //});
     </script>
 }
 
