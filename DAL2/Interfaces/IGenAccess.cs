@@ -7,10 +7,10 @@ namespace DAL.Interfaces
 {
     public interface IGenAccess<T>
     {
-        Task Create(T obj);
+        void Create(T obj);
         T Read(int key);
-        Task Update(T obj);
-        Task Delete(int key);
+        void Update(T obj);
+        void Delete(int key);
 
     }
 }

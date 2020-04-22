@@ -7,5 +7,6 @@ namespace DAL.Interfaces
 {
     public interface ISectorAccess : IGenAccess<SectorDTO>
     {
+       // public void Update(SectorDTO sector);
     }
 }

@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "..\DAL2\DAL.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Services\Services.csproj", "{0B9F0BC5-E1A2-471F-9378-46332204AC8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreTramToRemiseIntegrationTests", "..\StoreTramToRemiseIntegrationTests\StoreTramToRemiseIntegrationTests.csproj", "{105126C5-9812-4339-8147-5649702DDFDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{0B9F0BC5-E1A2-471F-9378-46332204AC8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B9F0BC5-E1A2-471F-9378-46332204AC8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B9F0BC5-E1A2-471F-9378-46332204AC8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105126C5-9812-4339-8147-5649702DDFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105126C5-9812-4339-8147-5649702DDFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105126C5-9812-4339-8147-5649702DDFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105126C5-9812-4339-8147-5649702DDFDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,6 +7,11 @@ using Context;
 using DAL.Interfaces;
 using DTO;
 using AutoMapper;
+using System.Data.SqlTypes;
+using Microsoft.Data.SqlClient;
+using DAL.Context;
+using System.ComponentModel;
+using DAL.Models;
 
 namespace DAL.Concrete
 {
@@ -20,41 +25,85 @@ namespace DAL.Concrete
             _mapper = mapper;
         }
 
-        public async Task Create(SectorDTO obj)
+        public void Create(SectorDTO obj)
         {
-            using(_context)
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                _context.Add(obj);
-                await _context.SaveChangesAsync();
+                throw new NotImplementedException();
             }
         }
 
-        public async Task Delete(int key)
+        public void Delete(int key)
         {
-            using(_context)
-            {
-                var deletedsector = _context.Sector.FirstOrDefault(x => x.Id == key);
-                _context.Sector.Remove(deletedsector);
-                await _context.SaveChangesAsync();
-            }
+            throw new NotImplementedException();
         }
 
         public SectorDTO Read(int key)
         {
-            using(_context)
+            SectorDTO sector = new SectorDTO();
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                SectorDTO sector = new SectorDTO();
-                var readsector = _context.Sector.FirstOrDefault(i => i.Id == key);
-                return sector = _mapper.Map<SectorDTO>(readsector);
+                conn.Open();
+                using(SqlCommand cmd = new SqlCommand($"SELECT dbo.Track.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.Id = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE dbo.Sector.Id = @key", conn))
+                {
+                    cmd.Parameters.AddWithValue("@key", key);
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {   
+                        while(dataReader.Read())
+                        {
+                            sector.Id = dataReader.GetInt32(0);
+                            
+                            if(!dataReader.IsDBNull(1))
+                            {
+                                sector.Tram = new TramDTO();
+                                sector.Tram.Id = dataReader.GetInt32(1);
+                            }
+                            
+                            sector.SectorPosition = dataReader.GetInt32(2);
+                            sector.TrackNumber = dataReader.GetInt32(3);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return sector;
+        }
+
+        public void Update(SectorDTO obj)
+        { 
+            if(obj.Tram != null)
+            {
+                using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+                {
+                    conn.Open();
+                    string query = "UPDATE Sector SET TramId = @tramId WHERE Id = @sectorId";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@sectorId", obj.Id);
+                        cmd.Parameters.AddWithValue("@tramId", obj.Tram.Id);
+                        cmd.ExecuteNonQuery();
+                    }
+                    conn.Close();
+                }
+            }
+            else
+            {
+                RemoveTram(obj);
             }
         }
 
-        public async Task Update(SectorDTO obj)
+        private void RemoveTram(SectorDTO sector)
         {
-            using(_context)
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                _context.Update(obj);
-                await _context.SaveChangesAsync();
+                conn.Open();
+                string query = "UPDATE Sector SET TramId = null WHERE Id = @sectorId";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@sectorId", sector.Id);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
             }
         }
     }

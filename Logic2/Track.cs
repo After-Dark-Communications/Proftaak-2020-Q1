@@ -1,15 +1,68 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DAL.Interfaces;
 using DTO;
 
 namespace Logic
 {
     public class Track
     {
-        public void CheckTramType(TramDTO tram)
+        private readonly ITrackAccess _trackAccess;
+        Sector _sectorLogic;
+
+        public Track(ITrackAccess trackAccess, Sector sectorlogic)
         {
-            throw new NotImplementedException();
+            _trackAccess = trackAccess;
+            this._sectorLogic = sectorlogic;
+        }
+        
+        private bool CheckTramType(TramDTO tram, TrackDTO track)
+        {
+            if (tram.Type == track.TramType)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool CheckTramCanBeStored(TramDTO tram, TrackDTO track)
+        {
+            if (!CheckTramType(tram, track))
+            {
+                return false;
+            }
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void StoreTram(TramDTO tram, TrackDTO track)
+        {
+            
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    _sectorLogic.AddTram(sector, tram);
+                }
+            }
+        }
+        public TrackDTO Read(int key)
+        {
+            return _trackAccess.Read(key);
+        }
+        public void Update(TrackDTO track)
+        {
+             _trackAccess.Update(track);
         }
     }
 }

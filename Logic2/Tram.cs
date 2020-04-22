@@ -4,6 +4,7 @@ using DAL.Interfaces;
 using DTO;
 using Services;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Logic
 {
@@ -17,29 +18,60 @@ namespace Logic
 
         public void AddStatus(StatusDTO status, TramDTO tram)
         {
-            if(tram.Status.Any(s => s.Status == status.Status))
+            if(!tram.Status.Any(s => s.Status == status.Status))
             {
                 tram.Status.Add(status);
-                _tramAccess.Update(tram);
+                Update(tram);
             }
         }
-        public void DeleteStatus(StatusDTO status, TramDTO tram)
-        { 
 
+        public bool CheckIfTramExists(string tramNumber)
+        {
+            return true;
+            /*
+            if (_tramAccess.ReadFromTramNumber(tramNumber) == null)
+            {
+                return true;
+            }      
+            else
+            {
+                return false;
+            }//*/
         }
 
-        public void GetType()
+           
+        public void Create(TramDTO tram)
         {
-            throw new NotImplementedException();
+            _tramAccess.Create(tram);
+        }
+        public void Delete(int key)
+        {
+            _tramAccess.Delete(key);
         }
 
-        public void GetServiceHistory()
+        public void Delete(TramDTO tram)
         {
-            throw new NotImplementedException();
+            _tramAccess.Delete(tram.Id);
+        }
+
+        public void Delete(string tramNumber)
+        {
+            var tram = _tramAccess.ReadFromTramNumber(tramNumber);
+            _tramAccess.Delete(tram.Id);
         }
         public TramDTO GetTram(int key)
         {
             return _tramAccess.Read(key);
+        }
+
+        public TramDTO GetTram(string tramNumber)
+        {
+            return _tramAccess.ReadFromTramNumber(tramNumber);
+        }
+
+        public void Update(TramDTO tram ) // private maken?
+        {
+            _tramAccess.Update(tram);
         }
     }
 }
