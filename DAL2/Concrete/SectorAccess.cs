@@ -70,26 +70,34 @@ namespace DAL.Concrete
         }
 
         public void Update(SectorDTO obj)
-        { 
-            if(obj.Tram != null)
+        {
+            try
             {
-                using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+                if (obj.Tram != null)
                 {
-                    conn.Open();
-                    string query = "UPDATE Sector SET TramId = @tramId WHERE Id = @sectorId";
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
                     {
-                        cmd.Parameters.AddWithValue("@sectorId", obj.Id);
-                        cmd.Parameters.AddWithValue("@tramId", obj.Tram.Id);
-                        cmd.ExecuteNonQuery();
+                        conn.Open();
+                        string query = "UPDATE Sector SET TramId = @tramId WHERE Id = @sectorId";
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@sectorId", obj.Id);
+                            cmd.Parameters.AddWithValue("@tramId", obj.Tram.Id);
+                            cmd.ExecuteNonQuery();
+                        }
+                        conn.Close();
                     }
-                    conn.Close();
+                }
+                else
+                {
+                    RemoveTram(obj);
                 }
             }
-            else
+            catch
             {
-                RemoveTram(obj);
+
             }
+            
         }
 
         private void RemoveTram(SectorDTO sector)

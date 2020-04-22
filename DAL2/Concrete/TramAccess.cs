@@ -171,26 +171,34 @@ namespace DAL.Concrete
 
         private void AddStatus(int tramKey, StatusDTO stat)
         {
-            string query = "INSERT INTO Status_Tram (StatusId, TramId, Description) VALUES (@stat, @tramKey, @description)";
-            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            try
             {
-                using (SqlCommand command = new SqlCommand(query, con))
+                string query = "INSERT INTO Status_Tram (StatusId, TramId, Description) VALUES (@stat, @tramKey, @description)";
+                using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
                 {
-                    con.Open();
-                    command.Parameters.AddWithValue("@stat", (int)stat.Status);
-                    command.Parameters.AddWithValue("@tramKey", tramKey);
-                    if(stat.Description != null)
+                    using (SqlCommand command = new SqlCommand(query, con))
                     {
-                        command.Parameters.AddWithValue("@description", stat.Description);
+                        con.Open();
+                        command.Parameters.AddWithValue("@stat", (int)stat.Status);
+                        command.Parameters.AddWithValue("@tramKey", tramKey);
+                        if (stat.Description != null)
+                        {
+                            command.Parameters.AddWithValue("@description", stat.Description);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@description", "");
+                        }
+                        command.ExecuteNonQuery();
+                        con.Close();
                     }
-                    else
-                    {
-                        command.Parameters.AddWithValue("@description", "");
-                    }       
-                    command.ExecuteNonQuery();
-                    con.Close();
                 }
             }
+            catch
+            {
+
+            }
+            
         }
 
         private void DeleteStatus(int key)
