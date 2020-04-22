@@ -9,19 +9,22 @@ namespace Logic
 {
     public class UserCollection
     {
-        private readonly IUserAccess _userAcces;
+        private readonly IUserAccess _userAccess;
+        private readonly User _user;
 
-        public UserCollection(IUserAccess userAccess)
+        public UserCollection(IUserAccess userAccess, User user)
         {
-            _userAcces = userAccess;
+            _userAccess = userAccess;
+            _user = user;
         }
         public void RegisterUser(UserDTO user)
         {
-            _userAcces.Create(user);
+            UserDTO model = _user.AlterUserCredentialsToHash(user);
+            _userAccess.CreateUser(model);
         }
-        public bool IsAdmin(UserDTO user)
-        {
-            return user.Permissions.Where(x => x.Name == "Admin").Any();
-        }
+        //public bool IsAdmin(UserDTO user)
+        //{
+        //    return user.Permissions.Where(x => x.Name == "Admin").Any();
+        //}
     }
 }

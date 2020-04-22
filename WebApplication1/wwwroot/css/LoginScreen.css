@@ -3,14 +3,16 @@
 
 .LoginBox {
     border: 1px solid black;
-    width: 300px;
-    height: 175px;
     left: 50%;
     margin: auto;
     margin-top: 10%;
 }
+.LB-Login{
+    width: 300px;
+    height: 175px;
+}
 
-.LB-Input {
+.LB-Login-Input {
     margin-top: 10px;
     float: right;
     margin-right: 5px;
@@ -24,4 +26,34 @@
 .LB-Text {
     margin-right: 5px;
     float: right;
+}
+
+.LB-Register {
+    width: 350px;
+    height: auto;
+    padding-bottom: 10px;
+}
+.LB-Register-Text {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: -1px;
+}
+
+.LB-Register-Box {
+    margin: 0 auto;
+    width: 300px;
+}
+.LB-Register-Box *{
+    width: 100%;
+}
+.LB-Register_Button {
+    width: 250px;
+    margin: auto;
+}
+.LB-Register_Button *{
+    width: 100%;
+}
+
+.LB-Register-CheckBox{
+    padding-left: 24px;
 }

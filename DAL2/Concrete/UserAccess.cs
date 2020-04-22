@@ -8,7 +8,10 @@ using DAL.Models;
 using AutoMapper;
 using Context;
 using System.Linq;
+using DAL.Context;
 using DTO;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace DAL.Concrete
 {
@@ -22,29 +25,34 @@ namespace DAL.Concrete
             _context = context;
             _mapper = mapper;
         }
-        public void Create(UserDTO obj)
+
+        public void CreateUser(UserDTO obj)
         {
-            using(_context)
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                try
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("INSERT INTO [User] (Username, Name, Surname, Password, Permission) Values(@Username, @Name, @Surname, @Password, @Permission)", conn))
                 {
-                    _context.Add(obj);
-                    _context.SaveChanges();
+                    command.Parameters.Add(new SqlParameter("UserName", obj.UserName));
+                    command.Parameters.Add(new SqlParameter("Name", obj.Name));
+                    command.Parameters.Add(new SqlParameter("Surname", obj.Surname));
+                    command.Parameters.Add(new SqlParameter("Password", obj.Password));
+                    command.Parameters.Add(new SqlParameter("Permission", obj.Permission));
+                    command.ExecuteNonQuery();
                 }
-                catch (DbException ex)
-                {
-                    throw ex;
-                }
+
+                conn.Close();
             }
         }
 
-        public void Delete(int key)
+        public async Task Delete(int key)
         {
             using (_context)
             {
                 var deleteduser = _context.User.FirstOrDefault(x => x.Id == key);
                 _context.User.Remove(deleteduser);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -58,12 +66,50 @@ namespace DAL.Concrete
             }
         }
 
-        public void Update(UserDTO obj)
+        public async Task Update(UserDTO obj)
         {
             using(_context)
             {
                 _context.Update(obj);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        Task IGenAccess<UserDTO>.Create(UserDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserDTO Get(UserDTO user)
+        {
+            UserDTO EmptyDTO = new UserDTO();
+
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT Id, UserName, Name, Surname, Password, Permission FROM [User] " +
+                "WHERE [User].UserName = @UserName AND [User].Password = @Password ", conn))
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("UserName", user.UserName);
+                    command.Parameters.AddWithValue("Password", user.Password);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int Id = reader.GetInt32(0);
+                        string UserName = reader.GetString(1);
+                        string Name = reader.GetString(2);
+                        string Surname = reader.GetString(3);
+                        string Password = reader.GetString(4);
+                        string Permission = reader.GetString(5);
+                        UserDTO UserData = new UserDTO(Id, UserName, Password, Name, Surname, Permission);
+
+                        return UserData;
+                    }
+
+                    conn.Close();
+                    return EmptyDTO;
+                }
             }
         }
     }
