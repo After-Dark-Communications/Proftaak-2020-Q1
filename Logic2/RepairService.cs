@@ -1,4 +1,4 @@
-﻿using DAL.Concrete;
+﻿using DAL.Interfaces;
 using DTO;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
@@ -12,10 +12,10 @@ namespace Logic
 {
     public class RepairService
     {
-        private readonly ServiceAccess _serviceaccess;
+        private readonly IServiceAccess _serviceaccess;
         private readonly RepairServiceDTO _repairService;
 
-        public RepairService(ServiceAccess serviceaccess)
+        public RepairService(IServiceAccess serviceaccess)
         {
             _serviceaccess = serviceaccess;
             _repairService = GetService();
@@ -39,6 +39,25 @@ namespace Logic
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
                 tram.RepairDateBigService = RepairDate;
                 _repairService.MaxBigServicePerDay--;
+            }
+        }
+        public void DetermineRepairType(TramDTO tram)
+        {
+            DateTime startTimeBig = tram.RepairDateBigService;
+            DateTime startTimeSmall = tram.RepairDateSmallService;
+            DateTime endTime = DateTime.Now;
+
+            TimeSpan spanBig = endTime.Subtract(startTimeBig);
+            TimeSpan spanSmall = endTime.Subtract(startTimeSmall);
+
+
+            if(spanBig.TotalDays > 183)
+            {
+                SetLargeRepairTram(tram);
+            }
+            else if(spanSmall.TotalDays > 91)
+            {
+                SetSmallRepairTram(tram);
             }
         }
         private bool CanRepairTram(RepairServiceDTO Service)

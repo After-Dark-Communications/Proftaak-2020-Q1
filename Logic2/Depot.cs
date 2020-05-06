@@ -26,7 +26,7 @@ namespace Logic
             if (CheckIfTramIsAllowed(tramNumber, _tramlogic))
             {
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
-                changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
+                ChangeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
                 //AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
                 AllocationManager.AllocateToRandomTrack(tram, depot.DepotTracks, _tracklogic);
             }
@@ -41,7 +41,7 @@ namespace Logic
             return _tramlogic.CheckIfTramExists(tramNumber);
         }
 
-        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)
+        private void ChangeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)
         {
 
             StatusDTO statusInDepot = new StatusDTO();
@@ -71,7 +71,5 @@ namespace Logic
         {
            return _depotaccess.Read(key);
         }
-
-
     }
 }

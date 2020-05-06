@@ -6,17 +6,18 @@ using Microsoft.Data.SqlClient;
 using System.Data.Common;
 using DAL.Context;
 using DAL.Models;
+using DAL.Interfaces;
 
 namespace DAL.Concrete
 {
-    public class ServiceAccess
+    public class ServiceAccess : IServiceAccess
     {
         public RepairServiceDTO ReadRepair()
         {
             RepairServiceDTO RepairService = new RepairServiceDTO();
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.RepairDate, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.ServiceType, dbo.RepairService_Tram.RepairId FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;"))
+                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.RepairDate, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.ServiceType, dbo.RepairService_Tram.RepairId FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;", conn))
                 {
                     conn.Open();
                     using (SqlDataReader datareader = cmd.ExecuteReader())
@@ -42,7 +43,7 @@ namespace DAL.Concrete
             CleaningServiceDTO CleaningService = new CleaningServiceDTO();
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.Cleaning_Tram.RepairDate, dbo.Cleaning.BigRepairsPerDay, dbo.Cleaning.SmallRepairsPerDay, dbo.Cleaning_Tram.ServiceType, dbo.Cleaning_Tram.RepairId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId;"))
+                using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.Cleaning_Tram.RepairDate, dbo.Cleaning.BigRepairsPerDay, dbo.Cleaning.SmallRepairsPerDay, dbo.Cleaning_Tram.ServiceType, dbo.Cleaning_Tram.RepairId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId;", conn))
                 {
                     conn.Open();
                     using(SqlDataReader datareader = cmd.ExecuteReader())
