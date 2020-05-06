@@ -45,7 +45,7 @@ namespace DAL.Concrete
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 //SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.TrackNumber, dbo.Sector.TramId, dbo.Tram.TramNumber FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId RIGHT JOIN dbo.Tram ON dbo.Tram.Id = dbo.Sector.TramId WHERE [Id] = @key;
-                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.Id, dbo.Track.TrackNumber, dbo.Track.PreferedLine, dbo.Track.PreferedTramType, dbo.Track.RepairServiceId, dbo.Sector.Id, dbo.Sector.Location, dbo.Sector.TramId, dbo.Tram.TramNumber, dbo.Tram.Type, dbo.Status_Tram.StatusId, dbo.Status_Tram.Description, dbo.Status_Tram.Id FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId LEFT JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id LEFT JOIN dbo.Status_Tram ON dbo.Tram.Id = dbo.Status_Tram.TramId WHERE [DepotId] = @key", conn))
+                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.Id, dbo.Track.TrackNumber, dbo.Track.PreferedLine, dbo.Track.PreferedTramType, dbo.Track.RepairServiceId, dbo.Sector.Id, dbo.Sector.Location, dbo.Sector.TramId, dbo.Tram.TramNumber, dbo.Tram.Type, dbo.Status_Tram.StatusId, dbo.Status_Tram.Description, dbo.Status_Tram.Id, dbo.Sector.SectorType FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId LEFT JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id LEFT JOIN dbo.Status_Tram ON dbo.Tram.Id = dbo.Status_Tram.TramId WHERE [DepotId] = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     conn.Open();
@@ -75,12 +75,12 @@ namespace DAL.Concrete
                             int sectorId = dataReader.GetInt32(7);
                             if (!depot.DepotTracks.Any(track => track.Sectors.Any(sector => sector.Id == sectorId)))
                             {
-                                SectorDTO sector = new SectorDTO
-                                {
-                                    Id = sectorId,
-                                    SectorPosition = dataReader.GetInt32(8),
-                                    TrackNumber = dataReader.GetInt32(3),
-                                };
+                                SectorDTO sector = new SectorDTO();
+                                sector.Id = sectorId;
+                                sector.SectorPosition = dataReader.GetInt32(8);
+                                var sectorType = (SectorType)dataReader.GetInt32(15);
+                                sector.SectorType = sectorType;
+                                sector.TrackNumber = dataReader.GetInt32(3);
                                 depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2)).Sectors.Add(sector);
                             }
                             if (!dataReader.IsDBNull(9))

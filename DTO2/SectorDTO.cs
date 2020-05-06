@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Services;
 
 namespace DTO
 {
@@ -10,5 +11,6 @@ namespace DTO
         public TramDTO Tram { get; set; }
         public int TrackNumber { get; set; }
         public int SectorPosition { get; set; }
+        public SectorType SectorType { get; set; }
     }
 }
