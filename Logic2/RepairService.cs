@@ -56,6 +56,11 @@ namespace Logic
         {
             return _serviceaccess.ReadRepair();
         }
+        private void ResetRepair()
+        {
+            _repairService.MaxBigServicePerDay = 1;
+            _repairService.MaxSmallServicePerDay = 4;
+        }
     }
 }
 

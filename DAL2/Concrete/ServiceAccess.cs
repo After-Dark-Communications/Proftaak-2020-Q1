@@ -64,5 +64,23 @@ namespace DAL.Concrete
             }
             return CleaningService;
         }
+        public void UpdateRepair()
+        {
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+            }
+        }
+        public void UpdateCleaning()
+        {
+            using(SqlConnection conn= new SqlConnection(DBConnection._connectionString))
+            {
+                using(SqlCommand cmd = new SqlCommand($"UPDATE dbo.CleaningService INNER"))
+                {
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
     }
 }

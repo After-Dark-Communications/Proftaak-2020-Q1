@@ -36,7 +36,6 @@ namespace Logic
             }
 
         }
-
         public static void AllocateToRandomTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
             bool tramIsStored = false;
