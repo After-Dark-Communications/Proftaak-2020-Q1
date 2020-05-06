@@ -12,6 +12,7 @@ using Microsoft.Data.SqlClient;
 using DAL.Context;
 using System.ComponentModel;
 using DAL.Models;
+using Services;
 
 namespace DAL.Concrete
 {
@@ -44,7 +45,7 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using(SqlCommand cmd = new SqlCommand($"SELECT dbo.Track.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.Id = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE dbo.Sector.Id = @key", conn))
+                using(SqlCommand cmd = new SqlCommand($"SELECT dbo.Sector.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Sector.SectorType, Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.TrackId = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE dbo.Sector.Id = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     using (SqlDataReader dataReader = cmd.ExecuteReader())
@@ -58,9 +59,10 @@ namespace DAL.Concrete
                                 sector.Tram = new TramDTO();
                                 sector.Tram.Id = dataReader.GetInt32(1);
                             }
-                            
+                            sector.Id = dataReader.GetInt32(0);
                             sector.SectorPosition = dataReader.GetInt32(2);
-                            sector.TrackNumber = dataReader.GetInt32(3);
+                            sector.SectorType = (SectorType)dataReader.GetInt32(3);
+                            sector.TrackNumber = dataReader.GetInt32(4);
                         }
                     }
                 }
