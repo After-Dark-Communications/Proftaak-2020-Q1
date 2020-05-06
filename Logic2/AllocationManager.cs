@@ -24,21 +24,43 @@ namespace Logic
 
         public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
-            //if tram is in the repairservice -> send to a repair track
-
-            foreach (TrackDTO track in tracks)
+            if (TramNeedsToBeRepaired())
             {
-                if (_Tracklogic.CheckTramCanBeStored(tram, track))
+                if (CheckIfSpotOnATrack(_repairlogic.fetchAllTracksFromRepairservice(repairserviceDTO), _Tracklogic, tram)) ;
                 {
-                    _Tracklogic.StoreTram(tram, track);
-                    break;
+                    //add tram to track
+                    return true;
                 }
+                else
+                {
+                    // voeg tram toe aan wachtlijst
+                    return false;
+                }
+
+            }else if()
+            {
+
             }
 
+
+        }
+
+
+        private static bool checkIfSpotOnATrack(List<TrackDTO> tracks, Track _tracklogic, TramDTO tram)
+        {
+            foreach (TrackDTO track in tracks)
+            {
+                if (_tracklogic.CheckTramCanBeStored(tram, track))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static void AllocateToRandomTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
+           
             bool tramIsStored = false;
             do
             {
@@ -49,6 +71,11 @@ namespace Logic
                     tramIsStored = true;
                 }
             } while (tramIsStored == false);
+        }
+
+        private static bool TramNeedsToBeRepaired ()
+        {
+            throw new NotImplementedException();
         }
     }
 }
