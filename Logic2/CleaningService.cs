@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using DAL.Concrete;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,15 +7,51 @@ using System.Text;
 
 namespace Logic
 {
-    public class CleaningService : Service
+    public class CleaningService
     {
-        public override int MaxBigServicePerDay { get; set; }
-        public override int MaxSmallServicePerDay { get; set; }
+        private readonly ServiceAccess _serviceaccess;
+        private readonly CleaningServiceDTO _repairService;
 
-        public void CleanTram(TramDTO tram)
+        public CleaningService(ServiceAccess serviceaccess)
         {
-            throw new NotImplementedException();
-        }
+            _serviceaccess = serviceaccess;
+            _repairService = GetService();
 
+        }
+        public void SetSmallCleanTram(TramDTO tram)
+        {
+            if (CanCleanTram(_repairService))
+            {
+                DateTime RepairDate = DateTime.Now;
+                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
+                tram.RepairDateSmallService = RepairDate;
+                _repairService.MaxSmallServicePerDay--;
+            }
+        }
+        public void SetLargeRepairTram(TramDTO tram)
+        {
+            if (CanCleanTram(_repairService))
+            {
+                DateTime RepairDate = DateTime.Now;
+                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
+                tram.RepairDateBigService = RepairDate;
+                _repairService.MaxBigServicePerDay--;
+            }
+        }
+        private bool CanCleanTram(CleaningServiceDTO Service)
+        {
+            if (Service.MaxBigServicePerDay == 0 && Service.MaxSmallServicePerDay == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        private CleaningServiceDTO GetService()
+        {
+            return _serviceaccess.ReadCleaning();
+        }
     }
 }
