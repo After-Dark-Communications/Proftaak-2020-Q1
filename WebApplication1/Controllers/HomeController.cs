@@ -80,10 +80,10 @@ namespace WebApplication1.Controllers
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
-            @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService;
-            @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService;
-            @ViewBag.RepairDateBigService = tramData.RepairDateBigService;
-            @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService;
+            @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
+            @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
+            @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
+            @ViewBag.RepairDateSmallService = Daysago(tramData.RepairDateSmallService);
             @ViewBag.Type = tramData.Type;
 
             return PartialView("InformationTramPopUp", tramData);
@@ -132,5 +132,11 @@ namespace WebApplication1.Controllers
             return returnDepot;
         }
 
+
+        private int Daysago(DateTime _day)
+        {
+            TimeSpan daysdifference = DateTime.Today - _day;
+            return daysdifference.Days;
+        }
     }
 }
