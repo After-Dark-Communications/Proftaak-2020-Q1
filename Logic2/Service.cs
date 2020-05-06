@@ -6,10 +6,8 @@ using Services;
 
 namespace Logic
 {
-    public abstract class Service
+    public class Service
     {
-        public abstract int MaxSmallServicePerDay { get; set; }
-        public abstract int MaxBigServicePerDay { get; set; }
         public void AddTram(TramDTO tram)
         {
             throw new NotImplementedException();
