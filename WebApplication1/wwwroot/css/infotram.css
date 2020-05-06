@@ -83,6 +83,7 @@
 
 .register-tram-button {
     background-color: #254e57;
+    color:white;
     border: 1px solid black;
     padding: 12px;
     text-align: center;
@@ -122,6 +123,7 @@
 
 .reserve-tram-button {
     background-color: #254e57;
+    color:white;
     border: 1px solid black;
     padding: 12px;
     text-align: center;
