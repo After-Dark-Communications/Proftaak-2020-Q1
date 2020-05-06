@@ -5,18 +5,18 @@
     <div class="status-left">
         <div class="status-info">
             <h4 class="status-title">Tram @ViewBag.Tramnumber</h4>
-            <h4 class="status-title">Spoornummer: 38</h4>
+            <h4 class="status-title">Spoornummer: @ViewBag.Track</h4>
             <h4 class="status-title">Soort: @ViewBag.Type</h4>
         </div>
         <div class="status-info">
             <p class="status-title">Laatste Schoonmaakbeurt</p>
-            <p>Klein: 0 dagen geleden</p>
-            <p>Groot: 35 dagen geleden</p>
+            <p>Klein: @ViewBag.CleaningDateSmallService dagen geleden</p>
+            <p>Groot: @ViewBag.CleaningDateBigService dagen geleden</p>
         </div>
         <div class="status-info">
             <p class="status-title">Laatste Servicebeurt</p>
-            <p>Klein: 0 dagen geleden</p>
-            <p>Groot: 35 dagen geleden</p>
+            <p>Klein: @ViewBag.RepairDateSmallService dagen geleden</p>
+            <p>Groot: @ViewBag.RepairDateBigService dagen geleden</p>
         </div>
         <div id="getcount" class="status-inline">
             <div>Status:</div>
