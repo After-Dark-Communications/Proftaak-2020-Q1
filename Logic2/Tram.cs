@@ -25,7 +25,7 @@ namespace Logic
             }
         }
 
-        public bool CheckIfTramExists(string tramNumber)
+        public bool CheckIfTramExists(TramDTO tram)
         {
             return true;
             /*
@@ -79,6 +79,11 @@ namespace Logic
             Random rnd = new Random();
             List<int> keys = _tramAccess.GetAllTramIds();
             return _tramAccess.Read(keys[rnd.Next(1, keys.Count)]);
+        }
+
+        public bool IsTramAllreadyInDepot(string tramNumber)
+        {
+            return _tramAccess.GetSectorIdFromTram(_tramAccess.GetKeyFromTramNumber(tramNumber)) > 0;
         }
     }
 }

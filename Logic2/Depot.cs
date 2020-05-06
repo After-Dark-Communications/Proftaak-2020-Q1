@@ -11,7 +11,7 @@ namespace Logic
     {
         Track _tracklogic;
         Tram _tramlogic;
-
+        
         private readonly IDepotAccess _depotaccess;
 
         public Depot(Track tracklogic, Tram tramlogic, IDepotAccess depotAccess)
@@ -23,7 +23,7 @@ namespace Logic
 
         public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus, string statusDescription, DepotDTO depot) 
         {
-            if (CheckIfTramIsAllowed(tramNumber, _tramlogic))
+            if (!IsTramAllreadyInDepot(tramNumber))
             {
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
                 changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
@@ -36,9 +36,9 @@ namespace Logic
             }
         }
 
-        private bool CheckIfTramIsAllowed(string tramNumber, Tram _tramlogic)
+        public bool IsTramAllreadyInDepot(string tramNumber)
         {
-            return _tramlogic.CheckIfTramExists(tramNumber);
+            return true;
         }
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)

@@ -12,5 +12,7 @@ namespace DAL.Interfaces
         IEnumerable<TramDTO> GetAllTrams();
         List<int> GetAllTramIds();
         TramDTO ReadFromTramNumber(string tramNumber);
+        int GetKeyFromTramNumber(string tramNumber);
+        int GetSectorIdFromTram(int key);
     }
 }

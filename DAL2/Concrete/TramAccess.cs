@@ -116,6 +116,59 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
+        public int GetKeyFromTramNumber(string tramNumber)
+        {
+            int key = 0;
+            string query = "Select dbo.Tram.Id From dbo.Tram Where TramNumber = @tramNumber";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@tramNumber", tramNumber);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(0))
+                            {
+                                key = reader.GetInt32(0);
+                            }
+                                
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return key;
+        }
+
+        public int GetSectorIdFromTram(int key)
+        {
+            int sectorId = 0;
+            string query = "Select dbo.Sector.Id From dbo.Sector Where dbo.Sector.TramId = @key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(0))
+                            {
+                                sectorId = reader.GetInt32(0);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return sectorId;
+        }
+
         public TramDTO ReadFromTramNumber(string tramNumber)
         {
             try
