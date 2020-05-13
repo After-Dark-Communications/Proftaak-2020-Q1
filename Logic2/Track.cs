@@ -30,7 +30,8 @@ namespace Logic
             }
         }
 
-        public bool CheckTramCanBeStored(TramDTO tram, TrackDTO track)
+        public bool 
+            CheckTramCanBeStored(TramDTO tram, TrackDTO track)
         {
             if (!CheckTramType(tram, track))
             {

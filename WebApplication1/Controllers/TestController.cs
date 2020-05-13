@@ -31,9 +31,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            _depotLogic.ReceiveTram(_tramLogic.GetRandomTram().TramNumber, true, false, "stest", _depotLogic.Read(1));
-            var depot = _depotLogic.Read(1);
-            return View(depot);
+            bool henk = _tramLogic.IsTramAllreadyInDepot("2001");
+            return View(henk);
         }
     }
 }
