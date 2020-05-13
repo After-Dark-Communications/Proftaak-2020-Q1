@@ -11,12 +11,10 @@ namespace Logic
         public override int MaxBigServicePerDay { get; set; }
         public override int MaxSmallServicePerDay { get; set; }
         public ICollection<Track> AllocatedTracks { get; set; }
-        private Queue<TramDTO> waitingList;
 
         public void AddTramToWaitingList(TramDTO tram)
         {
-            waitingList.Enqueue(tram);
-            // ipv dit iets met database? anders bij herstart programma is de list leeg
+            throw new NotImplementedException();
         }
 
         public void RepairTram(Tram tram)

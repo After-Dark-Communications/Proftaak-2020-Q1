@@ -23,4 +23,13 @@ namespace Services
         UnPreferred,
         Blocked
     }
+
+    public enum TrackType
+    {
+        Normal,
+        Repair,
+        LongParking, //langparkeerplek
+        EntranceExit,
+        OverArching //overkoepelend
+    }
 }
