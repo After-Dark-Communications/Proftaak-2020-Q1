@@ -47,6 +47,21 @@ namespace Logic
             return false;
         }
 
+        public int AmountOfTramsOnTrack(TrackDTO track)
+        {
+            int AmountOfTrams = 0;
+
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (!_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    AmountOfTrams++;
+                }
+            }
+
+            return AmountOfTrams;
+        }
+
         public void StoreTram(TramDTO tram, TrackDTO track)
         {
             

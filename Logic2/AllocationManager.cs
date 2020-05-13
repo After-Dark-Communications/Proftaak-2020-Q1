@@ -22,45 +22,130 @@ namespace Logic
         //    }
         //}
 
-        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic, Tram _tramLogic, RepairService _repairServiceLogic)
-        {
-            if (TramNeedsToBeRepaired(tram, _tramLogic))
-            {
-               if ( checkIfSpotOnATrack(,_tracklogic, tram))
-                {
 
+            /*
+             * Nodig:
+             * List repairtracks
+             */
+
+        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _trackLogic, Tram _tramLogic, RepairService _repairServiceLogic)
+        {
+            bool tramIsStored = false;
+            if (TramNeedsToBeRepaired(tram, _tramLogic)) // gerepareerd worden
+            {
+               if ( checkIfSpotOnATrack(,_trackLogic, tram)) // check repairtracks
+                {
+                    _trackLogic.StoreTram(tram, MostEmptyTrack());
+                    tramIsStored = true;
                 }
                 else
                 {
-                    //zet tram op wachtlijst
+                    _repairServiceLogic.AddTramToWaitingList(tram);
                 }
 
-            }//else if(langparkeerplek)
-            //{
+            }
+            if(!tramIsStored)// langparkeerplek
+            {
+                StatusDTO depotStatus = new StatusDTO();
+                depotStatus.Status = TramStatus.Depot;
+                if (tram.Status.Contains(depotStatus))
+                {
+                    // plaats tram op langparkeerplek
+                }
+            }
+            if (!tramIsStored) // typegebonden
+            {
+                List<TrackDTO> typeTracks = new List<TrackDTO>();
+                foreach (TrackDTO track in tracks)
+                {
 
-            //}
+                    if (tram.Type == track.TramType && _trackLogic.CheckTramCanBeStored(tram, track))
+                    {
+                        typeTracks.Add(track);
+                    }
+                }
 
-            else if()//lijngebonden
+                if (typeTracks.Count != 0)
+                {
+                    _trackLogic.StoreTram(tram, MostEmptyTrack(typeTracks, _trackLogic, tram));
+                    tramIsStored = true;
+                    
+                }
+            }
+            
+
+            if(!tramIsStored) //lijngebonden
+            {
+                List<TrackDTO> lineTracks = new List<TrackDTO>();
+                foreach (TrackDTO track in tracks)
+                {
+                    if (/*tram line*/ == track.PreferredTrackLine && _trackLogic.CheckTramCanBeStored(tram, track))
+                    {
+                        lineTracks.Add(track);
+                    }
+                }
+                if (lineTracks.Count != 0)
+                {
+                    _trackLogic.StoreTram(tram, MostEmptyTrack(lineTracks, _trackLogic, tram));
+                    tramIsStored = true;
+                }
+                else
+                {
+                    //overkoepelen?
+                }
+            }
+
+            if (!tramIsStored) // normale spoor plek?
+            {
+                foreach (TrackDTO track in tracks)
+                {
+                    if (track.GetType == null && track.PreferredTrackLine == /*null?*/)
+                    {
+
+                    }
+                }
+            }
+            if (!tramIsStored) //echt nergens plek?
+            {
+                foreach (TrackDTO track in tracks)
+                {
+                    if (_trackLogic.CheckTramCanBeStored(tram, track))
+                    {
+                        _trackLogic.StoreTram(tram, track);
+                    }
+                }
+            }
+            if (!tramIsStored) // plek op in/uitrit spoor
             {
 
             }
-            else if () // normale spoor plek?
-            {
-
-            }
-            else if () //echt nergens plek?
-            {
-
-            }
-            else if () // plek op in/uitrit spoor
-            {
-
-            }else
+            if (!tramIsStored) // nergens plek
             {
                 //stuur tram weg
             }
         }
 
+        private static TrackDTO MostEmptyTrack(List<TrackDTO> tracks, Track _trackLogic, TramDTO tram)
+        {
+            TrackDTO returnedTrack = null;
+
+            foreach (TrackDTO track in tracks)
+            {
+                if (_trackLogic.CheckTramCanBeStored(tram, track))
+                {
+                    if (returnedTrack == null)
+                    {
+                        returnedTrack = track;
+                    }
+                    else if (_trackLogic.AmountOfTramsOnTrack(returnedTrack) > _trackLogic.AmountOfTramsOnTrack(track))
+                    {
+                        returnedTrack = track;
+                    }
+                }
+            }
+
+            return returnedTrack;
+        }
 
         private static bool checkIfSpotOnATrack(List<TrackDTO> tracks, Track _tracklogic, TramDTO tram)
         {
