@@ -13,11 +13,13 @@ namespace Logic
     public class RepairService
     {
         private readonly IServiceAccess _serviceaccess;
+        public readonly IRepairServiceAccess _repairServiceAccess;
         private readonly RepairServiceDTO _repairService;
 
-        public RepairService(IServiceAccess serviceaccess)
+        public RepairService(IServiceAccess serviceaccess, IRepairServiceAccess repairServiceAccess)
         {
             _serviceaccess = serviceaccess;
+            _repairServiceAccess = repairServiceAccess;
             _repairService = GetService();
             DetermineIfRepairNeedToBeReset();
             
@@ -94,12 +96,12 @@ namespace Logic
 
         public void RepairTram(RepairLogDTO repairLog)
         {
-            _repairService.StoreRepairLog(repairLog);
+            _repairServiceAccess.StoreRepairLog(repairLog);
         }
 
         public IEnumerable<RepairLogDTO> GetRepairHistory()
         {
-            return _repairService.GetRepairLogs();
+            return _repairServiceAccess.GetRepairLogs();
         }
     }
 }
