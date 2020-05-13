@@ -10,6 +10,9 @@ namespace DAL.Interfaces
     public interface ITramAccess : IGenAccess<TramDTO>
     {
         IEnumerable<TramDTO> GetAllTrams();
+        List<int> GetAllTramIds();
         TramDTO ReadFromTramNumber(string tramNumber);
+        int GetKeyFromTramNumber(string tramNumber);
+        int GetSectorIdFromTram(int key);
     }
 }

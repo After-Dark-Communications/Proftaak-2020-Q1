@@ -17,4 +17,10 @@ namespace Services
         TwelveG,
         TrainingTram
     }
+    public enum SectorType
+    {
+        Normal,
+        UnPreferred,
+        Blocked
+    }
 }

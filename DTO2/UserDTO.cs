@@ -11,7 +11,22 @@ namespace DTO
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string Permission { get; set; }
 
-        public List<PermissionDTO> Permissions;
+        public UserDTO()
+        {
+                
+        }
+
+        public UserDTO(int id, string userName, string password, string name, string surname, string permission)
+        {
+            Id = id;
+            UserName = userName;
+            Password = password;
+            Name = name;
+            Surname = surname;
+            Permission = permission;    
+        }
+
     }
 }

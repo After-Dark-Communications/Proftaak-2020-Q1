@@ -116,6 +116,59 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
+        public int GetKeyFromTramNumber(string tramNumber)
+        {
+            int key = 0;
+            string query = "Select dbo.Tram.Id From dbo.Tram Where TramNumber = @tramNumber";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@tramNumber", tramNumber);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(0))
+                            {
+                                key = reader.GetInt32(0);
+                            }
+                                
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return key;
+        }
+
+        public int GetSectorIdFromTram(int key)
+        {
+            int sectorId = 0;
+            string query = "Select dbo.Sector.Id From dbo.Sector Where dbo.Sector.TramId = @key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!reader.IsDBNull(0))
+                            {
+                                sectorId = reader.GetInt32(0);
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return sectorId;
+        }
+
         public TramDTO ReadFromTramNumber(string tramNumber)
         {
             try
@@ -130,10 +183,6 @@ namespace DAL.Concrete
                         command.Parameters.AddWithValue("@key", tramNumber);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            if(reader.IsDBNull(0))
-                            {
-                                return null;
-                            }
                             while (reader.Read())
                             {
                                 returnTram.Id = reader.GetInt32(0);
@@ -175,19 +224,34 @@ namespace DAL.Concrete
 
         private void AddStatus(int tramKey, StatusDTO stat)
         {
-            string query = "INSERT INTO Status_Tram (StatusId, TramId, Description) VALUES (@stat, @tramKey, @description)";
-            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            try
             {
-                using (SqlCommand command = new SqlCommand(query, con))
+                string query = "INSERT INTO Status_Tram (StatusId, TramId, Description) VALUES (@stat, @tramKey, @description)";
+                using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
                 {
-                    con.Open();
-                    command.Parameters.AddWithValue("@stat", (int)stat.Status);
-                    command.Parameters.AddWithValue("@tramKey", tramKey);
-                    command.Parameters.AddWithValue("@description", stat.Description);
-                    command.ExecuteNonQuery();
-                    con.Close();
+                    using (SqlCommand command = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        command.Parameters.AddWithValue("@stat", (int)stat.Status);
+                        command.Parameters.AddWithValue("@tramKey", tramKey);
+                        if (stat.Description != null)
+                        {
+                            command.Parameters.AddWithValue("@description", stat.Description);
+                        }
+                        else
+                        {
+                            command.Parameters.AddWithValue("@description", "");
+                        }
+                        command.ExecuteNonQuery();
+                        con.Close();
+                    }
                 }
             }
+            catch
+            {
+
+            }
+            
         }
 
         private void DeleteStatus(int key)
@@ -249,6 +313,30 @@ namespace DAL.Concrete
                 tram.Status = stats;
             }
             return tram;
+        }
+
+        public List<int> GetAllTramIds()
+        {
+            List<int> returnList = new List<int>();
+
+            string query = "SELECT * FROM Tram";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            returnList.Add(reader.GetInt32(0));
+                        }
+                    }
+                    con.Close();
+                }
+            }
+
+            return returnList;
         }
     }
 }

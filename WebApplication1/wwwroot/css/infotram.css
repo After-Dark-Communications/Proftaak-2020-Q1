@@ -1,14 +1,16 @@
 ﻿.modal-dialog {
     max-width: 500px !important;
 }
+
 .modal-content {
     display: inline-block !important;
 }
+
 .status-left {
     float: left;
     width: 75%;
-
 }
+
 .status-right {
     width: 25%;
     height: 100%;
@@ -16,25 +18,36 @@
     right: 0;
     border-left: 1px solid black;
 }
+
 .status-info {
     border-bottom: 1px solid black;
     padding: 2.5%;
 }
+
 .status-title {
     font-weight: bold;
     font-size: larger;
 }
+
 .status-inline div {
     width: auto;
     float: left;
     border-right: 1px solid black;
     padding-left: 4px;
 }
+
 .status-defect {
-    background-color: lightcoral
+    background-color: lightcoral;
 }
+
 .status-cleaning {
     background-color: aqua;
+}
+.status-shift {
+    background-color: greenyellow;
+}
+.status-indepot {
+    background-color: cadetblue;
 }
 .status-buttom {
     background-color: lightgreen;
@@ -44,4 +57,83 @@
     min-height: 50px;
     max-width: 100%;
     white-space: normal;
+}
+
+.register-tram-left {
+    float: left;
+    width: 100%;
+}
+
+.register-tram-right {
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    border-left: 1px solid black;
+}
+
+.register-tram-info {
+    border-bottom: 1px solid black;
+    padding: 2.5%;
+}
+
+.register-tram-button {
+    background-color: lightgreen;
+    border-bottom: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    float: right;
+    margin: 10px;
+}
+
+.register-tram-info input[type="number"] {
+    width: 77%;
+}
+
+.register-tram-info .register-label {
+    width: 95%;
+}
+
+.register-tram-info #repairreason {
+    width: 100%;
+}
+.register-tram-title {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.reserve-tram-left {
+    float: left;
+    width: 100%;
+}
+
+
+.reserve-tram-info {
+    border-bottom: 1px solid black;
+    padding: 2.5%;
+}
+
+.reserve-tram-button {
+    background-color: lightgreen;
+    border-bottom: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    float: right;
+    margin: 10px;
+}
+
+.reserve-tram-info input[type="number"], .reserve-tram-info select {
+    width: 75%;
+    float: right;
+}
+
+.register-tram-title {
+    font-weight: bold;
+    font-size: larger;
 }

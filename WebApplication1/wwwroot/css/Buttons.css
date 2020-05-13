@@ -1,4 +1,9 @@
-﻿
+﻿.button-default {
+    background-color: #00c2ff;
+    border-radius: 10px;
+    border: none;
+    color: white;
+}
 
 .Top-Bar {
     background-color: grey;

@@ -33,6 +33,12 @@ function BottomBecomeSelected(button) {
             document.getElementById(buttons[i]).setAttribute("class", "TB-Tab TB-Tab-Normal TB-Tab-Image");
         }
     }
+    if (button == "RegisterButton") {
+        $('#RegisterModal').modal('show');
+    }
+    if (button == "ReserverButton") {
+        $('#ReserverModal').modal('show');
+    }
 }
 //let x: Number = 5;
 //function setInt(value: Number) {

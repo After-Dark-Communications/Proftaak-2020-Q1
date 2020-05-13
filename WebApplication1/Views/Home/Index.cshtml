@@ -2,97 +2,86 @@
     ViewData["Title"] = "Home Page";
 }
 
-@model TestClasses.Depot;
-
+@model DepotViewModel;
+@{
+    void fillTracks(int DepotValue)
+    {
+        for (int x = 0; x < Model.DepotTracks[DepotValue].Sectors.Count; x++)
+        {
+            if (Model.DepotTracks[DepotValue].Sectors[x].Tram == null)
+            {
+                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+            }
+            else
+            {
+                <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
+            }
+        }
+    }
+}
 <div class="main-container">
     <div class="tracks-column">
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">38</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[0].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[0].Trams[0].Number </a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                @*@{
-                        int i = 0;
-                        foreach (TestClasses.Sector depot in Model.Tracks[0].Sectors)
-                        {
-                            if (Model.Tracks[0].Sectors[i].Trams[0] != null)
-                            {
-                                <li onclick="clickInfoTram(@Model.Tracks[0].Sectors[i].Trams[0].Number)" class="tracks-hover tracks-white"><a href="#"> @Model.Tracks[0].Sectors[i].Trams[0].Number </a></li>
-                            }
-                            else if (Model.Tracks[0].Sectors.Length - 1 == i)
-                            {
-                                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
-                            }
-                            else
-                            {
-                                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                            }
-                            i++;
-                        }
-                    }*@
+                @{
+                    fillTracks(0);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">37</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(1);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">36</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{
+                    fillTracks(2);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">35</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(3);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">34</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{
+                    fillTracks(4);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">33</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(5);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">32</a></li>
                 <li class="tracks-gray"><a href="#">10</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                @{
+                    fillTracks(6);
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -108,21 +97,17 @@
             <ul>
                 <li class="tracks-white"><a href="#">30</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(8);
+                }
             </ul>
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
                 <li class="tracks-white"><a href="#">40</a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
+                @{
+                    fillTracks(9);
+                }
             </ul>
             <div class="container-header">
                 <a class="container-brand" href="#">in-/uitrij-spoor</a>
@@ -132,63 +117,53 @@
             <ul>
                 <li class="tracks-white"><a href="#">41</a></li>
                 <li class="tracks-gray"><a href="#">10</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(10);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">42</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(11);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">43</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(12);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">44</a></li>
                 <li class="tracks-blue"><a href="#">13</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(13);
+                }
             </ul>
         </div>
         <div class="container-train normal">
             <ul>
                 <li class="tracks-white"><a href="#">45</a></li>
                 <li class="tracks-red"><a href="#">17</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(14);
+                }
             </ul>
         </div>
         <div class="container-train special tracks-gray tracks-in-out">
             <ul>
                 <li class="tracks-white"><a href="#">58</a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
-                <li><a href="#"></a></li>
+                @{
+                    fillTracks(15);
+                }
             </ul>
             <div class="container-header">
                 <a class="container-brand" href="#">in-/uitrij-spoor</a>
@@ -245,13 +220,9 @@
             <ul>
                 <li class="tracks-white"><a href="#">54</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(19);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -307,10 +278,9 @@
             <ul>
                 <li class="tracks-white"><a href="#">63</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(24);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -335,50 +305,41 @@
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">73</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(27);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">74</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(28);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">75</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(29);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">76</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(30);
+                    }
                 </ul>
             </div>
             <div class="container-train normal tracks-bottom-row">
                 <ul>
                     <li class="tracks-white"><a href="#">77</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(31);
+                    }
                 </ul>
             </div>
             <div class="container-header">
@@ -418,50 +379,96 @@
     </div>
 
 </div>
-<div id="testmodal" class="modal fade">
+<div class="modal fade" id="testmodal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="traminfo">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RegisterModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="status-left">
-                <div class="status-info">
-                    <h4 class="status-title">Tram @Model.Tracks[0].Sectors[0].Trams[0].Number</h4>
-                    <h4 class="status-title">Spoornummer: @Model.Tracks[0].TrackNumber</h4>
-                    <h4 class="status-title">Soort: @Model.Tracks[0].Sectors[0].Trams[0].Type</h4>
+            <div>
+                <div class="register-tram-info">
+                    <h4 class="register-tram-title">Tram Aanmelden</h4>
                 </div>
-                <div class="status-info">
-                    <p class="status-title">Laatste Schoonmaakbeurt</p>
-                    <p>Klein: 0 dagen geleden</p>
-                    <p>Groot: 35 dagen geleden</p>
-                </div>
-                <div class="status-info">
-                    <p class="status-title">Laatste Servicebeurt</p>
-                    <p>Klein: 0 dagen geleden</p>
-                    <p>Groot: 35 dagen geleden</p>
-                </div>
-                <div id="getcount" class="status-inline">
-                    <div>Status:</div>
-                    <div class="status-defect">Reparatie</div>
-                    <div class="status-cleaning">Schoonmaak</div>
-                </div>
+                <form method="post" action="/Home/ParkTram">
+                    <div class="register-tram-left">
+                        <div class="register-tram-info">
+                            <label>Tramnummer :</label>
+                            <input type="number" name="tramnumber" value="" />
+                            <input type="checkbox" name="clean" value="clean"> <label class="register-label">Schoonmaak nodig?</label>
+                            <input type="checkbox" name="repair" value="repair" id="repairchecked" onclick="toggleRepairField()"> <label class="register-label">Reparatie nodig?</label>
+                            <textarea style="display: none;" id="repairreason" classrows="4" cols="40" name="repairreason" placeholder="Reden voor Reperatie"></textarea>
+                        </div>
+                        <input type="submit" class="register-tram-button" value="Verstuur" />
+                    </div>
+                </form>
             </div>
-            <div class="status-right">
-                <input type="button" class="status-buttom" value="Verplaats Tram naar..." />
-                <input type="button" class="status-buttom" value="Verwijder Tram" />
-                <input type="button" class="status-buttom" value="Schoonmaak Aanmelden" />
-                <input type="button" class="status-buttom" value="Stuur naar Reperatie" />
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ReserverModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <div class="reserve-tram-info">
+                    <h4 class="reserve-tram-title">Reserveer spoor voor tram</h4>
+                </div>
+                <form method="post" action="/Home/ReserveTrack">
+                    <div class="reserve-tram-left">
+                        <div class="reserve-tram-info">
+                            <label>Tramnummer :</label>
+                            <input type="number" name="tramnumber" value="" />
+
+                            <label>Spoornummer :</label>
+                            <select name="tracknumber">
+                                <option value="38">38</option>
+                                <option value="37">37</option>
+                                <option value="36">36</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="reserve-tram-button" value="Verstuur" />
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="MoveTram">
+    <div class="modal-dialog">
+        <div class="modal-content" id="MoveTramInfo">
 
+        </div>
+    </div>
+</div>
 
-@section Scripts  {
+@section Scripts {
     <script type="text/javascript">
-        function clickInfoTram(number) {
-            //alert(Number);
-            $('#testmodal').modal('show');
+        function MoveTram(_tramnumber, _track) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/PartialViewMoveTram",
+                data: { tramnumber: _tramnumber, track: _track },
+                success: function (response) {
+                    $('#MoveTramInfo').html(response);
+                    $('#MoveTram').modal('show');
+                }
+            });
         }
-        $(document).ready(function () {
+        function toggleRepairField() {
+            var repairchecked = document.getElementById("repairchecked");
+            var repairreason = document.getElementById("repairreason");
+
+            if (repairchecked.checked == true) {
+                repairreason.style.display = "block";
+            } else {
+                repairreason.style.display = "none";
+            }
+        }
+        function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
             var children = document.getElementById("getcount").children;
             var x = 100 / countdiv;
@@ -472,8 +479,43 @@
                 }
                 children[i].setAttribute("style", "width:" + x + "%;");
             }
+        }
 
-        });
+        function clickInfoTram(number) {
+            //alert(Number);
 
+            $.ajax({
+                type: "POST",
+                url: "/Home/InformationTramPopUp",
+                data: { tramnumber: number },
+                success: function (response) {
+
+                    $('#traminfo').html(response);
+                    $('#testmodal').modal('show');
+                    SizeStatusCSS();
+                }
+            });
+        }
+
+//        $(document).on("click",
+//            '#MoveTramTest',
+//            function (event) {
+//                var _tramnumber = $('#testmodal').getElementById("tramnumber");
+//                var _track = document.getElementById("track");
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/Home/PartialViewMoveTram",
+//                    data: { tramnumber: _tramnumber, track : _track },
+//                    success: function (response) {
+//                        $('#MoveTramInfo').html(response);
+//                        $('#MoveTram').modal('show');
+//                    }
+//                });
+//            });
+
+                                                //$(document).ready(function () {
+
+                                                //});
     </script>
 }
+
