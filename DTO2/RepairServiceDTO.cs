@@ -10,6 +10,11 @@ namespace DTO
         public int BigRepairsPerDay { get; set; }
         public string Location { get; set; }
 
+        public RepairServiceDTO(string location)
+        {
+            Location = location;
+        }
+
         public RepairServiceDTO(int smallRepairsPerDay, int bigRepairsPerDay, string location)
         {
             SmallRepairsPerDay = smallRepairsPerDay;

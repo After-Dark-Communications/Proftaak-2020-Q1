@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,8 +34,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            _repairService.RepairTram(new RepairLogDTO(new RepairServiceDTO(2, 2, "RMS"),new TramDTO("2001"), new UserDTO("admin"), DateTime.Now, 1, false ));
-            return View();
+            //_repairService.RepairTram(new RepairLogDTO(new RepairServiceDTO(2, 2, "RMS"),new TramDTO("2001"), new UserDTO("admin"), DateTime.Now, 1, false, "" ));
+            IEnumerable<RepairLogDTO>  repairLog =  _repairService.GetRepairHistory();
+            return View(repairLog);
         }
     }
 }

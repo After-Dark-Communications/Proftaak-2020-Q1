@@ -8,5 +8,6 @@ namespace DAL.Interfaces
     public interface IRepairServiceAccess
     {
         public void StoreRepairLog(RepairLogDTO repairLog);
+        IEnumerable<RepairLogDTO> GetRepairLogs();
     }
 }

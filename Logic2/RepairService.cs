@@ -25,5 +25,10 @@ namespace Logic
             RepairServiceAccess.StoreRepairLog(repairLog);
         }
 
+        public IEnumerable<RepairLogDTO> GetRepairHistory()
+        {
+            return RepairServiceAccess.GetRepairLogs();
+        }
+
     }
 }

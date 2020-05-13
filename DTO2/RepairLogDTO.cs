@@ -12,8 +12,9 @@ namespace DTO
         public DateTime RepairDate { get; set; }
         public int ServiceType { get; set; }// todo enum
         public bool Occured { get; set; }
+        public string RepairMessage { get; set; }
 
-        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, int serviceType, bool occured)
+        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, int serviceType, bool occured, string repairMessage)
         {
             RepairService = repairService;
             Tram = tram;
@@ -21,6 +22,7 @@ namespace DTO
             RepairDate = repairDate;
             ServiceType = serviceType;
             Occured = occured;
+            RepairMessage = repairMessage;
         }
     }
 }
