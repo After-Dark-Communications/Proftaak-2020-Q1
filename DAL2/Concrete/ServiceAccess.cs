@@ -43,7 +43,7 @@ namespace DAL.Concrete
             CleaningServiceDTO CleaningService = new CleaningServiceDTO();
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.Cleaning_Tram.RepairDate, dbo.Cleaning.BigRepairsPerDay, dbo.Cleaning.SmallRepairsPerDay, dbo.Cleaning_Tram.ServiceType, dbo.Cleaning_Tram.RepairId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId;", conn))
+                using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.CleaningService_Tram.CleaningDate, dbo.CleaningService.BigCleansPerDay, dbo.CleaningService.SmallCleansPerDay, dbo.CleaningService_Tram.CleanType, dbo.CleaningService_Tram.CleaningServiceId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId", conn))
                 {
                     conn.Open();
                     using(SqlDataReader datareader = cmd.ExecuteReader())
@@ -75,7 +75,7 @@ namespace DAL.Concrete
         {
             using(SqlConnection conn= new SqlConnection(DBConnection._connectionString))
             {
-                using(SqlCommand cmd = new SqlCommand($"UPDATE dbo.CleaningService INNER"))
+                using(SqlCommand cmd = new SqlCommand($"UPDATE dbo.CleaningService"))
                 {
                     conn.Open();
                     cmd.ExecuteNonQuery();
