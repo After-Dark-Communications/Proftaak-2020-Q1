@@ -53,5 +53,20 @@ namespace Logic
         {
             return _serviceaccess.ReadCleaning();
         }
+        private void ResetCleaning()
+        {
+            _repairService.MaxBigServicePerDay = 4;
+            _repairService.MaxSmallServicePerDay = 2;
+        }
+        private void DetermineIfCleanNeedToBeReset()
+        {
+            DateTime CurrentDate = DateTime.Now;
+            DateTime LastClean = GetService().CleanDate;
+            TimeSpan span = CurrentDate.Subtract(LastClean);
+            if (span.TotalHours > 24)
+            {
+                ResetCleaning();
+            }
+        }
     }
 }

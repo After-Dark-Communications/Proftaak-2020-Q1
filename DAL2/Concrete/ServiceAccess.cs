@@ -54,7 +54,7 @@ namespace DAL.Concrete
                             CleaningService.Id = datareader.GetInt32(0);
                             CleaningService.UserId = datareader.GetInt32(1);
                             CleaningService.Occured = datareader.GetBoolean(2);
-                            CleaningService.RepairDate = DateTime.Parse(datareader.GetString(3));
+                            CleaningService.CleanDate = DateTime.Parse(datareader.GetString(3));
                             CleaningService.MaxBigServicePerDay = datareader.GetInt32(4);
                             CleaningService.MaxSmallServicePerDay = datareader.GetInt32(5);
                             CleaningService.ServiceType = datareader.GetInt32(6);
