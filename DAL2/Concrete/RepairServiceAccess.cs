@@ -12,22 +12,28 @@ using System.Data.SqlClient;
 using DAL.Context;
 namespace DAL.Concrete
 {
-    public class RepairServiceAccess
+    public class RepairServiceAccess : IRepairServiceAcces
     {
-        public void GetAllTracks(RepairLogDTO repairLog)
+        public void StoreRepairLog(RepairLogDTO repairLog)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Track.TrackNumber FROM dbo.Depot INNER JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.DepotId;"))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO RepairService_Tram (RepairServiceId, RepairDate,TramId, ServiceType, Occured, UserId) " +
+                                                       "VALUES((select RepairService.Id FROM RepairService WHERE RepairService.Location = @Location)," +
+                                                       "@Date, " +
+                                                       "(select Tram.Id FROM Tram WHERE Tram.TramNumber = @TramNumber), " +
+                                                       "@ServiceType," +
+                                                       " @Occured, " +
+                                                       "(select [User].Id FROM [User] WHERE [User].Name = @UserName)) "))
                 {
-                    using (SqlDataReader dataReader = cmd.ExecuteReader())
-                    {
-                        while (dataReader.Read())
-                        {
-                           
-                        }
-                    }
+                    cmd.Parameters.Add(new SqlParameter("@Location", repairLog.RepairService.Location));
+                    cmd.Parameters.Add(new SqlParameter("@Date", repairLog.RepairDate));
+                    cmd.Parameters.Add(new SqlParameter("@TramNumber", repairLog.Tram.TramNumber));
+                    cmd.Parameters.Add(new SqlParameter("@ServiceType", repairLog.ServiceType));
+                    cmd.Parameters.Add(new SqlParameter("@Occured", repairLog.Occured));
+                    cmd.Parameters.Add(new SqlParameter("@UserName", repairLog.User.UserName));
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

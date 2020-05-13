@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using DAL.Interfaces;
 
 
 namespace Logic
@@ -12,9 +13,16 @@ namespace Logic
         public override int MaxSmallServicePerDay { get; set; }
         public ICollection<Track> AllocatedTracks { get; set; }
 
+        public IRepairServiceAcces RepairServiceAcces { get; private set; }
+
+        public RepairService(IRepairServiceAcces repairServiceAcces)
+        {
+            RepairServiceAcces = repairServiceAcces;
+        }
+
         public void RepairTram(RepairLogDTO repairLog)
         {
-            throw new NotImplementedException();
+            RepairServiceAcces.StoreRepairLog(repairLog);
         }
 
     }
