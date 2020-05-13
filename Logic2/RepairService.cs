@@ -91,6 +91,16 @@ namespace Logic
                 ResetRepair();
             }
         }
+
+        public void RepairTram(RepairLogDTO repairLog)
+        {
+            _repairService.StoreRepairLog(repairLog);
+        }
+
+        public IEnumerable<RepairLogDTO> GetRepairHistory()
+        {
+            return _repairService.GetRepairLogs();
+        }
     }
 }
 

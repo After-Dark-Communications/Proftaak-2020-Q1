@@ -9,5 +9,6 @@ namespace DAL.Interfaces
     {
         public void StoreRepairLog(RepairLogDTO repairLog);
         IEnumerable<RepairLogDTO> GetRepairLogs();
+
     }
 }
