@@ -61,6 +61,8 @@ namespace WebApplication1
             services.AddScoped<LoginRepository>();
             services.AddScoped<UserCollection>();
             services.AddScoped<IDepotAccess, DepotAccess>();
+            services.AddScoped<IRepairServiceAccess, RepairServiceAccess>();
+            services.AddScoped<RepairService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

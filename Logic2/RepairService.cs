@@ -13,16 +13,16 @@ namespace Logic
         public override int MaxSmallServicePerDay { get; set; }
         public ICollection<Track> AllocatedTracks { get; set; }
 
-        public IRepairServiceAcces RepairServiceAcces { get; private set; }
+        public IRepairServiceAccess RepairServiceAccess { get; private set; }
 
-        public RepairService(IRepairServiceAcces repairServiceAcces)
+        public RepairService(IRepairServiceAccess repairServiceAccess)
         {
-            RepairServiceAcces = repairServiceAcces;
+            RepairServiceAccess = repairServiceAccess;
         }
 
         public void RepairTram(RepairLogDTO repairLog)
         {
-            RepairServiceAcces.StoreRepairLog(repairLog);
+            RepairServiceAccess.StoreRepairLog(repairLog);
         }
 
     }

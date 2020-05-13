@@ -31,15 +31,15 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
-        public List<CleaningServiceDTO> Logs()
-        {
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                using (SqlCommand command = new SqlCommand("Select ", conn))
-                {
+        //public List<CleaningServiceDTO> Logs()
+        //{
+        //    using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+        //    {
+        //        using (SqlCommand command = new SqlCommand("Select ", conn))
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
 }

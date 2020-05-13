@@ -5,7 +5,7 @@ using DTO;
 
 namespace DAL.Interfaces
 {
-    public interface IRepairServiceAcces
+    public interface IRepairServiceAccess
     {
         public void StoreRepairLog(RepairLogDTO repairLog);
     }

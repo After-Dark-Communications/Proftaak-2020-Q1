@@ -21,5 +21,22 @@ namespace DTO
         {
             Status = new List<StatusDTO>();
         }
+
+        public TramDTO(TramType type, List<StatusDTO> status, string tramNumber, List<TrackDTO> preferredTracksList, DateTime cleaningDateSmallService, DateTime cleaningDateBigService, DateTime repairDateSmallService, DateTime repairDateBigService)
+        {
+            Type = type;
+            Status = status;
+            TramNumber = tramNumber;
+            PreferredTracksList = preferredTracksList;
+            CleaningDateSmallService = cleaningDateSmallService;
+            CleaningDateBigService = cleaningDateBigService;
+            RepairDateSmallService = repairDateSmallService;
+            RepairDateBigService = repairDateBigService;
+        }
+
+        public TramDTO(string tramNumber)
+        {
+            TramNumber = tramNumber;
+        }
     }
 }
