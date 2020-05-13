@@ -8,6 +8,7 @@ namespace DTO
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public string Location { get; set; }
         public bool Occured { get; set; }
         public DateTime CleanDate { get; set; }
         public int MaxBigServicePerDay { get; set; }
