@@ -19,18 +19,19 @@
     background-color: white;
 }
 
+    .TB-Normal:hover {
+        background-color: #F2F2F2;
+    }
+
 .TB-Selected {
     color: white;
-    background-color: #00C2FF;
+    background-color: #254e57;
 }
 
-.TB-Normal:hover {
-    background-color: #F2F2F2;
-}
+    .TB-Selected:hover {
+        background-color: #1E3F44;
+    }
 
-.TB-Selected:hover {
-    background-color: #00B9F2;
-}
 
 .Top-Container {
     position: relative;
@@ -38,7 +39,7 @@
     top: 0;
     width: 100%;
     border: solid black 1px;
-    background-color: #6EFF8E;
+    background-color: #1F3257;
     border-bottom-right-radius: 10px;
     -moz-box-shadow: 5px 2px 5px #666;
     -webkit-box-shadow: 5px 2px 5px #666;
@@ -62,6 +63,7 @@
     padding-top: 45px;
     font-size: 12px;
     margin-right: -4.5px;
+    color: white;
 }
 
 .TB-Tab-Image {
@@ -81,10 +83,10 @@
     }
 
 .TB-Tab-Selected {
-    background-color: #00c2ff;
+    background-color: #254e57;
 }
 
-.TB-User{
+.TB-User {
     position: absolute;
     right: 0;
 }
@@ -100,4 +102,5 @@
     background-position-x: center;
     background-position-y: 10%;
     background-color: transparent;
+    color: white;
 }
