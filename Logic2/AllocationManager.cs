@@ -22,27 +22,43 @@ namespace Logic
         //    }
         //}
 
-        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
+        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic, Tram _tramLogic, RepairService _repairServiceLogic)
         {
-            if (TramNeedsToBeRepaired())
+            if (TramNeedsToBeRepaired(tram, _tramLogic))
             {
-                if (CheckIfSpotOnATrack(_repairlogic.fetchAllTracksFromRepairservice(repairserviceDTO), _Tracklogic, tram)) ;
+               if ( checkIfSpotOnATrack(,_tracklogic, tram))
                 {
-                    //add tram to track
-                    return true;
+
                 }
                 else
                 {
-                    // voeg tram toe aan wachtlijst
-                    return false;
+                    //zet tram op wachtlijst
                 }
 
-            }else if()
+            }//else if(langparkeerplek)
+            //{
+
+            //}
+
+            else if()//lijngebonden
             {
 
             }
+            else if () // normale spoor plek?
+            {
 
+            }
+            else if () //echt nergens plek?
+            {
 
+            }
+            else if () // plek op in/uitrit spoor
+            {
+
+            }else
+            {
+                //stuur tram weg
+            }
         }
 
 
@@ -73,9 +89,17 @@ namespace Logic
             } while (tramIsStored == false);
         }
 
-        private static bool TramNeedsToBeRepaired ()
+        private static bool TramNeedsToBeRepaired (TramDTO tram, Tram _tramlogic)
         {
-            throw new NotImplementedException();
+            StatusDTO defectStatus = new StatusDTO();
+            defectStatus.Status = TramStatus.Defect;
+            if (tram.Status.Contains(defectStatus))
+            {
+                return true;
+            }
+            //if scheduled for repair, return true
+
+            return false;
         }
     }
 }
