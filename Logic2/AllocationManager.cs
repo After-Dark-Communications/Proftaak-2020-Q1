@@ -26,6 +26,11 @@ namespace Logic
             /*
              * Nodig:
              * List repairtracks
+             * list langparkeerplekken
+             * bij welke lijn hoort een tram 
+             * checks of het spoor geen preferred type / line hebben
+             * tram weer weg kunnen sturen
+             * kijken of track in/uitrit spoor is
              */
 
         public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _trackLogic, Tram _tramLogic, RepairService _repairServiceLogic)
