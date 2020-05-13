@@ -19,6 +19,7 @@ namespace Logic
         {
             _serviceaccess = serviceaccess;
             _repairService = GetService();
+            DetermineIfRepairNeedToBeReset();
             
         }
         public void SetSmallRepairTram(TramDTO tram)
@@ -79,6 +80,16 @@ namespace Logic
         {
             _repairService.MaxBigServicePerDay = 1;
             _repairService.MaxSmallServicePerDay = 4;
+        }
+        private void DetermineIfRepairNeedToBeReset()
+        {
+            DateTime CurrentDate = DateTime.Now;
+            DateTime LastRepair = GetService().RepairDate;
+            TimeSpan span = CurrentDate.Subtract(LastRepair);
+            if(span.TotalHours > 24)
+            {
+                ResetRepair();
+            }
         }
     }
 }
