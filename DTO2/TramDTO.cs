@@ -16,7 +16,6 @@ namespace DTO
         public DateTime CleaningDateBigService { get; set; }
         public DateTime RepairDateSmallService { get; set; }
         public DateTime RepairDateBigService { get; set; }
-
         public TramDTO()
         {
             Status = new List<StatusDTO>();
