@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DTO;
 
 namespace Logic
 {
@@ -10,7 +11,7 @@ namespace Logic
         public override int MaxSmallServicePerDay { get; set; }
         public ICollection<Track> AllocatedTracks { get; set; }
 
-        public void RepairTram(Tram tram)
+        public void RepairTram(RepairLogDTO repairLog)
         {
             throw new NotImplementedException();
         }
