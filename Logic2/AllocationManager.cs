@@ -198,8 +198,6 @@ namespace Logic
             {
                 return true;
             }
-            //if scheduled for repair, return true
-
             return false;
         }
     }
