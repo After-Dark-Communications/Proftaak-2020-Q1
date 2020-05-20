@@ -2,10 +2,11 @@
 @{
     ViewData["Title"] = "Cleaning";
 }
+@*<td class="R-Info-Status test"><button class="donebutton" onclick="CleaningDone(12);">Uitgevoerd</button></td>Status*@
 <link href="~/css/Service.css" rel="stylesheet" />
 
 <div>
-    <div style="text-align:center;">
+    <div style="text-align:center; padding-top: 20px; padding-top: 20px;">
         <div style="display:inline-block; width:500px;">
             <table style="width:100%;">
                 <tr class="R-Info-bar">
@@ -14,33 +15,45 @@
                     <th>Soort Schoonmaak</th>
                     <col />
                 </tr>
+                <<<<<<< HEAD
                 @for (int i = 0; i < 3; i++)
                 {
 
                 }
                 {
-                    if (true)
-                    {
-                        <tr>
-                            <td class="C-content C-content-thin">@Model.TramNumber</td><!--Nr-->
-                            <td class="C-content C-content-thin">@Model.TrackNumber</td><!--Spoor-->
-                            <td class="C-content C-content-wide">@Model.CleaningType</td><!--Soort-->
-                            <td class="C-Info-Status test">@Model.CleaningStatus</td><!--Status-->
-                        </tr>
-                    }
-                }
-                @for (int i = 0; i < 30; i++)
+                if (true)
                 {
-                    <tr>
-                        <td class="C-content C-content-thin"></td><!--Nr-->
-                        <td class="C-content C-content-thin"></td><!--Spoor-->
-                        <td class="C-content C-content-wide"></td><!--Soort-->
-                        <td class="C-Info-Status"></td><!--Status-->
-                    </tr>
+                <tr>
+                    <td class="C-content C-content-thin">@Model.TramNumber</td><!--Nr-->
+                    <td class="C-content C-content-thin">@Model.TrackNumber</td><!--Spoor-->
+                    <td class="C-content C-content-wide">@Model.CleaningType</td><!--Soort-->
+                    <td class="C-Info-Status test">@Model.CleaningStatus</td><!--Status-->
+                </tr>
                 }
-
+                }
             </table>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalCleaningDone">
+    <div class="modal-dialog">
+        <div class="modal-content" id="cleaningconfirmation">
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    <script type="text/javascript">
+        function CleaningDone(_Tramnumber) {
+            $.ajax({
+                type: "POST",
+                url: "/Service/CleaningDone",
+                data: { tramnumber: _Tramnumber },
+                success: function (response) {
+                    $('#cleaningconfirmation').html(response);
+                    $('#modalCleaningDone').modal('show');
+                }
+            });
+        }
+    </script>
+}

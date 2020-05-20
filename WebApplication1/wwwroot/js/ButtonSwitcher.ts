@@ -26,6 +26,9 @@ function BottomBecomeSelected(button, ...buttons) {
             document.getElementById(buttons[i]).setAttribute("class", "TB-Tab TB-Tab-Normal TB-Tab-Image");
         }
     }
+//    if (button == "CleanerButton") {
+//        window.location.href = "/Service/Cleaning";
+//    }
 }    
 
 //let x: Number = 5;

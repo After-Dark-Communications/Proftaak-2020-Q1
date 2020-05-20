@@ -60,6 +60,35 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        public IActionResult RemoveTram(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialRemoveTram");
+        }
+        public IActionResult CleanSignUp(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialCleanSignUp");
+        }
+
+        public IActionResult CleanSignUpSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " "  + HttpContext.Request.Form["service"] + " " + HttpContext.Request.Form["cleanupreason"]);
+        }
+        public IActionResult RepairSignUp(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialRepairSignUp");
+        }
+
+        public IActionResult RepairSignUpSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["repairsize"] + " " + HttpContext.Request.Form["repairreason"]);
+        }
+        public IActionResult RemoveTramSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"]);
+        }
         public IActionResult ParkTram()
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";
@@ -76,13 +105,13 @@ namespace WebApplication1.Controllers
         {
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
-        public IActionResult InformationTramPopUp(string tramnumber)
+        public IActionResult InformationTramPopUp(string tramnumber, string tracknumber)
         {
 
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
-            @ViewBag.Track = 38; //TODO data uit methode krijgen.
+            @ViewBag.Track = tracknumber;
             @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
             @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
             @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);

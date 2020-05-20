@@ -1,0 +1,12 @@
+﻿<div>
+    <div class="cleaning-tram-info">
+        <h4 class="cleaning-tram-title">Schoonmaak @ViewBag.Tramnumber Klaar ?</h4>
+    </div>
+    <form method="post" action="/Service/UpdateCleaingDoneStatus">
+        <div class="cleaning-center">
+            <input type="hidden" name="tramnumber" value="@ViewBag.Tramnumber" readonly/>
+            <input type="submit" class="cleaning-tram-button-success" value="Ja"/>
+            <input class="cleaning-tram-button-notdone" value="Nee" button data-dismiss="modal"/>
+        </div>
+    </form>
+</div>

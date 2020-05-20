@@ -34,6 +34,15 @@ namespace WebApplication1.Controllers
             return View(repairLogs);
         }
 
+        public IActionResult CleaningDone(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialCleaningDone");
+        }
+        public IActionResult UpdateCleaingDoneStatus()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"]);
+        }
         public IActionResult Cleaning()
         {
             var cleaningLogs = _cleaningservice.GetCleaningLogs();
