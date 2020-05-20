@@ -1,4 +1,5 @@
 ﻿using DAL.Concrete;
+using DAL.Interfaces;
 using DTO;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,10 @@ namespace Logic
 {
     public class CleaningService
     {
-        private readonly ServiceAccess _serviceaccess;
+        private readonly IServiceAccess _serviceaccess;
         private readonly CleaningServiceDTO _repairService;
 
-        public CleaningService(ServiceAccess serviceaccess)
+        public CleaningService(IServiceAccess serviceaccess)
         {
             _serviceaccess = serviceaccess;
             _repairService = GetService();
