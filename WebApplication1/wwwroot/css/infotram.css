@@ -49,9 +49,13 @@
 .status-indepot {
     background-color: cadetblue;
 }
-.status-buttom {
-    background-color: lightgreen;
+.status-button {
+    background-color: #254e57;
+    color: white;
     border-bottom: 1px solid black;
+    border-left: none;
+    border-right: none;
+    border-top: none;
     padding: 12px;
     text-align: center;
     min-height: 50px;
@@ -78,8 +82,9 @@
 }
 
 .register-tram-button {
-    background-color: lightgreen;
-    border-bottom: 1px solid black;
+    background-color: #254e57;
+    color:white;
+    border: 1px solid black;
     padding: 12px;
     text-align: center;
     min-height: 50px;
@@ -117,8 +122,9 @@
 }
 
 .reserve-tram-button {
-    background-color: lightgreen;
-    border-bottom: 1px solid black;
+    background-color: #254e57;
+    color:white;
+    border: 1px solid black;
     padding: 12px;
     text-align: center;
     min-height: 50px;
