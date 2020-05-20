@@ -1,6 +1,4 @@
-﻿@using System.Collections
-@using Services
-
+﻿@using Services
 <div class="test1">
     <div class="status-left">
         <div class="status-info">
@@ -44,16 +42,7 @@
         </div>
     </div>
     <div class="status-right">
-        <input type="button" class="status-button" value="Verplaats Tram naar..." onclick="MoveTram(@ViewBag.Tramnumber, @ViewBag.Track)"/>
-        <input type="button" class="status-button" value="Verwijder Tram" onclick="RemoveTram(@ViewBag.Tramnumber)"/>
-        <input type="button" class="status-button" value="Schoonmaak Aanmelden" onclick="CleanSignUp(@ViewBag.Tramnumber)"/>
-        <input type="button" class="status-button" value="Stuur naar Reparatie"  onclick="RepairSignUp(@ViewBag.Tramnumber)"/>
+        <input type="button" class="status-button" value="Is gerepareerd" />
+        <input type="button" class="status-button" value="Defectlog opvragen" />
     </div>
 </div>
-@* @ViewBag.Tramnumber = tramData.TramNumber; *@
-@* @ViewBag.Status = tramData.Status; *@
-@* @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService; *@
-@* @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService; *@
-@* @ViewBag.RepairDateBigService = tramData.RepairDateBigService; *@
-@* @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService; *@
-@* @ViewBag.Type = tramData.Type; *@

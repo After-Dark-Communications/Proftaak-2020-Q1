@@ -10,32 +10,94 @@
             <table style="width:100%;">
                 <tr class="R-Info-bar">
                     <th>Nr</th>
-                    <th>Spoor</th>
-                    <th>Soort Schoonmaak</th>
+                    <th>Status</th>
+                    <th>Defect</th>
                     <col />
                 </tr>
                 @*@foreach ()
-        {
-            if (true)
-            {*@
+                    {
+                        if (true)
+                        {*@
                 <tr>
-                    <td class="R-content R-content-thin">AAA</td><!--Nr-->
-                    <td class="R-content R-content-thin">AAA</td><!--Spoor-->
-                    <td class="R-content R-content-wide">AAA</td><!--Soort-->
-                    <td class="R-Info-Status test">AAA</td><!--Status-->
+                    <td onclick="clickInfoTram(2001)" class="R-content R-content-thin">2001</td><!--Nr-->
+                    <td class="R-content R-content-status">AAA</td><!--Status-->
+                    <td class="R-content R-content-wide">AAA</td><!--Defect-->
+                    <td class="R-Info-Status test"><button class="donebutton" onclick="CleaningDone(12);">Uitgevoerd</button></td><!--Status-->
                 </tr>
                 @for (int i = 0; i < 30; i++)
                 {
                     <tr>
-                        <td class="R-content R-content-thin"></td><!--Nr-->
-                        <td class="R-content R-content-thin"></td><!--Spoor-->
-                        <td class="R-content R-content-wide"></td><!--Soort-->
+                        <td onclick="clickInfoTram(0)" class="R-content R-content-thin"></td><!--Nr-->
+                        <td class="R-content R-content-status"></td><!--Status-->
+                        <td class="R-content R-content-wide"></td><!--Defect-->
                         <td class="R-Info-Status"></td><!--Status-->
                     </tr>
                 }
                 @*}
-        }*@
+                    }*@
             </table>
         </div>
     </div>
 </div>
+<div class="modal fade" id="testmodal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="traminfo">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="Defect">
+    <div class="modal-dialog">
+        <div class="modal-content" id="Defectlog">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function Defectog(number) {
+            //alert(Number);
+
+            $.ajax({
+                type: "POST",
+                url: "/Service/DefectLog",
+                data: { tramnumber: number },
+                success: function (response) {
+
+                    $('#defectlog').html(response);
+                    $('#Defect').modal('show');
+                }
+            });
+        }
+
+        function SizeStatusCSS() {
+            var countdiv = document.querySelectorAll('#getcount div').length;
+            var children = document.getElementById("getcount").children;
+            var x = 100 / countdiv;
+            for (var i = 0; i < countdiv; i++) {
+                if (i == countdiv - 1) {
+                    children[i].setAttribute("style", "width:" + x + "%; border-right: none !important;");
+                    return;
+                }
+                children[i].setAttribute("style", "width:" + x + "%;");
+            }
+        }
+
+        function clickInfoTram(number) {
+            //alert(Number);
+
+            $.ajax({
+                type: "POST",
+                url: "/Service/InfoRepairTramPopUp",
+                data: { tramnumber: number },
+                success: function (response) {
+
+                    $('#traminfo').html(response);
+                    $('#testmodal').modal('show');
+                    SizeStatusCSS();
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿td, th {
+    border: 1px solid #000;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.R-content {
+    background-color: #fff;
+}
+
+R-content-thin {
+    min-width: 80px;
+}
+
+R-content-wide {
+    min-width: 300px;
+}
+
+.R-content:empty {
+    height: 41px;
+}
+
+.R-Info-bar {
+    background-color: #254e57;
+    color: #fff;
+}
+
+.R-Info-Status {
+    border: none;
+}
+.donebutton {
+    border: 1px;
+    background-color: #1F3257;
+    color: white;
+}
+.donebutton:hover {
+    color: black;
+}
+.cleaning-tram-info {
+    border-bottom: 1px solid black;
+    padding: 2.5%;
+}
+
+.cleaning-tram-button-success {
+    background-color: green;
+    color: white;
+    border: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    margin: 10px;
+    width: 75px;
+}
+
+.cleaning-tram-button-notdone {
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    margin: 10px;
+    width: 75px;
+}
+
+
+.cleaning-tram-title {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.cleaning-tram-button-success:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.cleaning-tram-button-notdone:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.cleaning-center {
+    margin-left: 30%;
+}

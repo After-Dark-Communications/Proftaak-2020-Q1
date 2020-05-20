@@ -143,3 +143,62 @@
     font-weight: bold;
     font-size: larger;
 }
+
+.remove-tram-info {
+    border-bottom: 1px solid black;
+    padding: 2.5%;
+}
+
+.remove-tram-button-success {
+    background-color: green;
+    color: white;
+    border: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    margin: 10px;
+    width: 75px;
+}
+
+.remove-tram-button-notdone {
+    background-color: red;
+    color: white;
+    border: 1px solid black;
+    padding: 12px;
+    text-align: center;
+    min-height: 50px;
+    max-width: 100%;
+    white-space: normal;
+    margin: 10px;
+    width: 75px;
+}
+
+.remove-tram-title {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.remove-tram-button-success:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.remove-tram-button-notdone:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.remove-center {
+    margin-left: 30%;
+}
+
+
+.remove-tram-info input[type="number"], .remove-tram-info select {
+    width: 75%;
+    float: right;
+}
+.remove-cleanupinfo {
+    width: 100%;
+}
