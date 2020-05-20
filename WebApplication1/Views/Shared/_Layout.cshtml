@@ -31,10 +31,10 @@
                 @if (Context.Session.GetString("Username") != null)
                 {
                     <div class="Top-Button-Container">
-                        <input class="Top-Bar TB-Selected" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
-                        <input class="Top-Bar TB-Normal" id="ScreenButton" type="button" value="Schermen" onclick="BecomeSelected(true,false, 'ScreenButton', 'StartButton')" />
+                        <input class="Top-Bar TB-Normal" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
+                        <input class="Top-Bar TB-Selected" id="ScreenButton" type="button" value="Schermen" onclick="BecomeSelected(true,false, 'ScreenButton', 'StartButton')" />
                     </div>
-                    <div class="Bottom-Button-Container" style="display:none;" id="ScreenContainer">
+                    <div class="Bottom-Button-Container" style="display:inline-block;" id="ScreenContainer">
                         @if (Context.Session.GetString("Permission") == "Conducteur" || Context.Session.GetString("Permission") == "Admin")
                         {
                             <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="ConductButton" type="button" value="Conducteur Scherm" style="background-image: url('../img/copI.png');" onclick="BottomBecomeSelected('ConductButton','MechanicButton','CleanerButton')" />
@@ -45,12 +45,19 @@
                         }
                         @if (Context.Session.GetString("Permission") == "Schoonmaker" || Context.Session.GetString("Permission") == "Admin")
                         {
-                            <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" onclick="BottomBecomeSelected('CleanerButton','ConductButton','MechanicButton')" />
+                            @if (true)//TODO: get current page path
+                            {
+                                <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" onclick=" window.location.href= '@Url.Action("Cleaning", "Service")' " />
+                            }
+                            else
+                            {
+                                <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" />
+                            }
                         }
                     </div>
                     @if (Context.Session.GetString("Permission") == "Conducteur" || Context.Session.GetString("Permission") == "Admin")
                     {
-                        <div class="Bottom-Button-Container" style="display:inline-block;" id="StartContainer">
+                        <div class="Bottom-Button-Container" style="display:none;" id="StartContainer">
                             <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="ReserverButton" type="button" value="Spoor reserveren voor tram" style="background-image: url('../img/TramI.png'); background-position-y: -10px; background-size: 50% !important; width: fit-content;" onclick="BottomBecomeSelected('ReserverButton','RegisterButton')" />
                             <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="RegisterButton" type="button" value="Tram aanmelden" style="background-image: url('../img/TramArrowI.png'); background-position-y: 80%; background-size: 80% !important;" onclick="BottomBecomeSelected('RegisterButton','ReserverButton')" />
                         </div>
