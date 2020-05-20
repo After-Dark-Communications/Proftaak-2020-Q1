@@ -22,7 +22,7 @@
                     <td onclick="clickInfoTram(2001)" class="R-content R-content-thin">2001</td><!--Nr-->
                     <td class="R-content R-content-status">AAA</td><!--Status-->
                     <td class="R-content R-content-wide">AAA</td><!--Defect-->
-                    <td class="R-Info-Status test">AAA</td><!--Status-->
+                    <td class="R-Info-Status test"><button class="donebutton" onclick="CleaningDone(12);">Uitgevoerd</button></td><!--Status-->
                 </tr>
                 @for (int i = 0; i < 30; i++)
                 {
@@ -46,9 +46,31 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="Defect">
+    <div class="modal-dialog">
+        <div class="modal-content" id="Defectlog">
+
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script type="text/javascript">
+        function Defectog(number) {
+            //alert(Number);
+
+            $.ajax({
+                type: "POST",
+                url: "/Service/DefectLog",
+                data: { tramnumber: number },
+                success: function (response) {
+
+                    $('#defectlog').html(response);
+                    $('#Defect').modal('show');
+                }
+            });
+        }
+
         function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
             var children = document.getElementById("getcount").children;
