@@ -14,10 +14,10 @@ namespace DAL.Concrete
     {
         public RepairServiceDTO ReadRepair()
         {
-            RepairServiceDTO RepairService = new RepairServiceDTO();
+            RepairServiceDTO RepairService = new RepairServiceDTO("RMS");
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.RepairDate, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.ServiceType, dbo.RepairService_Tram.RepairId FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;", conn))
+                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.RepairDate, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.ServiceType, dbo.RepairService_Tram.RepairId, dbo.RepairService.Location FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;", conn))
                 {
                     conn.Open();
                     using (SqlDataReader datareader = cmd.ExecuteReader())
