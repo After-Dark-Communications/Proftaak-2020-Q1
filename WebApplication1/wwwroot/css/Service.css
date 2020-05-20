@@ -8,27 +8,27 @@ table {
     border-collapse: collapse;
 }
 
-.R-content {
+.C-content {
     background-color: #fff;
 }
 
-R-content-thin {
+.C-content-thin {
     min-width: 80px;
 }
 
-R-content-wide {
+.C-content-wide {
     min-width: 300px;
 }
 
-.R-content:empty {
+.C-content:empty {
     height: 41px;
 }
 
-.R-Info-bar {
+.C-Info-bar {
     background-color: #254e57;
     color: #fff;
 }
 
-.R-Info-Status {
+.C-Info-Status {
     border: none;
 }
