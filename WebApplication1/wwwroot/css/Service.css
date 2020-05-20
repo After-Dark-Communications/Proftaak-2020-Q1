@@ -32,3 +32,33 @@ table {
 .C-Info-Status {
     border: none;
 }
+
+
+.R-content {
+    background-color: #fff;
+}
+
+.R-content-thin {
+    min-width: 80px;
+}
+
+.R-content-status {
+    min-width: 180px;
+}
+
+.R-content-wide {
+    min-width: 300px;
+}
+
+.R-content:empty {
+    height: 41px;
+}
+
+.R-Info-bar {
+    background-color: #254e57;
+    color: #fff;
+}
+
+.R-Info-Status {
+    border: none;
+}

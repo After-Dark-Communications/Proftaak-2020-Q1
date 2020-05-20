@@ -15,11 +15,13 @@ namespace WebApplication1.Controllers
         private readonly IMapper _mapper;
         private readonly Logic.RepairService _repairservice;
         private readonly Logic.CleaningService _cleaningservice;
-        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice)
+        private readonly Tram _tramLogic;
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram)
         {
             _mapper = mapper;
             _repairservice = repairservice;
             _cleaningservice = cleaningservice;
+            _tramLogic = tram;
         }
 
         public IActionResult Repairs()
@@ -40,6 +42,28 @@ namespace WebApplication1.Controllers
                 _mapper.Map<ServiceViewModel>(clean);
             }
             return View(cleaningLogs);
+        }
+
+        public IActionResult InfoRepairTramPopUp(string tramnumber)
+        {
+
+            TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            @ViewBag.Tramnumber = tramData.TramNumber;
+            @ViewBag.Status = tramData.Status;
+            @ViewBag.Track = 38; //TODO data uit methode krijgen.
+            @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
+            @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
+            @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
+            @ViewBag.RepairDateSmallService = Daysago(tramData.RepairDateSmallService);
+            @ViewBag.Type = tramData.Type;
+
+            return PartialView("InfoRepairTramPopUp");
+
+        }
+        private int Daysago(DateTime _day)
+        {
+            TimeSpan daysdifference = DateTime.Today - _day;
+            return daysdifference.Days;
         }
     }
 }

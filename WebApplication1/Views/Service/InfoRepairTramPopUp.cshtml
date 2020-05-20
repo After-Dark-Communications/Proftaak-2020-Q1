@@ -1,0 +1,48 @@
+﻿@using Services
+<div class="test1">
+    <div class="status-left">
+        <div class="status-info">
+            <h4 class="status-title">Tram @ViewBag.Tramnumber</h4>
+            <h4 class="status-title">Spoornummer: @ViewBag.Track</h4>
+            <h4 class="status-title">Soort: @ViewBag.Type</h4>
+        </div>
+        <div class="status-info">
+            <p class="status-title">Laatste Schoonmaakbeurt</p>
+            <p>Klein: @ViewBag.CleaningDateSmallService dagen geleden</p>
+            <p>Groot: @ViewBag.CleaningDateBigService dagen geleden</p>
+        </div>
+        <div class="status-info">
+            <p class="status-title">Laatste Servicebeurt</p>
+            <p>Klein: @ViewBag.RepairDateSmallService dagen geleden</p>
+            <p>Groot: @ViewBag.RepairDateBigService dagen geleden</p>
+        </div>
+        <div id="getcount" class="status-inline">
+            <div>Status:</div>
+            @{
+                for (int i = 0; i < Enumerable.Count(ViewBag.Status); i++)
+                {
+                    if (ViewBag.Status[i].Status == TramStatus.Cleaning)
+                    {
+                        @:<div class="status-cleaning">Schoonmaak</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Defect)
+                    {
+                        <div class="status-defect">Reparatie</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Shift)
+                    {
+                        <div class="status-shift">Bezig</div>
+                    }
+                    if (ViewBag.Status[i].Status == TramStatus.Depot)
+                    {
+                        <div class="status-indepot">Depot</div>
+                    }
+                }
+            }
+        </div>
+        <div class="status-right">
+            <input type="button" class="status-button" value="" />
+            <input type="button" class="status-button" value="Defectlog" />
+        </div>
+    </div>
+</div>
