@@ -4,20 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Logic;
+using WebApplication1.Models;
+using DTO;
 
 namespace WebApplication1.Controllers
 {
     public class ServiceController : Controller
     {
         private readonly IMapper _mapper;
-        public ServiceController(IMapper mapper)
+        private readonly Logic.RepairService _repairservice;
+        private readonly Logic.CleaningService _cleaningservice;
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice)
         {
             _mapper = mapper;
+            _repairservice = repairservice;
+            _cleaningservice = cleaningservice;
         }
 
         public IActionResult Repairs()
         {
-            return View();
+            var repairLogs = _repairservice.GetRepairHistory();
+            foreach(RepairLogDTO repair in repairLogs)
+            {
+                _mapper.Map<ServiceViewModel>(repair);
+            }
+            return View(repairLogs);
         }
 
         public IActionResult Cleaning()

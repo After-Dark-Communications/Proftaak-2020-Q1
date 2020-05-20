@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +20,12 @@ namespace WebApplication1.Controllers
         IMapper _mapper;
         Sector _sectorLogic;
         Track _trackLogic;
+        RepairService _repairService;
 
-        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc, ISectorAccess sc, ITrackAccess tc)
+        public TestController(ITramAccess ac, IMapper mapper, IDepotAccess dc, ISectorAccess sc, ITrackAccess tc, RepairService repairService)
         {
             _mapper = mapper;
+            _repairService = repairService;
             _tramLogic = new Tram(ac);
             _sectorLogic = new Sector(sc, ac);
             _trackLogic = new Track(tc, _sectorLogic);
@@ -31,8 +34,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
-            bool henk = _tramLogic.IsTramAllreadyInDepot("2001");
-            return View(henk);
+            //_repairService.RepairTram(new RepairLogDTO(new RepairServiceDTO(2, 2, "RMS"),new TramDTO("2001"), new UserDTO("admin"), DateTime.Now, 1, false, "" ));
+            IEnumerable<RepairLogDTO>  repairLog =  _repairService.GetRepairHistory();
+            return View(repairLog);
         }
     }
 }

@@ -73,8 +73,6 @@ namespace DAL.Concrete
 
         public void Update(SectorDTO obj)
         {
-            try
-            {
                 if (obj.Tram != null)
                 {
                     using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
@@ -93,13 +91,7 @@ namespace DAL.Concrete
                 else
                 {
                     RemoveTram(obj);
-                }
-            }
-            catch
-            {
-
-            }
-            
+                }           
         }
 
         private void RemoveTram(SectorDTO sector)
