@@ -13,7 +13,6 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-
                 using (SqlCommand cmd = new SqlCommand("INSERT INTO RepairService_Tram (RepairServiceId, RepairDate,TramId, ServiceType, Occured, UserId, RepairMessage) " +
                                                        "VALUES((select RepairService.Id FROM RepairService WHERE RepairService.Location = @Location)," +
                                                        "@Date, " +
@@ -31,7 +30,6 @@ namespace DAL.Concrete
                     cmd.Parameters.Add(new SqlParameter("@RepairMessage", repairLog.RepairMessage ?? (object)DBNull.Value));
                     cmd.ExecuteNonQuery();
                 }
-
                 conn.Close();
             }
         }
@@ -68,7 +66,6 @@ namespace DAL.Concrete
                                                        "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
                                                        "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id ", conn))
                 {
-
                     using (SqlDataReader dataReader = cmd.ExecuteReader())
                     {
                         while (dataReader.Read())
