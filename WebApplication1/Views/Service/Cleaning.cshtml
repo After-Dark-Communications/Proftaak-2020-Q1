@@ -6,7 +6,7 @@
 @*@model*@
 
 <div>
-    <div style="text-align:center;">
+    <div style="text-align:center; padding-top: 20px; padding-top: 20px;">
         <div style="display:inline-block; width:500px;">
             <table style="width:100%;">
                 <tr class="R-Info-bar">
@@ -16,16 +16,16 @@
                     <col />
                 </tr>
                 @*@foreach ()
-        {
-            if (true)
-            {*@
+                    {
+                        if (true)
+                        {*@
                 <tr>
                     <td class="R-content R-content-thin">AAA</td><!--Nr-->
                     <td class="R-content R-content-thin">AAA</td><!--Spoor-->
                     <td class="R-content R-content-wide">AAA</td><!--Soort-->
-                    <td class="R-Info-Status test">AAA</td><!--Status-->
+                    <td class="R-Info-Status test"><button class="donebutton" onclick="CleaningDone(12);">Uitgevoerd</button></td><!--Status-->
                 </tr>
-                @for (int i = 0; i < 30; i++)
+                @for (int i = 0; i < 15; i++)
                 {
                     <tr>
                         <td class="R-content R-content-thin"></td><!--Nr-->
@@ -35,9 +35,30 @@
                     </tr>
                 }
                 @*}
-        }*@
+                    }*@
             </table>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalCleaningDone">
+    <div class="modal-dialog">
+        <div class="modal-content" id="cleaningconfirmation">
+        </div>
+    </div>
+</div>
 
+@section Scripts {
+    <script type="text/javascript">
+    function CleaningDone(_Tramnumber) {
+        $.ajax({
+            type: "POST",
+            url: "/Service/CleaningDone",
+            data: { tramnumber: _Tramnumber },
+            success: function (response) {
+                $('#cleaningconfirmation').html(response);
+                $('#modalCleaningDone').modal('show');
+            }
+        });
+    }
+    </script>
+}

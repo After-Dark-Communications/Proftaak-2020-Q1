@@ -20,6 +20,15 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public IActionResult CleaningDone(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialCleaningDone");
+        }
+        public IActionResult UpdateCleaingDoneStatus()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"]);
+        }
         public IActionResult Cleaning()
         {
             return View();
