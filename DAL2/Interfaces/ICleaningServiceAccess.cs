@@ -10,6 +10,7 @@ namespace DAL.Interfaces
     {
        public void StoreCleaningLog(CleaningLogDTO cleanLog);
         public void UpdateCleanLog(CleaningLogDTO cleanLog);
+        public IEnumerable<CleaningLogDTO> GetCleaningLogs();
 
     }
 }

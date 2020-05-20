@@ -3,6 +3,7 @@ using DAL.Interfaces;
 using DTO;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 
@@ -11,32 +12,34 @@ namespace Logic
     public class CleaningService
     {
         private readonly IServiceAccess _serviceaccess;
-        private readonly CleaningServiceDTO _repairService;
+        private readonly CleaningServiceDTO _cleaningServiceDTO;
+        private readonly ICleaningServiceAccess _cleaningAccess;
 
-        public CleaningService(IServiceAccess serviceaccess)
+        public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess)
         {
             _serviceaccess = serviceaccess;
-            _repairService = GetService();
+            _cleaningServiceDTO = GetService();
+            _cleaningAccess = cleaningAccess;
 
         }
         public void SetSmallCleanTram(TramDTO tram)
         {
-            if (CanCleanTram(_repairService))
+            if (CanCleanTram(_cleaningServiceDTO))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
                 tram.RepairDateSmallService = RepairDate;
-                _repairService.MaxSmallServicePerDay--;
+                _cleaningServiceDTO.MaxSmallServicePerDay--;
             }
         }
         public void SetLargeRepairTram(TramDTO tram)
         {
-            if (CanCleanTram(_repairService))
+            if (CanCleanTram(_cleaningServiceDTO))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
                 tram.RepairDateBigService = RepairDate;
-                _repairService.MaxBigServicePerDay--;
+                _cleaningServiceDTO.MaxBigServicePerDay--;
             }
         }
         private bool CanCleanTram(CleaningServiceDTO Service)
@@ -56,8 +59,8 @@ namespace Logic
         }
         private void ResetCleaning()
         {
-            _repairService.MaxBigServicePerDay = 4;
-            _repairService.MaxSmallServicePerDay = 2;
+            _cleaningServiceDTO.MaxBigServicePerDay = 4;
+            _cleaningServiceDTO.MaxSmallServicePerDay = 2;
         }
         private void DetermineIfCleanNeedToBeReset()
         {
@@ -68,6 +71,10 @@ namespace Logic
             {
                 ResetCleaning();
             }
+        }
+        public IEnumerable<CleaningLogDTO> GetCleaningLogs()
+        {
+            return _cleaningAccess.GetCleaningLogs();
         }
     }
 }
