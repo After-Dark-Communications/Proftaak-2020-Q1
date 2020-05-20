@@ -25,7 +25,7 @@
             }
             else
             {
-            <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
+            <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber, @Model.DepotTracks[DepotValue].TrackNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
             }
         }
     }
@@ -537,13 +537,13 @@
             }
         }
 
-        function clickInfoTram(number) {
+        function clickInfoTram(_number, _track) {
             //alert(Number);
 
             $.ajax({
                 type: "POST",
                 url: "/Home/InformationTramPopUp",
-                data: { tramnumber: number },
+                data: { tramnumber: _number, tracknumber: _track },
                 success: function (response) {
 
                     $('#traminfo').html(response);

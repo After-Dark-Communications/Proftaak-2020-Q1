@@ -103,13 +103,13 @@ namespace WebApplication1.Controllers
         {
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
-        public IActionResult InformationTramPopUp(string tramnumber)
+        public IActionResult InformationTramPopUp(string tramnumber, string tracknumber)
         {
 
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
-            @ViewBag.Track = 38; //TODO data uit methode krijgen.
+            @ViewBag.Track = tracknumber;
             @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
             @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
             @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
