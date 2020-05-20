@@ -175,5 +175,32 @@ namespace DAL.Concrete
             }
             return tracks;
         }
+
+        public IEnumerable<TramDTO> GetAllTrams(DepotDTO depot)
+        {
+            List<TramDTO> trams = new List<TramDTO>();
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("SELECT dbo.Tram.TramNumber FROM dbo.Tram"))
+                {
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            int id = dataReader.GetInt32(0);
+                            string tramNumber = dataReader.GetString(1);
+                            TramDTO tram = new TramDTO
+                            {
+                                Id = id,
+                                TramNumber = tramNumber
+                            };
+                            trams.Add(tram);
+                        }
+                    }
+                }
+            }
+            return trams;
+        }
     }
 }

@@ -27,7 +27,6 @@ namespace Logic
          * Nodig:
          * waiting list //voor later
          * bij welke lijn hoort een tram 
-         * checks of het spoor geen preferred type / line hebben
          * tram weer weg kunnen sturen
          */
 
@@ -47,7 +46,7 @@ namespace Logic
             bool tramIsStored = false;
             if (TramNeedsToBeRepaired(tram, _tramLogic)) // gerepareerd worden
             {
-                IEnumerable<TrackDTO> repairTracks = tracks.Where(t => t.Type == TrackType.Repair);
+                IEnumerable<TrackDTO> repairTracks = tracks.Where(t => t.Type == TrackType.Repair && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(repairTracks, tram, _trackLogic);
                 if (!tramIsStored)
                 {
@@ -61,35 +60,45 @@ namespace Logic
                 depotStatus.Status = TramStatus.Depot;
                 if (tram.Status.Contains(depotStatus))
                 {
-                    IEnumerable<TrackDTO> repairTracks = tracks.Where(t => t.Type == TrackType.Repair);
+                    IEnumerable<TrackDTO> depotTracks = tracks.Where(t => t.Type == TrackType.LongParking && _trackLogic.CheckTramCanBeStored(tram, t));
+                    tramIsStored = storeTram(depotTracks, tram, _trackLogic);
                 }
             }
             if (!tramIsStored) // typegebonden
             {
-                IEnumerable<TrackDTO> typeTracks = tracks.Where(t => t.TramType == tram.Type);
+                IEnumerable<TrackDTO> typeTracks = tracks.Where(t => t.TramType == tram.Type && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(typeTracks, tram, _trackLogic);
             }
            
             if(!tramIsStored) //lijngebonden
             {
 
-                IEnumerable<TrackDTO> lineTracks = tracks.Where(t => t.PreferredTrackLine == tram.line);
+                IEnumerable<TrackDTO> lineTracks = tracks.Where(t => t.PreferredTrackLine == tram.Line && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(lineTracks, tram, _trackLogic);
                 
                 if (!tramIsStored)
                 {
-                    //overkoepelen?
+                    foreach (TrackDTO track in lineTracks)
+                    {
+
+                        //_trackLogic.CheckTramCanBeOverArched(tram, track)
+                    }
+                     
                 }
             }
 
             if (!tramIsStored) // normale spoor plek?
             {
-                IEnumerable<TrackDTO> normalTracks = tracks.Where(t => t.Type == TrackType.Normal);
+                foreach (TrackDTO track in tracks)
+                {
+
+                }
+                IEnumerable<TrackDTO> normalTracks = tracks.Where(t => t.Type == TrackType.Normal && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(normalTracks, tram, _trackLogic);
             }
             if (!tramIsStored) // plek op in/uitrit spoor
             {
-                IEnumerable<TrackDTO> entranceExitTracks = tracks.Where(t => t.Type == TrackType.EntranceExit);
+                IEnumerable<TrackDTO> entranceExitTracks = tracks.Where(t => t.Type == TrackType.EntranceExit && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(entranceExitTracks, tram, _trackLogic);
             }
 

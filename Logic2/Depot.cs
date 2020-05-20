@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DTO;
 using DAL.Interfaces;
+using System.Linq;
 using Services;
 
 namespace Logic
@@ -12,27 +13,35 @@ namespace Logic
         Track _tracklogic;
         Tram _tramlogic;
         Sector _sectorLogic;
+        RepairService _repairServicelogic;
         
         private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic,Sector sectorLogic, IDepotAccess depotAccess)
+        public Depot(Track tracklogic, Tram tramlogic,Sector sectorLogic,RepairService repairServiceLogic, IDepotAccess depotAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
             this._depotaccess = depotAccess;
             this._sectorLogic = sectorLogic;
+            this._repairServicelogic = repairServiceLogic;
         }
 
         public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus, string statusDescription, DepotDTO depot) 
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
-                //RL of RH?
-
-               // TramDTO tram = _tramlogic.GetTram(tramNumber);
-               // changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
-                //AllocationManager.AllocateTramToService(tram, _repairServiceLogic, _cleaningServiceLogic);
                
+               TramDTO tram = _tramlogic.GetTram(tramNumber);
+               changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
+                if (tram.DepotId == 1)
+                {
+                    AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                }
+                else if (AmountOfRLTramsInDepot(depot, depot.TramsInDepot) < 3)
+                {
+                        AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                }
+  
             }
             else
             {
@@ -42,25 +51,17 @@ namespace Logic
 
         public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector _sectorLogic, Tram _tramLogic)
         {
-           //foreach (TrackDTO track in depot.DepotTracks)
-           // {
-           //     foreach (SectorDTO sector in track.Sectors)
-           //     {
-           //         if (_sectorLogic.CheckIfSectorIsEmpty(sector))
-           //         {
-           //             if (_sectorLogic.GetTram(sector) == _tramlogic.GetTram(tramNumber))
-           //             {
-           //                 return true;
-           //             }
-           //         }
-           //     }
-           // }
-
             if (_tramlogic.IsTramAllreadyInDepot(tramNumber))
             {
                 return true;
             }
             return false;
+        }
+
+        public int AmountOfRLTramsInDepot(DepotDTO depot, List<TramDTO> trams)
+        {
+            IEnumerable<TramDTO> RLTrams = trams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic));
+            return RLTrams.Count();
         }
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)

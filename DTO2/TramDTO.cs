@@ -11,6 +11,8 @@ namespace DTO
         public TramType Type { get; set; }
         public List<StatusDTO> Status { get; set; }
         public string TramNumber { get; set; }
+        public int DepotId { get; set; }
+        public int Line { get; set; }
         private List<TrackDTO> PreferredTracksList { get; set; }
         public DateTime CleaningDateSmallService { get; set; }
         public DateTime CleaningDateBigService { get; set; }
