@@ -28,5 +28,10 @@ namespace DTO
             Permission = permission;    
         }
 
+        public UserDTO(string name)
+        {
+            UserName = name;
+        }
+
     }
 }

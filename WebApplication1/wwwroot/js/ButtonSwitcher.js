@@ -22,6 +22,7 @@ function BecomeSelected(ShowScreen, ShowStart, button) {
         document.getElementById('StartContainer').style.display = "inline-block";
     }
 }
+
 function BottomBecomeSelected(button) {
     var buttons = [];
     for (var _i = 1; _i < arguments.length; _i++) {

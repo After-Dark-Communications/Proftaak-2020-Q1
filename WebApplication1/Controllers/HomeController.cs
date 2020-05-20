@@ -21,15 +21,17 @@ namespace WebApplication1.Controllers
         private readonly Tram _tramLogic;
         private readonly Sector _sectorLogic;
         private readonly LoginRepository _repository;
+        private readonly RepairService _repairService;
 
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService)
         {
             _mapper = mapper;
             _depotLogic = depot;
             _tramLogic = tram;
             _sectorLogic = sector;
             _repository = repository;
+            _repairService = repairService;
         }
 
         public IActionResult Index()
@@ -65,10 +67,10 @@ namespace WebApplication1.Controllers
 
             _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
             return RedirectToAction("Index", "Home");
-        }        
+        }
         public IActionResult ReserveTrack()
         {
-            return Content(HttpContext.Request.Form["tramnumber"] + " " +HttpContext.Request.Form["tracknumber"]);
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
         public IActionResult MoveTramTo()
         {
@@ -80,10 +82,11 @@ namespace WebApplication1.Controllers
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
-            @ViewBag.CleaningDateBigService = tramData.CleaningDateBigService;
-            @ViewBag.CleaningDateSmallService = tramData.CleaningDateSmallService;
-            @ViewBag.RepairDateBigService = tramData.RepairDateBigService;
-            @ViewBag.RepairDateSmallService = tramData.RepairDateSmallService;
+            @ViewBag.Track = 38; //TODO data uit methode krijgen.
+            @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
+            @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
+            @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
+            @ViewBag.RepairDateSmallService = Daysago(tramData.RepairDateSmallService);
             @ViewBag.Type = tramData.Type;
 
             return PartialView("InformationTramPopUp", tramData);
@@ -125,12 +128,26 @@ namespace WebApplication1.Controllers
                 Location = dto.Location,
                 DepotTracks = new List<TrackViewModel>()
             };
-            foreach(TrackDTO track in dto.DepotTracks)
+            foreach (TrackDTO track in dto.DepotTracks)
             {
                 returnDepot.DepotTracks.Add(_mapper.Map<TrackViewModel>(track));
             }
             return returnDepot;
         }
+        public IActionResult SendTramToRepair(TramViewModel tram)
+        {
+            if(!ModelState.IsValid)
+            {
+                _repairService.DetermineRepairType(_mapper.Map<TramDTO>(tram));
+            }
+            return RedirectToAction("Index", "Home");
+        }
 
+
+        private int Daysago(DateTime _day)
+        {
+            TimeSpan daysdifference = DateTime.Today - _day;
+            return daysdifference.Days;
+        }
     }
 }

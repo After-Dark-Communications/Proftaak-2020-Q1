@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+@using Services
 @model DepotViewModel;
 @{
     void fillTracks(int DepotValue)
@@ -10,11 +11,21 @@
         {
             if (Model.DepotTracks[DepotValue].Sectors[x].Tram == null)
             {
+                if(Model.DepotTracks[DepotValue].Sectors[x].SectorType == SectorType.Normal  ) {
                 <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                }    
+                else if (Model.DepotTracks[DepotValue].Sectors[x].SectorType == SectorType.UnPreferred)
+                {
+                <li class="tracks-hover tracks-gray"><a href="#"></a></li>
+                }
+                else if (Model.DepotTracks[DepotValue].Sectors[x].SectorType == SectorType.Blocked)
+                {   
+                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                }          
             }
             else
             {
-                <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
+            <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
             }
         }
     }
@@ -88,9 +99,9 @@
             <ul>
                 <li class="tracks-white"><a href="#">31</a></li>
                 <li class="tracks-red"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
+                @{
+                    fillTracks(7);
+                }
             </ul>
         </div>
         <div class="container-train normal">
@@ -178,42 +189,27 @@
             <ul>
                 <li class="tracks-white"><a href="#">57</a></li>
                 <li class="tracks-brown"><a href="#">16/24</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(41);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">56</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(16);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">55</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(17);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -221,7 +217,7 @@
                 <li class="tracks-white"><a href="#">54</a></li>
                 <li class="tracks-purple"><a href="#">5</a></li>
                 @{
-                    fillTracks(19);
+                    fillTracks(18);
                 }
             </ul>
         </div>
@@ -229,49 +225,36 @@
             <ul>
                 <li class="tracks-white"><a href="#">53</a></li>
                 <li class="tracks-blue"><a href="#">13</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(19);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">52</a></li>
                 <li class="tracks-darkred"><a href="#">17</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(20);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">51</a></li>
                 <li class="tracks-green"><a href="#">1</a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(21);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">64</a></li>
                 <li class="tracks-red"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(22);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
@@ -279,7 +262,7 @@
                 <li class="tracks-white"><a href="#">63</a></li>
                 <li class="tracks-yellow"><a href="#">2</a></li>
                 @{
-                    fillTracks(24);
+                    fillTracks(23);
                 }
             </ul>
         </div>
@@ -287,18 +270,18 @@
             <ul>
                 <li class="tracks-white"><a href="#">62</a></li>
                 <li class="tracks-red"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(24);
+                }
             </ul>
         </div>
         <div class="container-train normal tracks-bottom-row">
             <ul>
                 <li class="tracks-white"><a href="#">61</a></li>
                 <li class="tracks-red"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
-                <li disabled class="tracks-black tracks-disabled"><a href="#"></a></li>
-                <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                @{
+                    fillTracks(25);
+                }
             </ul>
         </div>
         <div class="container-repair tracks-red">
@@ -306,7 +289,7 @@
                 <ul>
                     <li class="tracks-white"><a href="#">73</a></li>
                     @{
-                        fillTracks(27);
+                        fillTracks(26);
                     }
                 </ul>
             </div>
@@ -314,7 +297,7 @@
                 <ul>
                     <li class="tracks-white"><a href="#">74</a></li>
                     @{
-                        fillTracks(28);
+                        fillTracks(27);
                     }
                 </ul>
             </div>
@@ -322,7 +305,7 @@
                 <ul>
                     <li class="tracks-white"><a href="#">75</a></li>
                     @{
-                        fillTracks(29);
+                        fillTracks(40);
                     }
                 </ul>
             </div>
@@ -330,7 +313,7 @@
                 <ul>
                     <li class="tracks-white"><a href="#">76</a></li>
                     @{
-                        fillTracks(30);
+                        fillTracks(28);
                     }
                 </ul>
             </div>
@@ -338,7 +321,7 @@
                 <ul>
                     <li class="tracks-white"><a href="#">77</a></li>
                     @{
-                        fillTracks(31);
+                        fillTracks(29);
                     }
                 </ul>
             </div>
@@ -354,25 +337,45 @@
             <div class="container-train normal">
                 <ul>
                     <li class="tracks-white"><a href="#">12</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(30);
+                    }
                     <li class="tracks-white"><a href="#">13</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(31);
+                    }
                     <li class="tracks-white"><a href="#">14</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(32);
+                    }
                     <li class="tracks-white"><a href="#">15</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(33);
+                    }
                     <li class="tracks-white"><a href="#">16</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(34);
+                    }
                     <li class="tracks-white"><a href="#">17</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(35);
+                    }
                     <li class="tracks-white"><a href="#">18</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(36);
+                    }
                     <li class="tracks-white"><a href="#">19</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(37);
+                    }
                     <li class="tracks-white"><a href="#">20</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(38);
+                    }
                     <li class="tracks-white"><a href="#">21</a></li>
-                    <li class="tracks-hover tracks-white"><a href="#"></a></li>
+                    @{
+                        fillTracks(39);
+                    }
                 </ul>
             </div>
         </div>

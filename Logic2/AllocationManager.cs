@@ -175,7 +175,6 @@ namespace Logic
             }
             return false;
         }
-
         public static void AllocateToRandomTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
            
