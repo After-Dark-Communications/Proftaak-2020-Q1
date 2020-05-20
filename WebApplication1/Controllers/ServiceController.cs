@@ -34,7 +34,12 @@ namespace WebApplication1.Controllers
 
         public IActionResult Cleaning()
         {
-            return View();
+            var cleaningLogs = _cleaningservice.GetCleaningLogs();
+            foreach (CleaningLogDTO clean in cleaningLogs)
+            {
+                _mapper.Map<ServiceViewModel>(clean);
+            }
+            return View(cleaningLogs);
         }
     }
 }
