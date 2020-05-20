@@ -25,21 +25,16 @@ namespace WebApplication1.Controllers
         public IActionResult Repairs()
         {
             var repairLogs = _repairservice.GetRepairHistory();
-            foreach(RepairLogDTO repair in repairLogs)
-            {
-                _mapper.Map<ServiceViewModel>(repair);
-            }
+
+            _mapper.Map<List<ServiceViewModel>>(repairLogs);
             return View(repairLogs);
         }
 
-        public IActionResult Cleaning()
+        public IActionResult Cleaning(ServiceViewModel svModel)
         {
             var cleaningLogs = _cleaningservice.GetCleaningLogs();
-            foreach (CleaningLogDTO clean in cleaningLogs)
-            {
-                _mapper.Map<ServiceViewModel>(clean);
-            }
-            return View(cleaningLogs);
+            svModel.AllServices = _mapper.Map<List<ServiceViewModel>>(cleaningLogs);
+            return View(svModel);
         }
     }
 }
