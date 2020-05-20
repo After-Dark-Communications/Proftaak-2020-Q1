@@ -53,22 +53,27 @@ namespace WebApplication1.Controllers
             return View(cleaningLogs);
         }
 
-        public IActionResult InfoRepairTramPopUp(string tramnumber)
+        public IActionResult PartialRepairPopUp(string tramnumber, string tracknumber)
         {
 
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
-            @ViewBag.Track = 38; //TODO data uit methode krijgen.
+            @ViewBag.Track = tracknumber;
             @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
             @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
             @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
             @ViewBag.RepairDateSmallService = Daysago(tramData.RepairDateSmallService);
             @ViewBag.Type = tramData.Type;
 
-            return PartialView("InfoRepairTramPopUp");
-
+            return PartialView("PartialRepairPopUp");
         }
+
+        public IActionResult PartialDefectLog(string tramnummer)
+        {
+            return PartialView("PartialDefectLog");
+        }
+
         private int Daysago(DateTime _day)
         {
             TimeSpan daysdifference = DateTime.Today - _day;
