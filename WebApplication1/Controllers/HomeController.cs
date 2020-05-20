@@ -58,6 +58,35 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
+        public IActionResult RemoveTram(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialRemoveTram");
+        }
+        public IActionResult CleanSignUp(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialCleanSignUp");
+        }
+
+        public IActionResult CleanSignUpSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " "  + HttpContext.Request.Form["service"] + " " + HttpContext.Request.Form["cleanupreason"]);
+        }
+        public IActionResult RepairSignUp(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialRepairSignUp");
+        }
+
+        public IActionResult RepairSignUpSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["repairsize"] + " " + HttpContext.Request.Form["repairreason"]);
+        }
+        public IActionResult RemoveTramSend()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"]);
+        }
         public IActionResult ParkTram()
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";

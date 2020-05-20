@@ -72,11 +72,6 @@ R-content-wide {
 }
 
 
-.cleaning-tram-info input[type="number"], .reserve-tram-info select {
-    width: 75%;
-    float: right;
-}
-
 .cleaning-tram-title {
     font-weight: bold;
     font-size: larger;

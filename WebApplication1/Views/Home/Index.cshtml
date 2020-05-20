@@ -447,7 +447,27 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="RemoveTram">
+    <div class="modal-dialog">
+        <div class="modal-content" id="RemoveTramData">
 
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="CleanSignUp">
+    <div class="modal-dialog">
+        <div class="modal-content" id="CleanSignUpData">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RepairSignUp">
+    <div class="modal-dialog">
+        <div class="modal-content" id="RepairSignUpData">
+
+        </div>
+    </div>
+</div>
 @section Scripts {
     <script type="text/javascript">
         function MoveTram(_tramnumber, _track) {
@@ -458,6 +478,39 @@
                 success: function (response) {
                     $('#MoveTramInfo').html(response);
                     $('#MoveTram').modal('show');
+                }
+            });
+        }
+        function RemoveTram(_tramnumber) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/RemoveTram",
+                data: { tramnumber: _tramnumber },
+                success: function (response) {
+                    $('#RemoveTramData').html(response);
+                    $('#RemoveTram').modal('show');
+                }
+            });
+        }
+        function CleanSignUp(_tramnumber) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/CleanSignUp",
+                data: { tramnumber: _tramnumber },
+                success: function (response) {
+                    $('#CleanSignUpData').html(response);
+                    $('#CleanSignUp').modal('show');
+                }
+            });
+        }
+        function RepairSignUp(_tramnumber) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/RepairSignUp",
+                data: { tramnumber: _tramnumber },
+                success: function (response) {
+                    $('#RepairSignUpData').html(response);
+                    $('#RepairSignUp').modal('show');
                 }
             });
         }
