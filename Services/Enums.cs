@@ -32,4 +32,9 @@ namespace Services
         LongParking,
         EntranceExit,
     }
+    public enum ServiceType
+    {
+        Big,
+        Small
+    }
 }
