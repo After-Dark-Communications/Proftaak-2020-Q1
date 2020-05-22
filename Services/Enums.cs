@@ -23,4 +23,9 @@ namespace Services
         UnPreferred,
         Blocked
     }
+    public enum ServiceType
+    {
+        Big,
+        Small
+    }
 }

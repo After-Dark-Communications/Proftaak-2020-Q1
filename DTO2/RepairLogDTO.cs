@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,16 +7,18 @@ namespace DTO
 {
     public class RepairLogDTO
     {
+        public int Id { get; set; }
         public RepairServiceDTO RepairService { get; set; }
         public TramDTO Tram { get; set; }
         public UserDTO User { get; set; }
         public DateTime RepairDate { get; set; }
-        public int ServiceType { get; set; }// todo enum
+        public ServiceType ServiceType { get; set; }
         public bool Occured { get; set; }
         public string RepairMessage { get; set; }
 
-        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, int serviceType, bool occured, string repairMessage)
+        public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage)
         {
+            Id = id;
             RepairService = repairService;
             Tram = tram;
             User = user;
@@ -23,6 +26,12 @@ namespace DTO
             ServiceType = serviceType;
             Occured = occured;
             RepairMessage = repairMessage;
+        }
+        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, ServiceType serviceType)
+        {
+            RepairService = repairService;
+            Tram = tram;
+            ServiceType = serviceType;
         }
     }
 }
