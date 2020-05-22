@@ -7,6 +7,7 @@ namespace DTO
 {
     public class RepairLogDTO
     {
+        public int Id { get; set; }
         public RepairServiceDTO RepairService { get; set; }
         public TramDTO Tram { get; set; }
         public UserDTO User { get; set; }
@@ -15,8 +16,9 @@ namespace DTO
         public bool Occured { get; set; }
         public string RepairMessage { get; set; }
 
-        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage)
+        public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage)
         {
+            Id = id;
             RepairService = repairService;
             Tram = tram;
             User = user;

@@ -41,13 +41,14 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET RepairDate = @RepairDate, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
                 {
-                   
-                    cmd.Parameters.Add(new SqlParameter("@UserName", repairLog.User.UserName));
+                    cmd.Parameters.AddWithValue("@RepairDate", repairLog.RepairDate);
+                    cmd.Parameters.AddWithValue("@Occured", repairLog.Occured);
+                    cmd.Parameters.AddWithValue("@UserId", repairLog.User.Id);
+                    cmd.Parameters.AddWithValue("@RepairId", repairLog.Id);
                     cmd.ExecuteNonQuery();
                 }
-
                 conn.Close();
             }
         }
@@ -61,7 +62,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
                                                        "FROM RepairService_Tram " +
                                                        "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
                                                        "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
@@ -71,20 +72,21 @@ namespace DAL.Concrete
                     {
                         while (dataReader.Read())
                         {
-                            string location = dataReader.GetString(0);
-                            string tramnumber = dataReader.GetString(1);
-                            DateTime date = dataReader.GetDateTime(2);
-                            Boolean Occured = dataReader.GetBoolean(3);
-                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
-                            if (!dataReader.IsDBNull(5))
-                            {
-                                RepairMessage = dataReader.GetString(5);
-                            }
+                            int id = dataReader.GetInt32(0);
+                            string location = dataReader.GetString(1);
+                            string tramnumber = dataReader.GetString(2);
+                            DateTime date = dataReader.GetDateTime(3);
+                            Boolean Occured = dataReader.GetBoolean(4);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
                             if (!dataReader.IsDBNull(6))
                             {
-                                Name = dataReader.GetString(6);
+                                RepairMessage = dataReader.GetString(6);
                             }
-                            RepairLogDTO repairLog = new RepairLogDTO(new RepairServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            if (!dataReader.IsDBNull(7))
+                            {
+                                Name = dataReader.GetString(7);
+                            }
+                            RepairLogDTO repairLog = new RepairLogDTO( id, new RepairServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
                             repairLogList.Add(repairLog);
                         }
                     }
@@ -103,7 +105,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
                                                        "FROM RepairService_Tram " +
                                                        "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
                                                        "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
@@ -115,20 +117,21 @@ namespace DAL.Concrete
                     {
                         while (dataReader.Read())
                         {
-                            string location = dataReader.GetString(0);
-                            string dbtramnumber = dataReader.GetString(1);
-                            DateTime date = dataReader.GetDateTime(2);
-                            Boolean Occured = dataReader.GetBoolean(3);
-                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
-                            if (!dataReader.IsDBNull(5))
-                            {
-                                RepairMessage = dataReader.GetString(5);
-                            }
+                            int id = dataReader.GetInt32(0);
+                            string location = dataReader.GetString(1);
+                            string dbtramnumber = dataReader.GetString(2);
+                            DateTime date = dataReader.GetDateTime(3);
+                            Boolean Occured = dataReader.GetBoolean(4);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
                             if (!dataReader.IsDBNull(6))
                             {
-                                Name = dataReader.GetString(6);
+                                RepairMessage = dataReader.GetString(6);
                             }
-                            RepairLogDTO repairLog = new RepairLogDTO(new RepairServiceDTO(location), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            if (!dataReader.IsDBNull(7))
+                            {
+                                Name = dataReader.GetString(7);
+                            }
+                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
                             repairLogList.Add(repairLog);
                         }
                     }
