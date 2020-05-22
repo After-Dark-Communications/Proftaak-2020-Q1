@@ -33,7 +33,7 @@ namespace Logic
                
                TramDTO tram = _tramlogic.GetTram(tramNumber);
 
-                if (tram.DepotId == 1 || AmountOfRLTramsInDepot(depot, depot.TramsInDepot) < 3)
+                if (tram.DepotId == 1)
                 {
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
                     if (repairMessage == null)
@@ -70,8 +70,12 @@ namespace Logic
 
         public int AmountOfRLTramsInDepot(DepotDTO depot, List<TramDTO> trams)
         {
-            IEnumerable<TramDTO> RLTrams = trams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic));
-            return RLTrams.Count();
+            if (trams.Any(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic)))
+            {
+                IEnumerable<TramDTO> RLTrams = trams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic));
+                return RLTrams.Count();
+            }
+            return 0;
         }
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)

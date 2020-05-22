@@ -33,7 +33,7 @@ namespace Logic
 
         private static bool storeTram(IEnumerable<TrackDTO> tracks, TramDTO tram, Track _trackLogic)
         {
-            if (tracks != null)
+            if (tracks.Count() > 0)
             {
                 _trackLogic.StoreTram(tram, MostEmptyTrack(tracks, _trackLogic, tram));
                 return true;
@@ -94,12 +94,16 @@ namespace Logic
 
                 }
                 IEnumerable<TrackDTO> normalTracks = tracks.Where(t => t.Type == TrackType.Normal && _trackLogic.CheckTramCanBeStored(tram, t));
-                tramIsStored = storeTram(normalTracks, tram, _trackLogic);
+
+                    tramIsStored = storeTram(normalTracks, tram, _trackLogic);
+                
             }
             if (!tramIsStored) // plek op in/uitrit spoor
             {
                 IEnumerable<TrackDTO> entranceExitTracks = tracks.Where(t => t.Type == TrackType.EntranceExit && _trackLogic.CheckTramCanBeStored(tram, t));
-                tramIsStored = storeTram(entranceExitTracks, tram, _trackLogic);
+              
+                    tramIsStored = storeTram(entranceExitTracks, tram, _trackLogic);
+                
             }
 
             if (!tramIsStored) //echt nergens plek?
