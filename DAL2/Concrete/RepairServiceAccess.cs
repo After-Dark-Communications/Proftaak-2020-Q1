@@ -92,5 +92,73 @@ namespace DAL.Concrete
             }
             return repairLogList;
         }
+
+        public IEnumerable<RepairLogDTO> GetRepairLogsByTramNumber(string tramnumber)
+        {
+            List<RepairLogDTO> repairLogList = new List<RepairLogDTO>();
+            string RepairMessage = "";
+            string Name = "";
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
+                                                       "FROM RepairService_Tram " +
+                                                       "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
+                                                       "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
+                                                       "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id " +
+                                                       "WHERE Tram.TramNumber ", conn))
+                {
+                    cmd.Parameters.AddWithValue("TramNumber", tramnumber);
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            string location = dataReader.GetString(0);
+                            string dbtramnumber = dataReader.GetString(1);
+                            DateTime date = dataReader.GetDateTime(2);
+                            Boolean Occured = dataReader.GetBoolean(3);
+                            int ServiceType = dataReader.GetInt32(4);
+                            if (!dataReader.IsDBNull(5))
+                            {
+                                RepairMessage = dataReader.GetString(5);
+                            }
+                            if (!dataReader.IsDBNull(6))
+                            {
+                                Name = dataReader.GetString(6);
+                            }
+                            RepairLogDTO repairLog = new RepairLogDTO(new RepairServiceDTO(location), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            repairLogList.Add(repairLog);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return repairLogList;
+        }
+        public RepairServiceDTO GetRepairServiceByLocation(string Location)
+        {
+            RepairServiceDTO repairService = new RepairServiceDTO();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using(SqlCommand cmd = new SqlCommand("SELECT * FROM RepairService WHERE Location = @Location"))
+                {
+                    cmd.Parameters.AddWithValue("@Location", Location);
+                    using(SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while(dataReader.Read())
+                        {
+                            repairService.Id = dataReader.GetInt32(0);
+                            repairService.MaxSmallServicePerDay = dataReader.GetInt32(1);
+                            repairService.MaxBigServicePerDay = dataReader.GetInt32(2);
+                            repairService.Location = dataReader.GetString(3);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return repairService;
+        }
     }
 }
