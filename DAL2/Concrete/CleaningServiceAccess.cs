@@ -72,10 +72,13 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE CleaningService_Tram SET CleaningDate = @CleaningDate, Occured = @Occured, UserId = @UserId WHERE ServiceId = @CleaningId", conn))
                 {
 
-                    cmd.Parameters.Add(new SqlParameter("@UserName", cleanLog.User.UserName));
+                    cmd.Parameters.AddWithValue("@CleaningDate", cleanLog.RepairDate);
+                    cmd.Parameters.AddWithValue("@Occured", cleanLog.Occured);
+                    cmd.Parameters.AddWithValue("@UserId", cleanLog.User.Id);
+                    cmd.Parameters.AddWithValue("@CleaningId", cleanLog.Id);
                     cmd.ExecuteNonQuery();
                 }
 

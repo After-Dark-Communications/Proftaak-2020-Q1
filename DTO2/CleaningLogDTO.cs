@@ -6,6 +6,7 @@ namespace DTO
 {
     public class CleaningLogDTO
     {
+        public int Id { get; set; }
         public CleaningServiceDTO CleaningService { get; set; }
         public TramDTO Tram { get; set; }
         public UserDTO User { get; set; }
