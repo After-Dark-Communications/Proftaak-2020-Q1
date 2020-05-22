@@ -100,7 +100,7 @@ namespace Logic
         }
         private RepairServiceDTO GetService()
         {
-            return _serviceaccess.ReadRepair();
+            return _repairServiceAccess.GetRepairServiceByLocation("RMS");
         }
         private void UpdateLog(RepairLogDTO repair)
         {
