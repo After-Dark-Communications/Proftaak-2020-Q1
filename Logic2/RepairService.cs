@@ -26,7 +26,7 @@ namespace Logic
         }
         public void SetSmallRepairTram(TramDTO tram)
         {
-            if(CanRepairTram(_repairService))
+            if(CanRepairTram(_repairService, tram))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
@@ -36,7 +36,7 @@ namespace Logic
         }
         public void SetLargeRepairTram(TramDTO tram)
         {
-            if(CanRepairTram(_repairService))
+            if(CanRepairTram(_repairService, tram))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
@@ -63,10 +63,11 @@ namespace Logic
                 SetSmallRepairTram(tram);
             }
         }
-        private bool CanRepairTram(RepairServiceDTO Service)
+        private bool CanRepairTram(RepairServiceDTO Service, TramDTO tram)
         {
             if (Service.MaxBigServicePerDay == 0 && Service.MaxSmallServicePerDay == 0)
             {
+                AddToWaitingList(tram);
                 return false;
             }
             else
@@ -102,6 +103,10 @@ namespace Logic
         public IEnumerable<RepairLogDTO> GetRepairHistory()
         {
             return _repairServiceAccess.GetRepairLogs();
+        }
+        public void AddToWaitingList(TramDTO Tram)
+        {
+            _repairService.WaitingList.Add(Tram);
         }
     }
 }
