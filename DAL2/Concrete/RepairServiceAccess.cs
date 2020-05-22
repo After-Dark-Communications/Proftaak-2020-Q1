@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using DAL.Context;
+using Services;
 namespace DAL.Concrete
 {
     public class RepairServiceAccess : IRepairServiceAccess
@@ -74,7 +75,7 @@ namespace DAL.Concrete
                             string tramnumber = dataReader.GetString(1);
                             DateTime date = dataReader.GetDateTime(2);
                             Boolean Occured = dataReader.GetBoolean(3);
-                            int ServiceType = dataReader.GetInt32(4);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
                             if (!dataReader.IsDBNull(5))
                             {
                                 RepairMessage = dataReader.GetString(5);
@@ -118,7 +119,7 @@ namespace DAL.Concrete
                             string dbtramnumber = dataReader.GetString(1);
                             DateTime date = dataReader.GetDateTime(2);
                             Boolean Occured = dataReader.GetBoolean(3);
-                            int ServiceType = dataReader.GetInt32(4);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
                             if (!dataReader.IsDBNull(5))
                             {
                                 RepairMessage = dataReader.GetString(5);
