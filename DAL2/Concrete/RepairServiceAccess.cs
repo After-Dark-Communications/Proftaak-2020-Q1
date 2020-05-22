@@ -9,6 +9,20 @@ namespace DAL.Concrete
 {
     public class RepairServiceAccess : IRepairServiceAccess
     {
+        public void UpdateRepairService(RepairServiceDTO repairService)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService SET SmallRepairsPerDay = @SmallRepairs, BigRepairsPerDay = @BigRepairs", conn))
+                {
+                    cmd.Parameters.AddWithValue("@SmallRepairs", repairService.MaxSmallServicePerDay);
+                    cmd.Parameters.AddWithValue("@BigRepairs", repairService.MaxBigServicePerDay);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
         public void StoreRepairLog(RepairLogDTO repairLog)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
