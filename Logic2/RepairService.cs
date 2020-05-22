@@ -6,12 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
-<<<<<<< HEAD
-using DTO;
-
-=======
 using System.Transactions;
->>>>>>> BleedingEdge
 
 namespace Logic
 {

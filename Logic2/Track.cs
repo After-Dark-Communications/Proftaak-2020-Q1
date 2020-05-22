@@ -6,6 +6,7 @@ using DAL.Interfaces;
 using DTO;
 using Services;
 
+
 namespace Logic
 {
     public class Track
@@ -21,15 +22,11 @@ namespace Logic
         
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
-            return true;
-            if (tram.Type == track.TramType || track.TramType == null)
+            if (tram.Type == track.TramType || track.TramType == null);
             {
                 return true;
             }
-            else
-            {
                 return false;
-            }
         }
 
         public bool 

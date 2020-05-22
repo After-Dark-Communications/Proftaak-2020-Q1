@@ -218,7 +218,6 @@ namespace DAL.Concrete
                 if(!tram.Status.Any(s => s.StatusId == stat.StatusId))
                 {
                     DeleteStatus(stat.StatusId);
-                    SectorType.
                 }
             }
         }

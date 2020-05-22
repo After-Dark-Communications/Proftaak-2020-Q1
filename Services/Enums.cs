@@ -29,7 +29,7 @@ namespace Services
     {
         Normal,
         Repair,
-        LongParking, //langparkeerplek
+        LongParking,
         EntranceExit,
     }
 }

@@ -198,6 +198,7 @@ namespace Logic
             {
                 return true;
             }
+            // (if tram has repair log that has not yet occurred. return true)
             return false;
         }
     }
