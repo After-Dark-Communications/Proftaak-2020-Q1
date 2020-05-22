@@ -160,7 +160,7 @@ namespace DAL.Concrete
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using(SqlCommand cmd = new SqlCommand("SELECT * FROM RepairService WHERE Location = @Location"))
+                using(SqlCommand cmd = new SqlCommand("SELECT * FROM RepairService WHERE Location = @Location",conn))
                 {
                     cmd.Parameters.AddWithValue("@Location", Location);
                     using(SqlDataReader dataReader = cmd.ExecuteReader())
