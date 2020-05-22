@@ -26,28 +26,38 @@ namespace Logic
             this._repairServicelogic = repairServiceLogic;
         }
 
-        public void ReceiveTram(string tramNumber, bool repairstatus, bool cleanstatus, string statusDescription, DepotDTO depot) 
+        public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage , DepotDTO depot) 
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
                
                TramDTO tram = _tramlogic.GetTram(tramNumber);
-               changeTramStatus(tram, repairstatus, cleanstatus, _tramlogic, statusDescription);
-                if (tram.DepotId == 1)
+
+                if (tram.DepotId == 1 || AmountOfRLTramsInDepot(depot, depot.TramsInDepot) < 3)
                 {
+                    changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
+                    if (repairMessage == null)
+                    {
+                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
+                    }
+                    else
+                    {
+                        _repairServicelogic.DetermineRepairType(tram);
+                    }
                     AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
                 }
-                else if (AmountOfRLTramsInDepot(depot, depot.TramsInDepot) < 3)
+                else
                 {
-                        AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                    //return the tram
                 }
-  
             }
             else
             {
                 //return the tram
             }
         }
+
+
 
         public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector _sectorLogic, Tram _tramLogic)
         {
@@ -64,7 +74,7 @@ namespace Logic
             return RLTrams.Count();
         }
 
-        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic, string statusDescription)
+        private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {
 
             StatusDTO statusInDepot = new StatusDTO();
@@ -75,7 +85,6 @@ namespace Logic
             {
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Defect;
-                status.Description = statusDescription;
                 _tramlogic.AddStatus(status, tram);
             }
             if (cleanstatus)

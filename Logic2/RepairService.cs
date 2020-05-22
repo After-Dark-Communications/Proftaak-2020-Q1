@@ -8,6 +8,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Transactions;
 using Services;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Logic
 {
@@ -25,30 +26,35 @@ namespace Logic
             DetermineIfRepairNeedToBeReset();
             
         }
-        public void SetSmallRepairTram(TramDTO tram)
+        // repairdate, occured, userID, repairID
+        public void ServiceRepair(TramDTO tram, UserDTO user)
         {
             if(CanRepairTram(_repairService, tram))
             {
-                DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
-                tram.RepairDateSmallService = RepairDate;
-                _repairService.MaxSmallServicePerDay--;
-                RepairLogDTO repair = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, ServiceType.Small);
-                _repairServiceAccess.StoreRepairLog(repair);
+                RepairLogDTO repair = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == false).SingleOrDefault();
+                removeServiceCounter(repair);
+                repair.RepairDate = DateTime.Now;
+                repair.Occured = true;
+                repair.User = user;
+                UpdateLog(repair);
             }
         }
-        public void SetLargeRepairTram(TramDTO tram)
+
+        public void removeServiceCounter(RepairLogDTO repair)
         {
-            if(CanRepairTram(_repairService, tram))
+            RepairServiceDTO repairService = _repairServiceAccess.GetRepairServiceByLocation("RMS");
+            if (repair.ServiceType == ServiceType.Big)
             {
-                DateTime RepairDate = DateTime.Now;
-                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
-                tram.RepairDateBigService = RepairDate;
-                _repairService.MaxBigServicePerDay--;
-                RepairLogDTO repair = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"),tram, ServiceType.Big);
-                _repairServiceAccess.StoreRepairLog(repair);
+                repairService.MaxBigServicePerDay--;
             }
+            else
+            {
+                repairService.MaxSmallServicePerDay--;
+            }
+            //update repairservice
         }
+
         public void DetermineRepairType(TramDTO tram)
         {
             tram.OccuredRepairLog = GetOccuredLog(tram);
@@ -59,15 +65,26 @@ namespace Logic
             TimeSpan spanBig = endTime.Subtract(startTimeBig);
             TimeSpan spanSmall = endTime.Subtract(startTimeSmall);
 
+             if (spanBig.TotalDays > 183)
+            {
+                CreateRepairLogScheduled(tram, ServiceType.Big);
+            }
+            else if(spanSmall.TotalDays > 91) 
+            {
+                CreateRepairLogScheduled(tram, ServiceType.Small);
+            }
 
-            if(spanBig.TotalDays > 183 || tram.OccuredRepairLog.RepairMessage != null)
-            {
-                SetLargeRepairTram(tram);
-            }
-            else if(spanSmall.TotalDays > 91)
-            {
-                SetSmallRepairTram(tram);
-            }
+        }
+
+        public void CreateRepairLogDefect(TramDTO tram, string repairMessage)
+        {
+            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, ServiceType.Big, false, false, repairMessage);
+            _repairServiceAccess.StoreRepairLog(log);
+        }
+        public void CreateRepairLogScheduled(TramDTO tram, ServiceType service)
+        {
+            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, service, false, false);
+            _repairServiceAccess.StoreRepairLog(log);
         }
         private bool CanRepairTram(RepairServiceDTO Service, TramDTO tram)
         {
@@ -117,6 +134,16 @@ namespace Logic
         {
             RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == true);
             return Occured;
+        }
+
+        public void AddTramToWaitingList(TramDTO tram)
+        {
+            RepairLogDTO WaitingList = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
+            WaitingList.WaitingList = true;
+            _repairServiceAccess.UpdateWaitingList(WaitingList);
+
+
+
         }
     }
 }

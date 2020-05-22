@@ -15,8 +15,9 @@ namespace DTO
         public ServiceType ServiceType { get; set; }
         public bool Occured { get; set; }
         public string RepairMessage { get; set; }
+        public bool WaitingList { get; set; }
 
-        public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage)
+        public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, UserDTO user, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage, bool waitingList)
         {
             Id = id;
             RepairService = repairService;
@@ -26,12 +27,24 @@ namespace DTO
             ServiceType = serviceType;
             Occured = occured;
             RepairMessage = repairMessage;
+            WaitingList = waitingList;
         }
-        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, ServiceType serviceType)
+        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, ServiceType serviceType,bool occured, bool waitingList)
         {
             RepairService = repairService;
             Tram = tram;
             ServiceType = serviceType;
+            WaitingList = waitingList;
+            Occured = occured;
+        }
+        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, ServiceType serviceType, bool occured, bool waitingList, string repairMessage)
+        {
+            RepairService = repairService;
+            Tram = tram;
+            ServiceType = serviceType;
+            WaitingList = waitingList;
+            Occured = occured;
+            RepairMessage = repairMessage;
         }
     }
 }

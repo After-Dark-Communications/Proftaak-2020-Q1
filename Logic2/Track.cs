@@ -22,6 +22,7 @@ namespace Logic
         
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
+            return true;
             if (tram.Type == track.TramType || track.TramType == null);
             {
                 return true;

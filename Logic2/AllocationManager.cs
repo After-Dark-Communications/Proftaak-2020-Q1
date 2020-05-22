@@ -50,7 +50,7 @@ namespace Logic
                 tramIsStored = storeTram(repairTracks, tram, _trackLogic);
                 if (!tramIsStored)
                 {
-                    // _repairServiceLogic.AddTramToWaitingList(tram); (later)
+                    _repairServiceLogic.AddTramToWaitingList(tram);
                 }
             }
             

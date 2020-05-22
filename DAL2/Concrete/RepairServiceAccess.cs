@@ -23,7 +23,7 @@ namespace DAL.Concrete
                                                        "(select [User].Id FROM [User] WHERE [User].Name = @UserName), @RepairMessage) ", conn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", repairLog.RepairService.Location));
-                    cmd.Parameters.Add(new SqlParameter("@Date", repairLog.RepairDate));
+                    cmd.Parameters.Add(new SqlParameter("@Date", repairLog.RepairDate)); 
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", repairLog.Tram.TramNumber));
                     cmd.Parameters.Add(new SqlParameter("@ServiceType", repairLog.ServiceType));
                     cmd.Parameters.Add(new SqlParameter("@Occured", repairLog.Occured));
@@ -41,7 +41,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET RepairDate = @RepairDate, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET RepairDate = @RepairDate, Occured = @Occured, UserId = @UserId, WHERE RepairId = @RepairId", conn))
                 {
                     cmd.Parameters.AddWithValue("@RepairDate", repairLog.RepairDate);
                     cmd.Parameters.AddWithValue("@Occured", repairLog.Occured);
@@ -52,6 +52,22 @@ namespace DAL.Concrete
                 conn.Close();
             }
         }
+        public void UpdateWaitingList(RepairLogDTO repairLog)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET Waitinglist = @WaitingList, WHERE RepairId = @RepairId", conn))
+                {
+                    cmd.Parameters.AddWithValue("@WaitingList", repairLog.WaitingList);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+        
+
 
         public IEnumerable<RepairLogDTO> GetRepairLogs()
         {
@@ -62,7 +78,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name, RepairService_Tram.Waitinglist " +
                                                        "FROM RepairService_Tram " +
                                                        "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
                                                        "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
@@ -86,7 +102,9 @@ namespace DAL.Concrete
                             {
                                 Name = dataReader.GetString(7);
                             }
-                            RepairLogDTO repairLog = new RepairLogDTO( id, new RepairServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                             bool WaitingList = dataReader.GetBoolean(8);
+
+                            RepairLogDTO repairLog = new RepairLogDTO( id, new RepairServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage, WaitingList);
                             repairLogList.Add(repairLog);
                         }
                     }
@@ -131,7 +149,8 @@ namespace DAL.Concrete
                             {
                                 Name = dataReader.GetString(7);
                             }
-                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            bool WaitingList = dataReader.GetBoolean(8);
+                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage, WaitingList);
                             repairLogList.Add(repairLog);
                         }
                     }
