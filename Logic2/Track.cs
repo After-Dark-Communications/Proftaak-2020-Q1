@@ -23,11 +23,11 @@ namespace Logic
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
             return true;
-            if (tram.Type == track.TramType || track.TramType == null);
+            /*if (tram.Type == track.TramType || track.TramType == null);
             {
                 return true;
             }
-                return false;
+                return false;//*/
         }
 
         public bool 

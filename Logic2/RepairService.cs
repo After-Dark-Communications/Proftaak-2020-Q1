@@ -52,7 +52,8 @@ namespace Logic
             {
                 repairService.MaxSmallServicePerDay--;
             }
-            //update repairservice
+            _repairServiceAccess.UpdateRepairService(repairService);
+                
         }
 
         public void DetermineRepairType(TramDTO tram)

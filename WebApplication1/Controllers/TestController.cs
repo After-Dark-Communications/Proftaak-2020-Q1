@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
     public class TestController : Controller
     {
         Tram _tramLogic;
-        Depot _depotLogic;
+        //Depot _depotLogic;
         IMapper _mapper;
         Sector _sectorLogic;
         Track _trackLogic;
