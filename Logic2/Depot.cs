@@ -36,7 +36,7 @@ namespace Logic
                 if (tram.DepotId == 1)
                 {
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
-                    if (repairMessage == null)
+                    if (repairMessage != null)
                     {
                         _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
                     }

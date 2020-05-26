@@ -44,7 +44,7 @@ namespace Logic
         public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _trackLogic, Tram _tramLogic, RepairService _repairServiceLogic)
         {
             bool tramIsStored = false;
-            if (TramNeedsToBeRepaired(tram, _tramLogic)) // gerepareerd worden
+            if (TramNeedsToBeRepaired(tram, _tramLogic, _repairServiceLogic)) // gerepareerd worden
             {
                 IEnumerable<TrackDTO> repairTracks = tracks.Where(t => t.Type == TrackType.Repair && _trackLogic.CheckTramCanBeStored(tram, t));
                 tramIsStored = storeTram(repairTracks, tram, _trackLogic);
@@ -194,13 +194,13 @@ namespace Logic
             } while (tramIsStored == false);
         }
 
-        private static bool TramNeedsToBeRepaired (TramDTO tram, Tram _tramlogic)
+        private static bool TramNeedsToBeRepaired (TramDTO tram, Tram _tramlogic, RepairService _repairService)
         {
-            if (tram.Status.Any(x => x.Status == TramStatus.Defect))
+            if (tram.Status.Any(x => x.Status == TramStatus.Defect) || _repairService.CheckNotOccuredLog(tram))
             {
                 return true;
             }
-            // (if tram has repair log that has not yet occurred. return true)
+            //(if tram has repair log that has not yet occurred. return true)
             return false;
         }
     }

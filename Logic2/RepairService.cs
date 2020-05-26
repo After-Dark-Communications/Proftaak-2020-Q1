@@ -136,15 +136,22 @@ namespace Logic
             RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == true);
             return Occured;
         }
+        public RepairLogDTO GetNotOccuredLog(TramDTO tram)
+        {
+            RepairLogDTO NotOccured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
+            return NotOccured;
+        }
+        public bool CheckNotOccuredLog(TramDTO tram)
+        {
+            bool NotOccured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Any(x => x.Occured == false);
+            return NotOccured;
+        }
 
         public void AddTramToWaitingList(TramDTO tram)
         {
             RepairLogDTO WaitingList = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
             WaitingList.WaitingList = true;
             _repairServiceAccess.UpdateWaitingList(WaitingList);
-
-
-
         }
     }
 }
