@@ -196,9 +196,7 @@ namespace Logic
 
         private static bool TramNeedsToBeRepaired (TramDTO tram, Tram _tramlogic)
         {
-            StatusDTO defectStatus = new StatusDTO();
-            defectStatus.Status = TramStatus.Defect;
-            if (tram.Status.Contains(defectStatus))
+            if (tram.Status.Any(x => x.Status == TramStatus.Defect))
             {
                 return true;
             }

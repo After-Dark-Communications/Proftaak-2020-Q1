@@ -45,7 +45,7 @@ namespace DAL.Concrete
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 //SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.TrackNumber, dbo.Sector.TramId, dbo.Tram.TramNumber FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId RIGHT JOIN dbo.Tram ON dbo.Tram.Id = dbo.Sector.TramId WHERE [Id] = @key;
-                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.Id, dbo.Track.TrackNumber, dbo.Track.PreferedLine, dbo.Track.PreferedTramType, dbo.Track.RepairServiceId, dbo.Sector.Id, dbo.Sector.Location, dbo.Sector.TramId, dbo.Tram.TramNumber, dbo.Tram.Type, dbo.Status_Tram.StatusId, dbo.Status_Tram.Description, dbo.Status_Tram.Id, dbo.Sector.SectorType FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId LEFT JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id LEFT JOIN dbo.Status_Tram ON dbo.Tram.Id = dbo.Status_Tram.TramId WHERE [DepotId] = @key", conn))
+                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.Depot.Id, dbo.Depot.Location, dbo.Track.Id, dbo.Track.TrackNumber, dbo.Track.PreferedLine, dbo.Track.PreferedTramType, dbo.Track.RepairServiceId,dbo.Track.TrackType, dbo.Sector.Id, dbo.Sector.Location, dbo.Sector.TramId, dbo.Tram.TramNumber, dbo.Tram.Type, dbo.Status_Tram.StatusId, dbo.Status_Tram.Description, dbo.Status_Tram.Id, dbo.Sector.SectorType FROM dbo.Depot RIGHT JOIN dbo.Track ON dbo.Depot.Id = dbo.Track.depotId RIGHT JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId LEFT JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id LEFT JOIN dbo.Status_Tram ON dbo.Tram.Id = dbo.Status_Tram.TramId WHERE [DepotId] = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     conn.Open();
@@ -56,12 +56,12 @@ namespace DAL.Concrete
                             TrackDTO track = new TrackDTO();
                             depot.Id = dataReader.GetInt32(0);
                             depot.Location = dataReader.GetString(1);
-                            int trackId = dataReader.GetInt32(2);
-
+                            int trackId = dataReader.GetInt32(2); 
                             if (!depot.DepotTracks.Any(i => i.Id == trackId))
                             {
                                 track.Id = trackId;
                                 track.TrackNumber = dataReader.GetInt32(3);
+                                track.Type = (TrackType)dataReader.GetInt32(7);
                                 if (!dataReader.IsDBNull(5))
                                 {
                                     track.TramType = (TramType)dataReader.GetInt32(5);
@@ -72,46 +72,47 @@ namespace DAL.Concrete
                                 }
                                 depot.DepotTracks.Add(track);
                             }
-                            int sectorId = dataReader.GetInt32(7);
+
+                            int sectorId = dataReader.GetInt32(8);
                             if (!depot.DepotTracks.Any(track => track.Sectors.Any(sector => sector.Id == sectorId)))
                             {
                                 SectorDTO sector = new SectorDTO();
                                 sector.Id = sectorId;
-                                sector.SectorPosition = dataReader.GetInt32(8);
-                                var sectorType = (SectorType)dataReader.GetInt32(15);
+                                sector.SectorPosition = dataReader.GetInt32(9);
+                                var sectorType = (SectorType)dataReader.GetInt32(16);
                                 sector.SectorType = sectorType;
                                 sector.TrackNumber = dataReader.GetInt32(3);
                                 depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2)).Sectors.Add(sector);
                             }
-                            if (!dataReader.IsDBNull(9))
+                            if (!dataReader.IsDBNull(10))
                             {
-                                int tramId = dataReader.GetInt32(9);
-                                var foundTram = depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2)).Sectors.FirstOrDefault(d => d.Id == dataReader.GetInt32(7)).Tram;
+                                int tramId = dataReader.GetInt32(10);
+                                var foundTram = depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2)).Sectors.FirstOrDefault(d => d.Id == dataReader.GetInt32(8)).Tram;
                                 if (foundTram == null)
                                 {
                                     TramDTO tram = new TramDTO
                                     {
                                         Id = tramId,
-                                        TramNumber = dataReader.GetString(10),
-                                        Type = (TramType)dataReader.GetInt32(11),
+                                        TramNumber = dataReader.GetString(11),
+                                        Type = (TramType)dataReader.GetInt32(12),
                                     };
                                     TrackDTO foundTrack = depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2));
-                                    foundTrack.Sectors.FirstOrDefault(i => i.Id == dataReader.GetInt32(7)).Tram = tram;
+                                    foundTrack.Sectors.FirstOrDefault(i => i.Id == dataReader.GetInt32(8)).Tram = tram;
                                 }
                                 StatusDTO status = new StatusDTO();
-                                if (!dataReader.IsDBNull(12))
-                                {
-                                    status.Status = (TramStatus)dataReader.GetInt32(12);
-                                }
                                 if (!dataReader.IsDBNull(13))
                                 {
-                                    status.Description = dataReader.GetString(13);
+                                    status.Status = (TramStatus)dataReader.GetInt32(13);
                                 }
                                 if (!dataReader.IsDBNull(14))
                                 {
-                                    status.StatusId = dataReader.GetInt32(14);
+                                    status.Description = dataReader.GetString(14);
+                                }
+                                if (!dataReader.IsDBNull(15))
+                                {
+                                    status.StatusId = dataReader.GetInt32(15);
                                     TrackDTO foundTrack = depot.DepotTracks.FirstOrDefault(i => i.Id == dataReader.GetInt32(2));
-                                    foundTrack.Sectors.FirstOrDefault(i => i.Id == dataReader.GetInt32(7)).Tram.Status.Add(status);
+                                    foundTrack.Sectors.FirstOrDefault(i => i.Id == dataReader.GetInt32(8)).Tram.Status.Add(status);
                                 }
                             }                          
                         }
