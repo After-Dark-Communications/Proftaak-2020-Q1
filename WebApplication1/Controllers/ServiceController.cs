@@ -27,6 +27,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult Repairs()
         {
+            ViewBag.CurrentPage = "Repairs";
             List<RepairServiceViewModel> rvms = new List<RepairServiceViewModel>();
             var repairLogs = _repairservice.GetRepairHistory();
             foreach(RepairLogDTO log in repairLogs)
@@ -53,6 +54,7 @@ namespace WebApplication1.Controllers
         }
         public IActionResult Cleaning()
         {
+            ViewBag.CurrentPage = "Cleaning";
             var cleaningLogs = _cleaningservice.GetCleaningLogs();
             foreach (CleaningLogDTO clean in cleaningLogs)
             {
