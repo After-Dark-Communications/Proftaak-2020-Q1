@@ -9,5 +9,6 @@ namespace DTO
         public int Id { get; set; }
         public string Location { get; set; }
         public List<TrackDTO> DepotTracks { get; set; }
+        public List<TramDTO> TramsInDepot { get; set; }
     }
 }

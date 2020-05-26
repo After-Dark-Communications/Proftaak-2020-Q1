@@ -36,7 +36,7 @@ namespace DAL.Concrete
             TrackDTO track = new TrackDTO();
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using(SqlCommand cmd = new SqlCommand($"SELECT Track.Id, Track.TrackNumber, Track.PreferedTramType, Track.SectorId FROM [Track] INNER JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId WHERE [Id] = @key", conn))
+                using(SqlCommand cmd = new SqlCommand($"SELECT Track.Id, Track.TrackNumber, Track.PreferedTramType, Track.SectorId, Track.TrackType FROM [Track] INNER JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId WHERE [Id] = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     conn.Open();
@@ -48,6 +48,7 @@ namespace DAL.Concrete
                             track.TrackNumber = datareader.GetInt32(1);
                             track.TramType = (TramType)datareader.GetInt32(2);
                             track.Sectors = new List<SectorDTO>();
+                            track.Type = (TrackType)datareader.GetInt32(4);
                         }
                     }
                     conn.Close();

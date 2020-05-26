@@ -9,6 +9,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public TramType PreferredTramType { get; set; }
+        public TrackType TrackType { get; set; }
         public int TrackNumber { get; set; }
         public int RepairServiceId { get; set; } //Foreign Keys
         public int PreferredLine { get; set; }

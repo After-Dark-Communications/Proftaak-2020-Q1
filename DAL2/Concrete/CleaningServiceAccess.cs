@@ -56,7 +56,7 @@ namespace DAL.Concrete
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", cleanLog.CleaningService.Location));
                     cmd.Parameters.Add(new SqlParameter("@Date", cleanLog.RepairDate));
-                    cmd.Parameters.Add(new SqlParameter("@TramNumberm", cleanLog.Tram.TramNumber));
+                    cmd.Parameters.Add(new SqlParameter("@TramNumber", cleanLog.Tram.TramNumber));
                     cmd.Parameters.Add(new SqlParameter("@ServiceType", cleanLog.ServiceType));
                     cmd.Parameters.Add(new SqlParameter("@Occured", cleanLog.Occured));
                     cmd.Parameters.Add(new SqlParameter("@UserName", cleanLog.User.UserName ?? (object)DBNull.Value));
@@ -116,6 +116,48 @@ namespace DAL.Concrete
                                 Name = dataReader.GetString(6);
                             }
                             CleaningLogDTO cleanLog = new CleaningLogDTO(new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            cleanLogList.Add(cleanLog);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return cleanLogList;
+        }
+        public IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber)
+        {
+            string RepairMessage = "";
+            string Name = "";
+            List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
+                                                       "FROM RepairService_Tram " +
+                                                       "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
+                                                       "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
+                                                       "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id " +
+                                                       "WHERE Tram.TramNumber ", conn))
+                {
+                    cmd.Parameters.AddWithValue("TramNumber", tramnumber);
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    {
+                        while(dataReader.Read())
+                        {
+                            string location = dataReader.GetString(0);
+                            string dbtramnumber = dataReader.GetString(1);
+                            DateTime date = dataReader.GetDateTime(2);
+                            Boolean Occured = dataReader.GetBoolean(3);
+                            int ServiceType = dataReader.GetInt32(4);
+                            if (!dataReader.IsDBNull(5))
+                            {
+                                RepairMessage = dataReader.GetString(5);
+                            }
+                            if (!dataReader.IsDBNull(6))
+                            {
+                                Name = dataReader.GetString(6);
+                            }
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(new CleaningServiceDTO(), new TramDTO(dbtramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
                             cleanLogList.Add(cleanLog);
                         }
                     }

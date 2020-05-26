@@ -13,6 +13,8 @@ namespace DAL.Models
         public TramType Type { get; set; }
         public ICollection<Status> Status { get; set; }
         public string TramNumber { get; set; }
+        public int DepotId { get; set; }
+        public int Line { get; set; }
     }
 
 }

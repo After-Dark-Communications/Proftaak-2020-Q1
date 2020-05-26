@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DAL.Interfaces;
 using DTO;
+using Services;
+
 
 namespace Logic
 {
@@ -20,14 +23,11 @@ namespace Logic
         private bool CheckTramType(TramDTO tram, TrackDTO track)
         {
             return true;
-            if (tram.Type == track.TramType || track.TramType == null)
+            /*if (tram.Type == track.TramType || track.TramType == null);
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+                return false;//*/
         }
 
         public bool 
@@ -39,12 +39,37 @@ namespace Logic
             }
             foreach (SectorDTO sector in track.Sectors)
             {
-                if (_sectorLogic.CheckIfSectorIsEmpty(sector))
+                if (_sectorLogic.CheckIfSectorIsEmpty(sector)&&sector.SectorType != SectorType.Blocked)
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        public bool CheckTramCanBeOverArched(TramDTO tram, TrackDTO overArchingTrack, TrackDTO overArchedTrack)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OverArchTram(TramDTO tram, TrackDTO overArchingTrack, TrackDTO overArchedTrack)
+        {
+
+        }
+
+        public int AmountOfTramsOnTrack(TrackDTO track)
+        {
+            int AmountOfTrams = 0;
+
+            foreach (SectorDTO sector in track.Sectors)
+            {
+                if (!_sectorLogic.CheckIfSectorIsEmpty(sector))
+                {
+                    AmountOfTrams++;
+                }
+            }
+
+            return AmountOfTrams;
         }
 
         public void StoreTram(TramDTO tram, TrackDTO track)

@@ -188,6 +188,8 @@ namespace DAL.Concrete
                                 returnTram.Id = reader.GetInt32(0);
                                 returnTram.Type = (TramType)reader.GetInt32(1);
                                 returnTram.TramNumber = reader.GetString(2);
+                                returnTram.DepotId = reader.GetInt32(3);
+                                returnTram.Line = reader.GetInt32(4);
                             }
                         }
                         con.Close();
@@ -335,7 +337,6 @@ namespace DAL.Concrete
                     con.Close();
                 }
             }
-
             return returnList;
         }
     }
