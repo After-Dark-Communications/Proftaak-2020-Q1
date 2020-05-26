@@ -337,7 +337,6 @@ namespace DAL.Concrete
                     con.Close();
                 }
             }
-
             return returnList;
         }
     }
