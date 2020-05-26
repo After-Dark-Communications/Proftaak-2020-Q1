@@ -24,6 +24,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult Repairs()
         {
+            ViewBag.CurrentPage = "Repairs";
             var repairLogs = _repairservice.GetRepairHistory();
 
             _mapper.Map<List<ServiceViewModel>>(repairLogs);
@@ -32,7 +33,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult Cleaning(ServiceViewModel svModel)
         {
+            ViewBag.CurrentPage = "Cleaning";
             var cleaningLogs = _cleaningservice.GetCleaningLogs();
+
             svModel.AllServices = _mapper.Map<List<ServiceViewModel>>(cleaningLogs);
             return View(svModel);
         }

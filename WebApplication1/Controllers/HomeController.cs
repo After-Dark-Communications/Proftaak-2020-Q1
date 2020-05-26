@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebApplication1.Models;
 using DTO;
 using AutoMapper;
-using DAL.Interfaces;
 using Logic;
 using WebApplication1.Repository;
 
@@ -37,6 +34,7 @@ namespace WebApplication1.Controllers
         public IActionResult Index()
         {
             ViewBag.ShowTopBar = true;
+            ViewBag.CurrentPage = "Index";
             var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
 
             if (_repository.GetLoginSession() == null)

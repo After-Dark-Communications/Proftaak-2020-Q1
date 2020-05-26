@@ -15,7 +15,7 @@
 </head>
 <body style="background-color: #51a69b;">
     <header>
-        @if (ViewBag.ShowTopBar ?? true)//TODO: check for logged in user
+        @if (ViewBag.ShowTopBar ?? true)
         {
             <nav class="Top-Container">
                 <div class="TB-User">
@@ -37,21 +37,35 @@
                     <div class="Bottom-Button-Container" style="display:inline-block;" id="ScreenContainer">
                         @if (Context.Session.GetString("Permission") == "Conducteur" || Context.Session.GetString("Permission") == "Admin")
                         {
-                            <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="ConductButton" type="button" value="Conducteur Scherm" style="background-image: url('../img/copI.png');" onclick="BottomBecomeSelected('ConductButton','MechanicButton','CleanerButton')" />
-                        }
-                        @if (Context.Session.GetString("Permission") == "Monteur" || Context.Session.GetString("Permission") == "Admin")
-                        {
-                            <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');" onclick="BottomBecomeSelected('MechanicButton','ConductButton','CleanerButton')" />
-                        }
-                        @if (Context.Session.GetString("Permission") == "Schoonmaker" || Context.Session.GetString("Permission") == "Admin")
-                        {
-                            @if (true)//TODO: get current page path
+                            @if (ViewBag.CurrentPage == "Index")
                             {
-                                <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" onclick=" window.location.href= '@Url.Action("Cleaning", "Service")' " />
+                                <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="ConductButton" type="button" value="Conducteur Scherm" style="background-image: url('../img/copI.png');" />
                             }
                             else
                             {
+                                <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="ConductButton" type="button" value="Conducteur Scherm" style="background-image: url('../img/copI.png');" onclick="window.location.href = '@Url.Action("Index","Home")'" />
+                            }
+                        }
+                        @if (Context.Session.GetString("Permission") == "Monteur" || Context.Session.GetString("Permission") == "Admin")
+                        {
+                            @if (ViewBag.CurrentPage == "Repairs")
+                            {
+                                <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');"/>
+                            }
+                            else
+                            {
+                                <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');" onclick="window.location.href = '@Url.Action("Repairs","Service")'" />
+                            }
+                        }
+                        @if (Context.Session.GetString("Permission") == "Schoonmaker" || Context.Session.GetString("Permission") == "Admin")
+                        {
+                            @if (ViewBag.CurrentPage == "Cleaning")
+                            {
                                 <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" />
+                            }
+                            else
+                            {
+                                <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="CleanerButton" type="button" value="Schoonmaker" style="background-image: url('../img/broomI.png');" onclick=" window.location.href= '@Url.Action("Cleaning", "Service")' " />
                             }
                         }
                     </div>
