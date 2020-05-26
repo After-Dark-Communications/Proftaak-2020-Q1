@@ -36,7 +36,7 @@ namespace DAL.Concrete
             TrackDTO track = new TrackDTO();
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using(SqlCommand cmd = new SqlCommand($"SELECT Track.Id, Track.TrackNumber, Track.PreferedTramType, Track.SectorId FROM [Track] INNER JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId WHERE [Id] = @key", conn))
+                using(SqlCommand cmd = new SqlCommand($"SELECT Track.Id, Track.TrackNumber, Track.PreferedTramType, Track.SectorId, Track.TrackType FROM [Track] INNER JOIN dbo.Sector ON dbo.Track.Id = dbo.Sector.TrackId WHERE [Id] = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     conn.Open();
@@ -48,6 +48,7 @@ namespace DAL.Concrete
                             track.TrackNumber = datareader.GetInt32(1);
                             track.TramType = (TramType)datareader.GetInt32(2);
                             track.Sectors = new List<SectorDTO>();
+                            track.Type = (TrackType)datareader.GetInt32(4);
                         }
                     }
                     conn.Close();
@@ -69,6 +70,30 @@ namespace DAL.Concrete
                     conn.Close();
                 }
             }
+        }
+        public TrackDTO ReadTrackByTramNumber(string TramNumber)
+        {
+            TrackDTO track = new TrackDTO();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT Track.TrackNumber, Sector.Location FROM dbo.Track INNER JOIN dbo.Sector ON dbo.Sector.TrackId = dbo.Track.Id INNER JOIN dbo.Tram ON Tram.Id = Sector.TramId WHERE Tram.TramNumber = @TramNumber", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@TramNumber", TramNumber);
+                    using(SqlDataReader datareader = cmd.ExecuteReader())
+                    {
+                        while(datareader.Read())
+                        {
+                            SectorDTO sector = new SectorDTO();
+                            track.TrackNumber = datareader.GetInt32(0);
+                            sector.SectorPosition = datareader.GetInt32(1);
+                            track.Sectors.Add(sector);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            return track;
         }
 
         public void Delete(int key)

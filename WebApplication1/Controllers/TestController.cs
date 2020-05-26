@@ -16,7 +16,7 @@ namespace WebApplication1.Controllers
     public class TestController : Controller
     {
         Tram _tramLogic;
-        Depot _depotLogic;
+        //Depot _depotLogic;
         IMapper _mapper;
         Sector _sectorLogic;
         Track _trackLogic;
@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
             _tramLogic = new Tram(ac);
             _sectorLogic = new Sector(sc, ac);
             _trackLogic = new Track(tc, _sectorLogic);
-            _depotLogic = new Depot(_trackLogic, _tramLogic, dc); 
+           // _depotLogic = new Depot(_trackLogic, _tramLogic, dc); 
         }
 
         public IActionResult Index()

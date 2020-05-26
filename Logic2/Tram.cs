@@ -38,8 +38,7 @@ namespace Logic
                 return false;
             }//*/
         }
-
-           
+      
         public void Create(TramDTO tram)
         {
             _tramAccess.Create(tram);

@@ -21,6 +21,20 @@ namespace Services
     {
         Normal,
         UnPreferred,
-        Blocked
+        Blocked,
+        OverArching
+    }
+
+    public enum TrackType
+    {
+        Normal,
+        Repair,
+        LongParking,
+        EntranceExit,
+    }
+    public enum ServiceType
+    {
+        Big,
+        Small
     }
 }
