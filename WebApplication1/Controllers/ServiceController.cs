@@ -13,8 +13,9 @@ namespace WebApplication1.Controllers
     public class ServiceController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly Logic.RepairService _repairservice;
-        private readonly Logic.CleaningService _cleaningservice;
+        private readonly RepairService _repairservice;
+        private readonly CleaningService _cleaningservice;
+        private readonly Track _tracklogic;
         private readonly Tram _tramLogic;
         public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram)
         {
@@ -26,12 +27,19 @@ namespace WebApplication1.Controllers
 
         public IActionResult Repairs()
         {
+            List<RepairServiceViewModel> rvms = new List<RepairServiceViewModel>();
             var repairLogs = _repairservice.GetRepairHistory();
-            foreach(RepairLogDTO repair in repairLogs)
+            foreach(RepairLogDTO log in repairLogs)
             {
-                _mapper.Map<ServiceViewModel>(repair);
-            }
-            return View(repairLogs);
+                RepairServiceViewModel rvm = new RepairServiceViewModel();
+                var track = _tracklogic.GetTrackByTramNumber(log.Tram.TramNumber);
+                rvm.TrackNumber = track.TrackNumber;
+                rvm.TramNumber = log.Tram.TramNumber;
+                rvm.RepairType = log.ServiceType;
+                rvm.RepairMessage = log.RepairMessage;
+                rvms.Add(rvm);
+            }   
+            return View(rvms);
         }
 
         public IActionResult CleaningDone(int tramnumber)
@@ -48,7 +56,7 @@ namespace WebApplication1.Controllers
             var cleaningLogs = _cleaningservice.GetCleaningLogs();
             foreach (CleaningLogDTO clean in cleaningLogs)
             {
-                _mapper.Map<ServiceViewModel>(clean);
+                
             }
             return View(cleaningLogs);
         }

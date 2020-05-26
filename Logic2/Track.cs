@@ -101,5 +101,9 @@ namespace Logic
             int randomTrack = random.Next(1, 8);
             return tracks[randomTrack];
         }
+        public TrackDTO GetTrackByTramNumber(string number)
+        {
+            return _trackAccess.ReadTrackByTramNumber(number);
+        }
     }
 }

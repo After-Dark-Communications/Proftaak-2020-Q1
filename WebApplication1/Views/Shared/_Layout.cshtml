@@ -41,7 +41,7 @@
                         }
                         @if (Context.Session.GetString("Permission") == "Monteur" || Context.Session.GetString("Permission") == "Admin")
                         {
-                            <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');" onclick="BottomBecomeSelected('MechanicButton','ConductButton','CleanerButton')" />
+                            <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');" onclick="window.location.href= '@Url.Action("Repairs","Service")' " />
                         }
                         @if (Context.Session.GetString("Permission") == "Schoonmaker" || Context.Session.GetString("Permission") == "Admin")
                         {

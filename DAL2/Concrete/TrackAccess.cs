@@ -71,6 +71,30 @@ namespace DAL.Concrete
                 }
             }
         }
+        public TrackDTO ReadTrackByTramNumber(string TramNumber)
+        {
+            TrackDTO track = new TrackDTO();
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand($"SELECT Track.TrackNumber, Sector.Location FROM dbo.Track INNER JOIN dbo.Sector ON dbo.Sector.TrackId = dbo.Track.Id INNER JOIN dbo.Tram ON Tram.Id = Sector.TramId WHERE Tram.TramNumber = @TramNumber", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@TramNumber", TramNumber);
+                    using(SqlDataReader datareader = cmd.ExecuteReader())
+                    {
+                        while(datareader.Read())
+                        {
+                            SectorDTO sector = new SectorDTO();
+                            track.TrackNumber = datareader.GetInt32(0);
+                            sector.SectorPosition = datareader.GetInt32(1);
+                            track.Sectors.Add(sector);
+                        }
+                    }
+                    conn.Close();
+                }
+            }
+            return track;
+        }
 
         public void Delete(int key)
         {

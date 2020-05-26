@@ -12,5 +12,14 @@ namespace DTO
         public int TrackNumber { get; set; }
         public int SectorPosition { get; set; }
         public SectorType SectorType { get; set; }
+        public SectorDTO()
+        {
+
+        }
+        public SectorDTO(int trackNumber,int sectorPosition)
+        {
+            TrackNumber = trackNumber;
+            SectorPosition = sectorPosition; 
+        }
     }
 }

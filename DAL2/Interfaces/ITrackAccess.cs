@@ -7,5 +7,6 @@ namespace DAL.Interfaces
 {
     public interface ITrackAccess : IGenAccess<TrackDTO>
     {
+        public TrackDTO ReadTrackByTramNumber(string TramNumber);
     }
 }
