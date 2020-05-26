@@ -53,10 +53,16 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalRepairDone">
+    <div class="modal-dialog">
+        <div class="modal-content" id="repairconfirmation">
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script type="text/javascript">
-        function Defectog(number) {
+        function Defectlog(number) {
             //alert(Number);
 
             $.ajax({
@@ -65,11 +71,22 @@
                 data: { tramnumber: number },
                 success: function (response) {
 
-                    $('#defectlog').html(response);
+                    $('#Defectlog').html(response);
                     $('#Defect').modal('show');
                 }
             });
         }
+        function CleaningDone(_Tramnumber) {
+                $.ajax({
+                    type: "POST",
+                    url: "/Service/CRepairDone",
+                    data: { tramnumber: _Tramnumber },
+                    success: function (response) {
+                        $('#repairconfirmation').html(response);
+                        $('#modalRepairDone').modal('show');
+                    }
+                });
+            }
 
         function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
