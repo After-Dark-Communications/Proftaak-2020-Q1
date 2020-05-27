@@ -20,9 +20,10 @@ namespace WebApplication1.Controllers
         private readonly Sector _sectorLogic;
         private readonly LoginRepository _repository;
         private readonly RepairService _repairService;
+        private readonly CleaningService _cleaningService;
 
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService, CleaningService cleaningService)
         {
             _mapper = mapper;
             _depotLogic = depot;
@@ -30,6 +31,7 @@ namespace WebApplication1.Controllers
             _sectorLogic = sector;
             _repository = repository;
             _repairService = repairService;
+            _cleaningService = cleaningService;
         }
 
         public IActionResult Index()
@@ -70,10 +72,10 @@ namespace WebApplication1.Controllers
             return PartialView("PartialCleanSignUp");
         }
 
-        public IActionResult CleanSignUpSend()
+        public IActionResult CleanSignUpSend(string tramnumber)
         {
-
-            return Content(HttpContext.Request.Form["tramnumber"] + " "  + HttpContext.Request.Form["service"] + " " + HttpContext.Request.Form["cleanupreason"]);
+            _cleaningService.RemoveCleaningStatus(new TramDTO(tramnumber));
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
         {

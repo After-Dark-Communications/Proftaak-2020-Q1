@@ -18,11 +18,13 @@ namespace Logic
         private readonly IServiceAccess _serviceaccess;
         private readonly IRepairServiceAccess _repairServiceAccess;
         private readonly RepairServiceDTO _repairService;
+        private readonly ITramAccess _tramAccess;
 
-        public RepairService(IServiceAccess serviceaccess, IRepairServiceAccess repairServiceAccess)
+        public RepairService(IServiceAccess serviceaccess, IRepairServiceAccess repairServiceAccess, ITramAccess tramAccess)
         {
             _serviceaccess = serviceaccess;
             _repairServiceAccess = repairServiceAccess;
+            _tramAccess = tramAccess;
             _repairService = GetService();
             DetermineIfRepairNeedToBeReset();
             
@@ -32,6 +34,7 @@ namespace Logic
         {
             if(CanRepairTram(_repairService, tram))
             {
+                _tramAccess.DeleteStatus(TramStatus.Defect, tram);
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
                 RepairLogDTO repair = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == false).SingleOrDefault();
                 removeServiceCounter(repair);

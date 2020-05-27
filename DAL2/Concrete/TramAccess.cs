@@ -94,21 +94,21 @@ namespace DAL.Concrete
 
         public void Delete(int key)
         {
-            foreach(StatusDTO stat in GetStatusesFromTram(key))
-            {
-                DeleteStatus(stat.StatusId);
-            }
-            string query = "DELETE FROM Tram WHERE Id = @key";
-            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(query, con))
-                {
-                    con.Open();
-                    command.Parameters.AddWithValue("@key", key);
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
+            //foreach(StatusDTO stat in GetStatusesFromTram(key))
+            //{
+            //    DeleteStatus(stat.StatusId);
+            //}
+            //string query = "DELETE FROM Tram WHERE Id = @key";
+            //using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            //{
+            //    using (SqlCommand command = new SqlCommand(query, con))
+            //    {
+            //        con.Open();
+            //        command.Parameters.AddWithValue("@key", key);
+            //        command.ExecuteNonQuery();
+            //        con.Close();
+            //    }
+            //}
         }
 
         public IEnumerable<TramDTO> GetAllTrams()
@@ -208,20 +208,20 @@ namespace DAL.Concrete
 
         private void UpdateStatuses(TramDTO tram, List<StatusDTO> oldStatuses)
         {
-            foreach(StatusDTO tramStat in tram.Status)
-            {
-                if(!oldStatuses.Any(s => s.StatusId == tramStat.StatusId))
-                {
-                    AddStatus(tram.Id, tramStat);
-                }
-            }
-            foreach (StatusDTO stat in oldStatuses)
-            {
-                if(!tram.Status.Any(s => s.StatusId == stat.StatusId))
-                {
-                    DeleteStatus(stat.StatusId);
-                }
-            }
+            //foreach(StatusDTO tramStat in tram.Status)
+            //{
+            //    if(!oldStatuses.Any(s => s.StatusId == tramStat.StatusId))
+            //    {
+            //        AddStatus(tram.Id, tramStat);
+            //    }
+            //}
+            //foreach (StatusDTO stat in oldStatuses)
+            //{
+            //    if(!tram.Status.Any(s => s.StatusId == stat.StatusId))
+            //    {
+            //        DeleteStatus(stat.StatusId);
+            //    }
+            //}
         }
 
         private void AddStatus(int tramKey, StatusDTO stat)
@@ -256,15 +256,16 @@ namespace DAL.Concrete
             
         }
 
-        private void DeleteStatus(int key)
+        public void DeleteStatus(TramStatus status, TramDTO tram)
         {
-            string query = "DELETE FROM Status_Tram WHERE Id = @key";
+            string query = "DELETE Status_Tram FROM Status_Tram INNER JOIN Tram ON Status_Tram.TramId = Tram.Id WHERE StatusId = @Status AND Tram.TramNumber = @TramNumber  ";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
                 {
                     con.Open();
-                    command.Parameters.AddWithValue("@key", key);
+                    command.Parameters.AddWithValue("@Status", status);
+                    command.Parameters.AddWithValue("@Tramnumber", status);
                     command.ExecuteNonQuery();
                     con.Close();
                 }

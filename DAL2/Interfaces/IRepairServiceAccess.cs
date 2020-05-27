@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DTO;
+using Services;
 
 namespace DAL.Interfaces
 {
@@ -14,7 +15,5 @@ namespace DAL.Interfaces
         public void UpdateWaitingList(RepairLogDTO repairLog);
         public IEnumerable<RepairLogDTO> GetRepairLogsByTramNumber(string tramnumber);
         public RepairServiceDTO GetRepairServiceByLocation(string Location);
-
-
     }
 }

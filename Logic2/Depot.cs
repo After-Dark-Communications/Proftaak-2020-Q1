@@ -99,6 +99,12 @@ namespace Logic
                 _tramlogic.AddStatus(status, tram);
             }
         }
+
+        public void DeleteStatus(TramDTO tram, TramStatus status)
+        {
+
+        }
+
         public void Update(DepotDTO depot)
         {
             _depotaccess.Update(depot);

@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Models;
 using DTO;
+using Services;
 
 namespace DAL.Interfaces
 {
@@ -14,5 +15,6 @@ namespace DAL.Interfaces
         TramDTO ReadFromTramNumber(string tramNumber);
         int GetKeyFromTramNumber(string tramNumber);
         int GetSectorIdFromTram(int key);
+        public void DeleteStatus(TramStatus status, TramDTO tram);
     }
 }

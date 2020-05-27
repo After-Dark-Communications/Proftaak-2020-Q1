@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Services;
 
 
 namespace Logic
@@ -14,13 +15,14 @@ namespace Logic
         private readonly IServiceAccess _serviceaccess;
         private readonly CleaningServiceDTO _cleaningServiceDTO;
         private readonly ICleaningServiceAccess _cleaningAccess;
+        private readonly ITramAccess _tramAccess;
 
-        public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess)
+        public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess, ITramAccess tramAccess)
         {
             _serviceaccess = serviceaccess;
             _cleaningServiceDTO = GetService();
             _cleaningAccess = cleaningAccess;
-
+            _tramAccess = tramAccess;
         }
         public void SetSmallCleanTram(TramDTO tram)
         {
@@ -75,6 +77,11 @@ namespace Logic
         public IEnumerable<CleaningLogDTO> GetCleaningLogs()
         {
             return _cleaningAccess.GetCleaningLogs();
+        }
+
+        public void RemoveCleaningStatus(TramDTO tram)
+        {
+            _tramAccess.DeleteStatus(TramStatus.Cleaning, tram);
         }
     }
 }
