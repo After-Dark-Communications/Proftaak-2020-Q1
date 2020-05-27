@@ -26,11 +26,9 @@ namespace DAL.Concrete
                         {
                             RepairService.Id = datareader.GetInt32(0);
                             //RepairService.UserId = datareader.GetInt32(1);
-                            RepairService.Occured = datareader.GetBoolean(2);
                             //RepairService.RepairDate = datareader.GetDateTime(3);
                             RepairService.MaxBigServicePerDay = datareader.GetInt32(4);
                             RepairService.MaxSmallServicePerDay = datareader.GetInt32(5);
-                            RepairService.ServiceType = datareader.GetInt32(6);
                         }
                     }
                     conn.Close();

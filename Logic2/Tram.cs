@@ -43,6 +43,10 @@ namespace Logic
         {
             _tramAccess.Create(tram);
         }
+        public int GetTramIdFromNumber(string number)
+        {
+            return _tramAccess.GetKeyFromTramNumber(number); 
+        }
         public void Delete(int key)
         {
             _tramAccess.Delete(key);

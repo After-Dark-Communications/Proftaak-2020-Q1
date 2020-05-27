@@ -56,5 +56,15 @@ namespace DTO
             Occured = occured;
             RepairMessage = repairMessage;
         }
+        public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, DateTime repairDate,  ServiceType serviceType, bool occured, string repairMessage)
+        {
+            Id = id;
+            RepairService = repairService;
+            Tram = tram;
+            RepairDate = repairDate;
+            ServiceType = serviceType;
+            Occured = occured;
+            RepairMessage = repairMessage;
+        }
     }
 }

@@ -8,26 +8,30 @@
     <div style="text-align:center;">
         <div style="display:inline-block; width:500px;">
             <table style="width:100%;">
-                <tr class="R-Info-bar">
-                    <th>Nr</th>
-                    <th>Status</th>
-                    <th>Defect</th>
-                    <col/>
-                </tr>
-                @*@foreach ()
-                    {
-                        if (true)
-                        {*@
+				<tr class="R-Info-bar">
+					<th>Nr</th>
+					<th>Repair Type</th>
+					<th>Omschrijving</th>
+				</tr>
+                    @foreach (RepairServiceViewModel Repair in Model)
+					{
+			<tr>
+				<td onclick="clickInfoTram(@Repair.TramNumber, @Repair.TrackNumber)" class="R-content R-content-thin">@Repair.TramNumber</td><!--Nr-->
+				<td class="R-content R-content-status">@Repair.RepairType</td><!--Status-->
+				<td class="R-content R-content-wide">@Repair.RepairMessage</td><!--Defect-->
+				<td class="R-Info-Status test"><button class="donebutton" onclick="RepairDone(@Repair.TramNumber);">Uitgevoerd</button></td><!--Status-->
+			</tr>
+					}
                 <tr>
                     <td onclick="clickInfoTram(2001, 38)" class="R-content R-content-thin">2001</td><!--Nr-->
                     <td class="R-content R-content-status">AAA</td><!--Status-->
                     <td class="R-content R-content-wide">AAA</td><!--Defect-->
-                    <td class="R-Info-Status test"><button class="donebutton" onclick="CleaningDone(12);">Uitgevoerd</button></td><!--Status-->
+                    <td class="R-Info-Status test"><button class="donebutton" onclick="RepairDone(12);">Uitgevoerd</button></td><!--Status-->
                 </tr>
                 @for (int i = 0; i < 30; i++)
                 {
                     <tr>
-                        <td onclick="clickInfoTram(0, 0)" class="R-content R-content-thin"></td><!--Nr-->
+                        <!----><td class="R-content R-content-thin"></td><!--Nr-->
                         <td class="R-content R-content-status"></td><!--Status-->
                         <td class="R-content R-content-wide"></td><!--Defect-->
                         <td class="R-Info-Status"></td><!--Status-->
@@ -76,10 +80,10 @@
                 }
             });
         }
-        function CleaningDone(_Tramnumber) {
+        function RepairDone(_Tramnumber) {
                 $.ajax({
                     type: "POST",
-                    url: "/Service/CRepairDone",
+                    url: "/Service/RepairDone",
                     data: { tramnumber: _Tramnumber },
                     success: function (response) {
                         $('#repairconfirmation').html(response);

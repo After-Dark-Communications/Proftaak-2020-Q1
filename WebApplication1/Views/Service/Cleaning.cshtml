@@ -1,4 +1,4 @@
-﻿@model ServiceViewModel;
+﻿@model IEnumerable<CleaningServiceViewModel>;
 @{
     ViewData["Title"] = "Cleaning";
 }
@@ -14,35 +14,28 @@
                     <th>Soort Schoonmaak</th>
                     <col />
                 </tr>
-                @if (Model.AllServices.Count > 29)
+                @if (Model.Count() > 29)
                 {
 
-                    @foreach (ServiceViewModel Service in Model.AllServices)
+                    @foreach (CleaningServiceViewModel Service in Model)
                     {
                         <tr>
-                            <td class="C-content C-content-thin">@Model.Tram.TramNumber</td><!--Nr-->
-                            <td class="C-content C-content-thin">@Model.User.Name</td><!--Spoor-->
-                            <td class="C-content C-content-wide">@Model.ServiceType</td><!--Soort-->
-                            <td class="C-Info-Status test">@Model.Occured</td><!--Status-->
+                            <td class="C-content C-content-thin">@Service.TramNumber</td><!--Nr-->
+                            <td class="C-content C-content-thin">@Service.TrackNumber</td><!--Spoor-->
+                            <td class="C-content C-content-wide">@Service.CleaningType</td><!--Soort-->
+                            <td class="C-Info-Status test">@Service.Occured</td><!--Status-->
                         </tr>
                     }
                 }
                 else
                 {
 
-                    @for (int i = 0; i < (29 - Model.AllServices.Count); i++)
+                    @for (int i = 0; i < (29 - Model.Count()); i++)
                     {
-                        if (Model.AllServices.Count > i)
+                        if (Model.Count() > i)
                         {
                             <tr>
-                                <td class="C-content C-content-thin">AAA</td><!--Nr-->
-                                <td class="C-content C-content-thin">AAA</td><!--Spoor-->
-                                <td class="C-content C-content-wide">AAA</td><!--Soort-->
-                                <td class="C-Info-Status test">No</td><!--Status-->
-                                @*<td class="C-content C-content-thin">@Model.AllServices[i].Tram.TramNumber</td><!--Nr-->
-                                    <td class="C-content C-content-thin">@Model.AllServices[i].User.Name</td><!--Spoor-->
-                                    <td class="C-content C-content-wide">@Model.AllServices[i].ServiceType</td><!--Soort-->
-                                    <td class="C-Info-Status test">@Model.AllServices[i].Occured</td><!--Status-->*@
+                                
                             </tr>
                         }
                         else

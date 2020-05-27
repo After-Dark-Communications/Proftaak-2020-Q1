@@ -38,13 +38,16 @@ namespace Logic
 
         public void RemoveTram(SectorDTO sector)
         {
-            sector.Tram = null;
-            _sectoraccess.Update(sector);
+            _sectoraccess.RemoveTram(sector.Id);
         }
 
         public void Update(SectorDTO sector)
         {
             _sectoraccess.Update(sector);
+        }
+        public int GetSectorByTramNumber(string Tramnumber)
+        {
+            return _sectoraccess.GetSectorIdByTramNumber(Tramnumber);
         }
 
         public bool CheckIfSectorIsEmpty(SectorDTO sector)

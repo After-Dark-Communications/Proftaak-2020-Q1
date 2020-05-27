@@ -45,7 +45,7 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using(SqlCommand cmd = new SqlCommand($"SELECT dbo.Sector.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Sector.SectorType, Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.TrackId = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.Id = dbo.Tram.Id WHERE dbo.Sector.Id = @key", conn))
+                using(SqlCommand cmd = new SqlCommand($"SELECT dbo.Sector.Id, dbo.Sector.TramId, dbo.Sector.Location, dbo.Sector.SectorType, Track.TrackNumber FROM dbo.Sector INNER JOIN dbo.Track ON dbo.Sector.TrackId = dbo.Track.Id INNER JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id WHERE dbo.Sector.Id = @key", conn))
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     using (SqlDataReader dataReader = cmd.ExecuteReader())
@@ -73,8 +73,6 @@ namespace DAL.Concrete
 
         public void Update(SectorDTO obj)
         {
-                if (obj.Tram != null)
-                {
                     using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
                     {
                         conn.Open();
@@ -86,15 +84,10 @@ namespace DAL.Concrete
                             cmd.ExecuteNonQuery();
                         }
                         conn.Close();
-                    }
-                }
-                else
-                {
-                    RemoveTram(obj);
-                }           
+                    }     
         }
 
-        private void RemoveTram(SectorDTO sector)
+        public void RemoveTram(int sectorId)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
@@ -102,7 +95,7 @@ namespace DAL.Concrete
                 string query = "UPDATE Sector SET TramId = null WHERE Id = @sectorId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@sectorId", sector.Id);
+                    cmd.Parameters.AddWithValue("@sectorId", sectorId);
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
@@ -115,6 +108,28 @@ namespace DAL.Concrete
 
 
             return null;
+        }
+
+        public int GetSectorIdByTramNumber(string TramNum)
+        {
+            int sectorId = 0;
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using(SqlCommand cmd = new SqlCommand($"SELECT Sector.Id FROM dbo.Sector INNER JOIN dbo.Tram ON dbo.Sector.TramId = dbo.Tram.Id WHERE Tram.TramNumber = @TramNumber", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("@TramNumber", TramNum);
+                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while(reader.Read())
+                        {
+                            sectorId = reader.GetInt32(0);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+            return sectorId;         
         }
     }
 }

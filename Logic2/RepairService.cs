@@ -9,6 +9,7 @@ using System.Text;
 using System.Transactions;
 using Services;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.CompilerServices;
 
 namespace Logic
 {
@@ -58,20 +59,24 @@ namespace Logic
 
         public void DetermineRepairType(TramDTO tram)
         {
-            tram.OccuredRepairLog = GetOccuredLog(tram);
-            DateTime startTimeBig = tram.RepairDateBigService;
-            DateTime startTimeSmall = tram.RepairDateSmallService;
+            RepairLogDTO repairLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
+            RepairLogDTO repairLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
+
+            DateTime startTimeBig = repairLogDTOBig.RepairDate;
+            DateTime startTimeSmall = repairLogDTOSmall.RepairDate;
             DateTime endTime = DateTime.Now;
 
             TimeSpan spanBig = endTime.Subtract(startTimeBig);
             TimeSpan spanSmall = endTime.Subtract(startTimeSmall);
 
-             if (spanBig.TotalDays > 183)
+            if (spanBig.TotalDays > 183)
             {
+                tram.OccuredRepairLog = repairLogDTOBig;
                 CreateRepairLogScheduled(tram, ServiceType.Big);
             }
             else if(spanSmall.TotalDays > 91) 
             {
+                tram.OccuredRepairLog = repairLogDTOSmall;
                 CreateRepairLogScheduled(tram, ServiceType.Small);
             }
 
@@ -84,7 +89,7 @@ namespace Logic
         }
         public void CreateRepairLogScheduled(TramDTO tram, ServiceType service)
         {
-            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, service, false, false);
+            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, service, false, false, "Scheduled");
             _repairServiceAccess.StoreRepairLog(log);
         }
         private bool CanRepairTram(RepairServiceDTO Service, TramDTO tram)
@@ -131,9 +136,9 @@ namespace Logic
         {
             return _repairServiceAccess.GetRepairLogs();
         }
-        public RepairLogDTO GetOccuredLog(TramDTO tram)
+        public RepairLogDTO GetOccuredLog(TramDTO tram, ServiceType serviceType)
         {
-            RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == true);
+            RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == true).Where(x => x.ServiceType == serviceType).OrderBy(x => x.RepairDate).FirstOrDefault();
             return Occured;
         }
         public RepairLogDTO GetNotOccuredLog(TramDTO tram)

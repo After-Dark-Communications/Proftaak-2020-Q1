@@ -7,6 +7,7 @@ using AutoMapper;
 using Logic;
 using WebApplication1.Models;
 using DTO;
+using WebApplication1.Repository;
 
 namespace WebApplication1.Controllers
 {
@@ -17,18 +18,21 @@ namespace WebApplication1.Controllers
         private readonly CleaningService _cleaningservice;
         private readonly Track _tracklogic;
         private readonly Tram _tramLogic;
-        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram)
+        private readonly LoginRepository _login;
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login)
         {
             _mapper = mapper;
             _repairservice = repairservice;
             _cleaningservice = cleaningservice;
             _tramLogic = tram;
+            _tracklogic = tracklogic;
+            _login = login;
         }
 
         public IActionResult Repairs()
         {
             List<RepairServiceViewModel> rvms = new List<RepairServiceViewModel>();
-            var repairLogs = _repairservice.GetRepairHistory();
+            var repairLogs = _repairservice.GetRepairHistory().Where(x => x.Occured == false);
             foreach(RepairLogDTO log in repairLogs)
             {
                 RepairServiceViewModel rvm = new RepairServiceViewModel();
@@ -47,9 +51,20 @@ namespace WebApplication1.Controllers
             ViewBag.Tramnumber = tramnumber;
             return PartialView("PartialCleaningDone");
         }
-        public IActionResult UpdateCleaingDoneStatus()
+        public IActionResult RepairDone(int tramnumber)
+        {
+            ViewBag.Tramnumber = tramnumber;
+            return PartialView("PartialRepairDone");
+        }
+        public IActionResult UpdateCleaningDoneStatus()
         {
             return Content(HttpContext.Request.Form["tramnumber"]);
+        }
+        public IActionResult UpdateRepairDoneStatus()
+        {
+            UserDTO user = new UserDTO(_login.GetLoginSession());
+            _repairservice.ServiceRepair(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])),user); //Rick's schuld :-(
+            return RedirectToAction("Repairs", "Service");
         }
         public IActionResult Cleaning()
         {

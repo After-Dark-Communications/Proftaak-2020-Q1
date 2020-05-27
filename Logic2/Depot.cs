@@ -14,10 +14,10 @@ namespace Logic
         Tram _tramlogic;
         Sector _sectorLogic;
         RepairService _repairServicelogic;
-        
+
         private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic,Sector sectorLogic,RepairService repairServiceLogic, IDepotAccess depotAccess)
+        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
@@ -26,17 +26,17 @@ namespace Logic
             this._repairServicelogic = repairServiceLogic;
         }
 
-        public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage , DepotDTO depot) 
+        public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
-               
-               TramDTO tram = _tramlogic.GetTram(tramNumber);
+
+                TramDTO tram = _tramlogic.GetTram(tramNumber);
 
                 if (tram.DepotId == 1)
                 {
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
-                    if (repairMessage != null)
+                    if (repairStatus)
                     {
                         _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
                     }
@@ -105,9 +105,22 @@ namespace Logic
         }
         public DepotDTO Read(int key)
         {
-           return _depotaccess.Read(key);
+            return _depotaccess.Read(key);
         }
-
-
+        public void TransferTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
+        {
+            TramDTO tram = _tramlogic.GetTram(tramNumber);
+            _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(tramNumber)));
+            changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
+            if (repairMessage != null)
+            {
+                _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
+            }
+            else
+            {
+                _repairServicelogic.DetermineRepairType(tram);
+            }
+            AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+        }
     }
 }

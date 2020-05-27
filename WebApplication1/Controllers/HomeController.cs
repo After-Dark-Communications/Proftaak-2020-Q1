@@ -71,6 +71,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult CleanSignUpSend()
         {
+
             return Content(HttpContext.Request.Form["tramnumber"] + " "  + HttpContext.Request.Form["service"] + " " + HttpContext.Request.Form["cleanupreason"]);
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -81,11 +82,13 @@ namespace WebApplication1.Controllers
 
         public IActionResult RepairSignUpSend()
         {
-            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["repairsize"] + " " + HttpContext.Request.Form["repairreason"]);
+            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult RemoveTramSend()
         {
-            return Content(HttpContext.Request.Form["tramnumber"]);
+            _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult ParkTram()
         {
