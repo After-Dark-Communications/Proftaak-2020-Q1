@@ -61,7 +61,17 @@ namespace Logic
         {
             RepairLogDTO repairLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
             RepairLogDTO repairLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
-
+            if (repairLogDTOBig == null)
+            {
+                repairLogDTOBig = new RepairLogDTO();
+                repairLogDTOBig.RepairDate = default;
+            }
+            if (repairLogDTOSmall == null)
+            {
+                repairLogDTOSmall = new RepairLogDTO();
+                repairLogDTOSmall.RepairDate = default;
+            }    
+           
             DateTime startTimeBig = repairLogDTOBig.RepairDate;
             DateTime startTimeSmall = repairLogDTOSmall.RepairDate;
             DateTime endTime = DateTime.Now;
@@ -69,12 +79,12 @@ namespace Logic
             TimeSpan spanBig = endTime.Subtract(startTimeBig);
             TimeSpan spanSmall = endTime.Subtract(startTimeSmall);
 
-            if (spanBig.TotalDays > 183)
+            if (spanBig.TotalDays > 183 || repairLogDTOBig.RepairDate == default)
             {
                 tram.OccuredRepairLog = repairLogDTOBig;
                 CreateRepairLogScheduled(tram, ServiceType.Big);
             }
-            else if(spanSmall.TotalDays > 91) 
+            else if(spanSmall.TotalDays > 91 || repairLogDTOSmall.RepairDate == default) 
             {
                 tram.OccuredRepairLog = repairLogDTOSmall;
                 CreateRepairLogScheduled(tram, ServiceType.Small);

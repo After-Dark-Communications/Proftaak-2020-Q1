@@ -25,6 +25,7 @@ namespace WebApplication1.Services
             CreateMap<TrackDTO, TrackViewModel>().ReverseMap();
             CreateMap<SectorDTO, SectorViewModel>().ReverseMap();
             CreateMap<TrackDTO, RepairServiceViewModel>().ReverseMap();
+            CreateMap<RepairLogDTO, RepairServiceViewModel>().ReverseMap();
         }
     }
 }

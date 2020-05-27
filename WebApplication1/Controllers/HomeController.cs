@@ -8,6 +8,7 @@ using DTO;
 using AutoMapper;
 using Logic;
 using WebApplication1.Repository;
+using Services;
 
 namespace WebApplication1.Controllers
 {
@@ -109,13 +110,26 @@ namespace WebApplication1.Controllers
         {
 
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            RepairServiceViewModel repairLogDataBig = _mapper.Map<RepairServiceViewModel>(_repairService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Big));
+            RepairServiceViewModel repairLogDataSmall = _mapper.Map<RepairServiceViewModel>(_repairService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Small));
+
+            if (repairLogDataBig == null)
+            {
+                repairLogDataBig = new RepairServiceViewModel();
+                repairLogDataBig.RepairDate = default;
+            }
+            if (repairLogDataSmall == null)
+            {
+                repairLogDataSmall = new RepairServiceViewModel();
+                repairLogDataSmall.RepairDate = default;
+            }
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
             @ViewBag.Track = tracknumber;
             @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
             @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
-            @ViewBag.RepairDateBigService = Daysago(tramData.RepairDateBigService);
-            @ViewBag.RepairDateSmallService = Daysago(tramData.RepairDateSmallService);
+            @ViewBag.RepairDateBigService = Daysago(repairLogDataBig.RepairDate);
+            @ViewBag.RepairDateSmallService = Daysago(repairLogDataSmall.RepairDate);
             @ViewBag.Type = tramData.Type;
 
             return PartialView("InformationTramPopUp", tramData);

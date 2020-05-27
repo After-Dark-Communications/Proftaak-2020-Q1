@@ -12,5 +12,6 @@ namespace WebApplication1.Models
         public bool Occured { get; set; }
         public string RepairMessage { get; set; }
         public UserViewModel User { get; set; }
+        public DateTime RepairDate { get; set; }
     }
 }
