@@ -8,37 +8,29 @@
     <div style="text-align:center;">
         <div style="display:inline-block; width:500px;">
             <table style="width:100%;">
-				<tr class="R-Info-bar">
-					<th>Nr</th>
-					<th>Repair Type</th>
-					<th>Omschrijving</th>
-				</tr>
-                    @foreach (RepairServiceViewModel Repair in Model)
-					{
-			<tr>
-				<td onclick="clickInfoTram(@Repair.TramNumber, @Repair.TrackNumber)" class="R-content R-content-thin">@Repair.TramNumber</td><!--Nr-->
-				<td class="R-content R-content-status">@Repair.RepairType</td><!--Status-->
-				<td class="R-content R-content-wide">@Repair.RepairMessage</td><!--Defect-->
-				<td class="R-Info-Status test"><button class="donebutton" onclick="RepairDone(@Repair.TramNumber);">Uitgevoerd</button></td><!--Status-->
-			</tr>
-					}
-                <tr>
-                    <td onclick="clickInfoTram(2001, 38)" class="R-content R-content-thin">2001</td><!--Nr-->
-                    <td class="R-content R-content-status">AAA</td><!--Status-->
-                    <td class="R-content R-content-wide">AAA</td><!--Defect-->
-                    <td class="R-Info-Status test"><button class="donebutton" onclick="RepairDone(12);">Uitgevoerd</button></td><!--Status-->
+                <tr class="R-Info-bar">
+                    <th>Nr</th>
+                    <th>Repair Type</th>
+                    <th>Omschrijving</th>
                 </tr>
-                @for (int i = 0; i < 30; i++)
+                @foreach (RepairServiceViewModel Service in Model)
                 {
                     <tr>
-                        <!----><td class="R-content R-content-thin"></td><!--Nr-->
-                        <td class="R-content R-content-status"></td><!--Status-->
-                        <td class="R-content R-content-wide"></td><!--Defect-->
+                        <td onclick="clickInfoTram(@Service.TramNumber, @Service.TrackNumber)" class="R-content R-content-thin">@Service.TramNumber</td><!--Nr-->
+                        <td class="R-content R-content-status">@Service.RepairType</td><!--Status-->
+                        <td class="R-content R-content-wide">@Service.RepairMessage</td><!--Defect-->
+                        <td class="R-Info-Status test"><button class="donebutton" onclick="RepairDone(@Service.TramNumber);">Uitgevoerd</button></td><!--Status-->
+                    </tr>
+                }
+                @for (int i = 0; i < (10 - Model.Count()); i++)
+                {
+                    <tr>
+                        <td class="R-content R-content-thin"></td><!--Nr-->
+                        <td class="R-content R-content-thin"></td><!--Spoor-->
+                        <td class="R-content R-content-wide"></td><!--Soort-->
                         <td class="R-Info-Status"></td><!--Status-->
                     </tr>
                 }
-                @*}
-                    }*@
             </table>
         </div>
     </div>
@@ -81,16 +73,16 @@
             });
         }
         function RepairDone(_Tramnumber) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Service/RepairDone",
-                    data: { tramnumber: _Tramnumber },
-                    success: function (response) {
-                        $('#repairconfirmation').html(response);
-                        $('#modalRepairDone').modal('show');
-                    }
-                });
-            }
+            $.ajax({
+                type: "POST",
+                url: "/Service/RepairDone",
+                data: { tramnumber: _Tramnumber },
+                success: function (response) {
+                    $('#repairconfirmation').html(response);
+                    $('#modalRepairDone').modal('show');
+                }
+            });
+        }
 
         function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
