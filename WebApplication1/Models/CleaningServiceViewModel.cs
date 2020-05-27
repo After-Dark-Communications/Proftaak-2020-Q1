@@ -9,7 +9,7 @@ namespace WebApplication1.Models
     public class CleaningServiceViewModel
     {
         public string TramNumber { get; set; }
-        public string TrackNumber { get; set; }
+        public int TrackNumber { get; set; }
         public string SectorNumber { get; set; }
         public ServiceType CleaningType { get; set; }
         public bool Occured { get; set; }

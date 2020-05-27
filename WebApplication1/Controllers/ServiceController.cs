@@ -8,6 +8,7 @@ using Logic;
 using WebApplication1.Models;
 using DTO;
 using WebApplication1.Repository;
+using Services;
 
 namespace WebApplication1.Controllers
 {
@@ -34,7 +35,7 @@ namespace WebApplication1.Controllers
             ViewBag.CurrentPage = "Repairs";
             List<RepairServiceViewModel> rvms = new List<RepairServiceViewModel>();
             var repairLogs = _repairservice.GetRepairHistory().Where(x => x.Occured == false);
-            foreach(RepairLogDTO log in repairLogs)
+            foreach (RepairLogDTO log in repairLogs)
             {
                 RepairServiceViewModel rvm = new RepairServiceViewModel();
                 var track = _tracklogic.GetTrackByTramNumber(log.Tram.TramNumber);
@@ -43,7 +44,7 @@ namespace WebApplication1.Controllers
                 rvm.RepairType = log.ServiceType;
                 rvm.RepairMessage = log.RepairMessage;
                 rvms.Add(rvm);
-            }   
+            }
             return View(rvms);
         }
 
@@ -64,18 +65,28 @@ namespace WebApplication1.Controllers
         public IActionResult UpdateRepairDoneStatus()
         {
             UserDTO user = new UserDTO(_login.GetLoginSession());
-            _repairservice.ServiceRepair(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])),user); //Rick's schuld :-(
+            _repairservice.ServiceRepair(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), user); //Rick's schuld :-(
             return RedirectToAction("Repairs", "Service");
         }
+
+
         public IActionResult Cleaning()
         {
             ViewBag.CurrentPage = "Cleaning";
-            var cleaningLogs = _cleaningservice.GetCleaningLogs();
-            foreach (CleaningLogDTO clean in cleaningLogs)
+
+            List<CleaningServiceViewModel> cvms = new List<CleaningServiceViewModel>();
+            var cleanLogs = _cleaningservice.GetCleaningLogs().Where(x => x.Occured == false);
+            foreach (CleaningLogDTO log in cleanLogs)
             {
-                
+                CleaningServiceViewModel cvm = new CleaningServiceViewModel();
+                var track = _tracklogic.GetTrackByTramNumber(log.Tram.TramNumber);
+                cvm.TrackNumber = track.TrackNumber;
+                cvm.TramNumber = log.Tram.TramNumber;
+                cvm.CleaningType = (ServiceType)log.ServiceType;
+                cvm.Occured = log.Occured;
+                cvms.Add(cvm);
             }
-            return View(cleaningLogs);
+            return View(cvms);
         }
 
         public IActionResult PartialRepairPopUp(string tramnumber, string tracknumber)

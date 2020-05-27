@@ -14,7 +14,7 @@
                     <th>Soort Schoonmaak</th>
                     <col />
                 </tr>
-                @if (Model.Count() > 29)
+                @if (Model.ToList().Count > 29)
                 {
 
                     @foreach (CleaningServiceViewModel Service in Model)
