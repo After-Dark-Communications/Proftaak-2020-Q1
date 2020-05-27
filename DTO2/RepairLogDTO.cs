@@ -66,5 +66,10 @@ namespace DTO
             Occured = occured;
             RepairMessage = repairMessage;
         }
+
+        public RepairLogDTO()
+        {
+
+        }
     }
 }
