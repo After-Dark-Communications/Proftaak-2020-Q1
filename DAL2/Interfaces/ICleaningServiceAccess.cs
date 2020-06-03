@@ -11,6 +11,7 @@ namespace DAL.Interfaces
         void UpdateCleaningService(CleaningServiceDTO cleaningService);
         void StoreCleaningLog(CleaningLogDTO cleanLog);
         void UpdateCleanLog(CleaningLogDTO cleanLog);
+        void UpdateSchedulingCleanLog(CleaningLogDTO cleanLog);
 
         CleaningServiceDTO GetCleaningServiceByLocation(string Location);
 

@@ -33,21 +33,14 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO CleaningService_Tram (CleaningServiceId, CleaningDate, TramId, CleanType, Occured, UserId) " +
-                    "VALUES((select CleaningService.Id FROM CleaningService WHERE CleaningService.Location = @Location)," +
-                    "@Date," +
-                    "(select Tram.Id FROM Tram Where Tram.TramNumber = @TramNumber)," +
-                    "@CleanType," +
-                    "@Occured, " +
-                    "(select [User].Id FROM [User] WHERE [User].Name = @UserName))", conn))
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO CleaningService_Tram (CleaningServiceId, TramId, CleanType) " +
+                                                       "VALUES((select CleaningService.Id FROM CleaningService WHERE CleaningService.Location = @Location), " +
+                                                       "(select Tram.Id FROM Tram Where Tram.TramNumber = @TramNumber), " +
+                                                       "@CleanType," , conn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", cleanLog.CleaningService.Location));
-                    cmd.Parameters.Add(new SqlParameter("@Date", cleanLog.RepairDate));
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", cleanLog.Tram.TramNumber));
                     cmd.Parameters.Add(new SqlParameter("@CleanType", cleanLog.ServiceType));
-                    cmd.Parameters.Add(new SqlParameter("@Occured", cleanLog.Occured));
-                    cmd.Parameters.Add(new SqlParameter("@UserName", cleanLog.User.UserName ?? (object)DBNull.Value));
-                    cmd.Parameters.Add(new SqlParameter("RepairMessage", cleanLog.RepairMessage ?? (object)DBNull.Value));
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
@@ -61,6 +54,23 @@ namespace DAL.Concrete
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand("UPDATE CleaningService_Tram SET Occured = @Occured WHERE CleaningId = @CleaningId", conn))
+                {
+                    cmd.Parameters.AddWithValue("@Occured", cleanLog.Occured);
+                    cmd.Parameters.AddWithValue("@CleaningId", cleanLog.Id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        public void UpdateSchedulingCleanLog(CleaningLogDTO cleanLog)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand("UPDATE CleaningService_Tram SET CleaningDate = @CleaningDate, UserId = @UserId WHERE CleaningId = @CleaningId", conn))
                 {
                     cmd.Parameters.AddWithValue("@Occured", cleanLog.Occured);
                     cmd.Parameters.AddWithValue("@CleaningId", cleanLog.Id);
@@ -106,13 +116,12 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
-                                                       "FROM RepairService_Tram " +
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService_Tram.CleaningId, CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType, [User].Name " +
+                                                       "FROM CleaningService_Tram " +
                                                        "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
-                                                       "Left JOIN [User] ON CleaningService_Tram.UserId = [User].Id " +
+                                                       "LEFT JOIN [User] ON CleaningService_Tram.UserId = [User].Id " +
                                                        "INNER JOIN Tram ON CleaningService_Tram.TramId = Tram.Id ", conn))
                 {
-
                     using (SqlDataReader dataReader = cmd.ExecuteReader())
                     {
                         while (dataReader.Read())
@@ -128,13 +137,9 @@ namespace DAL.Concrete
                             ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
                             if (!dataReader.IsDBNull(6))
                             {
-                                RepairMessage = dataReader.GetString(6);
+                                Name = dataReader.GetString(6);
                             }
-                            if (!dataReader.IsDBNull(7))
-                            {
-                                Name = dataReader.GetString(7);
-                            }
-                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured, RepairMessage);
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured);
                             cleanLogList.Add(cleanLog);
                         }
                     }
@@ -152,9 +157,9 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("Select RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name " +
-                                                       "FROM RepairService_Tram " +
-                                                       "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleaningType, [User].Name " +
+                                                       "FROM CleaningService_Tram " +
+                                                       "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
                                                        "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
                                                        "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id " +
                                                        "WHERE Tram.TramNumber ", conn))
@@ -174,13 +179,9 @@ namespace DAL.Concrete
                             ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
                             if (!dataReader.IsDBNull(6))
                             {
-                                RepairMessage = dataReader.GetString(6);
+                                Name = dataReader.GetString(6);
                             }
-                            if (!dataReader.IsDBNull(7))
-                            {
-                                Name = dataReader.GetString(7);
-                            }
-                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured, RepairMessage);
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured);
                             cleanLogList.Add(cleanLog);
                         }
                     }

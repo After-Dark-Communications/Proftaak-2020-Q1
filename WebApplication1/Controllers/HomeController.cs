@@ -185,7 +185,6 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         private int Daysago(DateTime _day)
         {
             TimeSpan daysdifference = DateTime.Today - _day;
