@@ -31,8 +31,8 @@ namespace Logic
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
-
-                if (IsTramFromRH(tramNumber))
+                TramDTO tram2 = _tramlogic.GetTram(tramNumber);
+                if (IsTramFromRH(tram2))
                 {
                     TramDTO tram = _tramlogic.GetTram(tramNumber);
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
@@ -81,8 +81,10 @@ namespace Logic
                 TramDTO tram = new TramDTO();
                 tram.TramNumber = tramNumber;
                 tram.DepotId = 2;
+                tram.Line = 0;
                 _tramlogic.Create(tram);
-                return tram;
+                return _tramlogic.GetTram(tram.TramNumber);
+                
               
             }
         }
@@ -91,10 +93,10 @@ namespace Logic
             IEnumerable<TramDTO> allTrams = _tramlogic.GetAllTrams();
             return allTrams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic)).Count();
         }
-        public bool IsTramFromRH(string tramNumber)
+        public bool IsTramFromRH(TramDTO tram)
         {
             IEnumerable<TramDTO> allTrams = _tramlogic.GetAllTrams();
-            if (allTrams.Where(t => t.TramNumber == tramNumber).Where(t => t.DepotId == 1).Any())
+            if (allTrams.Any(t => t.TramNumber == tram.TramNumber && t.DepotId == 1))
             {
                 return true;
             }

@@ -28,7 +28,7 @@ namespace DAL.Concrete
 
         public void Create(TramDTO obj)
         {
-            string query = "INSERT INTO Tram (Type, TramNumber) VALUES (@type, @tramNumber)";
+            string query = "INSERT INTO Tram (Type, TramNumber, DepotId2, Line) VALUES (@type, @tramNumber, @DepotId, @Line)";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -36,6 +36,8 @@ namespace DAL.Concrete
                     con.Open();
                     command.Parameters.AddWithValue("@type", (int)obj.Type);
                     command.Parameters.AddWithValue("@tramNumber", obj.TramNumber);
+                    command.Parameters.AddWithValue("@DepotId", obj.DepotId);
+                    command.Parameters.AddWithValue("@Line", obj.Line);
                     command.ExecuteNonQuery();
                     con.Close();
                 }
