@@ -5,6 +5,7 @@ using DTO;
 using DAL.Interfaces;
 using System.Linq;
 using Services;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Logic
 {
@@ -31,10 +32,9 @@ namespace Logic
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
 
-                TramDTO tram = _tramlogic.GetTram(tramNumber);
-
-                if (tram.DepotId == 1)
+                if (IsTramFromRH(tramNumber))
                 {
+                    TramDTO tram = _tramlogic.GetTram(tramNumber);
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
                     if (repairStatus)
                     {
@@ -48,7 +48,19 @@ namespace Logic
                 }
                 else
                 {
-                    //return the tram
+
+                    TramDTO tram = ReturnRLTram(tramNumber);
+                    if (AmountOfTramsFromRL(depot) < 3 && repairStatus)
+                    {
+                        changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
+                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
+                        AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                    }
+                    else
+                    {
+                        // return tram
+                    }
+
                 }
             }
             else
@@ -57,7 +69,37 @@ namespace Logic
             }
         }
 
-
+        public TramDTO ReturnRLTram(string tramNumber)
+        {
+            IEnumerable<TramDTO> allTrams = _tramlogic.GetAllTrams();
+            if (allTrams.Where(t => t.TramNumber == tramNumber).Where(t => t.DepotId == 2).Any())
+            {
+                return allTrams.Where(t => t.TramNumber == tramNumber).Where(t => t.DepotId == 2).SingleOrDefault();
+            }
+            else
+            {
+                TramDTO tram = new TramDTO();
+                tram.TramNumber = tramNumber;
+                tram.DepotId = 2;
+                _tramlogic.Create(tram);
+                return tram;
+              
+            }
+        }
+        public int AmountOfTramsFromRL(DepotDTO depot)
+        {
+            IEnumerable<TramDTO> allTrams = _tramlogic.GetAllTrams();
+            return allTrams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic)).Count();
+        }
+        public bool IsTramFromRH(string tramNumber)
+        {
+            IEnumerable<TramDTO> allTrams = _tramlogic.GetAllTrams();
+            if (allTrams.Where(t => t.TramNumber == tramNumber).Where(t => t.DepotId == 1).Any())
+            {
+                return true;
+            }
+            return false;
+        }
 
         public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector _sectorLogic, Tram _tramLogic)
         {
@@ -68,15 +110,7 @@ namespace Logic
             return false;
         }
 
-        public int AmountOfRLTramsInDepot(DepotDTO depot, List<TramDTO> trams)
-        {
-            if (trams.Any(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic)))
-            {
-                IEnumerable<TramDTO> RLTrams = trams.Where(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic));
-                return RLTrams.Count();
-            }
-            return 0;
-        }
+    
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {

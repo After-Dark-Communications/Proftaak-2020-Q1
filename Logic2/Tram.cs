@@ -84,6 +84,12 @@ namespace Logic
             return _tramAccess.Read(keys[rnd.Next(1, keys.Count)]);
         }
 
+        public IEnumerable<TramDTO> GetAllTrams()
+        {
+            IEnumerable<TramDTO> allTrams = _tramAccess.GetAllTrams();
+            return allTrams;
+        }
+
         public bool IsTramAllreadyInDepot(string tramNumber)
         {
             return _tramAccess.GetSectorIdFromTram(_tramAccess.GetKeyFromTramNumber(tramNumber)) > 0;
