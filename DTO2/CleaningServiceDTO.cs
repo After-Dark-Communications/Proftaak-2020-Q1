@@ -16,5 +16,15 @@ namespace DTO
         public int ServiceType { get; set; }
         public List<TrackDTO> AllocatedTracks { get; set; }
         public List<TramDTO> AssignedTrams { get; set; }
+
+        public CleaningServiceDTO()
+        {
+            
+        }
+
+        public CleaningServiceDTO(string location)
+        {
+            Location = location;
+        }
     }
 }

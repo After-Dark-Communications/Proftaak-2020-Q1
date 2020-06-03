@@ -66,7 +66,7 @@ namespace WebApplication1.Controllers
         }
         public IActionResult UpdateCleaningDoneStatus()
         {
-            _cleaningservice.RemoveCleaningStatus((_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"]))));
+            _cleaningservice.CleanTram((_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"]))));
             return RedirectToAction("Cleaning", "Service");
         }
         public IActionResult UpdateRepairDoneStatus()
