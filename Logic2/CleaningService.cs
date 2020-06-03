@@ -83,5 +83,16 @@ namespace Logic
         {
             _tramAccess.DeleteStatus(TramStatus.Cleaning, tram);
         }
+        public void SetManualDate(DateTime date, TramDTO tram)
+        {          
+            if(CanCleanTram(_cleaningServiceDTO))
+            {
+                tram.CleaningDateBigService = date;
+            }
+            else
+            {
+                ResetCleaning();
+            }
+        }
     }
 }

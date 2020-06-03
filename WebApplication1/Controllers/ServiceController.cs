@@ -53,6 +53,12 @@ namespace WebApplication1.Controllers
             ViewBag.Tramnumber = tramnumber;
             return PartialView("PartialCleaningDone");
         }
+        public IActionResult GetManualCleanDate(DateTime manualDate, string tramnumber)
+        {
+            TramViewModel tram = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
+            _cleaningservice.SetManualDate(manualDate, _tramLogic.GetTram(tramnumber)) ;
+            return RedirectToAction("Cleaning", "Service");           
+        }
         public IActionResult RepairDone(int tramnumber)
         {
             ViewBag.Tramnumber = tramnumber;
