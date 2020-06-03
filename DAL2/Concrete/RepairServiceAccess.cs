@@ -91,7 +91,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.RepairDate, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name, RepairService_Tram.Waitinglist " +
+                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.Date, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, [User].Name, RepairService_Tram.Waitinglist " +
                                                        "FROM RepairService_Tram " +
                                                        "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
                                                        "LEFT JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
@@ -140,7 +140,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, RepairService_Tram.RepairDate " +
+                using (SqlCommand cmd = new SqlCommand("Select RepairService_Tram.RepairId, RepairService.Location, Tram.TramNumber, RepairService_Tram.Occured, RepairService_Tram.ServiceType , RepairService_Tram.RepairMessage, RepairService_Tram.Date " +
                                                        "FROM RepairService_Tram " +
                                                        "INNER JOIN RepairService ON RepairService_Tram.RepairServiceId = RepairService.Id " +
                                                        "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id " +
