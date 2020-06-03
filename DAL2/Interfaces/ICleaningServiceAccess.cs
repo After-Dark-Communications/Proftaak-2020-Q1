@@ -8,10 +8,14 @@ namespace DAL.Interfaces
 {
     public interface ICleaningServiceAccess : IGenAccess<CleaningServiceDTO>
     {
-       public void StoreCleaningLog(CleaningLogDTO cleanLog);
-        public void UpdateCleanLog(CleaningLogDTO cleanLog);
-        public IEnumerable<CleaningLogDTO> GetCleaningLogs();
-        public IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber);
+        void UpdateCleaningService(CleaningServiceDTO cleaningService);
+        void StoreCleaningLog(CleaningLogDTO cleanLog);
+        void UpdateCleanLog(CleaningLogDTO cleanLog);
 
+        CleaningServiceDTO GetCleaningServiceByLocation(string Location);
+
+        IEnumerable<CleaningLogDTO> GetCleaningLogs();
+        IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber);
+        
     }
 }
