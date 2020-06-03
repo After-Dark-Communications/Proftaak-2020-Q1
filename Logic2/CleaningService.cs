@@ -14,35 +14,35 @@ namespace Logic
     public class CleaningService
     {
         private readonly IServiceAccess _serviceaccess;
-        private readonly CleaningServiceDTO _cleaningServiceDto;
+        private readonly CleaningServiceDTO _cleaningServiceDTO;
         private readonly ICleaningServiceAccess _cleaningAccess;
         private readonly ITramAccess _tramAccess;
 
         public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess, ITramAccess tramAccess)
         {
             _serviceaccess = serviceaccess;
-            _cleaningServiceDto = GetService();
+            _cleaningServiceDTO = GetService();
             _cleaningAccess = cleaningAccess;
             _tramAccess = tramAccess;
         }
         public void SetSmallCleanTram(TramDTO tram)
         {
-            if (CanCleanTram(_cleaningServiceDto))
+            if (CanCleanTram(_cleaningServiceDTO))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
                 tram.RepairDateSmallService = RepairDate;
-                _cleaningServiceDto.MaxSmallServicePerDay--;
+                _cleaningServiceDTO.MaxSmallServicePerDay--;
             }
         }
         public void SetLargeRepairTram(TramDTO tram)
         {
-            if (CanCleanTram(_cleaningServiceDto))
+            if (CanCleanTram(_cleaningServiceDTO))
             {
                 DateTime RepairDate = DateTime.Now;
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
                 tram.RepairDateBigService = RepairDate;
-                _cleaningServiceDto.MaxBigServicePerDay--;
+                _cleaningServiceDTO.MaxBigServicePerDay--;
             }
         }
         private bool CanCleanTram(CleaningServiceDTO Service)
@@ -59,8 +59,8 @@ namespace Logic
         }
         private void ResetCleaning()
         {
-            _cleaningServiceDto.MaxBigServicePerDay = 2;
-            _cleaningServiceDto.MaxSmallServicePerDay = 3;
+            _cleaningServiceDTO.MaxBigServicePerDay = 2;
+            _cleaningServiceDTO.MaxSmallServicePerDay = 3;
         }
         private void DetermineIfCleanNeedToBeReset()
         {
@@ -79,7 +79,7 @@ namespace Logic
 
         public void CleanTram(TramDTO tram)
         {
-            if (CanCleanTram(_cleaningServiceDto))
+            if (CanCleanTram(_cleaningServiceDTO))
             {
                 tram.Status.RemoveAll(cleaning => cleaning.Status == Services.TramStatus.Cleaning);
                 _tramAccess.DeleteStatus(TramStatus.Cleaning, tram);
@@ -162,7 +162,7 @@ namespace Logic
         }
         public void SetManualDate(DateTime date, TramDTO tram)
         {          
-            if(CanCleanTram(_cleaningServiceDTO))
+            if(CanCleanTram(_cleaningServiceDTO.))
             {
                 tram.CleaningDateBigService = date;
             }
