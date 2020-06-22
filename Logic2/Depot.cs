@@ -10,27 +10,27 @@ namespace Logic
 {
     public class Depot
     {
-        Track _tracklogic;
-        Tram _tramlogic;
-        Sector _sectorLogic;
-        RepairService _repairServicelogic;
-
+        private readonly Track _tracklogic;
+        private readonly Tram _tramlogic;
+        private readonly Sector _sectorLogic;
+        private readonly RepairService _repairServicelogic;
+        private readonly CleaningService _cleaningServiceLogic;
         private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess)
+        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
             this._depotaccess = depotAccess;
             this._sectorLogic = sectorLogic;
             this._repairServicelogic = repairServiceLogic;
+            this._cleaningServiceLogic = cleaningService;
         }
 
         public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
-
                 TramDTO tram = _tramlogic.GetTram(tramNumber);
 
                 if (tram.DepotId == 1)
@@ -43,6 +43,11 @@ namespace Logic
                     else
                     {
                         _repairServicelogic.DetermineRepairType(tram);
+                    }
+
+                    if (cleanStatus)
+                    {
+                        _cleaningServiceLogic.HasToBeCleaned(tram, ServiceType.Big);
                     }
                     AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
                 }
@@ -59,7 +64,7 @@ namespace Logic
 
 
 
-        public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector _sectorLogic, Tram _tramLogic)
+        public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector sectorLogic, Tram tramLogic)
         {
             if (_tramlogic.IsTramAllreadyInDepot(tramNumber))
             {
@@ -68,7 +73,7 @@ namespace Logic
             return false;
         }
 
-        public int AmountOfRLTramsInDepot(DepotDTO depot, List<TramDTO> trams)
+        public int AmountOfRlTramsInDepot(DepotDTO depot, List<TramDTO> trams)
         {
             if (trams.Any(t => t.DepotId == 2 && IsTramAllreadyInDepot(t.TramNumber, depot, _sectorLogic, _tramlogic)))
             {
@@ -80,9 +85,7 @@ namespace Logic
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {
-
-            StatusDTO statusInDepot = new StatusDTO();
-            statusInDepot.Status = TramStatus.Depot;
+            StatusDTO statusInDepot = new StatusDTO {Status = TramStatus.Depot};
             _tramlogic.AddStatus(statusInDepot, tram);
 
             if (repairstatus)
@@ -93,7 +96,6 @@ namespace Logic
             }
             if (cleanstatus)
             {
-
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Cleaning;
                 _tramlogic.AddStatus(status, tram);

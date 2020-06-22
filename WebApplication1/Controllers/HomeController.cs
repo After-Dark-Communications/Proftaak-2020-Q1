@@ -20,9 +20,10 @@ namespace WebApplication1.Controllers
         private readonly Sector _sectorLogic;
         private readonly LoginRepository _repository;
         private readonly RepairService _repairService;
+        private readonly CleaningService _cleaningService;
 
 
-        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService)
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService, CleaningService cleaningService)
         {
             _mapper = mapper;
             _depotLogic = depot;
@@ -30,6 +31,7 @@ namespace WebApplication1.Controllers
             _sectorLogic = sector;
             _repository = repository;
             _repairService = repairService;
+            _cleaningService = cleaningService;
         }
 
         public IActionResult Index()
@@ -72,6 +74,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult CleanSignUpSend(string tramnumber)
         {
+            _cleaningService.HasToBeCleaned(_tramLogic.GetTram(tramnumber), ServiceType.Big); // not done yet
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -184,7 +187,6 @@ namespace WebApplication1.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
 
         private int Daysago(DateTime _day)
         {
