@@ -167,6 +167,11 @@ namespace Logic
             WaitingList.WaitingList = true;
             _repairServiceAccess.UpdateWaitingList(WaitingList);
         }
+
+        public void DeleteNotOccured()
+        {
+            _repairServiceAccess.DeleteNotOccured();
+        }
     }
 }
 

@@ -207,9 +207,17 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
-        public void Delete(int key)
+        public void DeleteNotOccured()
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM CleaningService_Tram Where Occured= 0"))
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -199,5 +199,18 @@ namespace DAL.Concrete
             }
             return repairService;
         }
+
+        public void DeleteNotOccured()
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM RepairService_Tram Where Occured= 0"))
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
     }
 }

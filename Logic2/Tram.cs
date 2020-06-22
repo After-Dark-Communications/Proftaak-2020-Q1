@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Logic
 {
-    public class Tram {
+    public class Tram 
+    {
 
         private readonly ITramAccess _tramAccess;
+        private readonly IStatusAccess _statusAccess;
         public Tram(ITramAccess tramAccess)
         {
             _tramAccess = tramAccess;
@@ -47,21 +49,7 @@ namespace Logic
         {
             return _tramAccess.GetKeyFromTramNumber(number); 
         }
-        public void Delete(int key)
-        {
-            _tramAccess.Delete(key);
-        }
-
-        public void Delete(TramDTO tram)
-        {
-            _tramAccess.Delete(tram.Id);
-        }
-
-        public void Delete(string tramNumber)
-        {
-            var tram = _tramAccess.ReadFromTramNumber(tramNumber);
-            _tramAccess.Delete(tram.Id);
-        }
+        
         public TramDTO GetTram(int key)
         {
             return _tramAccess.Read(key);
@@ -87,6 +75,11 @@ namespace Logic
         public bool IsTramAllreadyInDepot(string tramNumber)
         {
             return _tramAccess.GetSectorIdFromTram(_tramAccess.GetKeyFromTramNumber(tramNumber)) > 0;
+        }
+
+        public void DeleteStatus(TramDTO tram, TramStatus status)
+        {
+            _tramAccess.DeleteStatus(status, tram);
         }
     }
 }
