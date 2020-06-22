@@ -160,11 +160,14 @@ namespace Logic
             CleaningLogDTO log = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, service, false);
             _cleaningAccess.StoreCleaningLog(log);
         }
-        public void SetManualDate(DateTime date, TramDTO tram)
+        public void SetManualDate(DateTime date, TramDTO tram, UserDTO user)
         {          
-            if(CanCleanTram(_cleaningServiceDTO.))
+            if(CanCleanTram(_cleaningServiceDTO))
             {
+                DateTime setDate = DateTime.Now;
                 tram.CleaningDateBigService = date;
+                CleaningLogDTO log = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, user, setDate, ServiceType.Big, false);
+                _cleaningAccess.StoreCleaningLog(log);
             }
             else
             {

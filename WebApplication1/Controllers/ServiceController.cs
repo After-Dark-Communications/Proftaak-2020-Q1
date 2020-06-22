@@ -20,7 +20,8 @@ namespace WebApplication1.Controllers
         private readonly Track _tracklogic;
         private readonly Tram _tramLogic;
         private readonly LoginRepository _login;
-        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login)
+        private readonly User _userLogic;
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login, User userlogic)
         {
             _mapper = mapper;
             _repairservice = repairservice;
@@ -28,6 +29,7 @@ namespace WebApplication1.Controllers
             _tramLogic = tram;
             _tracklogic = tracklogic;
             _login = login;
+            _userLogic = userlogic;
         }
 
         public IActionResult Repairs()
@@ -53,10 +55,12 @@ namespace WebApplication1.Controllers
             ViewBag.Tramnumber = tramnumber;
             return PartialView("PartialCleaningDone");
         }
-        public IActionResult GetManualCleanDate(DateTime manualDate, string tramnumber)
+        public IActionResult GetManualCleanDate(DateTime manualDate, string tramnumber, UserViewModel user)
         {
-            TramViewModel tram = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
-            _cleaningservice.SetManualDate(manualDate, _tramLogic.GetTram(tramnumber)) ;
+
+            TramDTO tram = _tramLogic.GetTram(tramnumber);
+            UserDTO userDTO = _mapper.Map<UserDTO>(_userLogic.GetUserByUsername(_login.GetLoginSession()));
+            _cleaningservice.SetManualDate(manualDate, tram, userDTO);
             return RedirectToAction("Cleaning", "Service");           
         }
         public IActionResult RepairDone(int tramnumber)
