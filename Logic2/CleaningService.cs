@@ -115,7 +115,7 @@ namespace Logic
 
         }
 
-        public void DetermineCleaningType(TramDTO tram)
+        public void DetermineCleaningType(TramDTO tram, ServiceType serviceType)
         {
             CleaningLogDTO CleaningLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
             CleaningLogDTO  cleaningLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
@@ -161,10 +161,12 @@ namespace Logic
             _cleaningAccess.StoreCleaningLog(log);
         }
 
-        public void HasToBeCleaned(TramDTO tram)
+        public void HasToBeCleaned(TramDTO tram, ServiceType serviceType)
         {
-            CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, ServiceType.Big);
+            CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, serviceType);
             _cleaningAccess.StoreCleaningLog(cleaningLog);
         }
+
+
     }
 }
