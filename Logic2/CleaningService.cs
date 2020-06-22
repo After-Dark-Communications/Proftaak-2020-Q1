@@ -21,9 +21,9 @@ namespace Logic
         public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess, ITramAccess tramAccess)
         {
             _serviceaccess = serviceaccess;
-            _cleaningServiceDto = GetService();
             _cleaningAccess = cleaningAccess;
             _tramAccess = tramAccess;
+            _cleaningServiceDto = GetService();
         }
         public void SetSmallCleanTram(TramDTO tram)
         {
@@ -55,7 +55,7 @@ namespace Logic
         }
         private CleaningServiceDTO GetService()
         {
-            return _serviceaccess.ReadCleaning();
+            return _cleaningAccess.GetCleaningServiceByLocation("RMS");
         }
         private void ResetCleaning()
         {
@@ -159,6 +159,12 @@ namespace Logic
         {
             CleaningLogDTO log = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, service, false);
             _cleaningAccess.StoreCleaningLog(log);
+        }
+
+        public void HasToBeCleaned(TramDTO tram)
+        {
+            CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, ServiceType.Big);
+            _cleaningAccess.StoreCleaningLog(cleaningLog);
         }
     }
 }

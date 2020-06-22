@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
         private readonly Sector _sectorLogic;
         private readonly LoginRepository _repository;
         private readonly RepairService _repairService;
+        private readonly CleaningService _cleaningService;
 
 
         public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService)
@@ -72,6 +73,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult CleanSignUpSend(string tramnumber)
         {
+            _cleaningService.HasToBeCleaned(new TramDTO(tramnumber));
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)

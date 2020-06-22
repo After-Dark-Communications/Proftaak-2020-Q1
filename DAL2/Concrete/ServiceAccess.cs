@@ -36,33 +36,34 @@ namespace DAL.Concrete
                 return RepairService;
             }
         }
-        public CleaningServiceDTO ReadCleaning()
-        {
-            CleaningServiceDTO CleaningService = new CleaningServiceDTO();
-            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
-            {
-                using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.CleaningService_Tram.CleaningDate, dbo.CleaningService.BigCleansPerDay, dbo.CleaningService.SmallCleansPerDay, dbo.CleaningService_Tram.CleanType, dbo.CleaningService_Tram.CleaningServiceId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId", conn))
-                {
-                    conn.Open();
-                    using(SqlDataReader datareader = cmd.ExecuteReader())
-                    {
-                        while (datareader.Read())
-                        {
+        //public CleaningServiceDTO ReadCleaning()
+        //{
+        //    CleaningServiceDTO CleaningService = new CleaningServiceDTO();
+        //    using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+        //    {
+        //        using(SqlCommand cmd  = new SqlCommand($"SELECT dbo.CleaningService.Id, dbo.CleaningService_Tram.UserId, dbo.CleaningService_Tram.Occured, dbo.CleaningService_Tram.CleaningDate, dbo.CleaningService.BigCleansPerDay, dbo.CleaningService.SmallCleansPerDay, dbo.CleaningService_Tram.CleanType, dbo.CleaningService_Tram.CleaningServiceId FROM dbo.CleaningService INNER JOIN dbo.CleaningService_Tram ON dbo.CleaningService.Id = dbo.CleaningService_Tram.CleaningServiceId", conn))
+        //        {
+        //            conn.Open();
+        //            using(SqlDataReader datareader = cmd.ExecuteReader())
+        //            {
+        //                while (datareader.Read())
+        //                {
 
-                            CleaningService.Id = datareader.GetInt32(0);
-                            CleaningService.UserId = datareader.GetInt32(1);
-                            CleaningService.Occured = datareader.GetBoolean(2);
-                            CleaningService.CleanDate = DateTime.Parse(datareader.GetString(3));
-                            CleaningService.MaxBigServicePerDay = datareader.GetInt32(4);
-                            CleaningService.MaxSmallServicePerDay = datareader.GetInt32(5);
-                            CleaningService.ServiceType = datareader.GetInt32(6);
-                        }
-                    }
-                    conn.Close();
-                }
-            }
-            return CleaningService;
-        }
+        //                    CleaningService.Id = datareader.GetInt32(0);
+        //                    if()
+        //                    CleaningService.UserId = datareader.GetInt32(1);
+        //                    CleaningService.Occured = datareader.GetBoolean(2);
+        //                    CleaningService.CleanDate = DateTime.Parse(datareader.GetString(3));
+        //                    CleaningService.MaxBigServicePerDay = datareader.GetInt32(4);
+        //                    CleaningService.MaxSmallServicePerDay = datareader.GetInt32(5);
+        //                    CleaningService.ServiceType = datareader.GetInt32(6);
+        //                }
+        //            }
+        //            conn.Close();
+        //        }
+        //    }
+        //    return CleaningService;
+        //}
         public void UpdateRepair()
         {
             using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))

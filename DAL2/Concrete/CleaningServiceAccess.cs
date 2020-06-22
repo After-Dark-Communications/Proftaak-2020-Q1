@@ -33,14 +33,15 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO CleaningService_Tram (CleaningServiceId, TramId, CleanType) " +
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO CleaningService_Tram (CleaningServiceId, TramId, CleanType, Occured) " +
                                                        "VALUES((select CleaningService.Id FROM CleaningService WHERE CleaningService.Location = @Location), " +
                                                        "(select Tram.Id FROM Tram Where Tram.TramNumber = @TramNumber), " +
-                                                       "@CleanType," , conn))
+                                                       "@CleanType, @Occured)" , conn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", cleanLog.CleaningService.Location));
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", cleanLog.Tram.TramNumber));
                     cmd.Parameters.Add(new SqlParameter("@CleanType", cleanLog.ServiceType));
+                    cmd.Parameters.Add(new SqlParameter("@Occured", cleanLog.Occured));
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
