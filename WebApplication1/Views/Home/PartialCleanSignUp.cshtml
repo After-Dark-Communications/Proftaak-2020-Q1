@@ -11,6 +11,8 @@
             </select>
             <label>Schoonmaak Reden (optioneel): </label>
             <textarea class="remove-cleanupinfo" classrows="4" cols="40" name="cleanupreason"></textarea>
+            <label>Wanneer moet het gebeuren:</label>
+            <input type="date" asp-format="{0:dd/MM/yyyy}"/>
         </div>
         <div class="remove-center">
             <input type="hidden" name="tramnumber" value="@ViewBag.Tramnumber" readonly />

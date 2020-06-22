@@ -14,5 +14,6 @@ namespace WebApplication1.Models
         public ServiceType CleaningType { get; set; }
         public bool Occured { get; set; }
         public UserViewModel User { get; set; }
+        public DateTime CleaningDate { get; set; }
     }
 }
