@@ -1,7 +1,8 @@
 ﻿@{
     ViewData["Title"] = "MechanicPage";
 }
-<link href="~/css/Service.css" rel="stylesheet" />
+<link href="~/css/Service.css" rel="stylesheet">
+<link href="~/css/Repairs.css" rel="stylesheet">
 @model IEnumerable<RepairServiceViewModel>
 
 <div>
@@ -83,6 +84,7 @@
                 }
             });
         }
+
 
         function SizeStatusCSS() {
             var countdiv = document.querySelectorAll('#getcount div').length;
