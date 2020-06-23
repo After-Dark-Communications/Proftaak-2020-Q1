@@ -110,7 +110,6 @@ namespace DAL.Concrete
         public IEnumerable<CleaningLogDTO> GetCleaningLogs()
         {
             List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
-            string RepairMessage = "";
             string Name = "";
             DateTime date = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
