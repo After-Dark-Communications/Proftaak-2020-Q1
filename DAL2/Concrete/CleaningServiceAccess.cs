@@ -205,14 +205,15 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
-        public void DeleteNotOccured()
+        public void DeleteNotOccured(bool Occured)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM CleaningService_Tram Where Occured= 0"))
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM CleaningService_Tram Where Occured= @Occured", conn))
                 {
                     cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@Occured", Occured);
                     conn.Close();
                 }
             }

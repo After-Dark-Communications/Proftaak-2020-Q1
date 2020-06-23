@@ -172,7 +172,7 @@ namespace Logic
 
         public void DeleteNotOccured()
         {
-            _repairServiceAccess.DeleteNotOccured();
+            _repairServiceAccess.DeleteNotOccured(false);
         }
 
         public void MoveTram()
