@@ -357,11 +357,11 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM Status_Tram INNER JOIN Tram On Status_Tram.TramId = Tram.Id Where Status_Tram.StatusId = @Status AND Tram.TramNumber = @TramNumber "))
+                using (SqlCommand cmd = new SqlCommand("DELETE s FROM Status_Tram s INNER JOIN Tram t On s.TramId = t.Id Where s.StatusId = @Status AND T.TramNumber = @TramNumber ", conn))
                 {
-                    cmd.ExecuteNonQuery();
                     cmd.Parameters.AddWithValue("@Status", (int)status);
                     cmd.Parameters.AddWithValue("@TramNumber", tram.TramNumber);
+                    cmd.ExecuteNonQuery();
                     conn.Close();
                 }
             }

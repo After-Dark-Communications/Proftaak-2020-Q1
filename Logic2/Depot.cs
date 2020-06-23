@@ -62,8 +62,6 @@ namespace Logic
             }
         }
 
-
-
         public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector sectorLogic, Tram tramLogic)
         {
             if (_tramlogic.IsTramAllreadyInDepot(tramNumber))
@@ -102,16 +100,16 @@ namespace Logic
             }
         }
 
-       
-
         public void Update(DepotDTO depot)
         {
             _depotaccess.Update(depot);
         }
+
         public DepotDTO Read(int key)
         {
             return _depotaccess.Read(key);
         }
+
         public void TransferTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
         {
             TramDTO tram = _tramlogic.GetTram(tramNumber);
@@ -127,7 +125,5 @@ namespace Logic
             }
             AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
-
-        
     }
 }
