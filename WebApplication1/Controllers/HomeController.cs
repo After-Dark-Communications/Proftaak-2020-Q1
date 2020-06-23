@@ -72,9 +72,9 @@ namespace WebApplication1.Controllers
             return PartialView("PartialCleanSignUp");
         }
 
-        public IActionResult CleanSignUpSend(string tramnumber)
+        public IActionResult CleanSignUpSend(CleaningServiceViewModel cleaningService)
         {
-            _cleaningService.HasToBeCleaned(_tramLogic.GetTram(tramnumber), ServiceType.Big); // not done yet
+            _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), ServiceType.Big); // not done yet
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
