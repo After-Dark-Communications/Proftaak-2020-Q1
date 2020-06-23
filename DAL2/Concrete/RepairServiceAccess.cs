@@ -14,15 +14,17 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService SET SmallRepairsPerDay = @SmallRepairs, BigRepairsPerDay = @BigRepairs", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService SET SmallRepairsPerDay = @SmallRepairs, BigRepairsPerDay = @BigRepairs WHERE RepairService.Location = @Location", conn))
                 {
                     cmd.Parameters.AddWithValue("@SmallRepairs", repairService.MaxSmallServicePerDay);
                     cmd.Parameters.AddWithValue("@BigRepairs", repairService.MaxBigServicePerDay);
+                    cmd.Parameters.AddWithValue("@Location", repairService.Location);
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
             }
         }
+
         public void StoreRepairLog(RepairLogDTO repairLog)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
@@ -53,9 +55,9 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET RepairDate = @RepairDate, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET Date = @Date, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
                 {
-                    cmd.Parameters.AddWithValue("@RepairDate", repairLog.RepairDate);
+                    cmd.Parameters.AddWithValue("@Date", repairLog.RepairDate);
                     cmd.Parameters.AddWithValue("@Occured", repairLog.Occured);
                     cmd.Parameters.AddWithValue("@UserId", repairLog.User.Id);
                     cmd.Parameters.AddWithValue("@RepairId", repairLog.Id);
@@ -64,6 +66,7 @@ namespace DAL.Concrete
                 conn.Close();
             }
         }
+
         public void UpdateWaitingList(RepairLogDTO repairLog)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
@@ -78,8 +81,6 @@ namespace DAL.Concrete
                 conn.Close();
             }
         }
-        
-
 
         public IEnumerable<RepairLogDTO> GetRepairLogs()
         {
@@ -104,9 +105,9 @@ namespace DAL.Concrete
                             int id = dataReader.GetInt32(0);
                             string location = dataReader.GetString(1);
                             string tramnumber = dataReader.GetString(2);
-                            if(!dataReader.IsDBNull(3))
+                            if (!dataReader.IsDBNull(3))
                             {
-                                 date = dataReader.GetDateTime(3);
+                                date = dataReader.GetDateTime(3);
                             }
                             Boolean Occured = dataReader.GetBoolean(4);
                             ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
@@ -118,9 +119,9 @@ namespace DAL.Concrete
                             {
                                 Name = dataReader.GetString(7);
                             }
-                             bool WaitingList = dataReader.GetBoolean(8);
+                            bool WaitingList = dataReader.GetBoolean(8);
 
-                            RepairLogDTO repairLog = new RepairLogDTO( id, new RepairServiceDTO(location), new TramDTO(tramnumber), date, new UserDTO(Name), ServiceType, Occured, RepairMessage, WaitingList);
+                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(tramnumber), date, new UserDTO(Name), ServiceType, Occured, RepairMessage, WaitingList);
                             repairLogList.Add(repairLog);
                         }
                     }
@@ -134,7 +135,6 @@ namespace DAL.Concrete
         {
             List<RepairLogDTO> repairLogList = new List<RepairLogDTO>();
             string RepairMessage = "";
-            string Name = "";
             DateTime RepairDate = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
@@ -160,11 +160,11 @@ namespace DAL.Concrete
                             {
                                 RepairMessage = dataReader.GetString(5);
                             }
-                            if(!dataReader.IsDBNull(6))
+                            if (!dataReader.IsDBNull(6))
                             {
                                 RepairDate = dataReader.GetDateTime(6);
                             }
-                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(dbtramnumber),RepairDate, ServiceType, Occured, RepairMessage);
+                            RepairLogDTO repairLog = new RepairLogDTO(id, new RepairServiceDTO(location), new TramDTO(dbtramnumber), RepairDate, ServiceType, Occured, RepairMessage);
                             repairLogList.Add(repairLog);
                         }
                     }
@@ -173,18 +173,19 @@ namespace DAL.Concrete
             }
             return repairLogList;
         }
+
         public RepairServiceDTO GetRepairServiceByLocation(string Location)
         {
             RepairServiceDTO repairService = new RepairServiceDTO();
-            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using(SqlCommand cmd = new SqlCommand("SELECT * FROM RepairService WHERE Location = @Location",conn))
+                using (SqlCommand cmd = new SqlCommand("SELECT * FROM RepairService WHERE Location = @Location", conn))
                 {
                     cmd.Parameters.AddWithValue("@Location", Location);
-                    using(SqlDataReader dataReader = cmd.ExecuteReader())
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())
                     {
-                        while(dataReader.Read())
+                        while (dataReader.Read())
                         {
                             repairService.Id = dataReader.GetInt32(0);
                             repairService.MaxSmallServicePerDay = dataReader.GetInt32(1);
@@ -196,6 +197,19 @@ namespace DAL.Concrete
                 conn.Close();
             }
             return repairService;
+        }
+
+        public void DeleteNotOccured()
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM RepairService_Tram Where Occured= 0"))
+                {
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
         }
     }
 }

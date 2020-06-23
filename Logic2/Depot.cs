@@ -11,20 +11,21 @@ namespace Logic
 {
     public class Depot
     {
-        Track _tracklogic;
-        Tram _tramlogic;
-        Sector _sectorLogic;
-        RepairService _repairServicelogic;
-
+        private readonly Track _tracklogic;
+        private readonly Tram _tramlogic;
+        private readonly Sector _sectorLogic;
+        private readonly RepairService _repairServicelogic;
+        private readonly CleaningService _cleaningServiceLogic;
         private readonly IDepotAccess _depotaccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess)
+        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
             this._depotaccess = depotAccess;
             this._sectorLogic = sectorLogic;
             this._repairServicelogic = repairServiceLogic;
+            this._cleaningServiceLogic = cleaningService;
         }
 
         public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
@@ -44,7 +45,12 @@ namespace Logic
                     {
                         _repairServicelogic.DetermineRepairType(tram);
                     }
-                    AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+
+                    if (cleanStatus)
+                    {
+                        _cleaningServiceLogic.HasToBeCleaned(tram, ServiceType.Big);
+                    }
+                    AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
                 }
                 else
                 {
@@ -116,9 +122,7 @@ namespace Logic
 
         private void changeTramStatus(TramDTO tram, bool repairstatus, bool cleanstatus, Tram _tramlogic)
         {
-
-            StatusDTO statusInDepot = new StatusDTO();
-            statusInDepot.Status = TramStatus.Depot;
+            StatusDTO statusInDepot = new StatusDTO {Status = TramStatus.Depot};
             _tramlogic.AddStatus(statusInDepot, tram);
 
             if (repairstatus)
@@ -129,17 +133,13 @@ namespace Logic
             }
             if (cleanstatus)
             {
-
                 StatusDTO status = new StatusDTO();
                 status.Status = TramStatus.Cleaning;
                 _tramlogic.AddStatus(status, tram);
             }
         }
 
-        public void DeleteStatus(TramDTO tram, TramStatus status)
-        {
-
-        }
+       
 
         public void Update(DepotDTO depot)
         {
@@ -162,7 +162,9 @@ namespace Logic
             {
                 _repairServicelogic.DetermineRepairType(tram);
             }
-            AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+            AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
+
+        
     }
 }

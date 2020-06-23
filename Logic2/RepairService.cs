@@ -36,7 +36,7 @@ namespace Logic
             {
                 _tramAccess.DeleteStatus(TramStatus.Defect, tram);
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
-                RepairLogDTO repair = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == false).SingleOrDefault();
+                RepairLogDTO repair = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
                 removeServiceCounter(repair);
                 repair.RepairDate = DateTime.Now;
                 repair.Occured = true;
@@ -92,7 +92,6 @@ namespace Logic
                 tram.OccuredRepairLog = repairLogDTOSmall;
                 CreateRepairLogScheduled(tram, ServiceType.Small);
             }
-
         }
 
         public void CreateRepairLogDefect(TramDTO tram, string repairMessage)
@@ -111,10 +110,7 @@ namespace Logic
             {
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            return true;
         }
         private RepairServiceDTO GetService()
         {
@@ -170,6 +166,11 @@ namespace Logic
             RepairLogDTO WaitingList = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
             WaitingList.WaitingList = true;
             _repairServiceAccess.UpdateWaitingList(WaitingList);
+        }
+
+        public void DeleteNotOccured()
+        {
+            _repairServiceAccess.DeleteNotOccured();
         }
     }
 }

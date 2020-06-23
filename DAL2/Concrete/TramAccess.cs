@@ -248,7 +248,7 @@ namespace DAL.Concrete
             {
                 if (!tram.Status.Any(s => s.StatusId == stat.StatusId))
                 {
-                    //DeleteStatus(stat.Status, tram);
+                    DeleteStatus(stat.Status, tram);
                 }
             }
         }
@@ -283,22 +283,6 @@ namespace DAL.Concrete
 
             }
             
-        }
-
-        public void DeleteStatus(TramStatus status, TramDTO tram)
-        {
-            //string query = "DELETE Status_Tram FROM Status_Tram INNER JOIN Tram ON Status_Tram.TramId = Tram.Id WHERE StatusId = @Status AND Tram.TramNumber = @TramNumber  ";
-            //using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
-            //{
-            //    using (SqlCommand command = new SqlCommand(query, con))
-            //    {
-            //        con.Open();
-            //        command.Parameters.AddWithValue("@Status", status);
-            //        command.Parameters.AddWithValue("@Tramnumber", status);
-            //        command.ExecuteNonQuery();
-            //        con.Close();
-            //    }
-            //}
         }
 
         private List<StatusDTO> GetStatusesFromTram(int key)
@@ -368,6 +352,21 @@ namespace DAL.Concrete
                 }
             }
             return returnList;
+        }
+
+        public void DeleteStatus(TramStatus status, TramDTO tram)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM Status_Tram INNER JOIN Tram On Status_Tram.TramId = Tram.Id Where Status_Tram.StatusId = @Status AND Tram.TramNumber = @TramNumber "))
+                {
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@Status", (int)status);
+                    cmd.Parameters.AddWithValue("@TramNumber", tram.TramNumber);
+                    conn.Close();
+                }
+            }
         }
     }
 }
