@@ -12,7 +12,7 @@ namespace DAL.Interfaces
         void StoreCleaningLog(CleaningLogDTO cleanLog);
         void UpdateCleanLog(CleaningLogDTO cleanLog);
         void UpdateSchedulingCleanLog(CleaningLogDTO cleanLog);
-        void DeleteNotOccured();
+        void DeleteNotOccured(bool Occured);
 
         CleaningServiceDTO GetCleaningServiceByLocation(string Location);
 

@@ -28,7 +28,7 @@ namespace DAL.Concrete
 
         public void Create(TramDTO obj)
         {
-            string query = "INSERT INTO Tram (Type, TramNumber, DepotId, Line) VALUES (@type, @tramNumber, @DepotId, @Line)";
+            string query = "INSERT INTO Tram (Type, TramNumber) VALUES (@type, @tramNumber)";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -36,8 +36,6 @@ namespace DAL.Concrete
                     con.Open();
                     command.Parameters.AddWithValue("@type", (int)obj.Type);
                     command.Parameters.AddWithValue("@tramNumber", obj.TramNumber);
-                    command.Parameters.AddWithValue("@DepotId", obj.DepotId);
-                    command.Parameters.AddWithValue("@Line", obj.Line);
                     command.ExecuteNonQuery();
                     con.Close();
                 }
@@ -359,9 +357,8 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM Status_Tram INNER JOIN Tram On Status_Tram.TramId = Tram.Id Where Status_Tram.StatusId = @Status AND Tram.TramNumber = @TramNumber ", conn))
+                using (SqlCommand cmd = new SqlCommand("DELETE s FROM Status_Tram s INNER JOIN Tram t On s.TramId = t.Id Where s.StatusId = @Status AND T.TramNumber = @TramNumber ", conn))
                 {
-                    
                     cmd.Parameters.AddWithValue("@Status", (int)status);
                     cmd.Parameters.AddWithValue("@TramNumber", tram.TramNumber);
                     cmd.ExecuteNonQuery();

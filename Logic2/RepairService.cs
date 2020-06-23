@@ -42,6 +42,7 @@ namespace Logic
                 repair.Occured = true;
                 repair.User = user;
                 UpdateLog(repair);
+                
             }
         }
 
@@ -138,7 +139,8 @@ namespace Logic
 
         public void RepairTram(RepairLogDTO repairLog)
         {
-            _repairServiceAccess.StoreRepairLog(repairLog);
+            _repairServiceAccess.UpdateRepairLog(repairLog);
+
         }
 
         public IEnumerable<RepairLogDTO> GetRepairHistory()
@@ -170,7 +172,12 @@ namespace Logic
 
         public void DeleteNotOccured()
         {
-            _repairServiceAccess.DeleteNotOccured();
+            _repairServiceAccess.DeleteNotOccured(false);
+        }
+
+        public void MoveTram()
+        {
+
         }
     }
 }

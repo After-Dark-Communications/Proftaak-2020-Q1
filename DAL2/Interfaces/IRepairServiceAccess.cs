@@ -12,7 +12,7 @@ namespace DAL.Interfaces
         void StoreRepairLog(RepairLogDTO repairLog);
         void UpdateRepairLog(RepairLogDTO repairLog);
         void UpdateWaitingList(RepairLogDTO repairLog);
-        void DeleteNotOccured();
+        void DeleteNotOccured(bool occured);
 
         RepairServiceDTO GetRepairServiceByLocation(string Location);
 

@@ -175,7 +175,7 @@ namespace Logic
 
         public void DeleteNotOccured()
         {
-            _cleaningAccess.DeleteNotOccured();
+            _cleaningAccess.DeleteNotOccured(false);
         }
 
     }
