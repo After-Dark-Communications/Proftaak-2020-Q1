@@ -204,7 +204,7 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM RepairService_Tram Where Occured= 0"))
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM RepairService_Tram Where Occured= 0", conn))
                 {
                     cmd.ExecuteNonQuery();
                     conn.Close();

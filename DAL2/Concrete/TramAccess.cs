@@ -28,7 +28,7 @@ namespace DAL.Concrete
 
         public void Create(TramDTO obj)
         {
-            string query = "INSERT INTO Tram (Type, TramNumber, DepotId2, Line) VALUES (@type, @tramNumber, @DepotId, @Line)";
+            string query = "INSERT INTO Tram (Type, TramNumber, DepotId, Line) VALUES (@type, @tramNumber, @DepotId, @Line)";
             using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
             {
                 using (SqlCommand command = new SqlCommand(query, con))
@@ -359,11 +359,12 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("DELETE FROM Status_Tram INNER JOIN Tram On Status_Tram.TramId = Tram.Id Where Status_Tram.StatusId = @Status AND Tram.TramNumber = @TramNumber "))
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM Status_Tram INNER JOIN Tram On Status_Tram.TramId = Tram.Id Where Status_Tram.StatusId = @Status AND Tram.TramNumber = @TramNumber ", conn))
                 {
-                    cmd.ExecuteNonQuery();
+                    
                     cmd.Parameters.AddWithValue("@Status", (int)status);
                     cmd.Parameters.AddWithValue("@TramNumber", tram.TramNumber);
+                    cmd.ExecuteNonQuery();
                     conn.Close();
                 }
             }
