@@ -150,7 +150,6 @@ namespace DAL.Concrete
         }
         public IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber)
         {
-            string RepairMessage = "";
             string Name = "";
             DateTime CleaningDate = default;
             List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
