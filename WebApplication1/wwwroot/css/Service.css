@@ -33,7 +33,6 @@ table {
     border: none;
 }
 
-
 .R-content {
     background-color: #fff;
 }
@@ -67,6 +66,21 @@ table {
     border: 1px;
     background-color: #1F3257;
     color: white;
+}
+
+.R-Defectlog {
+    border: 1px solid #000;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background-color: white
+}
+
+.Closebutton {
+    background-color: #254e57;
+    border: none;
+    color: white;
+    float: right;
 }
 
 .donebutton:hover { color: black; }

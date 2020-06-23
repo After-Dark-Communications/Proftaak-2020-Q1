@@ -6,12 +6,13 @@ using DTO;
 
 namespace DAL.Interfaces
 {
-    public interface ICleaningServiceAccess : IGenAccess<CleaningServiceDTO>
+    public interface ICleaningServiceAccess 
     {
         void UpdateCleaningService(CleaningServiceDTO cleaningService);
         void StoreCleaningLog(CleaningLogDTO cleanLog);
         void UpdateCleanLog(CleaningLogDTO cleanLog);
         void UpdateSchedulingCleanLog(CleaningLogDTO cleanLog);
+        void DeleteNotOccured(bool Occured);
 
         CleaningServiceDTO GetCleaningServiceByLocation(string Location);
 

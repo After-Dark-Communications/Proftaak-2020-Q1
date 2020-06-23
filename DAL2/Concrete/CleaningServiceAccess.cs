@@ -110,7 +110,6 @@ namespace DAL.Concrete
         public IEnumerable<CleaningLogDTO> GetCleaningLogs()
         {
             List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
-            string RepairMessage = "";
             string Name = "";
             DateTime date = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
@@ -151,7 +150,6 @@ namespace DAL.Concrete
         }
         public IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber)
         {
-            string RepairMessage = "";
             string Name = "";
             DateTime CleaningDate = default;
             List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
@@ -207,9 +205,18 @@ namespace DAL.Concrete
             throw new NotImplementedException();
         }
 
-        public void Delete(int key)
+        public void DeleteNotOccured(bool Occured)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM CleaningService_Tram Where Occured= @Occured", conn))
+                {
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@Occured", Occured);
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -135,7 +135,6 @@ namespace DAL.Concrete
         {
             List<RepairLogDTO> repairLogList = new List<RepairLogDTO>();
             string RepairMessage = "";
-            string Name = "";
             DateTime RepairDate = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
@@ -198,6 +197,20 @@ namespace DAL.Concrete
                 conn.Close();
             }
             return repairService;
+        }
+
+        public void DeleteNotOccured(bool Occured)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE FROM RepairService_Tram Where Occured= @Occured", conn))
+                {
+                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@Occured", Occured);
+                    conn.Close();
+                }
+            }
         }
     }
 }

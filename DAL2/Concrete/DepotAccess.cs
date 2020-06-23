@@ -49,7 +49,7 @@ namespace DAL.Concrete
                 {
                     cmd.Parameters.AddWithValue("@key", key);
                     conn.Open();
-                    using (SqlDataReader dataReader = cmd.ExecuteReader())
+                    using (SqlDataReader dataReader = cmd.ExecuteReader())  
                     {
                         while (dataReader.Read())
                         {
