@@ -69,6 +69,10 @@ namespace DAL.Concrete
                                 returnTram.Id = reader.GetInt32(0);
                                 returnTram.Type = (TramType)reader.GetInt32(1);
                                 returnTram.TramNumber = reader.GetString(2);
+                                if (!reader.IsDBNull(4))
+                                {
+                                    returnTram.Line = reader.GetInt32(4);
+                                }
                             }
                         }
                         con.Close();
