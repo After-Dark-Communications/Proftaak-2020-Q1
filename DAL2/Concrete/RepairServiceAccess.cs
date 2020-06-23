@@ -135,7 +135,6 @@ namespace DAL.Concrete
         {
             List<RepairLogDTO> repairLogList = new List<RepairLogDTO>();
             string RepairMessage = "";
-            string Name = "";
             DateTime RepairDate = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
