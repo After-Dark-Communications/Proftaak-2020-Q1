@@ -60,7 +60,7 @@ namespace Logic
                     {
                         changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
                         _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
-                        AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                        AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
                     }
                     else
                     {
