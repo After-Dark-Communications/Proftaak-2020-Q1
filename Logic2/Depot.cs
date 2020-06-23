@@ -64,14 +64,14 @@ namespace Logic
                     }
                     else
                     {
-                        // return tram
+                        AllocationManager.SentTramAway(tram, _repairServicelogic, _cleaningServiceLogic, _tramlogic);
                     }
 
                 }
             }
             else
             {
-                //return the tram
+               //do nothing
             }
         }
 
