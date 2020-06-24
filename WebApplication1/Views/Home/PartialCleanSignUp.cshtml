@@ -1,4 +1,4 @@
-﻿@model CleaningServiceViewModel
+﻿@*@model CleaningServiceViewModel
 
 <div>
     <div class="remove-tram-info">
@@ -25,4 +25,27 @@
             </div>
         </form>
 </div>
-        UserViewModel User
+UserViewModel User*@
+
+<div>
+    <div class="remove-tram-info">
+        <h4 class="remove-tram-title">Schoonmaak Aanmelden voor tram @ViewBag.Tramnumber </h4>
+    </div>
+    <form method="post" action="/Home/CleanSignUpSend">
+        <div class="remove-tram-info">
+            <label>Beurt :</label>
+            <select name="service">
+                <option value="0">Groot</option>
+                <option value="1">Klein</option>
+            </select>
+            <label>Schoonmaak Reden (optioneel): </label>
+            <textarea class="remove-cleanupinfo" classrows="4" cols="40" name="cleanupreason"></textarea>
+        </div>
+
+        <div class="remove-center">
+            <input type="hidden" name="tramnumber" value="@ViewBag.Tramnumber" readonly />
+            <input type="submit" class="remove-tram-button-success" value="Ja" />
+            <input class="remove-tram-button-notdone" value="Nee" button data-dismiss="modal" />
+        </div>
+    </form>
+</div>

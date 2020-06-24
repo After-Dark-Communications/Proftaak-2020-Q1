@@ -74,7 +74,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult CleanSignUpSend(CleaningServiceViewModel cleaningService)
         {
-            _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), ServiceType.Big); // not done yet
+            int cleaning = Convert.ToInt32(HttpContext.Request.Form["service"]);
+            _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), (ServiceType)cleaning);
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -85,6 +86,7 @@ namespace WebApplication1.Controllers
 
         public IActionResult RepairSignUpSend()
         {
+            int repair = Convert.ToInt32(HttpContext.Request.Form["repairsize"]);
             _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
             return RedirectToAction("Index", "Home");
         }
