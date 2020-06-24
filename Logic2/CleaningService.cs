@@ -114,6 +114,10 @@ namespace Logic
             CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, ServiceType.Big);
 
         }
+        public void DetermineCleaningDate(TramDTO tram, DateTime date)
+        {
+            throw new NotImplementedException();
+        }
 
         public void DetermineCleaningType(TramDTO tram, ServiceType serviceType)
         {

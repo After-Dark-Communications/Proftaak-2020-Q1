@@ -60,7 +60,7 @@ namespace WebApplication1.Controllers
 
             TramDTO tram = _tramLogic.GetTram(tramnumber);
             UserDTO userDTO = _mapper.Map<UserDTO>(_userLogic.GetUserByUsername(_login.GetLoginSession()));
-            _cleaningservice.SetManualDate(manualDate, tram, userDTO);
+            //_cleaningservice.SetManualDate(manualDate, tram, userDTO);
             return RedirectToAction("Cleaning", "Service");           
         }
         public IActionResult RepairDone(int tramnumber)
