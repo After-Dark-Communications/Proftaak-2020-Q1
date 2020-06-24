@@ -67,8 +67,16 @@ namespace WebApplication1.Controllers
 
         public IActionResult Register(UserViewModel userModel)
         {
+            ViewBag.ShowTopBar = false;
             UserDTO User = _mapper.Map<UserDTO>(userModel);
-            _userCollection.RegisterUser(User);
+            if (ModelState.IsValid)
+            {
+                _userCollection.RegisterUser(User);
+            }
+            else
+            {
+                ViewBag.LatestMessage = "Unable to Register new user: Required fields were left empty";
+            }
             return View();
         }
 
