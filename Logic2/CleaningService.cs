@@ -171,6 +171,16 @@ namespace Logic
             _cleaningAccess.StoreCleaningLog(cleaningLog);
         }
 
+        public CleaningLogDTO GetNotOccuredLog(TramDTO tram)
+        {
+            CleaningLogDTO NotOccured = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
+            return NotOccured;
+        }
+
+        public void DeleteNotOccured()
+        {
+            _cleaningAccess.DeleteNotOccured(false);
+        }
 
     }
 }

@@ -49,7 +49,7 @@ namespace Logic
                     {
                         _cleaningServiceLogic.HasToBeCleaned(tram, ServiceType.Big);
                     }
-                    AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+                    AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
                 }
                 else
                 {
@@ -61,8 +61,6 @@ namespace Logic
                 //return the tram
             }
         }
-
-
 
         public bool IsTramAllreadyInDepot(string tramNumber, DepotDTO depot, Sector sectorLogic, Tram tramLogic)
         {
@@ -102,19 +100,16 @@ namespace Logic
             }
         }
 
-        public void DeleteStatus(TramDTO tram, TramStatus status)
-        {
-
-        }
-
         public void Update(DepotDTO depot)
         {
             _depotaccess.Update(depot);
         }
+
         public DepotDTO Read(int key)
         {
             return _depotaccess.Read(key);
         }
+
         public void TransferTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
         {
             TramDTO tram = _tramlogic.GetTram(tramNumber);
@@ -128,7 +123,7 @@ namespace Logic
             {
                 _repairServicelogic.DetermineRepairType(tram);
             }
-            AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic);
+            AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
     }
 }

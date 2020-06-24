@@ -69,6 +69,10 @@ namespace DAL.Concrete
                                 returnTram.Id = reader.GetInt32(0);
                                 returnTram.Type = (TramType)reader.GetInt32(1);
                                 returnTram.TramNumber = reader.GetString(2);
+                                if (!reader.IsDBNull(4))
+                                {
+                                    returnTram.Line = reader.GetInt32(4);
+                                }
                             }
                         }
                         con.Close();
@@ -94,26 +98,53 @@ namespace DAL.Concrete
 
         public void Delete(int key)
         {
-            //foreach(StatusDTO stat in GetStatusesFromTram(key))
-            //{
-            //    DeleteStatus(stat.StatusId);
-            //}
-            //string query = "DELETE FROM Tram WHERE Id = @key";
-            //using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
-            //{
-            //    using (SqlCommand command = new SqlCommand(query, con))
-            //    {
-            //        con.Open();
-            //        command.Parameters.AddWithValue("@key", key);
-            //        command.ExecuteNonQuery();
-            //        con.Close();
-            //    }
-            //}
+            foreach (StatusDTO stat in GetStatusesFromTram(key))
+            {
+                //DeleteStatus(stat.StatusId);
+            }
+            string query = "DELETE FROM Tram WHERE Id = @key";
+            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    command.Parameters.AddWithValue("@key", key);
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
 
         public IEnumerable<TramDTO> GetAllTrams()
         {
-            throw new NotImplementedException();
+            List<TramDTO> trams = new List<TramDTO>();
+                
+                string query = "SELECT * FROM Tram";
+                using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
+                {
+                    using (SqlCommand command = new SqlCommand(query, con))
+                    {
+                        con.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                TramDTO returnTram = new TramDTO();
+                                returnTram.Id = reader.GetInt32(0);
+                                returnTram.Type = (TramType)reader.GetInt32(1);
+                                returnTram.TramNumber = reader.GetString(2);
+                                returnTram.DepotId = reader.GetInt32(3);
+                                returnTram.Line = reader.GetInt32(4);
+                                returnTram = CombineStatusWithTram(GetStatusesFromTram(returnTram.Id), returnTram);
+                                trams.Add(returnTram);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+
+                return trams;
+           
         }
 
         public int GetKeyFromTramNumber(string tramNumber)
@@ -208,20 +239,20 @@ namespace DAL.Concrete
 
         private void UpdateStatuses(TramDTO tram, List<StatusDTO> oldStatuses)
         {
-            //foreach(StatusDTO tramStat in tram.Status)
-            //{
-            //    if(!oldStatuses.Any(s => s.StatusId == tramStat.StatusId))
-            //    {
-            //        AddStatus(tram.Id, tramStat);
-            //    }
-            //}
-            //foreach (StatusDTO stat in oldStatuses)
-            //{
-            //    if(!tram.Status.Any(s => s.StatusId == stat.StatusId))
-            //    {
-            //        DeleteStatus(stat.StatusId);
-            //    }
-            //}
+            foreach (StatusDTO tramStat in tram.Status)
+            {
+                if (!oldStatuses.Any(s => s.StatusId == tramStat.StatusId))
+                {
+                    AddStatus(tram.Id, tramStat);
+                }
+            }
+            foreach (StatusDTO stat in oldStatuses)
+            {
+                if (!tram.Status.Any(s => s.StatusId == stat.StatusId))
+                {
+                    DeleteStatus(stat.Status, tram);
+                }
+            }
         }
 
         private void AddStatus(int tramKey, StatusDTO stat)
@@ -254,22 +285,6 @@ namespace DAL.Concrete
 
             }
             
-        }
-
-        public void DeleteStatus(TramStatus status, TramDTO tram)
-        {
-            string query = "DELETE Status_Tram FROM Status_Tram INNER JOIN Tram ON Status_Tram.TramId = Tram.Id WHERE StatusId = @Status AND Tram.TramNumber = @TramNumber  ";
-            using (SqlConnection con = new SqlConnection(DBConnection._connectionString))
-            {
-                using (SqlCommand command = new SqlCommand(query, con))
-                {
-                    con.Open();
-                    command.Parameters.AddWithValue("@Status", status);
-                    command.Parameters.AddWithValue("@Tramnumber", status);
-                    command.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
         }
 
         private List<StatusDTO> GetStatusesFromTram(int key)
@@ -339,6 +354,21 @@ namespace DAL.Concrete
                 }
             }
             return returnList;
+        }
+
+        public void DeleteStatus(TramStatus status, TramDTO tram)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("DELETE s FROM Status_Tram s INNER JOIN Tram t On s.TramId = t.Id Where s.StatusId = @Status AND T.TramNumber = @TramNumber ", conn))
+                {
+                    cmd.Parameters.AddWithValue("@Status", (int)status);
+                    cmd.Parameters.AddWithValue("@TramNumber", tram.TramNumber);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
         }
     }
 }

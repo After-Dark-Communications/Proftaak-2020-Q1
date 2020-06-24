@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DTO;
 using System.Linq;
+using DAL.Interfaces;
 using Services;
 
 namespace Logic
@@ -41,7 +42,7 @@ namespace Logic
             return false;
         }
 
-        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _trackLogic, Tram _tramLogic, RepairService _repairServiceLogic)
+        public static void AllocateTramToTrack(TramDTO tram, List<TrackDTO> tracks, Track _trackLogic, Tram _tramLogic, RepairService _repairServiceLogic, CleaningService cleaningService)
         {
             bool tramIsStored = false;
             if (TramNeedsToBeRepaired(tram, _tramLogic, _repairServiceLogic)) // gerepareerd worden
@@ -119,10 +120,9 @@ namespace Logic
             }
             if (!tramIsStored) // nergens plek
             {
-                //stuur tram weg
+                SentTramAway(tram, _repairServiceLogic, cleaningService, _tramLogic);
             }
         }
-
 
         private static TrackDTO MostEmptyTrack(List<TrackDTO> tracks, Track _trackLogic, TramDTO tram)
         {
@@ -179,6 +179,7 @@ namespace Logic
             }
             return false;
         }
+
         public static void AllocateToRandomTrack(TramDTO tram, List<TrackDTO> tracks, Track _Tracklogic)
         {
            
@@ -202,6 +203,15 @@ namespace Logic
             }
             //(if tram has repair log that has not yet occurred. return true)
             return false;
+        }
+
+        private static void SentTramAway(TramDTO tramDto, RepairService repairService, CleaningService cleaningService, Tram tram)
+        {
+            repairService.DeleteNotOccured();
+            cleaningService.DeleteNotOccured();
+            tram.DeleteStatus(tramDto, TramStatus.Depot);
+            tram.DeleteStatus(tramDto, TramStatus.Cleaning);
+            tram.DeleteStatus(tramDto, TramStatus.Defect);
         }
     }
 }

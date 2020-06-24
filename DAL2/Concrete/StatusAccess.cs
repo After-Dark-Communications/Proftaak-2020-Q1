@@ -8,6 +8,7 @@ using Context;
 using DAL.Interfaces;
 using DAL.Models;
 using DTO;
+using Services;
 
 namespace DAL.Concrete
 {
@@ -28,6 +29,11 @@ namespace DAL.Concrete
         }
 
         public void Delete(int key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(TramDTO tram, TramStatus status)
         {
             throw new NotImplementedException();
         }

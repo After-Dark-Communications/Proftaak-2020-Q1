@@ -20,8 +20,9 @@ namespace WebApplication1.Controllers
         private readonly Track _tracklogic;
         private readonly Tram _tramLogic;
         private readonly LoginRepository _login;
-        private readonly User _userLogic;
-        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login, User userlogic)
+        private readonly Depot _depot;
+
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login, Depot depot)
         {
             _mapper = mapper;
             _repairservice = repairservice;
@@ -29,7 +30,7 @@ namespace WebApplication1.Controllers
             _tramLogic = tram;
             _tracklogic = tracklogic;
             _login = login;
-            _userLogic = userlogic;
+            _depot = depot;
         }
 
         public IActionResult Repairs()
@@ -55,14 +56,6 @@ namespace WebApplication1.Controllers
             ViewBag.Tramnumber = tramnumber;
             return PartialView("PartialCleaningDone");
         }
-        public IActionResult GetManualCleanDate(DateTime manualDate, string tramnumber, UserViewModel user)
-        {
-
-            TramDTO tram = _tramLogic.GetTram(tramnumber);
-            UserDTO userDTO = _mapper.Map<UserDTO>(_userLogic.GetUserByUsername(_login.GetLoginSession()));
-            //_cleaningservice.SetManualDate(manualDate, tram, userDTO);
-            return RedirectToAction("Cleaning", "Service");           
-        }
         public IActionResult RepairDone(int tramnumber)
         {
             ViewBag.Tramnumber = tramnumber;
@@ -77,6 +70,7 @@ namespace WebApplication1.Controllers
         {
             UserDTO user = new UserDTO(_login.GetLoginSession());
             _repairservice.ServiceRepair(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), user); //Rick's schuld :-(
+            _depot.TransferTram(HttpContext.Request.Form["tramnumber"], false, false, HttpContext.Request.Form["repairreason"], _depot.Read(1));
             return RedirectToAction("Repairs", "Service");
         }
 
