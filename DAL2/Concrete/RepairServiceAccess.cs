@@ -14,7 +14,7 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService SET SmallRepairsPerDay = @SmallRepairs, BigRepairsPerDay = @BigRepairs WHERE CleaningService.Location = @Location", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService SET SmallRepairsPerDay = @SmallRepairs, BigRepairsPerDay = @BigRepairs WHERE RepairService.Location = @Location", conn))
                 {
                     cmd.Parameters.AddWithValue("@SmallRepairs", repairService.MaxSmallServicePerDay);
                     cmd.Parameters.AddWithValue("@BigRepairs", repairService.MaxBigServicePerDay);

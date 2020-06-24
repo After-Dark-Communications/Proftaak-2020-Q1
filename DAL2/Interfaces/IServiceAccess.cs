@@ -8,7 +8,7 @@ namespace DAL.Interfaces
     public interface IServiceAccess
     {
         public RepairServiceDTO ReadRepair();
-        public CleaningServiceDTO ReadCleaning();
+        //public CleaningServiceDTO ReadCleaning();
 
         public void UpdateCleaning();
         public void UpdateRepair();
