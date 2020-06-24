@@ -20,40 +20,48 @@
                 </tr>
                 @foreach (CleaningServiceViewModel Service in Model)
                 {
-            <tr>
-                <td class="C-content C-content-thin">@Service.TramNumber</td><!--Nr-->
-                <td class="C-content C-content-thin">@Service.TrackNumber</td><!--Spoor-->
-                <td class="C-content C-content-wide">@Service.CleaningType</td><!--Soort-->
-                @{
-                    if (Service.User != null)
-                    {
-                        <td class="C-content C-content-wide">@Service.User.Name + @Service.User.Surname</td><!--Persoon-->
-                    }
-                    else
-                    {
-                        if (Context.Session.GetString("Permission") == "Admin")
-                        {
-                            <td class="C-content C-content-wide"></td><!--Persoon-->
+                    <tr>
+                        <td class="C-content C-content-thin">@Service.TramNumber</td><!--Nr-->
+                        <td class="C-content C-content-thin">@Service.TrackNumber</td><!--Spoor-->
+                        <td class="C-content C-content-wide">@Service.CleaningType</td><!--Soort-->
+                        @{
+                            if (Service.User != null)
+                            {
+                                                <form method="post" action="/Service/UpdateCleaningDoneStatus">
+                                                    <td class="C-content C-content-wide" name="Username" value="@Service.User.UserName">@Service.User.UserName</td><!--Persoon-->
+                                                    <td class="C-content C-content-wide" name="CleaningDate" value="@Service.CleaningDate">@Service.CleaningDate</td><!--datum-->
+                                                    <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
+                                                    <td class="C-Info-Status test"><input type="submit" name="Done" value="Done"></td>
+                                                </form>
+                            }
+                            else
+                            {
+                    <form method="post" action="/Service/AssignUser">
+                        @{
+                            if (Context.Session.GetString("Permission") == "Admin")
+                            {
+                                <td class="C-content C-content-wide">
+                                    <select name="Username">
+                                        <option value="0">Groot</option>
+                                        <option value="1">Klein</option>
+                                    </select>
+                                </td>
+                                <!--Persoon-->
+                            }
+                            else
+                            {
+                                <td class="C-content C-content-wide" name="Username" value="@Context.Session.GetString("Username")">@Context.Session.GetString("Username")</td><!--Persoon-->
+                            }
+                            <td class="C-content C-content-wide">No date assigned</td><!--datum-->
+                            <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
+                            <td class="C-Info-Status test"><input type="submit" name="Assign" value="Assign"></td><!--Done-->
                         }
-                        else
-                        {
-                            <td class="C-content C-content-wide">@Context.Session.GetString("Username")</td><!--Persoon-->
+                    </form>
+
+                            }
                         }
-                    }
-                }
-                @{
-                    if (Service.CleaningDate != default)
-                    {
-                        <td class="C-content C-content-wide">@Service.CleaningDate</td><!--datum-->
-                    }
-                    else
-                    {
-                        <td class="C-content C-content-wide">No date assigned</td><!--datum-->
-                    }
-                }
-                <td class="C-Info-Status test"></td><!--Status-->
-                <td class="C-Info-Status test">@Service.Occured</td><!--Status-->
-            </tr>
+
+                    </tr>
                 }
                 @for (int i = 0; i < (10 - Model.Count()); i++)
                 {
@@ -66,8 +74,6 @@
                         <td class="C-Info-Status"></td><!--Status-->
                     </tr>
                 }
-
-
             </table>
         </div>
     </div>

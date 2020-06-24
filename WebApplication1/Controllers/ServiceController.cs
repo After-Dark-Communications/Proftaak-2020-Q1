@@ -61,8 +61,20 @@ namespace WebApplication1.Controllers
             ViewBag.Tramnumber = tramnumber;
             return PartialView("PartialRepairDone");
         }
+
+        public IActionResult AssignUser()
+        {
+            string TramNumber = HttpContext.Request.Form["TramNumber"];
+            string UserName = HttpContext.Request.Form["Username"];
+            string CleaningDate = HttpContext.Request.Form["CleaningDate"];
+            return RedirectToAction("Cleaning", "Service");
+        }
+
         public IActionResult UpdateCleaningDoneStatus()
         {
+            string TramNumber = HttpContext.Request.Form["TramNumber"];
+            string UserName = HttpContext.Request.Form["Username"];
+            string CleaningDate = HttpContext.Request.Form["CleaningDate"];
             _cleaningservice.CleanTram((_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"]))));
             return RedirectToAction("Cleaning", "Service");
         }
