@@ -37,15 +37,23 @@ namespace WebApplication1.Controllers
         {
             //TODO: exceptionHandling
             UserDTO User = _mapper.Map<UserDTO>(UserModel);
-            UserDTO result = _user.Login(User);
-
-            if (result.UserName != null)
+            ViewBag.ShowTopBar = false;
+            if (ModelState.IsValid)
             {
-                _loginRepository.SetLoginSession(result.UserName, result.Permission);
+                UserDTO result = _user.Login(User);
 
-                return RedirectToAction("Index", "Home");
+                if (result != null)
+                {
+                    _loginRepository.SetLoginSession(result.UserName, result.Permission);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.LatestMessage = "Login Failed: Username or Password is incorrect.";
+                    return View();
+                }
             }
-
             return View();
         }
 

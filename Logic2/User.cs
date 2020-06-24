@@ -36,7 +36,7 @@ namespace Logic
                 return result;
             }
 
-            return user;
+            return null;
         }
 
         //hashing user data
