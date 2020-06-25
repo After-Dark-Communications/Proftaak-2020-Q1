@@ -27,6 +27,7 @@
             else
             {
                 <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber, @Model.DepotTracks[DepotValue].TrackNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
+                ViewData.Add("DepotTrack" + Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber, Model.DepotTracks[DepotValue].Sectors[x]);
             }
         }
     }
