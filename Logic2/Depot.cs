@@ -28,7 +28,7 @@ namespace Logic
             this._cleaningServiceLogic = cleaningService;
         }
 
-        public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot, ServiceType serviceType)
+        public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
         {
             if (!IsTramAllreadyInDepot(tramNumber, depot, _sectorLogic, _tramlogic))
             {
@@ -39,7 +39,7 @@ namespace Logic
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
                     if (repairStatus)
                     {
-                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage, serviceType);
+                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage, ServiceType.Big);
                     }
                     else
                     {

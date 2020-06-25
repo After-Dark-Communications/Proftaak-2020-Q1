@@ -103,8 +103,7 @@ namespace WebApplication1.Controllers
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";
             bool cleaning = HttpContext.Request.Form["clean"] == "clean";
-            int repairStatus = Convert.ToInt32(HttpContext.Request.Form["service"]);
-            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1), (ServiceType)repairStatus);
+            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
             return RedirectToAction("Index", "Home");
         }
         public IActionResult MoveTramTo()
