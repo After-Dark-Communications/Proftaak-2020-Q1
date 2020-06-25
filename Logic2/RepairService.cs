@@ -43,7 +43,10 @@ namespace Logic
                 repair.Occured = true;
                 repair.User = user;
                 UpdateLog(repair);
-                CreateSmallRepairLog(tram);
+                if (repair.ServiceType == ServiceType.Big)
+                {
+                    CreateSmallRepairLog(tram);
+                }
             }
         }
 
