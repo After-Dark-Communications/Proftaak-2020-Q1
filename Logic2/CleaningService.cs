@@ -204,6 +204,8 @@ namespace Logic
             UserDTO user = _userAccess.GetUserByUsername(username);
             CleaningLogDTO NotOccured = GetNotOccuredLog(tram);
             NotOccured.User = user;
+            NotOccured.Date = DateTime.Today;
+            _cleaningAccess.UpdateAssignUser(NotOccured);
         }
     }
 }

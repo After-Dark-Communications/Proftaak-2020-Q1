@@ -82,6 +82,22 @@ namespace DAL.Concrete
             }
         }
 
+        public void UpdateAssignUser(CleaningLogDTO cleaningLog)
+        {
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                string query = "UPDATE CleaningService_Tram SET UserId = @UserId WHERE CleaningId = @CleaningId";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", cleaningLog.User.Id);
+                    cmd.Parameters.AddWithValue("@CleaningId", cleaningLog.Id);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
         public CleaningServiceDTO GetCleaningServiceByLocation(string Location)
         {
             CleaningServiceDTO cleaningService = new CleaningServiceDTO();
@@ -116,7 +132,7 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("Select CleaningService_Tram.CleaningId, CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService_Tram.CleaningId, CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType, [User].UserName " +
                                                        "FROM CleaningService_Tram " +
                                                        "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
                                                        "LEFT JOIN [User] ON CleaningService_Tram.UserId = [User].Id " +
@@ -157,7 +173,7 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType "+
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService_Tram.CleaningId, CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType " +
                                                        "FROM CleaningService_Tram " +
                                                        "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
                                                        "INNER JOIN Tram ON CleaningService_Tram.TramId = Tram.Id " +
@@ -168,14 +184,15 @@ namespace DAL.Concrete
                     {
                         while(dataReader.Read())
                         {
-                            string location = dataReader.GetString(0);
-                            if (!dataReader.IsDBNull(2))
+                            int id = dataReader.GetInt32(0);
+                            string location = dataReader.GetString(1);
+                            if (!dataReader.IsDBNull(3))
                             {
-                                CleaningDate = dataReader.GetDateTime(2);
+                                CleaningDate = dataReader.GetDateTime(3);
                             }
-                            Boolean Occured = dataReader.GetBoolean(3);
-                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
-                            CleaningLogDTO cleanLog = new CleaningLogDTO(new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured);
+                            Boolean Occured = dataReader.GetBoolean(4);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured);
                             cleanLogList.Add(cleanLog);
                         }
                     }

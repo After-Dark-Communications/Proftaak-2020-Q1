@@ -28,9 +28,9 @@ namespace DTO
             Permission = permission;    
         }
 
-        public UserDTO(string name)
+        public UserDTO(string userName)
         {
-            Name = name;
+            UserName = userName;
         }
 
     }
