@@ -84,7 +84,6 @@
                     @if (Context.Session.GetString("Permission") == "Conducteur" || Context.Session.GetString("Permission") == "Admin")
                     {
                         <div class="Bottom-Button-Container" style="display:none;" id="StartContainer">
-                            <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="ReserverButton" type="button" value="Spoor reserveren voor tram" style="background-image: url('../img/TramI.png'); background-position-y: -10px; background-size: 50% !important; width: fit-content;" onclick="BottomBecomeSelected('ReserverButton','RegisterButton')" />
                             <input class="TB-Tab TB-Tab-Normal TB-Tab-Image" id="RegisterButton" type="button" value="Tram aanmelden" style="background-image: url('../img/TramArrowI.png'); background-position-y: 80%; background-size: 80% !important;" onclick="BottomBecomeSelected('RegisterButton','ReserverButton')" />
                         </div>
                     }

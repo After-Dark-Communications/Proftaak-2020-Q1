@@ -104,10 +104,6 @@ namespace WebApplication1.Controllers
             _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult ReserveTrack()
-        {
-            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
-        }
         public IActionResult MoveTramTo()
         {
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
