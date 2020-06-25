@@ -59,12 +59,12 @@ namespace Logic
                 }
                 else
                 {
-                    //return the tram
+                    AllocationManager.SentTramAway(tram, _repairServicelogic, _cleaningServiceLogic, _tramlogic);
                 }
             }
             else
             {
-                //return the tram
+                AllocationManager.SentTramAway(_tramlogic.GetTram(tramNumber), _repairServicelogic, _cleaningServiceLogic, _tramlogic);
             }
         }
 
