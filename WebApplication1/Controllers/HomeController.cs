@@ -72,11 +72,11 @@ namespace WebApplication1.Controllers
             return PartialView("PartialCleanSignUp");
         }
 
-        public IActionResult CleanSignUpSend(string tramnumber, CleaningServiceViewModel cleaningService)
+        public IActionResult CleanSignUpSend(CleaningServiceViewModel cleaningService)
         {
             int cleaning = Convert.ToInt32(HttpContext.Request.Form["service"]);
             _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), (ServiceType)cleaning);
-            ViewBag.LatestMessage = "Sent Tram " + tramnumber + " to the cleaning section successfully.";
+            ViewBag.LatestMessage = "Sent Tram " + cleaningService.TramNumber + " to the cleaning section successfully.";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -88,8 +88,7 @@ namespace WebApplication1.Controllers
         public IActionResult RepairSignUpSend()
         {
             int repair = Convert.ToInt32(HttpContext.Request.Form["repairsize"]);
-            _repairService.CreateRepairLogDefect(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), HttpContext.Request.Form["repairreason"], (ServiceType)repair);
-            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], _depotLogic.Read(1), true);
+            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
             ViewBag.LatestMessage = "Sent Tram to the repairing4 section successfully.";
             return RedirectToAction("Index", "Home");
         }
@@ -103,8 +102,12 @@ namespace WebApplication1.Controllers
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";
             bool cleaning = HttpContext.Request.Form["clean"] == "clean";
-            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));   
             return RedirectToAction("Index", "Home");
+        }
+        public IActionResult ReserveTrack()
+        {
+            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
         public IActionResult MoveTramTo()
         {
@@ -141,10 +144,8 @@ namespace WebApplication1.Controllers
 
         public IActionResult PartialViewMoveTram(int tramnumber, int track)
         {
-            var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
             ViewBag.Tramnumber = tramnumber;
             ViewBag.Track = track;
-            ViewBag.AvailableTracks = depot.DepotTracks;
             return PartialView("PartialViewMoveTram");
         }
 

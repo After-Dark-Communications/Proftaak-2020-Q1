@@ -381,7 +381,7 @@
                 </ul>
             </div>
         </div>
-        <div class="Legend-Border tracks-gray" style="left: 1410px;bottom: 0;display: inline-table;position: absolute;">
+        <div class="Legend-Border" style="left: 1410px;bottom: 0;display: inline-table;position: absolute; background-color:#fff;">
             <!--Legenda-->
             <table>
                 <tr style="padding:5px;">
@@ -421,15 +421,9 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="tracks-red" style="min-width: 40px; border-bottom: 1px solid #000;"> </th>
+                    <th class="tracks-red" style="min-width: 40px;"> </th>
                     <th>
                         = lijn 17
-                    </th>
-                </tr>
-                <tr>
-                    <th class="tracks-brown" style="min-width: 40px;"> </th>
-                    <th>
-                        = lijn 16/24
                     </th>
                 </tr>
             </table>
@@ -462,6 +456,33 @@
                             <textarea style="display: none;" id="repairreason" classrows="4" cols="40" name="repairreason" placeholder="Reden voor Reperatie"></textarea>
                         </div>
                         <input type="submit" class="register-tram-button" value="Verstuur" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ReserverModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div>
+                <div class="reserve-tram-info">
+                    <h4 class="reserve-tram-title">Reserveer spoor voor tram</h4>
+                </div>
+                <form method="post" action="/Home/ReserveTrack">
+                    <div class="reserve-tram-left">
+                        <div class="reserve-tram-info">
+                            <label>Tramnummer :</label>
+                            <input type="number" name="tramnumber" value="" />
+
+                            <label>Spoornummer :</label>
+                            <select name="tracknumber">
+                                <option value="38">38</option>
+                                <option value="37">37</option>
+                                <option value="36">36</option>
+                            </select>
+                        </div>
+                        <input type="submit" class="reserve-tram-button" value="Verstuur" />
                     </div>
                 </form>
             </div>
@@ -581,6 +602,26 @@
                 }
             });
         }
+
+//        $(document).on("click",
+//            '#MoveTramTest',
+//            function (event) {
+//                var _tramnumber = $('#testmodal').getElementById("tramnumber");
+//                var _track = document.getElementById("track");
+//                $.ajax({
+//                    type: "POST",
+//                    url: "/Home/PartialViewMoveTram",
+//                    data: { tramnumber: _tramnumber, track : _track },
+//                    success: function (response) {
+//                        $('#MoveTramInfo').html(response);
+//                        $('#MoveTram').modal('show');
+//                    }
+//                });
+//            });
+
+                                                                                            //$(document).ready(function () {
+
+                                                                                            //});
     </script>
 }
 
