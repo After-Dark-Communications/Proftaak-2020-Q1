@@ -116,12 +116,12 @@ namespace Logic
             return _depotaccess.Read(key);
         }
 
-        public void TransferTram(string tramNumber, DepotDTO depot)
+        public void TransferTram(string tramNumber, DepotDTO depot, bool rapairstatus)
         {
             TramDTO tram = _tramlogic.GetTram(tramNumber);
             _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(tramNumber)));
             bool cleanStatus = _tramAccess.GetCleanStatus(tramNumber);
-            changeTramStatus(tram, true, cleanStatus, _tramlogic);
+            changeTramStatus(tram, rapairstatus, cleanStatus, _tramlogic);
             AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
     }
