@@ -139,8 +139,10 @@ namespace WebApplication1.Controllers
 
         public IActionResult PartialViewMoveTram(int tramnumber, int track)
         {
+            var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
             ViewBag.Tramnumber = tramnumber;
             ViewBag.Track = track;
+            ViewBag.AvailableTracks = depot.DepotTracks;
             return PartialView("PartialViewMoveTram");
         }
 
