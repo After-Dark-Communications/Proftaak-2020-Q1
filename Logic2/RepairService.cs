@@ -32,7 +32,8 @@ namespace Logic
         // repairdate, occured, userID, repairID
         public void ServiceRepair(TramDTO tram, UserDTO user)
         {
-            if(CanRepairTram(_repairService, tram))
+            DetermineIfRepairNeedToBeReset();
+            if (CanRepairTram(_repairService, tram))
             {
                 _tramAccess.DeleteStatus(TramStatus.Defect, tram);
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
@@ -42,7 +43,7 @@ namespace Logic
                 repair.Occured = true;
                 repair.User = user;
                 UpdateLog(repair);
-                
+                CreateSmallRepairLog(tram);
             }
         }
 
@@ -76,8 +77,8 @@ namespace Logic
                 repairLogDTOSmall.RepairDate = default;
             }    
            
-            DateTime startTimeBig = repairLogDTOBig.RepairDate;
-            DateTime startTimeSmall = repairLogDTOSmall.RepairDate;
+            DateTime startTimeBig = repairLogDTOBig.RepairDate.Value;
+            DateTime startTimeSmall = repairLogDTOSmall.RepairDate.Value;
             DateTime endTime = DateTime.Now;
 
             TimeSpan spanBig = endTime.Subtract(startTimeBig);
@@ -105,6 +106,12 @@ namespace Logic
             RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, service, false, false, "Scheduled");
             _repairServiceAccess.StoreRepairLog(log);
         }
+
+        private void CreateSmallRepairLog(TramDTO tram)
+        {
+            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, DateTime.Now, ServiceType.Small, true,  "Scheduled");
+            _repairServiceAccess.StoreRepairLog(log);
+        }
         private bool CanRepairTram(RepairServiceDTO Service, TramDTO tram)
         {
             if (Service.MaxBigServicePerDay == 0 && Service.MaxSmallServicePerDay == 0)
@@ -129,7 +136,7 @@ namespace Logic
         private void DetermineIfRepairNeedToBeReset()
         {
             DateTime CurrentDate = DateTime.Now;
-            DateTime LastRepair = GetRepairHistory().Max(x => x.RepairDate.Date);
+            DateTime LastRepair = GetRepairHistory().Max(x => x.RepairDate.Value);
             TimeSpan span = CurrentDate.Subtract(LastRepair);
             if(span.TotalHours > 24)
             {
@@ -149,7 +156,7 @@ namespace Logic
         }
         public RepairLogDTO GetOccuredLog(TramDTO tram, ServiceType serviceType)
         {
-            RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == true).Where(x => x.ServiceType == serviceType).OrderBy(x => x.RepairDate).FirstOrDefault();
+            RepairLogDTO Occured = _repairServiceAccess.GetRepairLogsByTramNumber(tram.TramNumber).Where(x => x.Occured == true).Where(x => x.ServiceType == serviceType).OrderByDescending(x => x.RepairDate).FirstOrDefault();
             return Occured;
         }
         public RepairLogDTO GetNotOccuredLog(TramDTO tram)
