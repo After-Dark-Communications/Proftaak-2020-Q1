@@ -115,6 +115,8 @@ namespace WebApplication1.Controllers
         }
         public IActionResult MoveTramTo()
         {
+            int tracknumber = Convert.ToInt32(HttpContext.Request.Form["tracknumber"]);
+            _depotLogic.MoveTramTo(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"]), tracknumber);
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
         public IActionResult InformationTramPopUp(string tramnumber, string tracknumber)
