@@ -84,7 +84,7 @@ namespace WebApplication1.Controllers
         {
             UserDTO user = new UserDTO(_login.GetLoginSession());
             _repairservice.ServiceRepair(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), user); //Rick's schuld :-(
-            _depot.TransferTram(HttpContext.Request.Form["tramnumber"], false, false, HttpContext.Request.Form["repairreason"], _depot.Read(1));
+            _depot.TransferTram(HttpContext.Request.Form["tramnumber"], _depot.Read(1));
             return RedirectToAction("Repairs", "Service");
         }
 

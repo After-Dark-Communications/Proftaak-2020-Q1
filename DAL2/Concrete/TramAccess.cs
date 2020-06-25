@@ -370,5 +370,29 @@ namespace DAL.Concrete
                 }
             }
         }
+
+        public bool GetCleanStatus(string TramNumber)
+        {
+            bool Occured = false;
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService_Tram.Occured FROM CleaningService_Tram Left JOIN Tram On CleaningService_Tram.TramId = Tram.Id WHERE Tram.TramNumber = @TramNumber", conn))
+                {
+                    cmd.Parameters.AddWithValue("@TramNumber", TramNumber);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Occured = reader.GetBoolean(0);
+                        }
+
+                        return Occured;
+                    }
+                    conn.Close();
+                }
+            }
+        }
     }
 }

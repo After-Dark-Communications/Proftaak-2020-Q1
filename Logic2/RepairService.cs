@@ -96,7 +96,7 @@ namespace Logic
             }
         }
 
-        public void CreateRepairLogDefect(TramDTO tram, string repairMessage)
+        public void CreateRepairLogDefect(TramDTO tram, string repairMessage, ServiceType service)
         {
             RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, ServiceType.Big, false, false, repairMessage);
             _repairServiceAccess.StoreRepairLog(log);

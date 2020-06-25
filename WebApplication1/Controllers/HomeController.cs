@@ -87,7 +87,9 @@ namespace WebApplication1.Controllers
 
         public IActionResult RepairSignUpSend()
         {
-            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            int repair = Convert.ToInt32(HttpContext.Request.Form["service"]);
+            _repairService.CreateRepairLogDefect(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), HttpContext.Request.Form["repairreason"], (ServiceType)repair);
+            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], _depotLogic.Read(1));
             ViewBag.LatestMessage = "Sent Tram to the repairing4 section successfully.";
             return RedirectToAction("Index", "Home");
         }
@@ -101,7 +103,8 @@ namespace WebApplication1.Controllers
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";
             bool cleaning = HttpContext.Request.Form["clean"] == "clean";
-            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            int repairStatus = Convert.ToInt32(HttpContext.Request.Form["service"]);
+            _depotLogic.ReceiveTram(HttpContext.Request.Form["tramnumber"], repair, cleaning, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1), (ServiceType)repairStatus);
             return RedirectToAction("Index", "Home");
         }
         public IActionResult MoveTramTo()
