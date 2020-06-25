@@ -10,5 +10,6 @@ namespace DAL.Interfaces
     {
         UserDTO Get(UserDTO user);
         IEnumerable<UserDTO> GetUserByType(string Permission);
+        UserDTO GetUserByUsername(string Username);
     }
 }
