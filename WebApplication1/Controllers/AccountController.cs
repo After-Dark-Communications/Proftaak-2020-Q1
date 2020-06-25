@@ -54,6 +54,7 @@ namespace WebApplication1.Controllers
                     return View();
                 }
             }
+            ViewBag.LatestMessage = "Login Failed: Field(s) were not filled in correctly.";
             return View();
         }
 
@@ -75,7 +76,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                ViewBag.LatestMessage = "Unable to Register new user: Required fields were left empty";
+                ViewBag.LatestMessage = "Unable to Register new user: Required fields were left empty or were not filled in properly.";
             }
             return View();
         }

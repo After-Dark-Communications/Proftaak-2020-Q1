@@ -10,7 +10,7 @@ namespace WebApplication1.Models
     {
         [Required]
         public string UserName { get; set; }
-        [Required, MinLength(6)]
+        [Required, MinLength(5)]
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
