@@ -23,26 +23,21 @@ namespace Logic
             _serviceaccess = serviceaccess;
             _cleaningAccess = cleaningAccess;
             _tramAccess = tramAccess;
-            _cleaningServiceDto = GetService("RMS");
+            _cleaningServiceDto = GetService();
         }
-        public void SetSmallCleanTram(TramDTO tram)
+        public void ServiceRepair(TramDTO tram, UserDTO user)
         {
             if (CanCleanTram(_cleaningServiceDto))
             {
-                DateTime RepairDate = DateTime.Now;
-                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
-                tram.RepairDateSmallService = RepairDate;
-                _cleaningServiceDto.MaxSmallServicePerDay--;
-            }
-        }
-        public void SetLargeRepairTram(TramDTO tram)
-        {
-            if (CanCleanTram(_cleaningServiceDto))
-            {
-                DateTime RepairDate = DateTime.Now;
-                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Cleaning);
-                tram.RepairDateBigService = RepairDate;
-                _cleaningServiceDto.MaxBigServicePerDay--;
+                _tramAccess.DeleteStatus(TramStatus.Defect, tram);
+                tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
+                CleaningLogDTO cleaningLog = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
+                RemoveServiceCounter(cleaningLog);
+                cleaningLog.Date = DateTime.Now;
+                cleaningLog.Occured = true;
+                cleaningLog.User = user;
+                UpdateLog(cleaningLog);
+
             }
         }
         private bool CanCleanTram(CleaningServiceDTO Service)
@@ -53,20 +48,19 @@ namespace Logic
             }
             return true;
         }
-        private CleaningServiceDTO GetService(string Service)
+        private CleaningServiceDTO GetService()
         {
-            return _cleaningAccess.GetCleaningServiceByLocation(Service);
+            return _cleaningAccess.GetCleaningServiceByLocation("RMS");
         }
         private void ResetCleaning()
         {
             _cleaningServiceDto.MaxBigServicePerDay = 2;
             _cleaningServiceDto.MaxSmallServicePerDay = 3;
-            _cleaningAccess.UpdateCleaningService(_cleaningServiceDto);
         }
         private void DetermineIfCleanNeedToBeReset()
         {
             DateTime CurrentDate = DateTime.Now;
-            DateTime LastClean = GetService("RMS").CleanDate;
+            DateTime LastClean = GetService().CleanDate;
             TimeSpan span = CurrentDate.Subtract(LastClean);
             if (span.TotalHours > 24)
             {
@@ -80,26 +74,26 @@ namespace Logic
 
         public void CleanTram(TramDTO tram)
         {
-            DetermineIfCleanNeedToBeReset();
-            if (CanCleanTram(GetService("RMS")))
+            if (CanCleanTram(_cleaningServiceDto))
             {
                 tram.Status.RemoveAll(cleaning => cleaning.Status == Services.TramStatus.Cleaning);
                 _tramAccess.DeleteStatus(TramStatus.Cleaning, tram);
                 CleaningLogDTO cleaningLog = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).Single(x => x.Occured == false);
-                removeServiceCounter(cleaningLog);
+                RemoveServiceCounter(cleaningLog);
                 cleaningLog.Occured = true;
                 UpdateLog(cleaningLog);
             }
         }
 
-        public void removeServiceCounter(CleaningLogDTO cleaningLog)
+        public void RemoveServiceCounter(CleaningLogDTO cleaningLog)
         {
             CleaningServiceDTO cleaningService = _cleaningAccess.GetCleaningServiceByLocation("RMS");
             if (cleaningLog.ServiceType == ServiceType.Big)
             {
                 cleaningService.MaxBigServicePerDay--;
+                cleaningService.MaxSmallServicePerDay--;
             }
-            else
+            if (cleaningLog.ServiceType == ServiceType.Small)
             {
                 cleaningService.MaxSmallServicePerDay--;
             }
@@ -116,8 +110,24 @@ namespace Logic
             CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, ServiceType.Big);
 
         }
+        public DateTime DetermineCleaningDate(CleaningLogDTO clog)
+        {
+            DateTime currentTime = DateTime.Now;
+            DateTime RepairTime = DateTime.Today;
+            TimeSpan difference = clog.Date - currentTime;
+            if(clog.Date == null)
+            {
+                return RepairTime;
+            }
+            if (difference.TotalDays >= 2 || CanCleanTram(_cleaningServiceDto))
+            {
+                RepairTime = currentTime.AddDays(1);
+                return RepairTime;
+            }
+            return RepairTime;
+        }
 
-        public void DetermineCleaningType(TramDTO tram)
+        public void DetermineCleaningType(TramDTO tram, ServiceType serviceType)
         {
             CleaningLogDTO CleaningLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
             CleaningLogDTO  cleaningLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
@@ -178,6 +188,14 @@ namespace Logic
         public void DeleteNotOccured()
         {
             _cleaningAccess.DeleteNotOccured(false);
+        }
+        private bool CanCleanTram(CleaningServiceDTO clean, TramDTO tram)
+        {
+            if (clean.MaxBigServicePerDay == 0 && clean.MaxSmallServicePerDay == 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -29,6 +29,15 @@ namespace DTO
             ServiceType = serviceType;
             Occured = occured;
         }
+        public CleaningLogDTO(CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime date, ServiceType serviceType, bool occured)
+        {
+            CleaningService = cleanService;
+            Tram = tram;
+            User = user;
+            Date = date;
+            ServiceType = serviceType;
+            Occured = occured;
+        }
 
         public CleaningLogDTO(CleaningServiceDTO cleaningService, TramDTO tram, ServiceType serviceType, bool occured)
         {

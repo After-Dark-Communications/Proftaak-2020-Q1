@@ -68,7 +68,35 @@ namespace DAL.Concrete
                 }
             }
         }
+        public UserDTO GetUserByUsername(string Username)
+        {
+            using(SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                UserDTO Emptyuser = new UserDTO();
+                using(SqlCommand cmd = new SqlCommand("SELECT Id, UserName, Name, Surname, Password, Permission FROM [User] " +
+                "WHERE [User].UserName = @UserName", conn))
+                {
+                    conn.Open();
+                    cmd.Parameters.AddWithValue("Username", Username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        string UserName = reader.GetString(1);
+                        string Name = reader.GetString(2);
+                        string Surname = reader.GetString(3);
+                        string Password = reader.GetString(4);
+                        string Permission = reader.GetString(5);
+                        UserDTO UserData = new UserDTO(id, UserName, Password, Name, Surname, Permission);
 
+                        return UserData;
+
+                    }
+                    conn.Close();
+                }
+                return Emptyuser;
+            }
+        }
         public void Create(UserDTO obj)
         {
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
