@@ -36,7 +36,7 @@ namespace Logic
                 return result;
             }
 
-            return user;
+            return null;
         }
         public UserDTO GetUserByUsername(string Name)
         {

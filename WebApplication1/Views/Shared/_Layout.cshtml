@@ -28,6 +28,18 @@
                         <input class="TB-User-Profile" id="UserButton" type="button" value="Log Out" style="background-image: url('../img/usericon.png');" onclick="window.location.href = '@Url.Action("Logout","Account")'" />
                     }
                 </div>
+                @if (!String.IsNullOrWhiteSpace(ViewBag.LatestMessage))
+                {
+                    <div style="width: 500px;height: 50px;border: 1px solid black;background: white;position: absolute;left: 50%;margin-left: -250px;top: 40px;">
+                        <span style="font-size: 1.5em;position: absolute;padding-left: 5px;top: 3px;font-weight: bold;">
+                            @ViewBag.LatestMessage
+                        </span>
+                    </div>
+                }
+
+
+
+
                 @if (Context.Session.GetString("Username") != null)
                 {
                     <div class="Top-Button-Container">
@@ -50,7 +62,7 @@
                         {
                             @if (ViewBag.CurrentPage == "Repairs")
                             {
-                                <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');"/>
+                                <input class="TB-Tab TB-Tab-Selected TB-Tab-Image" id="MechanicButton" type="button" value="Monteur" style="background-image: url('../img/spannerI.png');" />
                             }
                             else
                             {

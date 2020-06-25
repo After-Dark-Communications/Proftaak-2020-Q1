@@ -37,15 +37,24 @@ namespace WebApplication1.Controllers
         {
             //TODO: exceptionHandling
             UserDTO User = _mapper.Map<UserDTO>(UserModel);
-            UserDTO result = _user.Login(User);
-
-            if (result.UserName != null)
+            ViewBag.ShowTopBar = false;
+            if (ModelState.IsValid)
             {
-                _loginRepository.SetLoginSession(result.UserName, result.Permission);
+                UserDTO result = _user.Login(User);
 
-                return RedirectToAction("Index", "Home");
+                if (result != null)
+                {
+                    _loginRepository.SetLoginSession(result.UserName, result.Permission);
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.LatestMessage = "Login Failed: Username or Password is incorrect.";
+                    return View();
+                }
             }
-
+            ViewBag.LatestMessage = "Login Failed: Field(s) were not filled in correctly.";
             return View();
         }
 
@@ -59,8 +68,16 @@ namespace WebApplication1.Controllers
 
         public IActionResult Register(UserViewModel userModel)
         {
+            ViewBag.ShowTopBar = false;
             UserDTO User = _mapper.Map<UserDTO>(userModel);
-            _userCollection.RegisterUser(User);
+            if (ModelState.IsValid)
+            {
+                _userCollection.RegisterUser(User);
+            }
+            else
+            {
+                ViewBag.LatestMessage = "Unable to Register new user: Required fields were left empty or were not filled in properly.";
+            }
             return View();
         }
 

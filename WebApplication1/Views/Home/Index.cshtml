@@ -27,7 +27,6 @@
             else
             {
                 <li onclick="clickInfoTram(@Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber, @Model.DepotTracks[DepotValue].TrackNumber)" class="tracks-hover tracks-white"><a href="#"> @Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber </a></li>
-                ViewData.Add("DepotTrack" + Model.DepotTracks[DepotValue].Sectors[x].Tram.TramNumber, Model.DepotTracks[DepotValue].Sectors[x]);
             }
         }
     }
@@ -381,7 +380,7 @@
                 </ul>
             </div>
         </div>
-        <div class="Legend-Border tracks-gray" style="left: 1410px;bottom: 0;display: inline-table;position: absolute;">
+        <div class="Legend-Border" style="left: 1410px;bottom: 0;display: inline-table;position: absolute; background-color:#fff;">
             <!--Legenda-->
             <table>
                 <tr style="padding:5px;">
@@ -421,15 +420,9 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="tracks-red" style="min-width: 40px; border-bottom: 1px solid #000;"> </th>
+                    <th class="tracks-red" style="min-width: 40px;"> </th>
                     <th>
                         = lijn 17
-                    </th>
-                </tr>
-                <tr>
-                    <th class="tracks-brown" style="min-width: 40px;"> </th>
-                    <th>
-                        = lijn 16/24
                     </th>
                 </tr>
             </table>
@@ -625,9 +618,9 @@
 //                });
 //            });
 
-                                                                                        //$(document).ready(function () {
+                                                                                            //$(document).ready(function () {
 
-                                                                                        //});
+                                                                                            //});
     </script>
 }
 
