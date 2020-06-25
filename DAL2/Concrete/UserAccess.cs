@@ -89,6 +89,37 @@ namespace DAL.Concrete
             }
         }
 
+        public IEnumerable<UserDTO> GetUserByType(string permission)
+        {
+            List<UserDTO> users = new List<UserDTO>();
+
+            using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("SELECT Id, UserName, Name, Surname, Password, Permission FROM [User] " +
+                                                           "WHERE [User].Permission = @Permission", conn))
+                {
+                    conn.Open();
+                    command.Parameters.AddWithValue("UserName", permission);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int Id = reader.GetInt32(0);
+                        string UserName = reader.GetString(1);
+                        string Name = reader.GetString(2);
+                        string Surname = reader.GetString(3);
+                        string Password = reader.GetString(4);
+                        string permissions = reader.GetString(5);
+                        UserDTO UserData = new UserDTO(Id, UserName, Password, Name, Surname, permissions);
+                        users.Add(UserData);
+                    }
+
+                    conn.Close();
+                    return users;
+                }
+            }
+        }
+
         void IGenAccess<UserDTO>.Update(UserDTO obj)
         {
             throw new NotImplementedException();

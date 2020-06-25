@@ -26,5 +26,10 @@ namespace Logic
         //{
         //    return user.Permissions.Where(x => x.Name == "Admin").Any();
         //}
+
+        public IEnumerable<UserDTO> GetUsersByPermission(string permission)
+        {
+            return _userAccess.GetUserByType(permission);
+        }
     }
 }
