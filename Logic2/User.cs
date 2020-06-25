@@ -38,10 +38,6 @@ namespace Logic
 
             return null;
         }
-        public UserDTO GetUserByUsername(string Name)
-        {
-            return _userAccess.GetUserByUsername(Name);
-        }
 
         //hashing user data
         public UserDTO AlterUserCredentialsToHash(UserDTO userCredentials)
