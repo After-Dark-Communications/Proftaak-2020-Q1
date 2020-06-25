@@ -49,6 +49,10 @@ namespace Logic
                     {
                         _cleaningServiceLogic.HasToBeCleaned(tram, ServiceType.Big);
                     }
+                    else
+                    {
+                        _cleaningServiceLogic.DetermineCleaningType(tram);
+                    }
                     AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
                 }
                 else

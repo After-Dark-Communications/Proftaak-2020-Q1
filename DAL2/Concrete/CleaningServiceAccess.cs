@@ -148,6 +148,7 @@ namespace DAL.Concrete
             }
             return cleanLogList;
         }
+
         public IEnumerable<CleaningLogDTO> GetCleaningLogsByTramNumber(string tramnumber)
         {
             string Name = "";
@@ -156,12 +157,12 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleaningType, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType, [User].Name " +
                                                        "FROM CleaningService_Tram " +
                                                        "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
-                                                       "INNER JOIN [User] ON RepairService_Tram.UserId = [User].Id " +
-                                                       "INNER JOIN Tram ON RepairService_Tram.TramId = Tram.Id " +
-                                                       "WHERE Tram.TramNumber ", conn))
+                                                       "INNER JOIN [User] ON CleaningService_Tram.UserId = [User].Id " +
+                                                       "INNER JOIN Tram ON CleaningService_Tram.TramId = Tram.Id " +
+                                                       "WHERE Tram.TramNumber = @TramNumber", conn))
                 {
                     cmd.Parameters.AddWithValue("TramNumber", tramnumber);
                     using (SqlDataReader dataReader = cmd.ExecuteReader())

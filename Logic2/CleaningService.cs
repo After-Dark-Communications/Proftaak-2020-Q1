@@ -23,7 +23,7 @@ namespace Logic
             _serviceaccess = serviceaccess;
             _cleaningAccess = cleaningAccess;
             _tramAccess = tramAccess;
-            _cleaningServiceDto = GetService();
+            _cleaningServiceDto = GetService("RMS");
         }
         public void SetSmallCleanTram(TramDTO tram)
         {
@@ -53,19 +53,20 @@ namespace Logic
             }
             return true;
         }
-        private CleaningServiceDTO GetService()
+        private CleaningServiceDTO GetService(string Service)
         {
-            return _cleaningAccess.GetCleaningServiceByLocation("RMS");
+            return _cleaningAccess.GetCleaningServiceByLocation(Service);
         }
         private void ResetCleaning()
         {
             _cleaningServiceDto.MaxBigServicePerDay = 2;
             _cleaningServiceDto.MaxSmallServicePerDay = 3;
+            _cleaningAccess.UpdateCleaningService(_cleaningServiceDto);
         }
         private void DetermineIfCleanNeedToBeReset()
         {
             DateTime CurrentDate = DateTime.Now;
-            DateTime LastClean = GetService().CleanDate;
+            DateTime LastClean = GetService("RMS").CleanDate;
             TimeSpan span = CurrentDate.Subtract(LastClean);
             if (span.TotalHours > 24)
             {
@@ -79,7 +80,8 @@ namespace Logic
 
         public void CleanTram(TramDTO tram)
         {
-            if (CanCleanTram(_cleaningServiceDto))
+            DetermineIfCleanNeedToBeReset();
+            if (CanCleanTram(GetService("RMS")))
             {
                 tram.Status.RemoveAll(cleaning => cleaning.Status == Services.TramStatus.Cleaning);
                 _tramAccess.DeleteStatus(TramStatus.Cleaning, tram);
@@ -115,7 +117,7 @@ namespace Logic
 
         }
 
-        public void DetermineCleaningType(TramDTO tram, ServiceType serviceType)
+        public void DetermineCleaningType(TramDTO tram)
         {
             CleaningLogDTO CleaningLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
             CleaningLogDTO  cleaningLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
@@ -177,6 +179,5 @@ namespace Logic
         {
             _cleaningAccess.DeleteNotOccured(false);
         }
-
     }
 }
