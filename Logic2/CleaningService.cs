@@ -127,7 +127,7 @@ namespace Logic
             return RepairTime;
         }
 
-        public void DetermineCleaningType(TramDTO tram, ServiceType serviceType)
+        public void DetermineCleaningType(TramDTO tram)
         {
             CleaningLogDTO CleaningLogDTOBig = GetOccuredLog(tram, ServiceType.Big);
             CleaningLogDTO  cleaningLogDTOSmall = GetOccuredLog(tram, ServiceType.Small);
