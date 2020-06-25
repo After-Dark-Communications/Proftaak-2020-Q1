@@ -15,5 +15,6 @@ namespace WebApplication1.Models
         public bool Occured { get; set; }
         public UserViewModel User { get; set; }
         public DateTime CleaningDate { get; set; }
+        public IEnumerable<UserViewModel> SchoonMakers { get; set; }
     }
 }

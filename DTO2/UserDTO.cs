@@ -30,7 +30,7 @@ namespace DTO
 
         public UserDTO(string name)
         {
-            UserName = name;
+            Name = name;
         }
 
     }

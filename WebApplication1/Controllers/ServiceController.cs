@@ -21,8 +21,9 @@ namespace WebApplication1.Controllers
         private readonly Tram _tramLogic;
         private readonly LoginRepository _login;
         private readonly Depot _depot;
+        private readonly UserCollection _userCollection;
 
-        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login, Depot depot)
+        public ServiceController(IMapper mapper, RepairService repairservice, CleaningService cleaningservice, Tram tram, Track tracklogic, LoginRepository login, Depot depot, UserCollection userCollection)
         {
             _mapper = mapper;
             _repairservice = repairservice;
@@ -31,6 +32,7 @@ namespace WebApplication1.Controllers
             _tracklogic = tracklogic;
             _login = login;
             _depot = depot;
+            _userCollection = userCollection;
         }
 
         public IActionResult Repairs()
@@ -101,6 +103,7 @@ namespace WebApplication1.Controllers
                 cvm.TramNumber = log.Tram.TramNumber;
                 cvm.CleaningType = (ServiceType)log.ServiceType;
                 cvm.Occured = log.Occured;
+                cvm.SchoonMakers = _mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserViewModel>>(_userCollection.GetUsersByPermission("Schoonmaker"));
                 cvms.Add(cvm);
             }
             return View(cvms);

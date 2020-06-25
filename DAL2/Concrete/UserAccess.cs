@@ -99,7 +99,7 @@ namespace DAL.Concrete
                                                            "WHERE [User].Permission = @Permission", conn))
                 {
                     conn.Open();
-                    command.Parameters.AddWithValue("UserName", permission);
+                    command.Parameters.AddWithValue("Permission", permission);
                     SqlDataReader reader = command.ExecuteReader();
 
                     while (reader.Read())

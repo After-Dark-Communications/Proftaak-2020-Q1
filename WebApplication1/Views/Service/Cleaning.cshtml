@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@using Logic
+@using Microsoft.AspNetCore.Http
 @using Microsoft.CodeAnalysis.CSharp.Syntax
 @model IEnumerable<CleaningServiceViewModel>;
 @{
@@ -42,8 +43,10 @@
                             {
                                 <td class="C-content C-content-wide">
                                     <select name="Username">
-                                        <option value="0">Groot</option>
-                                        <option value="1">Klein</option>
+                                        @foreach(UserViewModel user in Service.SchoonMakers)
+                                        {
+                                        <option value="@user.UserName">@user.UserName</option>
+                                        }
                                     </select>
                                 </td>
                                 <!--Persoon-->

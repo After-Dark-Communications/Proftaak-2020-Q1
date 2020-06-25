@@ -20,8 +20,7 @@ namespace WebApplication1.Services
             CreateMap<TrackDTO, Track>().ReverseMap();
             CreateMap<SectorDTO, Sector>().ReverseMap();
             CreateMap<UserDTO, User>().ReverseMap();
-            CreateMap<UserViewModel, UserDTO>()
-                .ForMember(c => c.Name, opt => opt.MapFrom(src => src.Name));
+            CreateMap<UserViewModel, UserDTO>().ReverseMap();
             CreateMap<TrackDTO, TrackViewModel>().ReverseMap();
             CreateMap<SectorDTO, SectorViewModel>().ReverseMap();
             CreateMap<TrackDTO, RepairServiceViewModel>().ReverseMap();
