@@ -94,7 +94,11 @@ namespace WebApplication1.Controllers
         }
         public IActionResult RemoveTramSend()
         {
-            _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+            if (_repairService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null && _cleaningService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null)
+            {
+                _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+            }
+            
             ViewBag.LatestMessage = "Removed Tram Successfully";
             return RedirectToAction("Index", "Home");
         }
