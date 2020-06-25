@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
         private readonly LoginRepository _repository;
         private readonly RepairService _repairService;
         private readonly CleaningService _cleaningService;
-
+        private static string LatestMessage;
 
         public HomeController(ILogger<HomeController> logger, IMapper mapper, Tram tram, Sector sector, Depot depot, LoginRepository repository, RepairService repairService, CleaningService cleaningService)
         {
@@ -38,6 +38,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.ShowTopBar = true;
             ViewBag.CurrentPage = "Index";
+            ViewBag.LatestMessage = LatestMessage;
             var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
 
             if (_repository.GetLoginSession() == null)
@@ -76,7 +77,7 @@ namespace WebApplication1.Controllers
         {
             int cleaning = Convert.ToInt32(HttpContext.Request.Form["service"]);
             _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), (ServiceType)cleaning);
-            ViewBag.LatestMessage = "Sent Tram " + cleaningService.TramNumber + " to the cleaning section successfully.";
+            LatestMessage = "Sent Tram " + cleaningService.TramNumber + " to the cleaning section successfully.";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -89,7 +90,7 @@ namespace WebApplication1.Controllers
         {
             int repair = Convert.ToInt32(HttpContext.Request.Form["repairsize"]);
             _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
-            ViewBag.LatestMessage = "Sent Tram to the repairing4 section successfully.";
+            LatestMessage = "Sent Tram to the repairing section successfully.";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RemoveTramSend()
@@ -192,7 +193,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                ViewBag.LatestMessage = "Could not send tram to repair: required field(s) were left empty";
+                LatestMessage = "Could not send tram to repair: required field(s) were left empty";
             }
             return RedirectToAction("Index", "Home");
         }
