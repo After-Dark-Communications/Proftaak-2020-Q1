@@ -89,7 +89,8 @@ namespace WebApplication1.Controllers
         public IActionResult RepairSignUpSend()
         {
             int repair = Convert.ToInt32(HttpContext.Request.Form["repairsize"]);
-            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], true, false, HttpContext.Request.Form["repairreason"], _depotLogic.Read(1));
+            _repairService.CreateRepairLogDefect(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), HttpContext.Request.Form["repairreason"], (ServiceType)repair);
+            _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], _depotLogic.Read(1), true);
             LatestMessage = "Sent Tram to the repairing section successfully.";
             return RedirectToAction("Index", "Home");
         }
