@@ -98,7 +98,7 @@ namespace Logic
 
         public void CreateRepairLogDefect(TramDTO tram, string repairMessage, ServiceType service)
         {
-            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, ServiceType.Big, false, false, repairMessage);
+            RepairLogDTO log = new RepairLogDTO(_repairServiceAccess.GetRepairServiceByLocation("RMS"), tram, service, false, false, repairMessage);
             _repairServiceAccess.StoreRepairLog(log);
         }
         public void CreateRepairLogScheduled(TramDTO tram, ServiceType service)
