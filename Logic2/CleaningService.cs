@@ -17,13 +17,15 @@ namespace Logic
         private readonly CleaningServiceDTO _cleaningServiceDto;
         private readonly ICleaningServiceAccess _cleaningAccess;
         private readonly ITramAccess _tramAccess;
+        private readonly IUserAccess _userAccess;
 
-        public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess, ITramAccess tramAccess)
+        public CleaningService(IServiceAccess serviceaccess, ICleaningServiceAccess cleaningAccess, ITramAccess tramAccess, IUserAccess access)
         {
             _serviceaccess = serviceaccess;
             _cleaningAccess = cleaningAccess;
             _tramAccess = tramAccess;
             _cleaningServiceDto = GetService();
+            _userAccess = access;
         }
         public void ServiceRepair(TramDTO tram, UserDTO user)
         {
@@ -196,6 +198,12 @@ namespace Logic
                 return false;
             }
             return true;
+        }
+        public void AssignUser(string username, string tramnumber)
+        {
+            UserDTO user = _userAccess.GetUserByUsername(username);
+            CleaningLogDTO NotOccured = _cleaningAccess.GetCleaningLogsByTramNumber(tramnumber).SingleOrDefault(x => x.Occured == false);
+            NotOccured.User = user;
         }
     }
 }
