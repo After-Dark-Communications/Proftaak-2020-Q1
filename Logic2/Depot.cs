@@ -18,7 +18,7 @@ namespace Logic
         private readonly IDepotAccess _depotaccess;
         private readonly ITramAccess _tramAccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService)
+        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService, ITramAccess tramAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
@@ -26,6 +26,7 @@ namespace Logic
             this._sectorLogic = sectorLogic;
             this._repairServicelogic = repairServiceLogic;
             this._cleaningServiceLogic = cleaningService;
+            _tramAccess = tramAccess;
         }
 
         public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
