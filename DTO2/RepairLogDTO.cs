@@ -12,7 +12,7 @@ namespace DTO
         public RepairServiceDTO RepairService { get; set; }
         public TramDTO Tram { get; set; }
         public UserDTO User { get; set; }
-        public DateTime RepairDate { get; set; }
+        public DateTime? RepairDate { get; set; }
         public ServiceType ServiceType { get; set; }
         public bool Occured { get; set; }
         public string RepairMessage { get; set; }
@@ -59,6 +59,16 @@ namespace DTO
         public RepairLogDTO(int id, RepairServiceDTO repairService, TramDTO tram, DateTime repairDate,  ServiceType serviceType, bool occured, string repairMessage)
         {
             Id = id;
+            RepairService = repairService;
+            Tram = tram;
+            RepairDate = repairDate;
+            ServiceType = serviceType;
+            Occured = occured;
+            RepairMessage = repairMessage;
+        }
+
+        public RepairLogDTO(RepairServiceDTO repairService, TramDTO tram, DateTime repairDate, ServiceType serviceType, bool occured, string repairMessage)
+        {
             RepairService = repairService;
             Tram = tram;
             RepairDate = repairDate;

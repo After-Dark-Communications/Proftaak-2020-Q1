@@ -3,6 +3,7 @@ using DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using DAL.Context;
 using Services;
 namespace DAL.Concrete
@@ -30,12 +31,12 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO RepairService_Tram (RepairServiceId, TramId, ServiceType, Occured, RepairMessage, WaitingList) " +
+                using (SqlCommand cmd = new SqlCommand("INSERT INTO RepairService_Tram (RepairServiceId, TramId, ServiceType, Occured, RepairMessage, WaitingList, Date) " +
                                                        "VALUES((select RepairService.Id FROM RepairService WHERE RepairService.Location = @Location), " +
                                                        "(select Tram.Id FROM Tram WHERE Tram.TramNumber = @TramNumber), " +
                                                        "@ServiceType, " +
                                                        "@Occured, " +
-                                                       "@RepairMessage, @WaitingList) ", conn))
+                                                       "@RepairMessage, @WaitingList, @Date) ", conn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", repairLog.RepairService.Location));
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", repairLog.Tram.TramNumber));
@@ -43,6 +44,15 @@ namespace DAL.Concrete
                     cmd.Parameters.Add(new SqlParameter("@Occured", repairLog.Occured));
                     cmd.Parameters.Add(new SqlParameter("@RepairMessage", repairLog.RepairMessage ?? (object)DBNull.Value));
                     cmd.Parameters.Add(new SqlParameter("@WaitingList", repairLog.WaitingList));
+                    cmd.Parameters.Add(new SqlParameter("@Date", repairLog.RepairDate ?? (object)DBNull.Value));
+                    //if (repairLog.User != null)
+                    //{
+                    //    cmd.Parameters.Add(new SqlParameter("@UserId", repairLog.User.Id));
+                    //}
+                    //else
+                    //{
+                    //    cmd.Parameters.Add(new SqlParameter("@UserId", 0));
+                    //}
                     cmd.ExecuteNonQuery();
                 }
                 conn.Close();
