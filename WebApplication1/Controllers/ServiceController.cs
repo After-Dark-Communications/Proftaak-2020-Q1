@@ -68,7 +68,7 @@ namespace WebApplication1.Controllers
         {
             string TramNumber = HttpContext.Request.Form["TramNumber"];
             string UserName = HttpContext.Request.Form["Username"];
-            string CleaningDate = HttpContext.Request.Form["CleaningDate"];
+            _cleaningservice.AssignUser(HttpContext.Request.Form["Username"], (_tramLogic.GetTram(HttpContext.Request.Form["TramNumber"])));
             return RedirectToAction("Cleaning", "Service");
         }
 

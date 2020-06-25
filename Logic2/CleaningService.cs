@@ -199,10 +199,10 @@ namespace Logic
             }
             return true;
         }
-        public void AssignUser(string username, string tramnumber)
+        public void AssignUser(string username, TramDTO tram)
         {
             UserDTO user = _userAccess.GetUserByUsername(username);
-            CleaningLogDTO NotOccured = _cleaningAccess.GetCleaningLogsByTramNumber(tramnumber).SingleOrDefault(x => x.Occured == false);
+            CleaningLogDTO NotOccured = GetNotOccuredLog(tram);
             NotOccured.User = user;
         }
     }

@@ -157,10 +157,9 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType, [User].Name " +
+                using (SqlCommand cmd = new SqlCommand("Select CleaningService.Location, Tram.TramNumber, CleaningService_Tram.CleaningDate, CleaningService_Tram.Occured, CleaningService_Tram.CleanType "+
                                                        "FROM CleaningService_Tram " +
                                                        "INNER JOIN CleaningService ON CleaningService_Tram.CleaningServiceId = CleaningService.Id " +
-                                                       "INNER JOIN [User] ON CleaningService_Tram.UserId = [User].Id " +
                                                        "INNER JOIN Tram ON CleaningService_Tram.TramId = Tram.Id " +
                                                        "WHERE Tram.TramNumber = @TramNumber", conn))
                 {
@@ -169,19 +168,14 @@ namespace DAL.Concrete
                     {
                         while(dataReader.Read())
                         {
-                            int id = dataReader.GetInt32(0);
-                            string location = dataReader.GetString(1);
-                            if (!dataReader.IsDBNull(3))
+                            string location = dataReader.GetString(0);
+                            if (!dataReader.IsDBNull(2))
                             {
-                                CleaningDate = dataReader.GetDateTime(3);
+                                CleaningDate = dataReader.GetDateTime(2);
                             }
-                            Boolean Occured = dataReader.GetBoolean(4);
-                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
-                            if (!dataReader.IsDBNull(6))
-                            {
-                                Name = dataReader.GetString(6);
-                            }
-                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured);
+                            Boolean Occured = dataReader.GetBoolean(3);
+                            ServiceType ServiceType = (ServiceType)dataReader.GetInt32(4);
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(new CleaningServiceDTO(), new TramDTO(tramnumber), new UserDTO(Name), CleaningDate, ServiceType, Occured);
                             cleanLogList.Add(cleanLog);
                         }
                     }
