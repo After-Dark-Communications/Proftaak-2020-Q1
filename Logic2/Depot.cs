@@ -16,8 +16,9 @@ namespace Logic
         private readonly RepairService _repairServicelogic;
         private readonly CleaningService _cleaningServiceLogic;
         private readonly IDepotAccess _depotaccess;
+        private readonly ITramAccess _tramAccess;
 
-        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService)
+        public Depot(Track tracklogic, Tram tramlogic, Sector sectorLogic, RepairService repairServiceLogic, IDepotAccess depotAccess, CleaningService cleaningService, ITramAccess tramAccess)
         {
             this._tracklogic = tracklogic;
             this._tramlogic = tramlogic;
@@ -25,6 +26,7 @@ namespace Logic
             this._sectorLogic = sectorLogic;
             this._repairServicelogic = repairServiceLogic;
             this._cleaningServiceLogic = cleaningService;
+            _tramAccess = tramAccess;
         }
 
         public void ReceiveTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
@@ -38,7 +40,7 @@ namespace Logic
                     changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
                     if (repairStatus)
                     {
-                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
+                        _repairServicelogic.CreateRepairLogDefect(tram, repairMessage, ServiceType.Big);
                     }
                     else
                     {
@@ -57,12 +59,12 @@ namespace Logic
                 }
                 else
                 {
-                    //return the tram
+                    AllocationManager.SentTramAway(tram, _repairServicelogic, _cleaningServiceLogic, _tramlogic);
                 }
             }
             else
             {
-                //return the tram
+                AllocationManager.SentTramAway(_tramlogic.GetTram(tramNumber), _repairServicelogic, _cleaningServiceLogic, _tramlogic);
             }
         }
 
@@ -114,19 +116,12 @@ namespace Logic
             return _depotaccess.Read(key);
         }
 
-        public void TransferTram(string tramNumber, bool repairStatus, bool cleanStatus, string? repairMessage, DepotDTO depot)
+        public void TransferTram(string tramNumber, DepotDTO depot, bool rapairstatus)
         {
             TramDTO tram = _tramlogic.GetTram(tramNumber);
             _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(tramNumber)));
-            changeTramStatus(tram, repairStatus, cleanStatus, _tramlogic);
-            if (repairMessage != null)
-            {
-                _repairServicelogic.CreateRepairLogDefect(tram, repairMessage);
-            }
-            else
-            {
-                _repairServicelogic.DetermineRepairType(tram);
-            }
+            bool cleanStatus = _tramAccess.GetCleanStatus(tramNumber);
+            changeTramStatus(tram, rapairstatus, cleanStatus, _tramlogic);
             AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
     }

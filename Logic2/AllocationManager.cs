@@ -205,7 +205,7 @@ namespace Logic
             return false;
         }
 
-        private static void SentTramAway(TramDTO tramDto, RepairService repairService, CleaningService cleaningService, Tram tram)
+        public static void SentTramAway(TramDTO tramDto, RepairService repairService, CleaningService cleaningService, Tram tram)
         {
             repairService.DeleteNotOccured();
             cleaningService.DeleteNotOccured();

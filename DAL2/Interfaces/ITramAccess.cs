@@ -16,5 +16,6 @@ namespace DAL.Interfaces
         int GetKeyFromTramNumber(string tramNumber);
         int GetSectorIdFromTram(int key);
         public void DeleteStatus(TramStatus status, TramDTO tram);
+        bool GetCleanStatus(string TramNumber);
     }
 }

@@ -8,7 +8,7 @@ namespace DAL.Interfaces
 {
     public interface IUserAccess : IGenAccess<UserDTO>
     {
-        public UserDTO Get(UserDTO user);
-        public UserDTO GetUserByUsername(string Username);
+        UserDTO Get(UserDTO user);
+        IEnumerable<UserDTO> GetUserByType(string Permission);
     }
 }

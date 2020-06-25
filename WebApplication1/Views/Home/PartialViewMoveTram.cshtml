@@ -8,9 +8,11 @@
                 <label>Tramnummer :</label>
                 <input type="number" name="tramnumber" value="@ViewBag.Tramnumber" readonly/>
                 <label>Spoornummer :</label>
-                <select name="tracknumber">
-                    <option value="37">37</option>
-                    <option value="36">36</option>
+                <select name="tracknumbernew">
+                    @foreach (TrackViewModel track in ViewBag.AvailableTracks)
+                    {
+                    <option value="@track.TrackNumber">@track.TrackNumber</option>
+                    }
                 </select>
             </div>
             <input type="submit" class="reserve-tram-button" value="Verstuur" />

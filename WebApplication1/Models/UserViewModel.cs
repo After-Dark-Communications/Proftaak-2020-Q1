@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,9 @@ namespace WebApplication1.Models
 {
     public class UserViewModel
     {
+        [Required]
         public string UserName { get; set; }
+        [Required, MinLength(5)]
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -18,19 +21,19 @@ namespace WebApplication1.Models
 
         }
 
-        public UserViewModel(string UserName, string Password)
+        public UserViewModel(string userName, string password)
         {
-            this.UserName = UserName;
-            this.Password = Password;
+            this.UserName = userName;
+            this.Password = password;
         }
 
-        public UserViewModel(string Username, string Name, string Surname, string Password, string Permission)
+        public UserViewModel(string userName, string name, string surname, string password, string permission)
         {
-            this.UserName = UserName;
-            this.Name = Name;
-            this.Surname = Surname;
-            this.Password = Password;
-            this.Permission = Permission;
+            this.UserName = userName;
+            this.Name = name;
+            this.Surname = surname;
+            this.Password = password;
+            this.Permission = permission;
         }
     }
 }

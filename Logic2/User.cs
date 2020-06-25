@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,11 +36,7 @@ namespace Logic
                 return result;
             }
 
-            return user;
-        }
-        public UserDTO GetUserByUsername(string Name)
-        {
-            return _userAccess.GetUserByUsername(Name);
+            return null;
         }
 
         //hashing user data
