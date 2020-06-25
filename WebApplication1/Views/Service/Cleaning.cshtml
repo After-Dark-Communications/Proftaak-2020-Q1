@@ -28,38 +28,39 @@
                         @{
                             if (Service.User != null)
                             {
-                                                <form method="post" action="/Service/UpdateCleaningDoneStatus">
-                                                    <td class="C-content C-content-wide" name="Username" value="@Service.User.UserName">@Service.User.UserName</td><!--Persoon-->
-                                                    <td class="C-content C-content-wide" name="CleaningDate" value="@Service.CleaningDate">@Service.CleaningDate</td><!--datum-->
-                                                    <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
-                                                    <td class="C-Info-Status test"><input type="submit" name="Done" value="Done"></td>
-                                                </form>
+                                <form method="post" action="/Service/UpdateCleaningDoneStatus">
+                                    <td class="C-content C-content-wide" name="Username" value="@Service.User.UserName">@Service.User.UserName</td><!--Persoon-->
+                                    <td class="C-content C-content-wide" name="CleaningDate" value="@Service.CleaningDate">@Service.CleaningDate</td><!--datum-->
+                                    <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
+                                    <td class="C-Info-Status test"><input type="submit" name="Done" value="Done"></td>
+                                </form>
                             }
                             else
                             {
-                    <form method="post" action="/Service/AssignUser">
-                        @{
-                            if (Context.Session.GetString("Permission") == "Admin")
-                            {
-                                <td class="C-content C-content-wide">
-                                    <select name="Username">
-                                        @foreach(UserViewModel user in Service.SchoonMakers)
+                                <form method="post" action="/Service/AssignUser">
+                                    @{
+                                        if (Context.Session.GetString("Permission") == "Admin")
                                         {
-                                        <option value="@user.UserName">@user.UserName</option>
+                                            <td class="C-content C-content-wide">
+                                                <select name="Username">
+                                                    @foreach (UserViewModel user in Service.SchoonMakers)
+                                                    {
+                                                        <option value="@user.UserName">@user.UserName</option>
+                                                    }
+                                                </select>
+                                            </td>
+                                            <!--Persoon-->
                                         }
-                                    </select>
-                                </td>
-                                <!--Persoon-->
-                            }
-                            else
-                            {
-                                <td class="C-content C-content-wide" name="Username" value="@Context.Session.GetString("Username")">@Context.Session.GetString("Username")</td><!--Persoon-->
-                            }
-                            <td class="C-content C-content-wide">No date assigned</td><!--datum-->
-                            <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
-                            <td class="C-Info-Status test"><input type="submit" name="Assign" value="Assign"></td><!--Done-->
-                        }
-                    </form>
+                                        else
+                                        {
+                                            <input type="hidden" name="Username" value="@Context.Session.GetString("Username")" />
+                                            <td class="C-content C-content-wide">@Context.Session.GetString("Username")</td><!--Persoon-->
+                                        }
+                                        <td class="C-content C-content-wide">No date assigned</td><!--datum-->
+                                        <input type="hidden" name="TramNumber" value="@Service.TramNumber" readonly />
+                                        <td class="C-Info-Status test"><input type="submit" name="Assign" value="Assign"></td><!--Done-->
+                                    }
+                                </form>
 
                             }
                         }

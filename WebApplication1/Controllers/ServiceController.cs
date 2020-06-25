@@ -99,6 +99,11 @@ namespace WebApplication1.Controllers
             {
                 CleaningServiceViewModel cvm = new CleaningServiceViewModel();
                 var track = _tracklogic.GetTrackByTramNumber(log.Tram.TramNumber);
+                if (log.User.UserName != "")
+                {
+                    cvm.User = new UserViewModel(log.User.UserName);
+                }
+                cvm.CleaningDate = log.Date;
                 cvm.TrackNumber = track.TrackNumber;
                 cvm.TramNumber = log.Tram.TramNumber;
                 cvm.CleaningType = (ServiceType)log.ServiceType;

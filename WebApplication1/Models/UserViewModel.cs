@@ -35,5 +35,9 @@ namespace WebApplication1.Models
             this.Password = password;
             this.Permission = permission;
         }
+        public UserViewModel(string userName)
+        {
+            this.UserName = userName;
+        }
     }
 }

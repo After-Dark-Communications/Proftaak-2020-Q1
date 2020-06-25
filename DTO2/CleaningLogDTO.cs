@@ -22,6 +22,7 @@ namespace DTO
 
         public CleaningLogDTO(int id, CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime date, ServiceType serviceType, bool occured)
         {
+            Id = id;
             CleaningService = cleanService;
             Tram = tram;
             User = user;

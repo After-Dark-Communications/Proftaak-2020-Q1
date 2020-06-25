@@ -75,6 +75,7 @@ namespace DAL.Concrete
                 {
                     cmd.Parameters.AddWithValue("@Occured", cleanLog.Occured);
                     cmd.Parameters.AddWithValue("@CleaningId", cleanLog.Id);
+
                     cmd.ExecuteNonQuery();
                 }
 
@@ -87,10 +88,11 @@ namespace DAL.Concrete
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
-                string query = "UPDATE CleaningService_Tram SET UserId = @UserId WHERE CleaningId = @CleaningId";
+                string query = "UPDATE CleaningService_Tram SET UserId = @UserId, CleaningDate = @CleaningDate  WHERE CleaningId = @CleaningId";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@UserId", cleaningLog.User.Id);
+                    cmd.Parameters.AddWithValue("@CleaningDate", cleaningLog.Date);
                     cmd.Parameters.AddWithValue("@CleaningId", cleaningLog.Id);
                     cmd.ExecuteNonQuery();
                 }
@@ -126,8 +128,6 @@ namespace DAL.Concrete
         public IEnumerable<CleaningLogDTO> GetCleaningLogs()
         {
             List<CleaningLogDTO> cleanLogList = new List<CleaningLogDTO>();
-            string Name = "";
-            DateTime date = default;
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
                 conn.Open();
@@ -142,6 +142,8 @@ namespace DAL.Concrete
                     {
                         while (dataReader.Read())
                         {
+                            string userName = "";
+                            DateTime date = default;
                             int id = dataReader.GetInt32(0);
                             string location = dataReader.GetString(1);
                             string tramnumber = dataReader.GetString(2);
@@ -153,9 +155,9 @@ namespace DAL.Concrete
                             ServiceType ServiceType = (ServiceType)dataReader.GetInt32(5);
                             if (!dataReader.IsDBNull(6))
                             {
-                                Name = dataReader.GetString(6);
+                                userName = dataReader.GetString(6);
                             }
-                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(location), new TramDTO(tramnumber), new UserDTO(Name), date, ServiceType, Occured);
+                            CleaningLogDTO cleanLog = new CleaningLogDTO(id, new CleaningServiceDTO(location), new TramDTO(tramnumber), new UserDTO(userName), date, ServiceType, Occured);
                             cleanLogList.Add(cleanLog);
                         }
                     }
