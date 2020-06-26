@@ -135,6 +135,7 @@ namespace Logic
             TrackDTO Track = depot.DepotTracks.Find(t => t.TrackNumber == trackNumber);
             if (_tracklogic.CheckTramCanBeStored(tram, Track))
             {
+                _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(tram.TramNumber)));
                _tracklogic.StoreTram(tram, Track);
             }
         }
