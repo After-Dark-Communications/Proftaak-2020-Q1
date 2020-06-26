@@ -43,7 +43,10 @@
                 @if (Context.Session.GetString("Username") != null)
                 {
                     <div class="Top-Button-Container">
-                        <input class="Top-Bar TB-Normal" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
+                        @if (Context.Session.GetString("Permission") == "Conducteur" || Context.Session.GetString("Permission") == "Admin")
+                        {
+                            <input class="Top-Bar TB-Normal" id="StartButton" type="button" runat="server" value="Start" onclick="BecomeSelected(false,true, 'StartButton', 'ScreenButton')" />
+                        }
                         <input class="Top-Bar TB-Selected" id="ScreenButton" type="button" value="Schermen" onclick="BecomeSelected(true,false, 'ScreenButton', 'StartButton')" />
                     </div>
                     <div class="Bottom-Button-Container" style="display:inline-block;" id="ScreenContainer">
