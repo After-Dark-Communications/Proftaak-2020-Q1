@@ -45,7 +45,19 @@ namespace WebApplication1.Controllers
                 if (result != null)
                 {
                     _loginRepository.SetLoginSession(result.UserName, result.Permission);
-
+                    switch (result.Permission)
+                    {
+                        default:
+                            break;
+                          case "Conducteur":
+                            return RedirectToAction("Index", "Home");
+                        case "Admin":
+                            return RedirectToAction("Index", "Home");
+                        case "Monteur":
+                            return RedirectToAction("Repairs", "Service");
+                        case "Schoonmaker":
+                            return RedirectToAction("Cleaning", "Service");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else
