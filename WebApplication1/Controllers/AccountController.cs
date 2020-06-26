@@ -50,11 +50,11 @@ namespace WebApplication1.Controllers
                 }
                 else
                 {
-                    ViewBag.LatestMessage = "Login Failed: Username or Password is incorrect.";
+                    ViewBag.LatestMessage = "Login mislukt: Gebruikersnaam of wachtwoord is incorrect.";
                     return View();
                 }
             }
-            ViewBag.LatestMessage = "Login Failed: Field(s) were not filled in correctly.";
+            ViewBag.LatestMessage = "Login Mislukt: één of meer Velden zijn niet correct ingevuld";
             return View();
         }
 
@@ -76,7 +76,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                ViewBag.LatestMessage = "Unable to Register new user: Required fields were left empty or were not filled in properly.";
+                ViewBag.LatestMessage = "Nieuwe gebruiker registreren mislukt: verplichte velden zijn niet correct ingevuld.";
             }
             return View();
         }
