@@ -12,7 +12,7 @@
                     <option value="Small">Klein</option>
                 </select>
                 <label>Wanneer moet het gebeuren:</label>
-                <input type="date" asp-format="{0:dd/MM/yyyy}" asp-for="CleaningDate" />
+                <input type="cleaningDate" asp-format="{0:dd/MM/yyyy}" asp-for="CleaningCleaningDate" />
             </div>
             <div>
                 <input type="hidden" asp-for="SectorNumber" value=@ViewBag["DepotTrack"+ViewBag.Tramnumber].Id/>

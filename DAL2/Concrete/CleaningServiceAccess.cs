@@ -40,7 +40,7 @@ namespace DAL.Concrete
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", cleanLog.CleaningService.Location));
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", cleanLog.Tram.TramNumber));
-                    cmd.Parameters.Add(new SqlParameter("@CleanType", cleanLog.ServiceType));
+                    cmd.Parameters.Add(new SqlParameter("@CleanType", cleanLog.CleaningType));
                     cmd.Parameters.Add(new SqlParameter("@Occured", cleanLog.Occured));
                     cmd.ExecuteNonQuery();
                 }
@@ -92,7 +92,7 @@ namespace DAL.Concrete
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@UserId", cleaningLog.User.Id);
-                    cmd.Parameters.AddWithValue("@CleaningDate", cleaningLog.Date);
+                    cmd.Parameters.AddWithValue("@CleaningDate", cleaningLog.CleaningDate);
                     cmd.Parameters.AddWithValue("@CleaningId", cleaningLog.Id);
                     cmd.ExecuteNonQuery();
                 }

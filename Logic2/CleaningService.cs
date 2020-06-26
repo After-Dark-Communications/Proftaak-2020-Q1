@@ -35,7 +35,7 @@ namespace Logic
                 tram.Status.RemoveAll(repair => repair.Status == Services.TramStatus.Defect);
                 CleaningLogDTO cleaningLog = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).SingleOrDefault(x => x.Occured == false);
                 RemoveServiceCounter(cleaningLog);
-                cleaningLog.Date = DateTime.Now;
+                cleaningLog.CleaningDate = DateTime.Now;
                 cleaningLog.Occured = true;
                 cleaningLog.User = user;
                 UpdateLog(cleaningLog);
@@ -90,12 +90,12 @@ namespace Logic
         public void RemoveServiceCounter(CleaningLogDTO cleaningLog)
         {
             CleaningServiceDTO cleaningService = _cleaningAccess.GetCleaningServiceByLocation("RMS");
-            if (cleaningLog.ServiceType == ServiceType.Big)
+            if (cleaningLog.CleaningType == ServiceType.Big)
             {
                 cleaningService.MaxBigServicePerDay--;
                 cleaningService.MaxSmallServicePerDay--;
             }
-            if (cleaningLog.ServiceType == ServiceType.Small)
+            if (cleaningLog.CleaningType == ServiceType.Small)
             {
                 cleaningService.MaxSmallServicePerDay--;
             }
@@ -116,8 +116,8 @@ namespace Logic
         {
             DateTime currentTime = DateTime.Now;
             DateTime RepairTime = DateTime.Today;
-            TimeSpan difference = clog.Date - currentTime;
-            if(clog.Date == null)
+            TimeSpan difference = clog.CleaningDate - currentTime;
+            if(clog.CleaningDate == null)
             {
                 return RepairTime;
             }
@@ -136,27 +136,27 @@ namespace Logic
             if (CleaningLogDTOBig == null)
             {
                 CleaningLogDTOBig = new CleaningLogDTO();
-                CleaningLogDTOBig.Date = default;
+                CleaningLogDTOBig.CleaningDate = default;
             }
             if (cleaningLogDTOSmall == null)
             {
                 cleaningLogDTOSmall = new CleaningLogDTO();
-                cleaningLogDTOSmall.Date = default;
+                cleaningLogDTOSmall.CleaningDate = default;
             }
 
-            DateTime startTimeBig = CleaningLogDTOBig.Date;
-            DateTime startTimeSmall = cleaningLogDTOSmall.Date;
+            DateTime startTimeBig = CleaningLogDTOBig.CleaningDate;
+            DateTime startTimeSmall = cleaningLogDTOSmall.CleaningDate;
             DateTime endTime = DateTime.Now;
 
             TimeSpan spanBig = endTime.Subtract(startTimeBig);
             TimeSpan spanSmall = endTime.Subtract(startTimeSmall);
 
-            if (spanBig.TotalDays > 183 || CleaningLogDTOBig.Date == default)
+            if (spanBig.TotalDays > 183 || CleaningLogDTOBig.CleaningDate == default)
             {
                 tram.OccuredCleanLog = CleaningLogDTOBig;
                 CreateCleaningLogScheduled(tram, ServiceType.Big);
             }
-            else if (spanSmall.TotalDays > 91 || cleaningLogDTOSmall.Date == default)
+            else if (spanSmall.TotalDays > 91 || cleaningLogDTOSmall.CleaningDate == default)
             {
                 tram.OccuredCleanLog = cleaningLogDTOSmall;
                 CreateCleaningLogScheduled(tram, ServiceType.Small);
@@ -165,7 +165,7 @@ namespace Logic
 
         public CleaningLogDTO GetOccuredLog(TramDTO tram, ServiceType serviceType)
         {
-            CleaningLogDTO Occured = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).Where(x => x.Occured).Where(x => x.ServiceType == serviceType).OrderBy(x => x.Date).FirstOrDefault();
+            CleaningLogDTO Occured = _cleaningAccess.GetCleaningLogsByTramNumber(tram.TramNumber).Where(x => x.Occured).Where(x => x.CleaningType == serviceType).OrderBy(x => x.CleaningDate).FirstOrDefault();
             return Occured;
         }
 
@@ -204,7 +204,7 @@ namespace Logic
             UserDTO user = _userAccess.GetUserByUsername(username);
             CleaningLogDTO NotOccured = GetNotOccuredLog(tram);
             NotOccured.User = user;
-            NotOccured.Date = DateTime.Today;
+            NotOccured.CleaningDate = DateTime.Today;
             _cleaningAccess.UpdateAssignUser(NotOccured);
         }
     }
