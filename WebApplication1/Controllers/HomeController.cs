@@ -117,9 +117,9 @@ namespace WebApplication1.Controllers
         }
         public IActionResult MoveTramTo()
         {
-            int tracknumber = Convert.ToInt32(HttpContext.Request.Form["tracknumber"]);
+            int tracknumber = Convert.ToInt32(HttpContext.Request.Form["tracknumbernew"]);
             _depotLogic.MoveTramTo(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"]), tracknumber, _depotLogic.Read(1));
-            return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult InformationTramPopUp(string tramnumber, string tracknumber)
         {
@@ -127,6 +127,8 @@ namespace WebApplication1.Controllers
             TramViewModel tramData = _mapper.Map<TramViewModel>(_tramLogic.GetTram(tramnumber));
             RepairServiceViewModel repairLogDataBig = _mapper.Map<RepairServiceViewModel>(_repairService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Big));
             RepairServiceViewModel repairLogDataSmall = _mapper.Map<RepairServiceViewModel>(_repairService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Small));
+            CleaningServiceViewModel cleaningLogDataBig = _mapper.Map<CleaningServiceViewModel>(_cleaningService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Big));
+            CleaningServiceViewModel cleaningLogDataSmall = _mapper.Map<CleaningServiceViewModel>(_cleaningService.GetOccuredLog(_tramLogic.GetTram(tramnumber), ServiceType.Small));
 
             if (repairLogDataBig == null)
             {
@@ -138,11 +140,21 @@ namespace WebApplication1.Controllers
                 repairLogDataSmall = new RepairServiceViewModel();
                 repairLogDataSmall.RepairDate = default;
             }
+            if (cleaningLogDataBig == null)
+            {
+                cleaningLogDataBig = new CleaningServiceViewModel();
+                cleaningLogDataBig.CleaningDate = default;
+            }
+            if (cleaningLogDataSmall == null)
+            {
+                cleaningLogDataSmall = new CleaningServiceViewModel();
+                cleaningLogDataSmall.CleaningDate = default;
+            }
             @ViewBag.Tramnumber = tramData.TramNumber;
             @ViewBag.Status = tramData.Status;
             @ViewBag.Track = tracknumber;
-            @ViewBag.CleaningDateBigService = Daysago(tramData.CleaningDateBigService);
-            @ViewBag.CleaningDateSmallService = Daysago(tramData.CleaningDateSmallService);
+            @ViewBag.CleaningDateBigService = Daysago(cleaningLogDataBig.CleaningDate);
+            @ViewBag.CleaningDateSmallService = Daysago(cleaningLogDataSmall.CleaningDate);
             @ViewBag.RepairDateBigService = Daysago(repairLogDataBig.RepairDate);
             @ViewBag.RepairDateSmallService = Daysago(repairLogDataSmall.RepairDate);
             @ViewBag.Type = tramData.Type;
@@ -154,6 +166,8 @@ namespace WebApplication1.Controllers
         {
             ViewBag.Tramnumber = tramnumber;
             ViewBag.Track = track;
+            var depot = MapDepotDTOToViewModel(_depotLogic.Read(1));
+            ViewBag.AvailableTracks = depot.DepotTracks;
             return PartialView("PartialViewMoveTram");
         }
 
