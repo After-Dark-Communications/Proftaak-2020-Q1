@@ -54,5 +54,14 @@ namespace DTO
             Tram = tram;
             CleaningType = cleaningType;
         }
+
+        public CleaningLogDTO(CleaningServiceDTO cleaning, TramDTO tram, DateTime cleaningDate, ServiceType serviceType, bool occured)
+        {
+            CleaningService = cleaning;
+            Tram = tram;
+            CleaningDate = cleaningDate;
+            CleaningType = serviceType;
+            Occured = occured;
+        }
     }
 }

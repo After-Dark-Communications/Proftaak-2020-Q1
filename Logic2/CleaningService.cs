@@ -29,6 +29,7 @@ namespace Logic
         }
         public void ServiceRepair(TramDTO tram, UserDTO user)
         {
+            DetermineIfCleanNeedToBeReset();
             if (CanCleanTram(_cleaningServiceDto))
             {
                 _tramAccess.DeleteStatus(TramStatus.Defect, tram);
@@ -39,9 +40,16 @@ namespace Logic
                 cleaningLog.Occured = true;
                 cleaningLog.User = user;
                 UpdateLog(cleaningLog);
-
             }
         }
+
+        private void CreateSmallCleanlog(TramDTO tram)
+        {
+            CleaningLogDTO cleaningLog = new CleaningLogDTO(_cleaningAccess.GetCleaningServiceByLocation("RMS"), tram, DateTime.Now, ServiceType.Small, true);
+            _cleaningAccess.StoreCleaningLog(cleaningLog);
+        }
+
+
         private bool CanCleanTram(CleaningServiceDTO Service)
         {
             if (Service.MaxBigServicePerDay == 0 && Service.MaxSmallServicePerDay == 0)
@@ -84,6 +92,10 @@ namespace Logic
                 RemoveServiceCounter(cleaningLog);
                 cleaningLog.Occured = true;
                 UpdateLog(cleaningLog);
+                if (cleaningLog.CleaningType == ServiceType.Big)
+                {
+                    CreateSmallCleanlog(tram);
+                }
             }
         }
 
