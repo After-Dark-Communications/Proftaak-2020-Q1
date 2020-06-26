@@ -77,7 +77,7 @@ namespace WebApplication1.Controllers
         {
             int cleaning = Convert.ToInt32(HttpContext.Request.Form["service"]);
             _cleaningService.HasToBeCleaned(_tramLogic.GetTram(cleaningService.TramNumber), (ServiceType)cleaning);
-            LatestMessage = "Sent Tram " + cleaningService.TramNumber + " to the cleaning section successfully.";
+            LatestMessage = "Tram " + cleaningService.TramNumber + " is succesvol naar de schoonmaak gestuurd.";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RepairSignUp(int tramnumber)
@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers
             int repair = Convert.ToInt32(HttpContext.Request.Form["repairsize"]);
             _repairService.CreateRepairLogDefect(_tramLogic.GetTram(_tramLogic.GetTramIdFromNumber(HttpContext.Request.Form["tramnumber"])), HttpContext.Request.Form["repairreason"], (ServiceType)repair);
             _depotLogic.TransferTram(HttpContext.Request.Form["tramnumber"], _depotLogic.Read(1), true);
-            LatestMessage = "Sent Tram to the repairing section successfully.";
+            LatestMessage = "De tram is succesvol naar de reparatie sectie gestuurd.";
             return RedirectToAction("Index", "Home");
         }
         public IActionResult RemoveTramSend()
@@ -99,11 +99,11 @@ namespace WebApplication1.Controllers
             if (GetLogs())
             {
                 _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
-                LatestMessage = "Removed Tram Successfully";
+                LatestMessage = "Tram succesvol verwijderd.";
             }
             else
             {
-                LatestMessage = "Could not remove tram: the tram still has repair or cleaning requests open.";
+                LatestMessage = "Tram niet verwijderd: De tram heeft nog steeds reparatie of schoonmaak aanvraag open staan.";
             }
 
             return RedirectToAction("Index", "Home");
@@ -225,7 +225,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                LatestMessage = "Could not send tram to repair: required field(s) were left empty";
+                LatestMessage = "De tram is niet verwijderd: alle verplichte velden moeten ingevuld zijn.";
             }
             return RedirectToAction("Index", "Home");
         }
