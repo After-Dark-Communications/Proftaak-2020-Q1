@@ -96,14 +96,25 @@ namespace WebApplication1.Controllers
         }
         public IActionResult RemoveTramSend()
         {
-            if (_repairService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null && _cleaningService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null)
+            if (GetLogs())
             {
                 _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+                LatestMessage = "Removed Tram Successfully";
             }
-            
-            ViewBag.LatestMessage = "Removed Tram Successfully";
+            else
+            {
+                LatestMessage = "Could not remove tram: the tram still has repair or cleaning requests open.";
+            }
+
             return RedirectToAction("Index", "Home");
         }
+
+        private bool GetLogs()
+        {
+            return _repairService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null && 
+                _cleaningService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null;
+        }
+
         public IActionResult ParkTram()
         {
             bool repair = HttpContext.Request.Form["repair"] == "repair";
