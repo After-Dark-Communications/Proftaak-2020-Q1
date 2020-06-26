@@ -387,10 +387,9 @@ namespace DAL.Concrete
                         {
                             Occured = reader.GetBoolean(0);
                         }
-
-                        return Occured;
                     }
                     conn.Close();
+                    return Occured;
                 }
             }
         }
