@@ -34,17 +34,17 @@ namespace DAL.Concrete
                 using (SqlCommand cmd = new SqlCommand("INSERT INTO RepairService_Tram (RepairServiceId, TramId, ServiceType, Occured, RepairMessage, WaitingList, Date) " +
                                                        "VALUES((select RepairService.Id FROM RepairService WHERE RepairService.Location = @Location), " +
                                                        "(select Tram.Id FROM Tram WHERE Tram.TramNumber = @TramNumber), " +
-                                                       "@ServiceType, " +
+                                                       "@CleaningType, " +
                                                        "@Occured, " +
-                                                       "@RepairMessage, @WaitingList, @Date) ", conn))
+                                                       "@RepairMessage, @WaitingList, @CleaningDate) ", conn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Location", repairLog.RepairService.Location));
                     cmd.Parameters.Add(new SqlParameter("@TramNumber", repairLog.Tram.TramNumber));
-                    cmd.Parameters.Add(new SqlParameter("@ServiceType", repairLog.ServiceType));
+                    cmd.Parameters.Add(new SqlParameter("@CleaningType", repairLog.ServiceType));
                     cmd.Parameters.Add(new SqlParameter("@Occured", repairLog.Occured));
                     cmd.Parameters.Add(new SqlParameter("@RepairMessage", repairLog.RepairMessage ?? (object)DBNull.Value));
                     cmd.Parameters.Add(new SqlParameter("@WaitingList", repairLog.WaitingList));
-                    cmd.Parameters.Add(new SqlParameter("@Date", repairLog.RepairDate ?? (object)DBNull.Value));
+                    cmd.Parameters.Add(new SqlParameter("@CleaningDate", repairLog.RepairDate ?? (object)DBNull.Value));
                     //if (repairLog.User != null)
                     //{
                     //    cmd.Parameters.Add(new SqlParameter("@UserId", repairLog.User.Id));
@@ -65,9 +65,9 @@ namespace DAL.Concrete
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET Date = @Date, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
+                using (SqlCommand cmd = new SqlCommand("UPDATE RepairService_Tram SET Date = @CleaningDate, Occured = @Occured, UserId = @UserId WHERE RepairId = @RepairId", conn))
                 {
-                    cmd.Parameters.AddWithValue("@Date", repairLog.RepairDate);
+                    cmd.Parameters.AddWithValue("@CleaningDate", repairLog.RepairDate);
                     cmd.Parameters.AddWithValue("@Occured", repairLog.Occured);
                     cmd.Parameters.AddWithValue("@UserId", repairLog.User.Id);
                     cmd.Parameters.AddWithValue("@RepairId", repairLog.Id);

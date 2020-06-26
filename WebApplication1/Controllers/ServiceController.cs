@@ -103,10 +103,10 @@ namespace WebApplication1.Controllers
                 {
                     cvm.User = new UserViewModel(log.User.UserName);
                 }
-                cvm.CleaningDate = log.Date;
+                cvm.CleaningDate = log.CleaningDate;
                 cvm.TrackNumber = track.TrackNumber;
                 cvm.TramNumber = log.Tram.TramNumber;
-                cvm.CleaningType = (ServiceType)log.ServiceType;
+                cvm.CleaningType = (ServiceType)log.CleaningType;
                 cvm.Occured = log.Occured;
                 cvm.SchoonMakers = _mapper.Map<IEnumerable<UserDTO>, IEnumerable<UserViewModel>>(_userCollection.GetUsersByPermission("Schoonmaker"));
                 cvms.Add(cvm);

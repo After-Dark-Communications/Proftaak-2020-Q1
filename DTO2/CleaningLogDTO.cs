@@ -11,8 +11,8 @@ namespace DTO
         public CleaningServiceDTO CleaningService { get; set; }
         public TramDTO Tram { get; set; }
         public UserDTO User { get; set; }
-        public DateTime Date { get; set; }
-        public ServiceType ServiceType { get; set; }
+        public DateTime CleaningDate { get; set; }
+        public ServiceType CleaningType { get; set; }
         public bool Occured { get; set; }
 
         public CleaningLogDTO()
@@ -20,39 +20,39 @@ namespace DTO
             
         }
 
-        public CleaningLogDTO(int id, CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime date, ServiceType serviceType, bool occured)
+        public CleaningLogDTO(int id, CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime cleaningDate, ServiceType cleaningType, bool occured)
         {
             Id = id;
             CleaningService = cleanService;
             Tram = tram;
             User = user;
-            Date = date;
-            ServiceType = serviceType;
+            CleaningDate = cleaningDate;
+            CleaningType = cleaningType;
             Occured = occured;
         }
-        public CleaningLogDTO(CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime date, ServiceType serviceType, bool occured)
+        public CleaningLogDTO(CleaningServiceDTO cleanService, TramDTO tram, UserDTO user, DateTime cleaningDate, ServiceType cleaningType, bool occured)
         {
             CleaningService = cleanService;
             Tram = tram;
             User = user;
-            Date = date;
-            ServiceType = serviceType;
+            CleaningDate = cleaningDate;
+            CleaningType = cleaningType;
             Occured = occured;
         }
 
-        public CleaningLogDTO(CleaningServiceDTO cleaningService, TramDTO tram, ServiceType serviceType, bool occured)
+        public CleaningLogDTO(CleaningServiceDTO cleaningService, TramDTO tram, ServiceType cleaningType, bool occured)
         {
             CleaningService = cleaningService;
             Tram = tram;
-            ServiceType = serviceType;
+            CleaningType = cleaningType;
             Occured = occured;
         }
 
-        public CleaningLogDTO(CleaningServiceDTO cleanService, TramDTO tram, ServiceType serviceType)
+        public CleaningLogDTO(CleaningServiceDTO cleanService, TramDTO tram, ServiceType cleaningType)
         {
             CleaningService = cleanService;
             Tram = tram;
-            ServiceType = serviceType;
+            CleaningType = cleaningType;
         }
     }
 }

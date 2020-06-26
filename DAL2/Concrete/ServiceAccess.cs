@@ -17,7 +17,7 @@ namespace DAL.Concrete
             RepairServiceDTO RepairService = new RepairServiceDTO("RMS");
             using (SqlConnection conn = new SqlConnection(DBConnection._connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.Date, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.ServiceType, dbo.RepairService_Tram.RepairId, dbo.RepairService.Location FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;", conn))
+                using (SqlCommand cmd = new SqlCommand($"SELECT dbo.RepairService.Id, dbo.RepairService_Tram.UserId, dbo.RepairService_Tram.Occured, dbo.RepairService_Tram.CleaningDate, dbo.RepairService.BigRepairsPerDay, dbo.RepairService.SmallRepairsPerDay, dbo.RepairService_Tram.CleaningType, dbo.RepairService_Tram.RepairId, dbo.RepairService.Location FROM dbo.RepairService INNER JOIN dbo.RepairService_Tram ON dbo.RepairService.Id = dbo.RepairService_Tram.RepairServiceId;", conn))
                 {
                     conn.Open();
                     using (SqlDataReader datareader = cmd.ExecuteReader())
@@ -26,7 +26,7 @@ namespace DAL.Concrete
                         {
                             RepairService.Id = datareader.GetInt32(0);
                             //RepairService.UserId = datareader.GetInt32(1);
-                            //RepairService.Date = datareader.GetDateTime(3);
+                            //RepairService.CleaningDate = datareader.GetDateTime(3);
                             RepairService.MaxBigServicePerDay = datareader.GetInt32(4);
                             RepairService.MaxSmallServicePerDay = datareader.GetInt32(5);
                         }
@@ -56,7 +56,7 @@ namespace DAL.Concrete
         //                    CleaningService.CleanDate = DateTime.Parse(datareader.GetString(3));
         //                    CleaningService.MaxBigServicePerDay = datareader.GetInt32(4);
         //                    CleaningService.MaxSmallServicePerDay = datareader.GetInt32(5);
-        //                    CleaningService.ServiceType = datareader.GetInt32(6);
+        //                    CleaningService.CleaningType = datareader.GetInt32(6);
         //                }
         //            }
         //            conn.Close();
