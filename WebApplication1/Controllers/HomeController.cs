@@ -96,7 +96,11 @@ namespace WebApplication1.Controllers
         }
         public IActionResult RemoveTramSend()
         {
-            _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+            if (_repairService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null && _cleaningService.GetNotOccuredLog(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"])) == null)
+            {
+                _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(HttpContext.Request.Form["tramnumber"])));
+            }
+            
             ViewBag.LatestMessage = "Removed Tram Successfully";
             return RedirectToAction("Index", "Home");
         }
@@ -113,6 +117,8 @@ namespace WebApplication1.Controllers
         }
         public IActionResult MoveTramTo()
         {
+            int tracknumber = Convert.ToInt32(HttpContext.Request.Form["tracknumber"]);
+            _depotLogic.MoveTramTo(_tramLogic.GetTram(HttpContext.Request.Form["tramnumber"]), tracknumber, _depotLogic.Read(1));
             return Content(HttpContext.Request.Form["tramnumber"] + " " + HttpContext.Request.Form["tracknumber"]);
         }
         public IActionResult InformationTramPopUp(string tramnumber, string tracknumber)

@@ -124,5 +124,15 @@ namespace Logic
             changeTramStatus(tram, rapairstatus, cleanStatus, _tramlogic);
             AllocationManager.AllocateTramToTrack(tram, depot.DepotTracks, _tracklogic, _tramlogic, _repairServicelogic, _cleaningServiceLogic);
         }
+
+        public void MoveTramTo(TramDTO tram, int trackNumber, DepotDTO depot)
+        {
+            TrackDTO Track = depot.DepotTracks.Find(t => t.TrackNumber == trackNumber);
+            if (_tracklogic.CheckTramCanBeStored(tram, Track))
+            {
+                _sectorLogic.RemoveTram(_sectorLogic.GetSector(_sectorLogic.GetSectorByTramNumber(tram.TramNumber)));
+               _tracklogic.StoreTram(tram, Track);
+            }
+        }
     }
 }
